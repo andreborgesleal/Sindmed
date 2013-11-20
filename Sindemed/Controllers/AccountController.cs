@@ -22,6 +22,8 @@ namespace Sindemed.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            string senha = LoginViewModel.HashValue("Pimenta");
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
