@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SelectListItem>
+@{
+    Layout = null;
+}
+
+ <div class="row-fluid" style="font-weight: bold; font-family: Verdana; font-size: 11px; padding-top: 5px;  border-bottom: 1px solid #808080;">
+     <div class="span4" style="padding: 2px">
+         Código
+     </div>
+     <div class="span7" style="padding: 2px">
+         Descrição
+     </div>
+     <div class="span1" style="padding: 2px">
+         &nbsp;
+     </div>
+ </div>
+ <div class="row-fluid" style="height: 60px; overflow-y: auto">
+     <div class="span12">
+         @if (Model != null && Model.Count() > 0)
+         {
+             foreach (System.Web.Mvc.SelectListItem item in Model)
+             {
+                 <div class="row-fluid" style="color: #808080; font-size: 11px; font-family: Verdana">
+                     <div class="span4" style="padding: 2px; margin-bottom: -16px">
+                         @item.Value
+                     </div>
+                     <div class="span7" style="padding: 2px; margin-bottom: -16px">
+                         @item.Text
+                     </div>
+                     <div class="span1" style="padding: 2px; margin-bottom: -16px">
+                         <a href="#" onclick="DelMiniCrud('@item.Value', '@item.Text', '@ViewBag.Controller', '@ViewBag.Action', '@ViewBag.DivId')"><i class="icon-trash"></i></a>
+                     </div>
+                 </div>
+             }
+         }
+     </div>
+ </div>

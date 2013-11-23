@@ -1,0 +1,63 @@
+﻿    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#"><img src="/../../Content/Images/Financas-pequeno.png" alt="" />&nbsp;Finanças</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li id="_home"><a href="/Home/Principal">Home</a></li>
+              <li class="dropdown" id="_cadastro">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastros <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/Cliente/Browse"><i class="icon-user"></i> Clientes</a></li>
+                  <li><a href="/Credor/Browse"><i class="icon-eye-open"></i> Credores</a></li>                  
+                  <li class="divider"></li>
+                  <li><a href="/CentroCusto/Browse"><i class="icon-tasks"></i> Centros de Custos</a></li>
+                  <li><a href="/Banco/Browse"><i class="icon-folder-open"></i> Bancos</a></li>
+                  <li><a href="/Historico/Browse"><i class="icon-file"></i> Históricos Padrões</a></li>
+                  <li><a href="/Evento/Browse"><i class="icon-gift"></i> Eventos Financeiros</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Exercicio/Browse"><i class="icon-calendar"></i>  Exercício Contábil</a></li>
+                  <li><a href="/PlanoConta/Browse"><i class="icon-th-list"></i>  Plano de Contas</a></li>
+                </ul>
+              </li>
+              <li><a href="#cadastros">Contas a Pagar</a></li>
+              <li><a href="#cadastros">Contas a Receber</a></li>
+              <li><a href="#cadastros">Movimento Bancário</a></li>
+              <li class="dropdown" id="_contabilidade">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contabilidade <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/Enquadramento/Browse"><i class="icon-user"></i> Enquadramento</a></li>
+                  <li><a href="/Contabilidade/Browse"><i class="icon-eye-open"></i> Lançamentos contábeis</a></li>                  
+                  <li class="divider"></li>
+                  <li><a href="/Diario/Browse"><i class="icon-tasks"></i> Diário</a></li>
+                  <li><a href="/Razao/Browse"><i class="icon-folder-open"></i> Razão</a></li>
+                  <li><a href="/Balancete/Browse"><i class="icon-file"></i> Balancete</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Encerramento/Browse"><i class="icon-th-list"></i>  Encerramento de exercício</a></li>
+                  <li><a href="/Importacao/Browse"><i class="icon-calendar"></i>  Importação/Exportação</a></li>
+                </ul>
+              </li>              
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Contas a Pagar</a></li>
+                  <li><a href="#">Contas a Receber</a></li>                  
+                  <li><a href="#">Contabilidade</a></li>
+                  <li class="divider">-</li>
+                  <li><a href="#">Saldos Bancários</a></li>
+                  <li><a href="#">Extrato Bancário</a></li>
+                  <li><a href="#">Fluxo de Caixa</a></li>
+                </ul>
+              </li>
+              <li id="Exercicio">@_exercicio.ExercicioCorrente()</li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+

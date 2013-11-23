@@ -1,0 +1,15 @@
+﻿@model System.Web.Mvc.IPagedList  
+@{
+    Layout= null;
+}   
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod="get" }))
+    {
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="input-append" style="padding-left: 9px; padding-top: 8px; margin-bottom: -5px; width: 92%; height: 20px">
+                    <input class="span12" id="descricao" type="text" placeholder="Descrição">
+                    <button class="btn" type="button" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>
+                </div>
+            </div>
+        </div>
+    }

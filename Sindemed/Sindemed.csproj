@@ -169,6 +169,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MensagemPadrao.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -176,6 +177,7 @@
     <Content Include="Content\images\saude2.jpg" />
     <Content Include="Content\images\saude3.jpg" />
     <Content Include="Content\images\saude4.jpg" />
+    <Content Include="Content\Site-Full-Hd.css" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -185,7 +187,15 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\variables.less" />
     <Content Include="Content\bootswatch.less" />
+    <Content Include="App_Code\BreadCrumbPage.cshtml" />
+    <Content Include="App_Code\DesignerFunctions.cshtml" />
+    <Content Include="App_Code\Header.cshtml" />
+    <Content Include="App_Code\Lookup.cshtml" />
+    <Content Include="App_Code\TextBoxDatePicker.cshtml" />
+    <Content Include="App_Code\Typeahead.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\css\datepicker.css" />
+    <Content Include="Scripts\inputs-jquery-ui.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -193,6 +203,44 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\bootstrap-datepicker.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.da.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.de.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.el.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.he.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.id.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.is.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.it.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.th.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.uk.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="Scripts\js\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -224,9 +272,20 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\LOVModal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DECIMAL.cshtml" />
+    <Content Include="Views\Shared\MensagemModal.cshtml" />
+    <Content Include="Views\Shared\menu.cshtml" />
+    <Content Include="Views\Shared\Paginacao.cshtml" />
+    <Content Include="Views\Shared\Parametros.cshtml" />
+    <Content Include="Views\Shared\_AddMiniCrud.cshtml" />
+    <Content Include="Views\Shared\_alerts.cshtml" />
+    <Content Include="Views\Shared\_defaultButtons.cshtml" />
+    <Content Include="Views\Shared\_defaultListButtons.cshtml" />
+    <Content Include="Views\Shared\_Filter.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\logs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

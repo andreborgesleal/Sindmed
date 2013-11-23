@@ -1,0 +1,56 @@
+﻿@using Dinheiro.Models.Enumeracoes
+@using Dinheiro.Models.Repositories
+@model IPagedList 
+@{
+    Layout = null;
+}
+
+    <div class="accordion navbar-inner" id="accordion2" style="padding: 0px; margin: 10px">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a id="_linkColapse" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" onclick="DoColapse('colapse1','icon1')" style="margin-bottom: -10px">
+                    @Html.Partial("FilterHeader", Model.Filtros)
+                </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse out">
+                <div class="accordion-inner">
+                    @Html.Partial("FilterBody", Model.Filtros)
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">    
+                        <div class="form-actions">
+                            <div class="row-fluid">
+                                <div class="span4">
+                                    @Typeahead.InputLn(new TypeaheadRepository()
+                                                            {
+                                                                label = "Nome do Filtro",
+                                                                id = "report",
+                                                                text = "reportName",
+                                                                lovModal = "LovFiltroModal",
+                                                                controller = "Filtro",
+                                                                descricao = "report",
+                                                                values = new SelectListItem()
+                                                                {
+                                                                    Value = Model.Filtros.First().report,
+                                                                    Text = Model.Filtros.First().report
+                                                                },
+                                                                disableButtons = false,
+                                                                nextField = "btn-load",
+                                                                javaScriptFunction = "showFiltroPesquisa('LovFiltroModal', '', '" + Model.Filtros.First().controller + "' , '" + Model.Filtros.First().action + "')"
+                                                            })
+                                </div>
+                                <div class="span8">
+                                    <div style="margin-top: 30px">
+                                        <button id="btn-load" class="btn btn-primary" type="button" onclick="LoadParam();">Carregar</button>                
+                                        <button id="btn-add" class="btn btn-primary" type="button" onclick="Buscar('@Model.action','@Model.DivId');">Pesquisar</button>                
+                                        <button id="btn-save" class="btn btn-primary" type="button" onclick="SaveParam('@Model.DivId');">Pesquisar e Salvar</button>                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
