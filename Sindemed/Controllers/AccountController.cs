@@ -16,7 +16,6 @@ namespace Sindemed.Controllers
     public class AccountController : Controller
     {
        
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
