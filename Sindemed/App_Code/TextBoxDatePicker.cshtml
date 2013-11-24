@@ -1,5 +1,5 @@
-﻿@using Dinheiro.Models.Repositories
-@using Dinheiro.Models.Enumeracoes
+﻿@using App_Dominio.Repositories
+@using App_Dominio.Enumeracoes
 @helper Input(string id, DateTime? data, bool readOnly = false)
 {
     string d = data.HasValue ? data.Value.ToString("dd/MM/yyyy") : "";
