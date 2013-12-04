@@ -22,14 +22,16 @@
                 <a class="navbar-brand" href="/Home/index">SINDMED</a>
             </div>
             <div class="navbar-collapse collapse">
-                @Html.Partial("_Menu")
-                @Html.Partial("_LayoutPartial")
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @Html.Partial("_alerts")
-        @BreadCrumbPage.Trace((App_Dominio.Component.BreadCrumb)ViewBag.BreadCrumb)
         @RenderBody()
         <hr />
         <footer>
@@ -42,3 +44,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

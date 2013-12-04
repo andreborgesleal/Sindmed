@@ -1,7 +1,8 @@
-﻿@model Sindemed.Models.LoginViewModel
+﻿@model StockLite.Models.LoginViewModel
 
 @{
-    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Log in";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -10,6 +11,7 @@
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+                @Html.ValidationSummary(false)
                 @Html.AntiForgeryToken()
                 <hr />
                 @Html.ValidationSummary(true)
@@ -18,8 +20,8 @@
                     <div class="col-md-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Seu e-mail" })
-                            @Html.ValidationMessageFor(m => m.UserName)
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Seu e-mail" })<br />
+                            @*@Html.ValidationMessageFor(m => m.UserName)*@
                         </div>
                     </div>
                 </div>
@@ -28,19 +30,19 @@
                     <div class="col-md-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-minus"></i></span>
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password)
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })<br />
+                            @*@Html.ValidationMessageFor(m => m.Password)*@
                         </div>
                     </div>
                 </div>
                 @*<div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Login" class="btn btn-default" />
@@ -53,9 +55,9 @@
         </section>
     </div>
     <div class="col-md-4">
-        <section id="socialLoginForm">
+        @*<section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+        </section>*@
     </div>
 </div>
 @section Scripts {

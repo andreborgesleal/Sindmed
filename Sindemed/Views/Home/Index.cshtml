@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Sindmed";
 }
 
 @*<div class="jumbotron">
@@ -21,7 +21,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
         <div class="item active">
-            <img src="~/Content/images/saude3.jpg" />
+            <img src="~/Content/images/saude1.jpg" />
             <div class="carousel-caption"></div>
         </div>
         <div class="item">
@@ -29,7 +29,7 @@
             <div class="carousel-caption"></div>
         </div>
         <div class="item">
-            <img src="~/Content/images/saude1.jpg" />
+            <img src="~/Content/images/saude3.jpg" />
             <div class="carousel-caption"></div>
         </div>
         <div class="item">
@@ -50,22 +50,87 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Associado</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            O Sistema de Cadastro de Associados do SINDMED estabelece o relacionamento entre os médicos associados e a administração do sindicato. Nele o associado poderá abrir e acompanhar os atendimentos solicitados para áreas específicas do sindicato, fazer sua atualização cadastral e consultar suas pendências financeiras.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="#modal-container-964987a" data-toggle="modal">Leia mais &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Atendimento</h2>
+        <p>O atendimento é realizado pelo site de forma personalizada. A ideia permitir que o próprio associado crie um chamado descrevendo detalhamente sua dúvida ou problema para que a administração possa resolver.</p>
+        <p><a class="btn btn-default" href="#modal-container-964987b" data-toggle="modal">Leia mais &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Financeiro</h2>
+        <p>No módulo financeiro o associado poderá baixar seus boletos de mensalidades e consultar seu extrato financeiro com o histórico dos pagamentos.</p>
+        <p><a class="btn btn-default" href="#modal-container-964987c" data-toggle="modal">Leia mais &raquo;</a></p>
     </div>
+</div>
+
+
+@***********Formulário Modal Botão 1**************@
+<div class="modal fade" id="modal-container-964987a" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Associado
+                </h4>
+            </div>
+            <div class="modal-body">
+                O Sistema de Cadastro de Associados do SINDMED estabelece o relacionamento entre os médicos associados e a administração do sindicato. Nele o associado poderá abrir e acompanhar os atendimentos solicitados para áreas específicas do sindicato, fazer sua atualização cadastral e consultar suas pendências financeiras.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@***********Formulário Modal Botão 2**************@
+<div class="modal fade" id="modal-container-964987b" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Atendimento
+                </h4>
+            </div>
+            <div class="modal-body">
+                O atendimento é realizado pelo site de forma personalizada. A ideia permitir que o próprio associado crie um chamado descrevendo detalhamente sua dúvida ou problema para que a administração possa resolver.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@***********Formulário Modal Botão 3**************@
+<div class="modal fade" id="modal-container-964987c" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Financeiro
+                </h4>
+            </div>
+            <div class="modal-body">
+                No módulo financeiro o associado poderá baixar seus boletos de mensalidades e consultar seu extrato financeiro com o histórico dos pagamentos.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
+            </div>
+        </div>
+
+    </div>
+
 </div>

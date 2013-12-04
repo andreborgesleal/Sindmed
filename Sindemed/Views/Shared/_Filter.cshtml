@@ -2,14 +2,17 @@
 @{
     Layout= null;
 }   
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod="get" }))
-    {
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="input-append" style="padding-left: 9px; padding-top: 8px; margin-bottom: -5px; width: 92%; height: 20px">
-                    <input class="span12" id="descricao" type="text" placeholder="Descrição">
-                    <button class="btn" type="button" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>
-                </div>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "get" }))
+        {
+            <div class="form-group">
+                @Html.TextBox("desc", "", htmlAttributes: new { @class = "form-control input-sm col-md-11", @placeholder = "Descrição" })
+                <button type="button" class="btn active btn-sm" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>
             </div>
-        </div>
-    }
+        }
+    </div>
+</div>
+
+

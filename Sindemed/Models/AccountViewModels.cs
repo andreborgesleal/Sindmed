@@ -1,9 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
 
-namespace Sindemed.Models
+namespace StockLite.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -34,6 +31,8 @@ namespace Sindemed.Models
     public class LoginViewModel
     {
         [Required]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
+        [EmailAddress]
         [Display(Name = "Login")]
         public string UserName { get; set; }
 
@@ -44,22 +43,6 @@ namespace Sindemed.Models
 
         [Display(Name = "Lembrar-me?")]
         public bool RememberMe { get; set; }
-
-        public static string HashValue(string value)
-        {
-            UnicodeEncoding encoding = new UnicodeEncoding();
-            byte[] hashBytes;
-            using (HashAlgorithm hash = SHA1.Create())
-                hashBytes = hash.ComputeHash(encoding.GetBytes(value));
-
-            StringBuilder hashValue = new StringBuilder(hashBytes.Length * 2);
-            foreach (byte b in hashBytes)
-            {
-                hashValue.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", b);
-            }
-
-            return hashValue.ToString();
-        }
     }
 
     public class RegisterViewModel
@@ -71,8 +54,8 @@ namespace Sindemed.Models
         public string login { get; set; }
 
         [Required]
-        
-        [Display(Name="Nome")]
+
+        [Display(Name = "Nome")]
         [StringLength(40, ErrorMessage = "O campo {0} deve ter no máximo {2} caracteres.")]
         public string nome { get; set; }
 

@@ -8,21 +8,35 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using Sindemed.Models;
+using StockLite.Models;
+using App_Dominio.Security;
+using App_Dominio.Contratos;
+using App_Dominio.Controllers;
+using System.Data.Entity.Validation;
+using App_Dominio.Entidades;
 
-namespace Sindemed.Controllers
+namespace StockLite.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : SuperController
     {
-       
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            string senha = LoginViewModel.HashValue("Pimenta");
+        #region Inheritance
+        public override int _sistema_id() { return 2; }
 
+        public override string getListName()
+        {
+            return "Login";
+        }
+
+        public override ActionResult List(int? index, int? pageSize = 40, string descricao = null)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        [AllowAnonymous]
+        public async Task<ActionResult> Login(string returnUrl)
+        {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -36,7 +50,36 @@ namespace Sindemed.Controllers
         {
             if (ModelState.IsValid)
             {
+                EmpresaSecurity<App_DominioContext> security = new EmpresaSecurity<App_DominioContext>();
                 
+                try
+                {
+                    #region Autorizar
+                    Validate result = security.Autorizar(model.UserName, model.Password, _sistema_id());
+                    if (result.Code > 0)
+                        throw new ArgumentException(result.Message);
+                    #endregion
+
+                    string sessaoId = result.Field;
+
+                    return RedirectToAction("index", "Home");
+                }
+                catch (ArgumentException ex)
+                {
+                    Error(ex.Message);
+                }
+                catch(App_DominioException ex)
+                {
+                    Error("Erro na autorização de acesso. Favor entre em contato com o administrador do sistema");
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    Error("Não foi possível autorizar o seu acesso. Favor entre em contato com o administrador do sistema");
+                }
+                catch(Exception ex)
+                {
+                    Error("Erro na autorização de acesso. Favor entre em contato com o administrador do sistema");
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -77,17 +120,15 @@ namespace Sindemed.Controllers
             return View(model);
         }
 
-        
-
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
-            
-            return RedirectToAction("Index", "Home");
+            System.Web.HttpContext web = System.Web.HttpContext.Current;
+            new EmpresaSecurity<App_DominioContext>().EncerrarSessao(web.Session.SessionID);
+
+            return RedirectToAction("Login", "Account");
         }
+
 
     }
 }
