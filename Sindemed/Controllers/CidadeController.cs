@@ -2,10 +2,6 @@
 using App_Dominio.Security;
 using Sindemed.Models.Persistence;
 using Sindemed.Models.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Sindemed.Controllers
@@ -13,13 +9,12 @@ namespace Sindemed.Controllers
     public class CidadeController : RootController<CidadeViewModel, CidadeModel>
     {
         public override int _sistema_id() { return 2; }
-
-        #region List
-        [AuthorizeFilter]
         public override string getListName()
         {
             return "Listagem de Cidades";
         }
+
+        #region List
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
@@ -37,6 +32,23 @@ namespace Sindemed.Controllers
         {
             LookupCidadeFiltroModel l = new LookupCidadeFiltroModel();
             return this.ListModal(index, pageSize, l, "Cidades", descricao);
+        }
+        #endregion
+
+        #region edit
+        [AuthorizeFilter]
+        public ActionResult Edit(int cidadeId)
+        {
+            return _Edit(new CidadeViewModel() { cidadeId = cidadeId });
+        }
+        #endregion
+
+
+        #region Delete
+        [AuthorizeFilter]
+        public ActionResult Delete(int cidadeId)
+        {
+            return Edit(cidadeId);
         }
         #endregion
 	}

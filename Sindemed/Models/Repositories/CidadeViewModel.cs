@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using App_Dominio.Component;
 
@@ -14,12 +9,13 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Cidade ID")]
         public int cidadeId { get; set; }
 
-        [DisplayName("Cidade")]
+        [DisplayName("Cidade *")]
         [Required(ErrorMessage = "Por favor, informe o nome da cidade")]
-        [StringLength(30, ErrorMessage = "O nome da cidade deve ter no máximo 30 caracteres")]
+        [StringLength(30, ErrorMessage = "O nome da cidade deve ter no mínimo 4 e no máximo 30 caracteres", MinimumLength=4)]
         public string nome { get; set; }
 
-        [DisplayName("Cidade")]
+        [DisplayName("UF")]
+        [StringLength(2, ErrorMessage = "A UF deve possuir 2 caracateres", MinimumLength=2)]
         public string uf { get; set; }
     }
 }

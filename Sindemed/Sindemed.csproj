@@ -162,17 +162,33 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AreaAtuacaoController.cs" />
     <Compile Include="Controllers\CidadeController.cs" />
+    <Compile Include="Controllers\EspecialidadeController.cs" />
+    <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NaoLocalizadoCorreioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entidades\ApplicationContext.cs" />
+    <Compile Include="Models\Entidades\AreaAtuacao.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
+    <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
+    <Compile Include="Models\Entidades\GrupoAssociado.cs" />
+    <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
+    <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
+    <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
+    <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
+    <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
+    <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
+    <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
+    <Compile Include="Models\Repositories\NaoLocalizadoCorreioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -311,6 +327,28 @@
     <Content Include="Views\Cidade\List.cshtml" />
     <Content Include="Views\Cidade\Browse.cshtml" />
     <Content Include="Views\Cidade\Create.cshtml" />
+    <Content Include="Views\Cidade\Edit.cshtml" />
+    <Content Include="Views\Cidade\Delete.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\List.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Browse.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Create.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Edit.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Delete.cshtml" />
+    <Content Include="Views\Especialidade\List.cshtml" />
+    <Content Include="Views\Especialidade\Browse.cshtml" />
+    <Content Include="Views\Especialidade\Create.cshtml" />
+    <Content Include="Views\Especialidade\Edit.cshtml" />
+    <Content Include="Views\Especialidade\Delete.cshtml" />
+    <Content Include="Views\GrupoMedico\List.cshtml" />
+    <Content Include="Views\GrupoMedico\Browse.cshtml" />
+    <Content Include="Views\GrupoMedico\Create.cshtml" />
+    <Content Include="Views\GrupoMedico\Edit.cshtml" />
+    <Content Include="Views\GrupoMedico\Delete.cshtml" />
+    <Content Include="Views\AreaAtuacao\List.cshtml" />
+    <Content Include="Views\AreaAtuacao\Browse.cshtml" />
+    <Content Include="Views\AreaAtuacao\Create.cshtml" />
+    <Content Include="Views\AreaAtuacao\Edit.cshtml" />
+    <Content Include="Views\AreaAtuacao\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
 using App_Dominio.Component;
@@ -21,7 +19,7 @@ namespace Sindemed.Models.Persistence
             {
                 cidadeId = value.cidadeId,
                 nome = value.nome,
-                uf = value.uf
+                uf = value.uf.ToUpper()
             };
         }
 
@@ -38,10 +36,7 @@ namespace Sindemed.Models.Persistence
 
         public override Cidade Find(CidadeViewModel key)
         {
-            using (db = new ApplicationContext())
-            {
-                return db.Cidades.Find(key.cidadeId);
-            }
+            return db.Cidades.Find(key.cidadeId);
         }
 
         public override Validate Validate(CidadeViewModel value, Crud operation)

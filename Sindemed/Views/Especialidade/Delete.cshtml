@@ -1,16 +1,17 @@
-﻿
-@using Sindemed.Models.Repositories
+﻿@using Sindemed.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.CidadeViewModel
+@model Sindemed.Models.Repositories.EspecialidadeMedicaViewModel
 @{
     ViewBag.Title = "Sindmed";
 }
-@using (Html.BeginForm("Create", "Cidade", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Delete", "Especialidade", FormMethod.Post, new { @class = "form-horizontal" }))
 {
+    @Html.HiddenFor(info => info.especialidadeId)
+    @Html.HiddenFor(info => info.descricao)
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Cidades <small>Ex: Belém, Castanhal, Santarém, etc.</small>
+                Especialidades médicas  <small>Utilizada no cadastro do associado</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -18,24 +19,26 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Inclusão de Cidades
-                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
+                            Exclusão de Especialidade
+                        </p> <small>Atenção! Não será permitido excluir uma especialidade se ela estiver vinculada ao cadastro de algum médico.</small>
                     </blockquote>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-8">
                     <div class="form-group" style="margin-top: 20px">
-                        @Html.LabelFor(m => m.nome, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.descricao, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
                             <div class="input-group">
-                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @placeholder = "Nome da cidade" })<br />
+                                @Html.TextBoxFor(m => m.descricao, new { @class = "form-control input-sm", @disabled = "disable", @style = "width: 450%" })<br />
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.uf, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.codigo, new { @class = "col-md-2 control-label" })
                         <div class="col-md-2">
                             <div class="input-group">
-                                @Html.TextBoxFor(m => m.uf, new { @class = "form-control input-sm", @style = "text-transform: uppercase" })<br />
+                                @Html.TextBoxFor(m => m.codigo, new { @class = "form-control input-sm", @disabled = "disable" })<br />
                             </div>
                         </div>
                     </div>
@@ -48,14 +51,14 @@
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
-                            new ButtonRepository() {    linkText = "Salvar",
+                            new ButtonRepository() {    linkText = "Excluir",
                                                         actionName = "",
                                                         controllerName = "",
                                                         buttonType = "submit"
                                                     } ,
                             new ButtonRepository() {    linkText = "Cancelar",
                                                         actionName = "Browse",
-                                                        controllerName = "Cidade",
+                                                        controllerName = "Especialidade",
                                                         buttonType = "link"
                                                     }
                         })
@@ -67,3 +70,7 @@
         </div>
     </div>
 }
+
+
+
+

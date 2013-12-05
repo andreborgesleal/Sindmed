@@ -10,5 +10,9 @@ namespace Sindemed.Models.Entidades
     public class ApplicationContext : App_DominioContext
     {
         public DbSet<Cidade> Cidades { get; set; }
+        public DbSet<NaoLocalizadoCorreio> NaoLocalizadoCorreios { get; set; }
+        public DbSet<EspecialidadeMedica> EspecialidadeMedicas { get; set; }
+        public DbSet<GrupoAssociado> GrupoAssociados { get; set; }
+        public DbSet<AreaAtuacao> AreaAtuacaos { get; set; }
     }
 }

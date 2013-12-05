@@ -1,16 +1,17 @@
-﻿
-@using Sindemed.Models.Repositories
+﻿@using Sindemed.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.CidadeViewModel
+@model Sindemed.Models.Repositories.GrupoAssociadoViewModel
 @{
     ViewBag.Title = "Sindmed";
 }
-@using (Html.BeginForm("Create", "Cidade", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Delete", "GrupoMedico", FormMethod.Post, new { @class = "form-horizontal" }))
 {
+    @Html.HiddenFor(info => info.grupoAssociadoId)
+    @Html.HiddenFor(info => info.descricao)
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Cidades <small>Ex: Belém, Castanhal, Santarém, etc.</small>
+                Grupos de Associados  <small>Utilizado no envio de comunicados espefícios para associados que pertençam ao respectivo grupo</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -18,29 +19,36 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Inclusão de Cidades
-                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
+                            Exclusão de Grupos de Associados
+                        </p> <small>Atenção ! Não será permitido excluir um grupo se houver associados vinculados nele.</small>
                     </blockquote>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-8">
                     <div class="form-group" style="margin-top: 20px">
-                        @Html.LabelFor(m => m.nome, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.descricao, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            <div class="input-group">
-                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @placeholder = "Nome da cidade" })<br />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.uf, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-2">
-                            <div class="input-group">
-                                @Html.TextBoxFor(m => m.uf, new { @class = "form-control input-sm", @style = "text-transform: uppercase" })<br />
+                            <div class="input-group col-md-12">
+                                @Html.TextBoxFor(m => m.descricao, new { @class = "form-control input-sm", @placeholder = "Nome do grupo", @disabled = "disable" })<br />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.objetivo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <div class="input-group col-md-12">
+                                @Html.TextAreaFor(m => m.objetivo, 3, 1, new { @class = "form-control input-sm", @disabled = "disable" })<br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="panel-footer">
             <div class="row">
@@ -48,14 +56,14 @@
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
-                            new ButtonRepository() {    linkText = "Salvar",
+                            new ButtonRepository() {    linkText = "Excluir",
                                                         actionName = "",
                                                         controllerName = "",
                                                         buttonType = "submit"
                                                     } ,
                             new ButtonRepository() {    linkText = "Cancelar",
                                                         actionName = "Browse",
-                                                        controllerName = "Cidade",
+                                                        controllerName = "GrupoMedico",
                                                         buttonType = "link"
                                                     }
                         })
@@ -67,3 +75,7 @@
         </div>
     </div>
 }
+
+
+
+
