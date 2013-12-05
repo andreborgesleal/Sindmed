@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StockLite.Models
+namespace Sindemed.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

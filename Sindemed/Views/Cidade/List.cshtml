@@ -1,0 +1,64 @@
+﻿
+@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.CidadeViewModel>
+
+@{
+    Layout = null;
+}
+@if (Model.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer">
+                <caption></caption>
+                <thead style="background-color: #fff1a5">
+                    <tr>
+                        <th></th>
+                        <th>Cidade</th>
+                        <th>UF</th>
+                    </tr>
+                </thead>
+                @foreach (Sindemed.Models.Repositories.CidadeViewModel cid in Model)
+                {
+                    <tr>
+                        <td style="width: 10%">
+                            <div class="row-clearfix">
+                                <div class="col-md-12">
+                                    <div class="btn-group btn-group-xs">
+                                        <button class="btn btn-default btn-xs">Ação</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                @Html.ActionLink("Editar", "Edit", routeValues: new { cidadeId = cid.cidadeId })
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("Excluir", "Delete", routeValues: new { cidadeId = cid.cidadeId })
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    @*<div class="btn-group btn-group-xs">
+                                            <button class="btn btn-sm" type="button">
+                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { fabricanteId = fab.fabricanteId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            </button>
+                                            <button class="btn btn-sm" type="button">
+                                                <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { fabricanteId = fab.fabricanteId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            </button>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @cid.nome
+                        </td>
+                        <td>
+                            @cid.uf
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row" style="height: 50px">
+        <div class="col-md-12">
+        </div>
+    </div>
+    @Html.Partial("Paginacao", Model)
+}

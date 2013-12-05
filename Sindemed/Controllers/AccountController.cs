@@ -8,14 +8,14 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using StockLite.Models;
 using App_Dominio.Security;
 using App_Dominio.Contratos;
 using App_Dominio.Controllers;
 using System.Data.Entity.Validation;
 using App_Dominio.Entidades;
+using Sindemed.Models;
 
-namespace StockLite.Controllers
+namespace Sindemed.Controllers
 {
     [Authorize]
     public class AccountController : SuperController

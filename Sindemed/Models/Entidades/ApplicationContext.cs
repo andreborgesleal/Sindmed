@@ -5,10 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace StockLite.Models.Entidades
+namespace Sindemed.Models.Entidades
 {
     public class ApplicationContext : App_DominioContext
     {
-        public DbSet<Fabricante> Fabricantes { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
     }
 }

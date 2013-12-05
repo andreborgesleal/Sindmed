@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using App_Dominio.Controllers;
 using App_Dominio.Security;
 
-namespace StockLite.Controllers
+namespace Sindemed.Controllers
 {
     public class HomeController : SuperController
     {
