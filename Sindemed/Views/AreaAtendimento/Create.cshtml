@@ -14,7 +14,7 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <blockquote>
                         <p>
                             Inclusão de Área de Atendimento
@@ -32,36 +32,47 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" style="margin-top: 20px">
-                        @Html.LabelFor(m => m.usuario1Id, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            <div class="input-group">
-                                @Typeahead.InputLn(new TypeaheadRepository()
-                                   {
-                                       id = "usuario1Id",
-                                       text = "nome_usuario",
-                                       lovModal = "LovUsuarioModal",
-                                       controller = "AreaAtendimento",
-                                       descricao = "nome",
-                                       values = new SelectListItem()
-                                       {
-                                           Value = Model.usuario1Id.ToString(),
-                                           Text = Model.usuario1Id.nome
-                                       },
-                                       disableButtons = TempData["operacao"] == "E",
-                                       nextField = "usuario1Id"
-                                   })
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.Editor("_usuario1ID", "TYPEAHEAD", new
+                                               {
+                                                   typeahead = new TypeaheadRepository()
+                                                       {
+                                                           label = "Atendente 1",
+                                                           id = "usuario1Id",
+                                                           text = "nome_usuario",
+                                                           lovModal = "LovUsuarioModal",
+                                                           controller = "AreaAtendimento",
+                                                           descricao = "nome",
+                                                           values = new SelectListItem()
+                                                           {
+                                                               Value = Model.usuario1Id.ToString(),
+                                                               Text = "" //Model.usuario1Id.ToString()
+                                                           },
+                                                           disableButtons = false,
+                                                           nextField = "usuario12d"
+                                                       }
+                                               })
                     </div>
-                    <div class="form-group" style="margin-top: 20px">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
                         @Html.LabelFor(m => m.usuario2Id, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
                             <div class="input-group">
-                                @Html.TextBoxFor(m => m.descricao, new { @class = "form-control input-sm", @placeholder = "Nome da área de atendimento", @style = "width: 450%" })<br />
+                                @Html.TextBoxFor(m => m.usuario2Id, new { @class = "form-control input-sm" })<br />
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
                     <div class="form-group">
                         @Html.LabelFor(m => m.codigo, new { @class = "col-md-2 control-label" })
                         <div class="col-md-2">
@@ -97,6 +108,7 @@
             </div>
         </div>
     </div>
+    <div id="div-lov"></div>
 }
 
 

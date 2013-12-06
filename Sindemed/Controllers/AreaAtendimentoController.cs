@@ -43,7 +43,6 @@ namespace Sindemed.Controllers
         }
         #endregion
 
-
         #region Delete
         [AuthorizeFilter]
         public ActionResult Delete(int areaAtendimentoId)

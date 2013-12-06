@@ -169,6 +169,7 @@
     <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NaoLocalizadoCorreioController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,6 +182,9 @@
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LookupUsuarioModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
@@ -356,6 +360,10 @@
     <Content Include="Views\AreaAtendimento\List.cshtml" />
     <Content Include="Views\AreaAtendimento\Browse.cshtml" />
     <Content Include="Views\AreaAtendimento\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Typeahead.cshtml" />
+    <Content Include="Views\Home\LovUsuarioModal.cshtml" />
+    <Content Include="Views\Usuario\ListUsuarioModal.cshtml" />
+    <Content Include="Views\Usuario\_ListUsuarioModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

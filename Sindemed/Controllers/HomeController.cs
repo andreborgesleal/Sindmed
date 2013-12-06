@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using App_Dominio.Controllers;
 using App_Dominio.Security;
+using App_Dominio.Negocio;
+using Sindemed.Models;
 
 namespace Sindemed.Controllers
 {
@@ -43,5 +45,24 @@ namespace Sindemed.Controllers
 
             return View();
         }
+
+        #region Formulário Modal
+
+        #region Formulário Modal Genérico
+        public ActionResult LOVModal(IPagedList pagedList)
+        {
+            return View(pagedList);
+        }
+        #endregion
+
+        #region Formulário Modal Usuario
+        public ActionResult LovUsuarioModal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupUsuarioModel(), "Usuários", _sistema_id());
+        }
+        #endregion
+
+        #endregion
+
     }
 }
