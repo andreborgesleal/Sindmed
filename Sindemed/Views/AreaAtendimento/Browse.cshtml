@@ -1,0 +1,32 @@
+﻿@using Sindemed.Models.Repositories
+@using App_Dominio.Repositories
+@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.AreaAtendimentoViewModel>
+@{
+    ViewBag.Title = "Sindmed";
+}
+
+<div class="row" style="margin-top: 10px">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Áreas de Atendimento
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("_Filter", Model)
+                <div id="div-list">
+                    @Html.Partial("List", Model)
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="col-lg-offset-11">
+                    @Html.Partial("_defaultListButtons", new List<ButtonRepository> { new ButtonRepository() { linkText = "Incluir", actionName = "Create", controllerName = "AreaAtendimento", buttonType = "link" } })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
