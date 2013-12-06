@@ -14,5 +14,6 @@ namespace Sindemed.Models.Entidades
         public DbSet<EspecialidadeMedica> EspecialidadeMedicas { get; set; }
         public DbSet<GrupoAssociado> GrupoAssociados { get; set; }
         public DbSet<AreaAtuacao> AreaAtuacaos { get; set; }
+        public DbSet<AreaAtendimento> AreaAtendimentos { get; set; }
     }
 }

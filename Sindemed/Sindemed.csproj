@@ -162,6 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AreaAtendimentoController.cs" />
     <Compile Include="Controllers\AreaAtuacaoController.cs" />
     <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\EspecialidadeController.cs" />
@@ -173,17 +174,20 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entidades\ApplicationContext.cs" />
+    <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
     <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
+    <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
@@ -349,6 +353,9 @@
     <Content Include="Views\AreaAtuacao\Create.cshtml" />
     <Content Include="Views\AreaAtuacao\Edit.cshtml" />
     <Content Include="Views\AreaAtuacao\Delete.cshtml" />
+    <Content Include="Views\AreaAtendimento\List.cshtml" />
+    <Content Include="Views\AreaAtendimento\Browse.cshtml" />
+    <Content Include="Views\AreaAtendimento\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

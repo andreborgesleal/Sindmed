@@ -11,7 +11,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Cidades  <small>Ex: Belém, Castanhal, Santarém, etc.</small>
+                Cidades <small>Ex: Belém, Castanhal, Santarém, etc.</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -20,7 +20,7 @@
                     <blockquote>
                         <p>
                             Exclusão de Cidades
-                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
+                        </p> <small>Atenção ! Não será permitido excluir uma cidade que esteja vinculada ao cadastro do associado.</small>
                     </blockquote>
                 </div>
                 <div class="col-md-6">
@@ -28,7 +28,7 @@
                         @Html.LabelFor(m => m.nome, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
                             <div class="input-group">
-                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @disabled = "disable" })<br />
+                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @placeholder = "Nome da cidade", @disabled = "disable" })<br />
                             </div>
                         </div>
                     </div>
