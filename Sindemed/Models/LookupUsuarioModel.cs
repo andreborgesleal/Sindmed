@@ -22,4 +22,15 @@ namespace Sindemed.Models
         }
     }
 
+    #region Usuario2
+    public class LookupUsuario2Model : ListViewUsuario
+    {
+        public override string action()
+        {
+            return "../Usuario/ListUsuario2Modal";
+        }
+    }
+
+    #endregion
+
 }

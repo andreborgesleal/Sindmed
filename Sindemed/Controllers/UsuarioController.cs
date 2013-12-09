@@ -3,6 +3,7 @@ using App_Dominio.Negocio;
 using App_Dominio.Repositories;
 using App_Dominio.Security;
 using Sindemed.Models;
+using Sindemed.Models.Enumeracoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Sindemed.Controllers
 {
     public class UsuarioController : RootController<UsuarioRepository, UsuarioModel>
     {
-        public override int _sistema_id() { return 2; }
+        public override int _sistema_id() { return (int)Sistema.SINDMED ; }
         public override string getListName()
         {
             return "Listar Usuários";

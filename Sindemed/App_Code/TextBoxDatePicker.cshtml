@@ -4,9 +4,9 @@
 {
     string d = data.HasValue ? data.Value.ToString("dd/MM/yyyy") : "";
     
-    <div class="input-append date" data-date-format="dd/mm/yyyy">
-        <input style="width: 80px" id="@id" name="@id" type="text" readonly="@readOnly" onfocus="datepickerShow(this)" value="@d"><span class="add-on" onclick="datepickerShow('#@id')"><i class="icon-th"></i></span>
-    </div>
+    <div class="input-group date" data-date-format="dd/mm/yyyy">
+        <input class="form-control input-sm" style="width: 90px" id="@id" name="@id" type="text" readonly="@readOnly" onfocus="datepickerShow(this)" value="@d"><button class="btn btn-sm" type="button" onclick="datepickerShow('#@id')"><i class="glyphicon glyphicon-th"></i></button>
+</div>
 }
 
 @helper Periodo(string label, string periodoId, IEnumerable<FiltroRepository> filtros)

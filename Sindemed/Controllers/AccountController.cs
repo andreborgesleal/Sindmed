@@ -21,7 +21,7 @@ namespace Sindemed.Controllers
     public class AccountController : SuperController
     {
         #region Inheritance
-        public override int _sistema_id() { return 2; }
+        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED ; }
 
         public override string getListName()
         {

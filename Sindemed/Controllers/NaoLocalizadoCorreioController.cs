@@ -1,5 +1,6 @@
 ﻿using App_Dominio.Controllers;
 using App_Dominio.Security;
+using Sindemed.Models.Enumeracoes;
 using Sindemed.Models.Persistence;
 using Sindemed.Models.Repositories;
 using System.Web.Mvc;
@@ -8,7 +9,7 @@ namespace Sindemed.Controllers
 {
     public class NaoLocalizadoCorreioController : RootController<NaoLocalizadoCorreioViewModel, NaoLocalizadoCorreioModel>
     {
-        public override int _sistema_id() { return 2; }
+        public override int _sistema_id() { return (int)Sistema.SINDMED ; }
         public override string getListName()
         {
             return "Correios";

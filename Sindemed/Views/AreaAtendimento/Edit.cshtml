@@ -4,8 +4,9 @@
 @{
     ViewBag.Title = "Sindmed";
 }
-@using (Html.BeginForm("Create", "AreaAtendimento", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Edit", "AreaAtendimento", FormMethod.Post, new { @class = "form-horizontal" }))
 {
+    @Html.HiddenFor(info => info.areaAtendimentoId)
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -17,7 +18,7 @@
                 <div class="col-lg-8">
                     <blockquote>
                         <p>
-                            Inclusão de Área de Atendimento
+                            Alteração de Área de Atendimento
                         </p> <small>Informar o nome da área de atendimento e pelo menos um atendente responsável pelo atendimento ao associado neste setor.</small>
                     </blockquote>
                 </div>
@@ -49,14 +50,14 @@
                                                            descricao = "nome",
                                                            values = new SelectListItem()
                                                            {
-                                                               Value = Model.usuario1Id.ToString(),
-                                                               Text = "" //Model.usuario1Id.ToString()
+                                                               Value = Model.usuario1Id != null ? Model.usuario1Id.ToString() : "",
+                                                               Text = Model.nome_usuario1 != null ? Model.nome_usuario1.ToString() : ""
                                                            },
                                                            disableButtons = false,
                                                            nextField = "usuario2Id"
                                                        }
                                                })
-                      </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -74,8 +75,8 @@
                                                            descricao = "nome",
                                                            values = new SelectListItem()
                                                            {
-                                                               Value = Model.usuario2Id.ToString(),
-                                                               Text = "" //Model.usuario1Id.ToString()
+                                                               Value = Model.usuario2Id != null ? Model.usuario2Id.ToString() : "",
+                                                               Text = Model.nome_usuario2 != null ? Model.nome_usuario2.ToString() : ""
                                                            },
                                                            disableButtons = false,
                                                            nextField = "codigo"
@@ -123,3 +124,4 @@
     </div>
     <div id="div-lov"></div>
 }
+

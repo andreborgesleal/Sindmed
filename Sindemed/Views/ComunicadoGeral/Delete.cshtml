@@ -1,0 +1,79 @@
+﻿@using Sindemed.Models.Repositories
+@using App_Dominio.Repositories
+@model Sindemed.Models.Repositories.ComunicacaoViewModel
+@{
+    ViewBag.Title = "Sindmed";
+}
+@using (Html.BeginForm("Delete", "ComunicadoGeral", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(info => info.comunicacaoId)
+    @Html.HiddenFor(info => info.dt_comunicacao)
+    @Html.HiddenFor(info => info.cabecalho)
+    @Html.HiddenFor(info => info.resumo)
+    @Html.HiddenFor(info => info.mensagemDetalhada)
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Comunicados Gerais <small>Visualizado por todos.</small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <blockquote>
+                        <p>
+                            Exclusão de Comunicados Gerais
+                        </p> <small>Os comunicados são informativos que serão exibidos na tela inicial de todos os usuários, inclusive os da administração. <br /> Observação: Serão exibidos os 3 últimos comunicados cadastrados até a data corrente.</small>
+                    </blockquote>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.dt_comunicacao, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(info => info.dt_comunicacao, "DATE", new { identificador = "dt_comunicacao", readOnly = "true" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.cabecalho, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.cabecalho, new { @class = "form-control input-sm", @disabled = "disable" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.resumo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(m => m.resumo, 4, 1, new { @class = "form-control input-sm", @disabled = "disable" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.mensagemDetalhada, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(m => m.mensagemDetalhada, 8, 1, new { @class = "form-control input-sm", @disabled = "disable" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    @Html.Partial("_defaultListButtons",
+                        new List<ButtonRepository>
+                        {
+                            new ButtonRepository() {    linkText = "Excluir",
+                                                        actionName = "",
+                                                        controllerName = "",
+                                                        buttonType = "submit"
+                                                    } ,
+                            new ButtonRepository() {    linkText = "Cancelar",
+                                                        actionName = "Browse",
+                                                        controllerName = "ComunicadoGeral",
+                                                        buttonType = "link"
+                                                    }
+                        })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

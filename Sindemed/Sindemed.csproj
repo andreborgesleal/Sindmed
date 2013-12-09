@@ -165,6 +165,7 @@
     <Compile Include="Controllers\AreaAtendimentoController.cs" />
     <Compile Include="Controllers\AreaAtuacaoController.cs" />
     <Compile Include="Controllers\CidadeController.cs" />
+    <Compile Include="Controllers\ComunicadoGeralController.cs" />
     <Compile Include="Controllers\EspecialidadeController.cs" />
     <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -178,9 +179,11 @@
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
+    <Compile Include="Models\Entidades\Comunicacao.cs" />
     <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
+    <Compile Include="Models\Enumeracoes\SindmedEnum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LookupUsuarioModel.cs">
       <SubType>Code</SubType>
@@ -188,12 +191,14 @@
     <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
+    <Compile Include="Models\Persistence\ComunicacaoModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
+    <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
     <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
     <Compile Include="Models\Repositories\NaoLocalizadoCorreioViewModel.cs" />
@@ -202,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\MensagemPadrao.xml" />
+    <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -245,8 +251,11 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\jquery.validate-fix.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive-custom-for-bootstrap.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\bootstrap-datepicker.js" />
@@ -294,6 +303,9 @@
     <Content Include="Views\Cidade\Delete.cshtml" />
     <Content Include="Views\Cidade\Edit.cshtml" />
     <Content Include="Views\Home\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\TYPEAHEAD.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web.config" />
@@ -360,10 +372,19 @@
     <Content Include="Views\AreaAtendimento\List.cshtml" />
     <Content Include="Views\AreaAtendimento\Browse.cshtml" />
     <Content Include="Views\AreaAtendimento\Create.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Typeahead.cshtml" />
     <Content Include="Views\Home\LovUsuarioModal.cshtml" />
     <Content Include="Views\Usuario\ListUsuarioModal.cshtml" />
     <Content Include="Views\Usuario\_ListUsuarioModal.cshtml" />
+    <Content Include="Views\Usuario\ListUsuario2Modal.cshtml" />
+    <Content Include="Views\Home\LovUsuario2Modal.cshtml" />
+    <Content Include="Views\AreaAtendimento\Edit.cshtml" />
+    <Content Include="Views\AreaAtendimento\Delete.cshtml" />
+    <Content Include="Views\ComunicadoGeral\List.cshtml" />
+    <Content Include="Views\ComunicadoGeral\Browse.cshtml" />
+    <Content Include="Views\ComunicadoGeral\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DATE.cshtml" />
+    <Content Include="Views\ComunicadoGeral\Edit.cshtml" />
+    <Content Include="Views\ComunicadoGeral\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

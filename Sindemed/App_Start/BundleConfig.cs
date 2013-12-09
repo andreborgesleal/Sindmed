@@ -21,10 +21,20 @@ namespace Sindemed
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/js/bootstrap-datepicker.js",
+                      "~/Scripts/jquery.validate.unobtrusive.js",
+                      "~/Scripts/jquery.validate-fix.js",
+                      "~/Scripts/js/locales/bootstrap-datepicker.pt-BR.js",
+                      "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
+                      "~/Scripts/jquery.maskedinput.js",
+                      "~/Scripts/inputs-jquery-ui.js"));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-theme.css",
+                      "~/scripts/css/datepicker.css",
+                      "~/Content/bootstrap-mvc-validation.css",
                       "~/Content/site.css"));
         }
     }

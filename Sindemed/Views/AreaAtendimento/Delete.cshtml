@@ -4,8 +4,11 @@
 @{
     ViewBag.Title = "Sindmed";
 }
-@using (Html.BeginForm("Create", "AreaAtendimento", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Delete", "AreaAtendimento", FormMethod.Post, new { @class = "form-horizontal" }))
 {
+    @Html.HiddenFor(info => info.areaAtendimentoId)
+    @Html.HiddenFor(info => info.descricao)
+    @Html.HiddenFor(info => info.usuario1Id)
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -17,8 +20,8 @@
                 <div class="col-lg-8">
                     <blockquote>
                         <p>
-                            Inclusão de Área de Atendimento
-                        </p> <small>Informar o nome da área de atendimento e pelo menos um atendente responsável pelo atendimento ao associado neste setor.</small>
+                            Exclusão de Área de Atendimento
+                        </p> <small>Atenção ! Não será permitido excluir uma área de atendimento se houverem chamados vinculados a ela.</small>
                     </blockquote>
                 </div>
             </div>
@@ -28,7 +31,7 @@
                         @Html.LabelFor(m => m.descricao, new { @class = "col-md-2 control-label" })
                         <div class="col-lg-10">
                             <div class="input-group">
-                                @Html.TextBoxFor(m => m.descricao, new { @class = "form-control input-sm", @placeholder = "Nome da área de atendimento", @style = "width: 450%" })<br />
+                                @Html.TextBoxFor(m => m.descricao, new { @class = "form-control input-sm", @placeholder = "Nome da área de atendimento", @style = "width: 450%", @disabled = "disabel" })<br />
                             </div>
                         </div>
                     </div>
@@ -49,14 +52,14 @@
                                                            descricao = "nome",
                                                            values = new SelectListItem()
                                                            {
-                                                               Value = Model.usuario1Id.ToString(),
-                                                               Text = "" //Model.usuario1Id.ToString()
+                                                               Value = Model.usuario1Id != null ? Model.usuario1Id.ToString() : "",
+                                                               Text = Model.nome_usuario1 != null ? Model.nome_usuario1.ToString() : ""
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "usuario2Id"
                                                        }
                                                })
-                      </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -74,10 +77,10 @@
                                                            descricao = "nome",
                                                            values = new SelectListItem()
                                                            {
-                                                               Value = Model.usuario2Id.ToString(),
-                                                               Text = "" //Model.usuario1Id.ToString()
+                                                               Value = Model.usuario2Id != null ? Model.usuario2Id.ToString() : "",
+                                                               Text = Model.nome_usuario2 != null ? Model.nome_usuario2.ToString() : ""
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "codigo"
                                                        }
                                                })
@@ -90,7 +93,7 @@
                         @Html.LabelFor(m => m.codigo, new { @class = "col-md-2 control-label" })
                         <div class="col-lg-2">
                             <div class="input-group">
-                                @Html.TextBoxFor(m => m.codigo, new { @class = "form-control input-sm" })<br />
+                                @Html.TextBoxFor(m => m.codigo, new { @class = "form-control input-sm", @disabled = "disabel" })<br />
                             </div>
                         </div>
                     </div>
@@ -103,7 +106,7 @@
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
-                            new ButtonRepository() {    linkText = "Salvar",
+                            new ButtonRepository() {    linkText = "Excluir",
                                                         actionName = "",
                                                         controllerName = "",
                                                         buttonType = "submit"
@@ -115,11 +118,9 @@
                                                     }
                         })
                 </div>
-                <div class="col-lg-offset-4">
-                    ( * ) - Campo de preenchimento obrigatório
-                </div>
             </div>
         </div>
     </div>
-    <div id="div-lov"></div>
 }
+
+

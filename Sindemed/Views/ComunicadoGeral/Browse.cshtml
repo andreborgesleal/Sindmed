@@ -1,6 +1,6 @@
 ﻿@using Sindemed.Models.Repositories
 @using App_Dominio.Repositories
-@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.CidadeViewModel>
+@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ComunicacaoViewModel>
 @{
     ViewBag.Title = "Sindmed";
 }
@@ -10,7 +10,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    Cidades
+                    Comunicado Gerais
                 </h3>
             </div>
             <div class="panel-body">
@@ -21,10 +21,11 @@
             </div>
             <div class="panel-footer">
                 <div class="col-lg-offset-11">
-                    @Html.Partial("_defaultListButtons", new List<ButtonRepository> { new ButtonRepository() { linkText = "Incluir", actionName = "Create", controllerName = "Cidade", buttonType = "link" } })
+                    @Html.Partial("_defaultListButtons", new List<ButtonRepository> { new ButtonRepository() { linkText = "Incluir", actionName = "Create", controllerName = "ComunicadoGeral", buttonType = "link" } })
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
