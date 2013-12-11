@@ -23,6 +23,11 @@
                         </p> <small>Informar a descrição fornecida pelos Correios quando o carteiro não encontra o endereço do associado.</small>
                     </blockquote>
                 </div>
+                <div class="col-md-12">
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.ValidationSummary(false)
+                    </div>
+                </div>
                 <div class="col-md-8">
                     <div class="form-group" style="margin-top: 20px">
                         @Html.LabelFor(m => m.descricao, new { @class = "col-md-2 control-label" })

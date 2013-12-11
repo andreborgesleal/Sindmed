@@ -21,6 +21,11 @@
                         </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
                     </blockquote>
                 </div>
+                <div class="col-md-12">
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.ValidationSummary(false)
+                    </div>
+                </div>
                 <div class="col-md-6">
                     <div class="form-group" style="margin-top: 20px">
                         @Html.LabelFor(m => m.nome, new { @class = "col-md-2 control-label" })

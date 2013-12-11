@@ -13,13 +13,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sindemed</RootNamespace>
     <AssemblyName>Sindemed</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,22 +40,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App_Dominio">
-      <HintPath>..\..\App_Dominio\App_Dominio\App_Dominio\bin\Debug\App_Dominio.dll</HintPath>
+    <Reference Include="App_Dominio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\App_Dominio\App_Dominio\App_Dominio\bin\Release\App_Dominio.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -100,6 +100,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -178,10 +179,12 @@
     <Compile Include="Models\Entidades\ApplicationContext.cs" />
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
+    <Compile Include="Models\Entidades\Associado.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
     <Compile Include="Models\Entidades\Comunicacao.cs" />
     <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
+    <Compile Include="Models\Entidades\Medico.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
     <Compile Include="Models\Enumeracoes\SindmedEnum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -229,6 +232,7 @@
     <Content Include="Content\images\saude2.jpg" />
     <Content Include="Content\images\saude3.jpg" />
     <Content Include="Content\images\saude4.jpg" />
+    <Content Include="Content\logs\HtmlPage1.html" />
     <Content Include="Content\Site-Full-Hd.css" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
@@ -245,6 +249,7 @@
     <Content Include="App_Code\Lookup.cshtml" />
     <Content Include="App_Code\TextBoxDatePicker.cshtml" />
     <Content Include="App_Code\Typeahead.cshtml" />
+    <None Include="Properties\PublishProfiles\Sindmed.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\datepicker.css" />
     <Content Include="Scripts\inputs-jquery-ui.js" />

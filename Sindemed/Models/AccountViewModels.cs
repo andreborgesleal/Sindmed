@@ -30,13 +30,13 @@ namespace Sindemed.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage="O campo login é de preenhcimento obrigatório e deve ser um e-mail válido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage="Informe o login com um formato de e-mail válido")]
         [Display(Name = "Login")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O campo Senha é de preenhcimento obrigatório")]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
@@ -47,19 +47,18 @@ namespace Sindemed.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "O campo login é de preenhcimento obrigatório e deve ser um e-mail válido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
         [EmailAddress]
         [Display(Name = "Login")]
         public string login { get; set; }
 
-        [Required]
-
+        [Required(ErrorMessage = "O campo Nome é de preenhcimento obrigatório")]
         [Display(Name = "Nome")]
         [StringLength(40, ErrorMessage = "O campo {0} deve ter no máximo {2} caracteres.")]
         public string nome { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O campo Senha é de preenhcimento obrigatório")]
         [StringLength(20, ErrorMessage = "O campo {0} deve ter pelo menos {2} caracteres e no máximo 20 caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]

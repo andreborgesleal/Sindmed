@@ -5,9 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sindmed</title>
     <link rel="SHORTCUT ICON" href="/favicon.png" />
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @*<script type="text/javascript" src="~/scripts/inputs-jquery-ui.js"></script>*@
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+    <link href="@Styles.Url("~/content/css")" rel="stylesheet" />
+    <link href="@Styles.Url("~/scripts/css")" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery-{version}.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery-migrate-{version}.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/scripts/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery.validate-fix.js"></script>
+    <script type="text/javascript" src="~/scripts/js/locales/bootstrap-datepicker.pt-BR.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery.maskedinput.js"></script>
+    <script type="text/javascript" src="~/scripts/inputs-jquery-ui.js"></script>
+
+    <link href="@Styles.Url("~/Content/Site.css")" rel="stylesheet" />
+    <link href="@Styles.Url("~/Content/bootstrap-theme.css")" rel="stylesheet" />
+    <link href="@Styles.Url("~/Content/body.css")" rel="stylesheet" />
+    <link href="@Styles.Url("~/Content/bootstrap-responsive.css")" rel="stylesheet" />
+    <link href="@Styles.Url("~/scripts/css/datepicker.css")" rel="stylesheet" />
+    <link href="@Styles.Url("~/Content/bootstrap-mvc-validation.css")" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -37,8 +58,11 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+
+    @Scripts.Render("~/scripts")
+    @Scripts.Render("~/js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

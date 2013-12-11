@@ -25,6 +25,11 @@
                             Exclusão de Comunicados Gerais
                         </p> <small>Os comunicados são informativos que serão exibidos na tela inicial de todos os usuários, inclusive os da administração. <br /> Observação: Serão exibidos os 3 últimos comunicados cadastrados até a data corrente.</small>
                     </blockquote>
+                    <div class="col-md-12">
+                        <div class="form-group" style="margin-top: 20px">
+                            @Html.ValidationSummary(false)
+                        </div>
+                    </div>
                     <div class="form-group" style="margin-top: 20px">
                         @Html.LabelFor(m => m.dt_comunicacao, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
