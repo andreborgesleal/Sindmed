@@ -200,6 +200,7 @@
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
+    <Compile Include="Models\Repositories\AssociadoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
