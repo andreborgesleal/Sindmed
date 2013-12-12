@@ -170,6 +170,7 @@
     <Compile Include="Controllers\EspecialidadeController.cs" />
     <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedicoController.cs" />
     <Compile Include="Controllers\NaoLocalizadoCorreioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -197,6 +198,7 @@
     <Compile Include="Models\Persistence\ComunicacaoModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
+    <Compile Include="Models\Persistence\MedicoModel.cs" />
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
     <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
+    <Compile Include="Models\Repositories\MedicoViewModel.cs" />
     <Compile Include="Models\Repositories\NaoLocalizadoCorreioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -394,6 +397,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />
+    <Folder Include="Views\Medico\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

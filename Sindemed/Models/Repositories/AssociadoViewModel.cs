@@ -102,45 +102,23 @@ namespace Sindemed.Models.Repositories
         public Nullable<int> areaAtuacao3Id { get; set; }
 
         [DisplayName("E-mail")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
+        [EmailAddress(ErrorMessage = "Informe o E-mail com um formato válido")]
         public string email1 { get; set; }
 
         [DisplayName("E-mail 2")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
+        [EmailAddress(ErrorMessage = "Informe o E-mail 2 com um formato válido")]
         public string email2 { get; set; }
 
         [DisplayName("E-mail 3")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
+        [EmailAddress(ErrorMessage = "Informe o E-mail 3 com um formato válido")]
         public string email3 { get; set; }
 
         [DisplayName("Usuário")]
         public Nullable<decimal> usuarioId { get; set; }
 
-        #region Medico
-        [DisplayName("UF CRM")]
-        [Required(ErrorMessage="UF do CRM deve ser informada")]
-        [StringLength(2, ErrorMessage="A UF do CRM deve possuir 2 caracteres", MinimumLength = 2)]
-        public string ufCRM { get; set; }
-
-        [Required(ErrorMessage = "CRM deve ser informado")]
-        [DisplayName("CRM")]
-        public decimal CRM { get; set; }
-
-        [DisplayName("UF CRM 2")]
-        [Required(ErrorMessage = "UF CRM deve ser informada")]
-        [StringLength(2, ErrorMessage = "A UF do CRM 2 deve possuir 2 caracteres", MinimumLength = 2)]
-        public string ufCRM_Seg { get; set; }
-
-        [DisplayName("CRM 2")]
-        [Required(ErrorMessage = "CRM 2 deve ser informado")]
-        public decimal CRM_Seg { get; set; }
-
-        [DisplayName("Especialidade")]
-        [Required(ErrorMessage="Informe a Especialidade médica")]
-        public Nullable<int> especialidade1Id { get; set; }
-
-        [DisplayName("Especialidade 2")]
-        public Nullable<int> especialidade2Id { get; set; }
-
-        [DisplayName("Especialidade 3")]
-        public Nullable<int> especialidade3Id { get; set; }
-        #endregion
+        
     }
 }
