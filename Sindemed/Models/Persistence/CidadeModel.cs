@@ -97,6 +97,13 @@ namespace Sindemed.Models.Persistence
             return "../Cidade/ListCidadeModal";
         }
     }
+    public class LookupCidadeComModel : ListViewCidade
+    {
+        public override string action()
+        {
+            return "../Cidade/ListCidadeComModal";
+        }
+    }
 
     public class LookupCidadeFiltroModel : ListViewCidade
     {

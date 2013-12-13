@@ -71,6 +71,18 @@ namespace Sindemed.Controllers
         }
         #endregion
 
+        #region Formulário Modal Cidade
+        public ActionResult LovCidadeModal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupCidadeModel(), "Cidades", null, Sistema.SINDMED);
+        }
+
+        public ActionResult LovCidadeComModal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupCidadeComModel(), "Cidades", null, Sistema.SINDMED);
+        }
+        #endregion
+
         #endregion
 
     }

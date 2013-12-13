@@ -165,12 +165,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AreaAtendimentoController.cs" />
     <Compile Include="Controllers\AreaAtuacaoController.cs" />
+    <Compile Include="Controllers\AssociadoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\ComunicadoGeralController.cs" />
     <Compile Include="Controllers\EspecialidadeController.cs" />
     <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MedicoController.cs" />
     <Compile Include="Controllers\NaoLocalizadoCorreioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -202,7 +204,9 @@
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
-    <Compile Include="Models\Repositories\AssociadoViewModel.cs" />
+    <Compile Include="Models\Repositories\AssociadoViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
@@ -309,6 +313,15 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Associado\Browse.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Associado\Create.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Associado\List.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Views\Cidade\Delete.cshtml" />
     <Content Include="Views\Cidade\Edit.cshtml" />
     <Content Include="Views\Home\Index.cshtml">
@@ -394,10 +407,14 @@
     <Content Include="Views\Shared\EditorTemplates\DATE.cshtml" />
     <Content Include="Views\ComunicadoGeral\Edit.cshtml" />
     <Content Include="Views\ComunicadoGeral\Delete.cshtml" />
+    <Content Include="Views\Home\LovCidadeModal.cshtml" />
+    <Content Include="Views\Home\LovCidadeComModal.cshtml" />
+    <Content Include="Views\Cidade\ListCidadeModal.cshtml" />
+    <Content Include="Views\Cidade\_ListCidadeModal.cshtml" />
+    <Content Include="Views\Cidade\ListCidadeComModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />
-    <Folder Include="Views\Medico\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

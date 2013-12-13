@@ -36,5 +36,6 @@ namespace Sindemed.Models.Repositories
 
         [DisplayName("Especialidade 3")]
         public Nullable<int> especialidade3Id { get; set; }
+
     }
 }

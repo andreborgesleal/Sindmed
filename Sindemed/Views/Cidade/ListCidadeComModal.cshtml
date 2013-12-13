@@ -1,0 +1,38 @@
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.CidadeViewModel>
+@{
+    Layout = null;
+    Model.action = "../Cidade/_ListCidadeModal";
+}
+
+<div class="row" style="margin-top: 10px">
+    <div class="col-md-10" style="padding-left: 40px">
+        @Html.Partial("_Filter", Model)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="div-list">
+            @Html.Partial("../Cidade/_ListCidadeModal", Model)
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function Move(id, descricao) {
+        $("#cidadeComId").val(id);
+        $("#nome_cidadeCom").val(descricao);
+        $("#nome_cidadeCom1").val(descricao);
+        $("#btnModal").click();
+    }
+
+</script>
+
+
+
+
+
+
+

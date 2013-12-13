@@ -1,15 +1,15 @@
 ﻿using App_Dominio.Controllers;
 using App_Dominio.Security;
-using Sindemed.Models.Enumeracoes;
 using Sindemed.Models.Persistence;
 using Sindemed.Models.Repositories;
+using Sindemed.Models.Enumeracoes;
 using System.Web.Mvc;
 
 namespace Sindemed.Controllers
 {
     public class CidadeController : RootController<CidadeViewModel, CidadeModel>
     {
-        public override int _sistema_id() { return (int)Sistema.SINDMED ; }
+        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED ; }
         public override string getListName()
         {
             return "Listagem de Cidades";

@@ -4,12 +4,14 @@
 }   
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "get" }))
         {
-            <div class="form-group">
-                @Html.TextBox("desc", "", htmlAttributes: new { @class = "form-control input-sm col-md-11", @placeholder = "Descrição" })
-                <button type="button" class="btn active btn-sm" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>
+            <div class="input-group">
+                @Html.TextBox("desc", "", htmlAttributes: new { @class = "form-control input-sm col-md-8", @placeholder = "Descrição" })
+                <div class="input-group-btn">
+                    <button type="button" class="btn active btn-sm" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>
+                </div>
             </div>
         }
     </div>

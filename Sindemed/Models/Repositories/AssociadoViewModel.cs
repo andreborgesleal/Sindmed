@@ -118,7 +118,5 @@ namespace Sindemed.Models.Repositories
 
         [DisplayName("Usuário")]
         public Nullable<decimal> usuarioId { get; set; }
-
-        
     }
 }

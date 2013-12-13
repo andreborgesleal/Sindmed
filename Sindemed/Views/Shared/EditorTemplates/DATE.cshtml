@@ -2,7 +2,7 @@
 @using App_Dominio.Enumeracoes
 @model Nullable<System.DateTime>
 
-<div class="input-group date" data-date-format="dd/mm/yyyy">
+<div class="input-group date" data-date-format="dd/MM/yyyy">
     @if (ViewData["readonly"] == "true")
     { 
         <input class="form-control input-sm" style="width: 90px" id="@ViewData["identificador"]" name="@ViewData["identificador"]" type="text" readonly value="@ViewData.TemplateInfo.FormattedModelValue">    
