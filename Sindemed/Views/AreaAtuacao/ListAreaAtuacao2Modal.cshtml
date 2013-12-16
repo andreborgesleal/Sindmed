@@ -1,0 +1,33 @@
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.AreaAtuacaoViewModel>
+@{
+    Layout = null;
+    Model.action = "../AreaAtuacao/_ListAreaAtuacaoModal";
+}
+
+<div class="row">
+    <div class="col-md-11" style="margin: 15px">
+        @Html.Partial("_Filter", Model)
+        <div id="div-list" style="padding-top: 15px">
+            @Html.Partial("../AreaAtuacao/_ListAreaAtuacaoModal", Model)
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function Move(id, descricao) {
+        $("#areaAtuacao2Id").val(id);
+        $("#descricao_areaAtuacao2").val(descricao);
+        $("#descricao_areaAtuacao21").val(descricao);
+        $("#btnModal").click();
+    }
+
+</script>
+
+
+
+
+
+
+

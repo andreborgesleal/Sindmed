@@ -15,7 +15,7 @@ namespace Sindemed.Models.Persistence
         #region Métodos da classe CrudContext
         public override Medico MapToEntity(MedicoViewModel value)
         {
-            return new Medico()
+            Medico medico = new Medico()
             {
                 associadoId = value.associadoId,
                 nome = value.nome,
@@ -26,6 +26,7 @@ namespace Sindemed.Models.Persistence
                 endereco = value.endereco,
                 complementoEnd = value.complementoEnd,
                 cep = value.cep,
+                cidadeId = value.cidadeId,
                 uf = value.uf,
                 enderecoCom = value.enderecoCom,
                 complementoEndCom = value.complementoEndCom,
@@ -56,6 +57,8 @@ namespace Sindemed.Models.Persistence
                 especialidade2Id = value.especialidade2Id,
                 especialidade3Id = value.especialidade3Id
             };
+
+            return medico;
         }
 
         public override MedicoViewModel MapToRepository(Medico entity)
@@ -138,42 +141,42 @@ namespace Sindemed.Models.Persistence
         public override IEnumerable<MedicoViewModel> Bind(int? index, int pageSize = 50, params object[] param)
         {
             string _descricao = param != null && param.Count() > 0 && param[0] != null ? param[0].ToString() : null;
-            return (from med in db.Medicos
-                    where (_descricao == null || String.IsNullOrEmpty(_descricao) || med.nome.StartsWith(_descricao.Trim()) || med.CRM == _descricao || med.CRM_Seg == _descricao)
-                    orderby med.nome
+            return (from socio in db.Associados join med in db.Medicos on socio.associadoId equals med.associadoId
+                    where (_descricao == null || String.IsNullOrEmpty(_descricao) || socio.nome.StartsWith(_descricao.Trim()) || med.CRM == _descricao || med.CRM_Seg == _descricao)
+                    orderby socio.nome
                     select new MedicoViewModel
                     {
                         associadoId = med.associadoId,
-                        nome = med.nome,
-                        dt_nascimento = med.dt_nascimento,
-                        cpf = med.cpf,
-                        rg = med.rg,
-                        orgaoEmissor = med.orgaoEmissor,
-                        endereco = med.endereco,
-                        complementoEnd = med.complementoEnd,
-                        cep = med.cep,
-                        uf = med.uf,
-                        enderecoCom = med.enderecoCom,
-                        complementoEndCom = med.complementoEndCom,
-                        cepCom = med.cepCom,
-                        cidadeComId = med.cidadeComId,
-                        ufCom = med.ufCom,
-                        telParticular1 = med.telParticular1,
-                        telParticular2 = med.telParticular2,
-                        telParticular3 = med.telParticular3,
-                        telParticular4 = med.telParticular4,
-                        telCom1 = med.telCom1,
-                        telCom2 = med.telCom2,
-                        fax = med.fax,
-                        isSindicalizado = med.isSindicalizado,
-                        correioId = med.correioId,
-                        areaAtuacao1Id = med.areaAtuacao1Id,
-                        areaAtuacao2Id = med.areaAtuacao2Id,
-                        areaAtuacao3Id = med.areaAtuacao3Id,
-                        email1 = med.email1,
-                        email3 = med.email2,
-                        email2 = med.email3,
-                        usuarioId = med.usuarioId,
+                        nome = socio.nome,
+                        dt_nascimento = socio.dt_nascimento,
+                        cpf = socio.cpf,
+                        rg = socio.rg,
+                        orgaoEmissor = socio.orgaoEmissor,
+                        endereco = socio.endereco,
+                        complementoEnd = socio.complementoEnd,
+                        cep = socio.cep,
+                        uf = socio.uf,
+                        enderecoCom = socio.enderecoCom,
+                        complementoEndCom = socio.complementoEndCom,
+                        cepCom = socio.cepCom,
+                        cidadeComId = socio.cidadeComId,
+                        ufCom = socio.ufCom,
+                        telParticular1 = socio.telParticular1,
+                        telParticular2 = socio.telParticular2,
+                        telParticular3 = socio.telParticular3,
+                        telParticular4 = socio.telParticular4,
+                        telCom1 = socio.telCom1,
+                        telCom2 = socio.telCom2,
+                        fax = socio.fax,
+                        isSindicalizado = socio.isSindicalizado,
+                        correioId = socio.correioId,
+                        areaAtuacao1Id = socio.areaAtuacao1Id,
+                        areaAtuacao2Id = socio.areaAtuacao2Id,
+                        areaAtuacao3Id = socio.areaAtuacao3Id,
+                        email1 = socio.email1,
+                        email3 = socio.email2,
+                        email2 = socio.email3,
+                        usuarioId = socio.usuarioId,
                         ufCRM = med.ufCRM,
                         CRM = med.CRM,
                         ufCRM_Seg = med.ufCRM_Seg,
@@ -182,8 +185,9 @@ namespace Sindemed.Models.Persistence
                         especialidade2Id = med.especialidade2Id,
                         especialidade3Id = med.especialidade3Id,
                         PageSize = pageSize,
-                        TotalCount = (from med1 in db.Medicos
-                                      where (_descricao == null || String.IsNullOrEmpty(_descricao) || med1.nome.StartsWith(_descricao.Trim()) || med1.CRM == _descricao || med1.CRM_Seg == _descricao)
+                        TotalCount = (from socio1 in db.Associados
+                                      join med1 in db.Medicos on socio.associadoId equals med.associadoId
+                                      where (_descricao == null || String.IsNullOrEmpty(_descricao) || socio1.nome.StartsWith(_descricao.Trim()) || med1.CRM == _descricao || med1.CRM_Seg == _descricao)
                                       select med1).Count()
                     }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
         }

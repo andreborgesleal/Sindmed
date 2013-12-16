@@ -139,7 +139,8 @@ function showLookup(lovModal, DivId) {
         url: "../Home/" + lovModal,
         data: {
             index: 0,
-            pageSize: 50
+            pageSize: 50,
+            hoje: new Date()
         },
         success: function (data) {
             $('#' + divLov).html(data);

@@ -90,11 +90,27 @@ namespace Sindemed.Models.Persistence
         #endregion
     }
 
-    public class LookupEspecialidadeMedicaModel : ListViewEspecialidadeMedica
+    public class LookupEspecialidadeMedica1Model : ListViewEspecialidadeMedica
     {
         public override string action()
         {
-            return "../EspecialidadeMedica/ListEspecialidadeMedicaModal";
+            return "../Especialidade/ListEspecialidadeMedica1Modal";
+        }
+    }
+
+    public class LookupEspecialidadeMedica2Model : ListViewEspecialidadeMedica
+    {
+        public override string action()
+        {
+            return "../Especialidade/ListEspecialidadeMedica2Modal";
+        }
+    }
+
+    public class LookupEspecialidadeMedica3Model : ListViewEspecialidadeMedica
+    {
+        public override string action()
+        {
+            return "../Especialidade/ListEspecialidadeMedica3Modal";
         }
     }
 
@@ -102,8 +118,7 @@ namespace Sindemed.Models.Persistence
     {
         public override string action()
         {
-            return "../EspecialidadeMedica/_ListEspecialidadeMedicaModal";
+            return "../Especialidade/_ListEspecialidadeMedicaModal";
         }
     }
-
 }

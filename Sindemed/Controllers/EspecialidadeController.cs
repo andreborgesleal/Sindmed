@@ -23,9 +23,21 @@ namespace Sindemed.Controllers
             return this._List(index, pageSize, "Browse", l, descricao);
         }
         [AuthorizeFilter]
-        public ActionResult ListEspecialidadeMedicaModal(int? index, int? pageSize = 50, string descricao = null)
+        public ActionResult ListEspecialidadeMedica1Modal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupEspecialidadeMedicaModel l = new LookupEspecialidadeMedicaModel();
+            LookupEspecialidadeMedica1Model l = new LookupEspecialidadeMedica1Model();
+            return this.ListModal(index, pageSize, l, "Especialidades Médicas", descricao);
+        }
+        [AuthorizeFilter]
+        public ActionResult ListEspecialidadeMedica2Modal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupEspecialidadeMedica2Model l = new LookupEspecialidadeMedica2Model();
+            return this.ListModal(index, pageSize, l, "Especialidades Médicas", descricao);
+        }
+        [AuthorizeFilter]
+        public ActionResult ListEspecialidadeMedica3Modal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupEspecialidadeMedica3Model l = new LookupEspecialidadeMedica3Model();
             return this.ListModal(index, pageSize, l, "Especialidades Médicas", descricao);
         }
         [AuthorizeFilter]

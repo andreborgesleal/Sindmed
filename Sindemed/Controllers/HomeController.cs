@@ -83,6 +83,47 @@ namespace Sindemed.Controllers
         }
         #endregion
 
+        #region Formulário Modal NaoLocalizadoCorreio
+        public ActionResult LovNaoLocalizadoCorreioModal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupNaoLocalizadoCorreioModel(), "Motivos Correios", null, Sistema.SINDMED);
+        }
+        #endregion
+
+        #region Formulário Modal Área de Atuação
+        public ActionResult LovAreaAtuacao1Modal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupAreaAtuacao1Model(), "Área de Atuação", null, Sistema.SINDMED);
+        }
+
+        public ActionResult LovAreaAtuacao2Modal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupAreaAtuacao2Model(), "Área de Atuação", null, Sistema.SINDMED);
+        }
+
+        public ActionResult LovAreaAtuacao3Modal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupAreaAtuacao3Model(), "Área de Atuação", null, Sistema.SINDMED);
+        }
+        #endregion
+
+        #region Formulário Modal Especialidade Médica
+        public ActionResult LovEspecialidadeMedica1Modal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupEspecialidadeMedica1Model(), "Especialidade Médica", null, Sistema.SINDMED);
+        }
+
+        public ActionResult LovEspecialidadeMedica2Modal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupEspecialidadeMedica2Model(), "Especialidade Médica", null, Sistema.SINDMED);
+        }
+
+        public ActionResult LovEspecialidadeMedica3Modal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupEspecialidadeMedica3Model(), "Especialidade Médica", null, Sistema.SINDMED);
+        }
+        #endregion
+
         #endregion
 
     }

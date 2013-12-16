@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
+using System.Collections.Generic;
 
 namespace Sindemed.Models.Entidades
 {
@@ -8,7 +9,7 @@ namespace Sindemed.Models.Entidades
     public class Associado
     {
         [Key]
-        public decimal associadoId { get; set; }
+        public int associadoId { get; set; }
         public string nome { get; set; }
         public Nullable<DateTime> dt_nascimento { get; set; }
         public string cpf { get; set; }
@@ -40,12 +41,6 @@ namespace Sindemed.Models.Entidades
         public string email2 { get; set; }
         public string email3 { get; set; }
         public Nullable<decimal> usuarioId { get; set; }
-
-        public virtual Cidade Cidade { get; set; }
-        public virtual Cidade CidadeCom { get; set; }
-        public virtual NaoLocalizadoCorreio NaoLocalizadoCorreio { get; set; }
-        public virtual AreaAtuacao AreaAtuacao1 { get; set; }
-        public virtual AreaAtuacao AreaAtuacao2 { get; set; }
-        public virtual AreaAtuacao AreaAtuacao3 { get; set; }
     }
+
 }

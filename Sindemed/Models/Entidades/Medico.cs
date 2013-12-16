@@ -11,11 +11,8 @@ namespace Sindemed.Models.Entidades
         public string CRM { get; set; }
         public string ufCRM_Seg { get; set; }
         public string CRM_Seg { get; set; }
-        public Nullable<int> especialidade1Id { get; set; }
+        public int especialidade1Id { get; set; }
         public Nullable<int> especialidade2Id { get; set; }
         public Nullable<int> especialidade3Id { get; set; }
-        public EspecialidadeMedica Especialidade1 { get; set; }
-        public EspecialidadeMedica Especialidade2 { get; set; }
-        public EspecialidadeMedica Especialidade3 { get; set; }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.EspecialidadeMedicaViewModel>
+@{
+    Layout = null;
+    Model.action = "../Especialidade/_ListEspecialidadeMedicaModal";
+}
+
+<div class="row">
+    <div class="col-md-11" style="margin: 15px">
+        @Html.Partial("_Filter", Model)
+        <div id="div-list" style="padding-top: 15px">
+            @Html.Partial("../Especialidade/_ListEspecialidadeMedicaModal", Model)
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function Move(id, descricao) {
+        $("#especialidade1Id").val(id);
+        $("#descricao_especialidade1").val(descricao);
+        $("#descricao_especialidade11").val(descricao);
+        $("#btnModal").click();
+    }
+
+</script>
+
+
+
+
+
+
+
+

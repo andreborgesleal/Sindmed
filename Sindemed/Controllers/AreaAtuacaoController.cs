@@ -23,9 +23,21 @@ namespace Sindemed.Controllers
             return this._List(index, pageSize, "Browse", l, descricao);
         }
         [AuthorizeFilter]
-        public ActionResult ListAreaAtuacaoModal(int? index, int? pageSize = 50, string descricao = null)
+        public ActionResult ListAreaAtuacao1Modal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupAreaAtuacaoModel l = new LookupAreaAtuacaoModel();
+            LookupAreaAtuacao1Model l = new LookupAreaAtuacao1Model();
+            return this.ListModal(index, pageSize, l, "Áreas de Atuação", descricao);
+        }
+        [AuthorizeFilter]
+        public ActionResult ListAreaAtuacao2Modal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupAreaAtuacao2Model l = new LookupAreaAtuacao2Model();
+            return this.ListModal(index, pageSize, l, "Áreas de Atuação", descricao);
+        }
+        [AuthorizeFilter]
+        public ActionResult ListAreaAtuacao3Modal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupAreaAtuacao1Model l = new LookupAreaAtuacao1Model();
             return this.ListModal(index, pageSize, l, "Áreas de Atuação", descricao);
         }
         [AuthorizeFilter]

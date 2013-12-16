@@ -90,13 +90,30 @@ namespace Sindemed.Models.Persistence
         #endregion
     }
 
-    public class LookupAreaAtuacaoModel : ListViewAreaAtuacao
+    public class LookupAreaAtuacao1Model : ListViewAreaAtuacao
     {
         public override string action()
         {
-            return "../AreaAtuacao/ListAreaAtuacaoModal";
+            return "../AreaAtuacao/ListAreaAtuacao1Modal";
         }
     }
+
+    public class LookupAreaAtuacao2Model : ListViewAreaAtuacao
+    {
+        public override string action()
+        {
+            return "../AreaAtuacao/ListAreaAtuacao2Modal";
+        }
+    }
+
+    public class LookupAreaAtuacao3Model : ListViewAreaAtuacao
+    {
+        public override string action()
+        {
+            return "../AreaAtuacao/ListAreaAtuacao3Modal";
+        }
+    }
+
 
     public class LookupAreaAtuacaoFiltroModel : ListViewAreaAtuacao
     {

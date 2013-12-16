@@ -8,9 +8,9 @@ namespace Sindemed.Models.Repositories
     public class AssociadoViewModel : Repository
     {
         [DisplayName("ID")]
-        public decimal associadoId { get; set; }
+        public int associadoId { get; set; }
 
-        [DisplayName("Nome *")]
+        [DisplayName("Nome")]
         [Required(ErrorMessage = "O campo Nome do associado dever ser informado")]
         [StringLength(40, ErrorMessage = "O nome do associado deve ter no mínimo 10 e no máximo 40 caracteres", MinimumLength = 10)]
         public string nome { get; set; }
@@ -29,7 +29,7 @@ namespace Sindemed.Models.Repositories
         [StringLength(15, ErrorMessage = "O Órgão Emissor deve ter no máximo 15 caracteres")]
         public string orgaoEmissor { get; set; }
 
-        [DisplayName("End.Residencial")]
+        [DisplayName("Logradouro")]
         [StringLength(50, ErrorMessage = "O Endereço residencial deve ter no máximo 50 caracteres")]
         public string endereco { get; set; }
 
@@ -47,7 +47,7 @@ namespace Sindemed.Models.Repositories
         [StringLength(2, ErrorMessage = "A UF deve possuir 2 caracteres", MinimumLength=2)]
         public string uf { get; set; }
 
-        [DisplayName("End.Comercial")]
+        [DisplayName("Logradouro")]
         [StringLength(50, ErrorMessage = "O Endereço comercial deve er no máximo 50 caracteres", MinimumLength = 2)]
         public string enderecoCom { get; set; }
 
@@ -68,19 +68,19 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Tel. Particular")]
         public string telParticular1 { get; set; }
 
-        [DisplayName("Tel. Particular 2")]
+        [DisplayName("Tel. Particular")]
         public string telParticular2 { get; set; }
 
-        [DisplayName("Tel. Particular 3")]
+        [DisplayName("Tel. Particular")]
         public string telParticular3 { get; set; }
 
-        [DisplayName("Tel. Particular 4")]
+        [DisplayName("Tel. Particular")]
         public string telParticular4 { get; set; }
 
         [DisplayName("Tel. Comercial")]
         public string telCom1 { get; set; }
 
-        [DisplayName("Tel. Comercial 2")]
+        [DisplayName("Tel. Comercial")]
         public string telCom2 { get; set; }
 
         [DisplayName("Fax")]
@@ -92,13 +92,13 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Motivo Correios")]
         public Nullable<int> correioId { get; set; }
 
-        [DisplayName("Área de Atuação")]
+        [DisplayName("Atuação")]
         public Nullable<int> areaAtuacao1Id { get; set; }
 
-        [DisplayName("Área de Atuação 2")]
+        [DisplayName("Atuação")]
         public Nullable<int> areaAtuacao2Id { get; set; }
 
-        [DisplayName("Área de Atuação 3")]
+        [DisplayName("Atuação")]
         public Nullable<int> areaAtuacao3Id { get; set; }
 
         [DisplayName("E-mail")]
@@ -106,12 +106,12 @@ namespace Sindemed.Models.Repositories
         [EmailAddress(ErrorMessage = "Informe o E-mail com um formato válido")]
         public string email1 { get; set; }
 
-        [DisplayName("E-mail 2")]
+        [DisplayName("E-mail")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
         [EmailAddress(ErrorMessage = "Informe o E-mail 2 com um formato válido")]
         public string email2 { get; set; }
 
-        [DisplayName("E-mail 3")]
+        [DisplayName("E-mail")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
         [EmailAddress(ErrorMessage = "Informe o E-mail 3 com um formato válido")]
         public string email3 { get; set; }
