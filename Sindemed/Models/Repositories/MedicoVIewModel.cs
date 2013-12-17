@@ -7,6 +7,8 @@ namespace Sindemed.Models.Repositories
 {
     public class MedicoViewModel : AssociadoViewModel
     {
+        public decimal codigo { get; set; }
+
         [DisplayName("UF CRM")]
         [Required(ErrorMessage = "UF do CRM deve ser informada")]
         [StringLength(2, ErrorMessage = "A UF do CRM deve possuir 2 caracteres", MinimumLength = 2)]

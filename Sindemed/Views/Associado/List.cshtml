@@ -26,10 +26,10 @@
                                         <button class="btn btn-default btn-xs">Ação</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = med.associadoId })
+                                                @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = med.codigo})
                                             </li>
                                             <li>
-                                                @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = med.associadoId })
+                                                @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = med.codigo})
                                             </li>
                                         </ul>
                                     </div>

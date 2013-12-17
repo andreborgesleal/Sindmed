@@ -24,6 +24,12 @@ namespace Sindemed.Models.Repositories
         [DisplayName("RG")]
         [StringLength(10, ErrorMessage = "O RG deve ter no máximo 10 dígitos")]
         public string rg { get; set; }
+
+        [DisplayName("Sexo")]
+        public string sexo { get; set; }
+
+        [DisplayName("Situação")]
+        public string situacao { get; set; }
         
         [DisplayName("Órgão Emissor")]
         [StringLength(15, ErrorMessage = "O Órgão Emissor deve ter no máximo 15 caracteres")]
@@ -47,6 +53,10 @@ namespace Sindemed.Models.Repositories
         [StringLength(2, ErrorMessage = "A UF deve possuir 2 caracteres", MinimumLength=2)]
         public string uf { get; set; }
 
+        [DisplayName("Bairro")]
+        [StringLength(25, ErrorMessage = "O Bairro deve possuir no máximo 25 caracteres")]
+        public string bairro { get; set; }
+
         [DisplayName("Logradouro")]
         [StringLength(50, ErrorMessage = "O Endereço comercial deve er no máximo 50 caracteres", MinimumLength = 2)]
         public string enderecoCom { get; set; }
@@ -62,8 +72,12 @@ namespace Sindemed.Models.Repositories
         public Nullable<int> cidadeComId { get; set; }
 
         [DisplayName("UF")]
-        [StringLength(2, ErrorMessage = "A UF deve possuir 2 caracteres", MinimumLength = 2)]
+        [StringLength(2, ErrorMessage = "A UF comercial deve possuir 2 caracteres", MinimumLength = 2)]
         public string ufCom { get; set; }
+
+        [DisplayName("Bairro")]
+        [StringLength(25, ErrorMessage = "O Bairro comercial deve possuir no máximo 25 caracteres")]
+        public string bairroCom { get; set; }
 
         [DisplayName("Tel. Particular")]
         public string telParticular1 { get; set; }
@@ -88,6 +102,9 @@ namespace Sindemed.Models.Repositories
 
         [DisplayName("Sindicalizado")]
         public string isSindicalizado { get; set; }
+
+        [DisplayName("Dt.Admissão")]
+        public Nullable<DateTime> dt_admin_sindicato { get; set; }
 
         [DisplayName("Motivo Correios")]
         public Nullable<int> correioId { get; set; }
@@ -118,5 +135,9 @@ namespace Sindemed.Models.Repositories
 
         [DisplayName("Usuário")]
         public Nullable<decimal> usuarioId { get; set; }
+
+        [DisplayName("Observação")]
+        public string observacao { get; set; }
+
     }
 }
