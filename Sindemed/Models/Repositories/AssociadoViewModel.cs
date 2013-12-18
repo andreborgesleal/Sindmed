@@ -119,6 +119,7 @@ namespace Sindemed.Models.Repositories
         public Nullable<int> areaAtuacao3Id { get; set; }
 
         [DisplayName("E-mail")]
+        [Required(ErrorMessage="E-mail do associado deve ser informado")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
         [EmailAddress(ErrorMessage = "Informe o E-mail com um formato válido")]
         public string email1 { get; set; }

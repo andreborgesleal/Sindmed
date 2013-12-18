@@ -8,6 +8,7 @@ using Sindemed.Models.Repositories;
 using Sindemed.Models.Entidades;
 using App_Dominio.Enumeracoes;
 using System.Data.Entity.SqlServer;
+using App_Dominio.Models;
 
 namespace Sindemed.Models.Persistence
 {
@@ -16,6 +17,10 @@ namespace Sindemed.Models.Persistence
         #region Métodos da classe CrudContext
         public override Medico MapToEntity(MedicoViewModel value)
         {
+            DateTime? dt_admissao = null;
+            if (value.isSindicalizado == "S")
+                dt_admissao = value.dt_admin_sindicato;
+
             Medico medico = new Medico()
             {
                 associadoId = value.associadoId,
@@ -46,14 +51,14 @@ namespace Sindemed.Models.Persistence
                 telCom2 = value.telCom2.Replace("-", "").Replace(".", "").Replace(" ", ""),
                 fax = value.fax.Replace("-", "").Replace(".", "").Replace(" ", ""),
                 isSindicalizado = value.isSindicalizado,
-                dt_admin_sindicato = value.dt_admin_sindicato,
+                dt_admin_sindicato = dt_admissao,
                 correioId = value.correioId,
                 areaAtuacao1Id = value.areaAtuacao1Id,
                 areaAtuacao2Id = value.areaAtuacao2Id,
                 areaAtuacao3Id = value.areaAtuacao3Id,
-                email1 = value.email1,
-                email3 = value.email2,
-                email2 = value.email3,
+                email1 = value.email1.ToLower(),
+                email3 = value.email2.ToLower(),
+                email2 = value.email3.ToLower(),
                 usuarioId = value.usuarioId,
                 observacao = value.observacao,
                 ufCRM = value.ufCRM,
@@ -129,14 +134,34 @@ namespace Sindemed.Models.Persistence
         {
             value.mensagem = new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
 
-            //if (value.nome.Trim().Length == 0)
-            //{
-            //    value.mensagem.Code = 5;
-            //    value.mensagem.Message = MensagemPadrao.Message(5, "Nome da Medico").ToString();
-            //    value.mensagem.MessageBase = "Campo Medico deve ser informado";
-            //    value.mensagem.MessageType = MsgType.WARNING;
-            //    return value.mensagem;
-            //}
+            if (value.cpf.Replace(".","").Replace("-","").Trim() != "")
+                if (!Funcoes.ValidaCpf(value.cpf))
+                {
+                    value.mensagem.Code = 29;
+                    value.mensagem.Message = MensagemPadrao.Message(29).ToString();
+                    value.mensagem.MessageBase = "Nº de CPF inválido";
+                    value.mensagem.MessageType = MsgType.WARNING;
+                    return value.mensagem;
+                }
+
+            if (value.isSindicalizado == "S" && !value.dt_admin_sindicato.HasValue)
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "Dt.Admissão").ToString();
+                value.mensagem.MessageBase = "Quando o associado é sindicalizado a Dt.Admissão é obrigatória";
+                value.mensagem.MessageType = MsgType.WARNING;
+                return value.mensagem;
+            }
+
+            if (value.especialidade1Id == 0)
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "Especialidade").ToString();
+                value.mensagem.MessageBase = "Campo Especialidade Médica deve ser informada nos dados do profissional";
+                value.mensagem.MessageType = MsgType.WARNING;
+                return value.mensagem;
+            }
+
 
             return value.mensagem;
         }
