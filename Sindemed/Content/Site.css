@@ -19,7 +19,7 @@
     }
 
     .Listagem {
-        margin-left: 10px;
+        margin-left: 10px;C:\Users\André\Source\Repos\SINDMED\Sindemed\Content\Site.css
         margin-top: 10px;
         max-height: 570px;
         overflow-y: auto;
@@ -72,4 +72,30 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}
+
+fundoModal
+{
+    background-color: Black;
+    filter:alpha(opacity=60);
+    opacity:0.6;
+    position: absolute; left: 0%; top: 0%;
+    width: 100%;
+    height: 100%;
+    _height: 800px;
+    _width: 110%;
+    
+}
+
+.modalPopupCarregando
+{
+    background-color: #FFFFFF;
+    border: none;
+    padding: 2px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 25%;
+    margin-right: auto;
 }

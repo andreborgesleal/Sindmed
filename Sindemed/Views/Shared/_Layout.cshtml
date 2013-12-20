@@ -49,6 +49,10 @@
         </div>
     </div>
     <div class="container body-content">
+        <div id="carregando" style="visibility: hidden; height: 0px">
+            <img src="../Content/images/carregando.gif" /><br />
+        </div>
+
         @Html.Partial("_alerts")
         @BreadCrumbPage.Trace((App_Dominio.Component.BreadCrumb)ViewBag.BreadCrumb)
         @RenderBody()

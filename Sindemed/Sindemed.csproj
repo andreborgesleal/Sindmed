@@ -221,6 +221,8 @@
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\carregando.gif" />
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\menu-id-1.png" />
     <Content Include="Content\images\menu-id-10.png" />
     <Content Include="Content\images\menu-id-11.png" />

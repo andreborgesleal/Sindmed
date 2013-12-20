@@ -37,8 +37,18 @@ function Refresh(index, pagesize, action, DivId) {
             link += '&' + this.id + '=' + $(this).val()
     });
     
-    link = encodeURI(link + '&noCahce=' + new Date())
+    $('#carregando').css("visibility", "visible");
+    $('#carregando').css("height", "150px");
+    $('#carregando').css("margin-top", "10%");
+    $('#carregando').css("margin-left", "40%");
+    link = encodeURI(link + '&noCahce=' + new Date());
     $('#' + DivId).load(link);
+    $( document ).ajaxSuccess(function (event, xhr, settings) {
+        $('#carregando').css("visibility", "hidden");
+        $('#carregando').css("height", "0px");
+        $('#carregando').css("margin-top", "0%");
+        $('#carregando').css("margin-left", "0%");
+    })
 }
 
 function selecionaPdf(obj, controller, action) {
