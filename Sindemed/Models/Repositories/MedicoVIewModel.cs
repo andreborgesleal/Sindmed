@@ -44,5 +44,7 @@ namespace Sindemed.Models.Repositories
 
         public string nome_especialidade3 { get; set; }
 
+        public string nome_correio { get; set; }
+
     }
 }

@@ -53,3 +53,5 @@ C:\Users\Daniel\Documents\Sistemas\SINDMED\Sindemed\bin\Microsoft.Owin.Security.
 C:\Users\Daniel\Documents\Sistemas\SINDMED\Sindemed\obj\Debug\Sindemed.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\Sistemas\SINDMED\Sindemed\obj\Debug\Sindemed.dll
 C:\Users\Daniel\Documents\Sistemas\SINDMED\Sindemed\obj\Debug\Sindemed.pdb
+C:\Users\Daniel\Documents\Sistemas\SINDMED\Sindemed\bin\App_Dominio.dll
+C:\Users\Daniel\Documents\Sistemas\SINDMED\Sindemed\bin\App_Dominio.pdb
