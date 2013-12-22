@@ -75,7 +75,7 @@ namespace Sindemed.Models.Persistence
 
         public override MedicoViewModel MapToRepository(Medico entity)
         {
-            return new MedicoViewModel()
+            MedicoViewModel medicoViewModel = new MedicoViewModel()
             {
                 associadoId = entity.associadoId,
                 nome = entity.nome,
@@ -119,10 +119,18 @@ namespace Sindemed.Models.Persistence
                 ufCRM_Seg = entity.ufCRM_Seg,
                 CRM_Seg = entity.CRM_Seg,
                 especialidade1Id = entity.especialidade1Id,
+                nome_especialidade1 =  "", //(from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).FirstOrDefault().descricao,
                 especialidade2Id = entity.especialidade2Id,
                 especialidade3Id = entity.especialidade3Id,
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
+
+            #region somente usar esse código fonte se não funcionar o LINQ acima
+            if ((from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).Count() > 0)
+                medicoViewModel.nome_especialidade1 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).FirstOrDefault().descricao;
+            #endregion
+
+            return medicoViewModel;
         }
 
         public override Medico Find(MedicoViewModel key)

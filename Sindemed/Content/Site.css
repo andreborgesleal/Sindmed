@@ -11,15 +11,21 @@
 
 /* Set width on the form input elements since they're 100% wide by default */
 
-@media (max-width: 1080px) {
+
+@media (max-width: 1980px) {
     input,
     select,
     textarea {
         max-width: 1080px;
     }
 
+    .Scroll {
+        overflow-y: scroll;
+        height: 528px;
+    }
+
     .Listagem {
-        margin-left: 10px;C:\Users\André\Source\Repos\SINDMED\Sindemed\Content\Site.css
+        margin-left: 10px;
         margin-top: 10px;
         max-height: 570px;
         overflow-y: auto;
@@ -31,6 +37,11 @@
     select,
     textarea {
         max-width: 580px;
+    }
+
+    .Scroll {
+        overflow-y: scroll;
+        height: 300px;
     }
 
     .Listagem {
@@ -46,6 +57,11 @@
     select,
     textarea {
         max-width: 280px;
+    }
+
+    .Scroll {
+        overflow-y: scroll;
+        height: 150px;
     }
 }
 

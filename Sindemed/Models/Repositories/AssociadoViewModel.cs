@@ -49,6 +49,8 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Cidade")]
         public Nullable<int> cidadeId { get; set; }
 
+        public string nome_cidade { get; set; }
+
         [DisplayName("UF")]
         [StringLength(2, ErrorMessage = "A UF deve possuir 2 caracteres", MinimumLength=2)]
         public string uf { get; set; }

@@ -49,8 +49,9 @@
         </div>
     </div>
     <div class="container body-content">
-        <div id="carregando" style="visibility: hidden; height: 0px">
-            <img src="../Content/images/carregando.gif" /><br />
+        <div id="carregando" style="visibility: hidden; height: 0px; background-repeat: no-repeat; z-index: 5; background-image: url(../Content/images/loader.gif); background-position-x: 50%; background-position-y: 30%">
+            @*<img src="../Content/images/carregando.gif" /><br />*@
+            <label>Carregando...</label>
         </div>
 
         @Html.Partial("_alerts")

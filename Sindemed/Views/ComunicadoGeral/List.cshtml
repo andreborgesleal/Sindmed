@@ -24,24 +24,13 @@
                             <div class="row-clearfix">
                                 <div class="col-md-12">
                                     <div class="btn-group btn-group-xs">
-                                        <button class="btn btn-default btn-xs">Ação</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                @Html.ActionLink("Editar", "Edit", routeValues: new { comunicacaoId = com.comunicacaoId })
-                                            </li>
-                                            <li>
-                                                @Html.ActionLink("Excluir", "Delete", routeValues: new { comunicacaoId = com.comunicacaoId })
-                                            </li>
-                                        </ul>
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { comunicacaoId = com.comunicacaoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                        </button>
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { comunicacaoId = com.comunicacaoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                        </button>
                                     </div>
-                                    @*<div class="btn-group btn-group-xs">
-                                            <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { fabricanteId = fab.fabricanteId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                            </button>
-                                            <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { fabricanteId = fab.fabricanteId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                            </button>
-                                        </div>*@
                                 </div>
                             </div>
                         </td>

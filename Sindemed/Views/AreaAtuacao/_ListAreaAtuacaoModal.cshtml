@@ -5,8 +5,8 @@
 
 @if (Model.Count > 0)
 {
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row Scroll">
+        <div class="col-md-12" style="padding-right: 0px;">
             <table class="table table-hover table-bordered table-condensed" style="cursor: pointer">
                 <caption></caption>
                 <thead style="background-color: #fff1a5">
@@ -27,11 +27,12 @@
             </table>
         </div>
     </div>
-    <div class="row">
+    @Html.Partial("Paginacao", Model)
+    @*<div class="row">
         <div class="col-md-12" style="margin-bottom: -20px; margin-top: -10px">
-            @Html.Partial("Paginacao", Model)
+            
         </div>
-    </div>
+    </div>*@
 }
 
 

@@ -32,11 +32,17 @@ namespace Sindemed.Models.Repositories
         [Required(ErrorMessage = "Informe a Especialidade médica na aba Dados Profissionais")]
         public int especialidade1Id { get; set; }
 
+        public string  nome_especialidade1 { get; set; }
+
         [DisplayName("Especialidade")]
         public Nullable<int> especialidade2Id { get; set; }
 
+        public string nome_especialidade2 { get; set; }
+
         [DisplayName("Especialidade")]
         public Nullable<int> especialidade3Id { get; set; }
+
+        public string nome_especialidade3 { get; set; }
 
     }
 }

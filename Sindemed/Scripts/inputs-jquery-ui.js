@@ -38,9 +38,15 @@ function Refresh(index, pagesize, action, DivId) {
     });
     
     $('#carregando').css("visibility", "visible");
-    $('#carregando').css("height", "150px");
-    $('#carregando').css("margin-top", "10%");
-    $('#carregando').css("margin-left", "40%");
+    $('#carregando').css("width", "100%");
+    $('#carregando').css("height", "100%");
+    $('#carregando').css("position", "absolute");
+    $('#carregando').css("background-color", "black");
+    $('#carregando').css("filter", "alpha(opacity=60)");
+    $('#carregando').css("opacity", "0.6");
+    $('#carregando').css("left", "0%");
+    $('#carregando').css("top", "0%");
+
     link = encodeURI(link + '&noCahce=' + new Date());
     $('#' + DivId).load(link);
     $( document ).ajaxSuccess(function (event, xhr, settings) {
@@ -144,6 +150,17 @@ function showLookup(lovModal, DivId) {
     var divLov = "div-lov";
     if (DivId != "" && DivId != "undefined" && DivId != undefined && DivId != null)
         divLov = DivId;
+
+    $('#carregando').css("visibility", "visible");
+    $('#carregando').css("width", "100%");
+    $('#carregando').css("height", "100%");
+    $('#carregando').css("position", "absolute");
+    $('#carregando').css("background-color", "black");
+    $('#carregando').css("filter", "alpha(opacity=60)");
+    $('#carregando').css("opacity", "0.6");
+    $('#carregando').css("left", "0%");
+    $('#carregando').css("top", "0%");
+
     $.ajax({
         type: "GET",
         url: "../Home/" + lovModal,
@@ -155,6 +172,7 @@ function showLookup(lovModal, DivId) {
         success: function (data) {
             $('#' + divLov).html(data);
             $('#msgs').html("");
+            $('#carregando').css("visibility", "hidden");
         }
     });
 }
