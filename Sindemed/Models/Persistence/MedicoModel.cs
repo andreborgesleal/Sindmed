@@ -120,6 +120,7 @@ namespace Sindemed.Models.Persistence
                 CRM_Seg = entity.CRM_Seg,
                 especialidade1Id = entity.especialidade1Id,
                 nome_especialidade1 =  "", //(from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).FirstOrDefault().descricao,
+                nome_correio = "",
                 especialidade2Id = entity.especialidade2Id,
                 especialidade3Id = entity.especialidade3Id,
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
@@ -128,6 +129,8 @@ namespace Sindemed.Models.Persistence
             #region somente usar esse código fonte se não funcionar o LINQ acima
             if ((from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).Count() > 0)
                 medicoViewModel.nome_especialidade1 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).FirstOrDefault().descricao;
+            if ((from a in db.NaoLocalizadoCorreios where a.correioId == entity.correioId select a).Count() > 0)
+                medicoViewModel.nome_correio = (from a in db.NaoLocalizadoCorreios where a.correioId == entity.correioId select a).FirstOrDefault().descricao;
             #endregion
 
             return medicoViewModel;
@@ -135,7 +138,7 @@ namespace Sindemed.Models.Persistence
 
         public override Medico Find(MedicoViewModel key)
         {
-            return db.Medicos.Find(key.associadoId);
+            return db.Medicos.Find(key.getCodigo());
         }
 
         public override Validate Validate(MedicoViewModel value, Crud operation)

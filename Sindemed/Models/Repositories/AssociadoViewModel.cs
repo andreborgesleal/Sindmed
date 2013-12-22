@@ -142,5 +142,10 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Observação")]
         public string observacao { get; set; }
 
+        public decimal getCodigo()
+        {
+            return associadoId;
+        }
+
     }
 }
