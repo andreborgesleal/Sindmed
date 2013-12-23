@@ -195,7 +195,7 @@
                                                            values = new SelectListItem()
                                                            {
                                                                Value = Model.correioId.ToString(),
-                                                               Text = ""
+                                                               Text = Model.nome_correio
                                                            },
                                                            disableButtons = false,
                                                            nextField = "endereco"
@@ -259,7 +259,7 @@
                                                            values = new SelectListItem()
                                                            {
                                                                Value = Model.cidadeId.ToString(),
-                                                               Text = "" 
+                                                               Text = Model.nome_cidade
                                                            },
                                                            disableButtons = false,
                                                            nextField = "uf"
@@ -384,7 +384,7 @@
                                                            values = new SelectListItem()
                                                            {
                                                                Value = Model.cidadeComId.ToString(),
-                                                               Text = ""
+                                                               Text = Model.nome_cidadeCom
                                                            },
                                                            disableButtons = false,
                                                            nextField = "ufCom"
@@ -479,7 +479,7 @@
                                                            values = new SelectListItem()
                                                            {
                                                                Value = Model.areaAtuacao1Id.ToString(),
-                                                               Text = ""
+                                                               Text = Model.descricao_areaAtuacao1
                                                            },
                                                            disableButtons = false,
                                                            nextField = "areaAtuacao2Id"
@@ -501,8 +501,8 @@
                                                            descricao = "descricao",
                                                            values = new SelectListItem()
                                                            {
-                                                               Value = Model.areaAtuacao1Id.ToString(),
-                                                               Text = ""
+                                                               Value = Model.areaAtuacao2Id.ToString(),
+                                                               Text = Model.descricao_areaAtuacao2
                                                            },
                                                            disableButtons = false,
                                                            nextField = "areaAtuacao3Id"
@@ -526,8 +526,8 @@
                                                            descricao = "descricao",
                                                            values = new SelectListItem()
                                                            {
-                                                               Value = Model.areaAtuacao1Id.ToString(),
-                                                               Text = ""
+                                                               Value = Model.areaAtuacao3Id.ToString(),
+                                                               Text = Model.descricao_areaAtuacao3
                                                            },
                                                            disableButtons = false,
                                                            nextField = "especialidade1Id"
@@ -575,7 +575,7 @@
                                                            values = new SelectListItem()
                                                            {
                                                                Value = Model.especialidade2Id.ToString(),
-                                                               Text = ""
+                                                               Text = Model.nome_especialidade2
                                                            },
                                                            disableButtons = false,
                                                            nextField = "especialidade3Id"
@@ -598,7 +598,7 @@
                                                            values = new SelectListItem()
                                                            {
                                                                Value = Model.especialidade3Id.ToString(),
-                                                               Text = ""
+                                                               Text = Model.nome_especialidade3
                                                            },
                                                            disableButtons = false,
                                                            nextField = "email2"
