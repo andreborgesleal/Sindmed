@@ -2,14 +2,18 @@
 @using App_Dominio.Enumeracoes
 @model Nullable<System.DateTime>
 
+@{
+    string value = @Model.HasValue ? @Model.Value.ToString("dd/MM/yyyy") : "";
+}
+
 <div class="input-group date" data-date-format="dd/MM/yyyy">
     @if (ViewData["readonly"] == "true")
     { 
-        <input class="form-control input-sm" style="width: 90px" id="@ViewData["identificador"]" name="@ViewData["identificador"]" type="text" readonly value="@ViewData.TemplateInfo.FormattedModelValue">    
+        <input class="form-control input-sm" style="width: 90px" id="@ViewData["identificador"]" name="@ViewData["identificador"]" type="text" readonly value="@value">
     }
     else
-    { 
-        <input class="form-control input-sm" style="width: 90px" id="@ViewData["identificador"]" name="@ViewData["identificador"]" type="text" onfocus="datepickerShow(this)" value="@ViewData.TemplateInfo.FormattedModelValue"><button class="btn btn-sm" type="button" onclick="datepickerShow('#@ViewData["identificador"]')"><i class="glyphicon glyphicon-th"></i></button>
+    {
+        <input class="form-control input-sm" style="width: 90px" id="@ViewData["identificador"]" name="@ViewData["identificador"]" type="text" value="@value" onfocus="datepickerShow(this)"><button class="btn btn-sm" type="button" onclick="datepickerShow('#@ViewData["identificador"]')"><i class="glyphicon glyphicon-th"></i></button>
     }
     
 </div>

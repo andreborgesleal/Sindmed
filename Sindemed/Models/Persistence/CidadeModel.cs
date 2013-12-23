@@ -19,7 +19,7 @@ namespace Sindemed.Models.Persistence
             {
                 cidadeId = value.cidadeId,
                 nome = value.nome,
-                uf = value.uf.ToUpper()
+                uf = value.uf != null ? value.uf.ToUpper() : ""
             };
         }
 

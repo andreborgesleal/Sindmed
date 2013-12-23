@@ -73,6 +73,8 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Cidade")]
         public Nullable<int> cidadeComId { get; set; }
 
+        public string nome_cidadeCom { get; set; }
+
         [DisplayName("UF")]
         [StringLength(2, ErrorMessage = "A UF comercial deve possuir 2 caracteres", MinimumLength = 2)]
         public string ufCom { get; set; }
@@ -111,14 +113,22 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Motivo Correios")]
         public Nullable<int> correioId { get; set; }
 
+        public string nome_correio { get; set; }
+
         [DisplayName("Atuação")]
         public Nullable<int> areaAtuacao1Id { get; set; }
+
+        public string descricao_areaAtuacao1 { get; set; }
 
         [DisplayName("Atuação")]
         public Nullable<int> areaAtuacao2Id { get; set; }
 
+        public string descricao_areaAtuacao2 { get; set; }
+
         [DisplayName("Atuação")]
         public Nullable<int> areaAtuacao3Id { get; set; }
+
+        public string descricao_areaAtuacao3 { get; set; }
 
         [DisplayName("E-mail")]
         [Required(ErrorMessage="E-mail do associado deve ser informado")]
@@ -141,11 +151,5 @@ namespace Sindemed.Models.Repositories
 
         [DisplayName("Observação")]
         public string observacao { get; set; }
-
-        public decimal getCodigo()
-        {
-            return associadoId;
-        }
-
     }
 }

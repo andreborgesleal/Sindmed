@@ -88,12 +88,15 @@ namespace Sindemed.Models.Persistence
                 endereco = entity.endereco,
                 complementoEnd = entity.complementoEnd,
                 cep = entity.cep,
+                cidadeId = entity.cidadeId,
+                nome_cidade = (from cid in db.Cidades where cid.cidadeId == entity.cidadeId select cid).Select(info => info.nome).FirstOrDefault() ?? "",
                 uf = entity.uf,
                 bairro = entity.bairro,
                 enderecoCom = entity.enderecoCom,
                 complementoEndCom = entity.complementoEndCom,
                 cepCom = entity.cepCom,
                 cidadeComId = entity.cidadeComId,
+                nome_cidadeCom = (from cid in db.Cidades where cid.cidadeId == entity.cidadeComId select cid).Select(info => info.nome).FirstOrDefault() ?? "",
                 ufCom = entity.ufCom,
                 bairroCom = entity.bairroCom,
                 telParticular1 = entity.telParticular1,
@@ -106,9 +109,13 @@ namespace Sindemed.Models.Persistence
                 isSindicalizado = entity.isSindicalizado,
                 dt_admin_sindicato = entity.dt_admin_sindicato,
                 correioId = entity.correioId,
+                nome_correio = (from n in db.NaoLocalizadoCorreios where n.correioId == entity.correioId select n).Select(info => info.descricao).FirstOrDefault() ?? "",
                 areaAtuacao1Id = entity.areaAtuacao1Id,
+                descricao_areaAtuacao1 = (from a in db.AreaAtuacaos where a.areaAtuacaoId == entity.areaAtuacao1Id select a).Select(info => info.descricao).FirstOrDefault() ?? "",
                 areaAtuacao2Id = entity.areaAtuacao2Id,
+                descricao_areaAtuacao2 = (from a in db.AreaAtuacaos where a.areaAtuacaoId == entity.areaAtuacao2Id select a).Select(info => info.descricao).FirstOrDefault() ?? "",
                 areaAtuacao3Id = entity.areaAtuacao3Id,
+                descricao_areaAtuacao3 = (from a in db.AreaAtuacaos where a.areaAtuacaoId == entity.areaAtuacao3Id select a).Select(info => info.descricao).FirstOrDefault() ?? "",
                 email1 = entity.email1,
                 email3 = entity.email2,
                 email2 = entity.email3,
@@ -119,26 +126,20 @@ namespace Sindemed.Models.Persistence
                 ufCRM_Seg = entity.ufCRM_Seg,
                 CRM_Seg = entity.CRM_Seg,
                 especialidade1Id = entity.especialidade1Id,
-                nome_especialidade1 =  "", //(from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).FirstOrDefault().descricao,
-                nome_correio = "",
+                nome_especialidade1 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).Select(info => info.descricao).FirstOrDefault() ?? "",
                 especialidade2Id = entity.especialidade2Id,
+                nome_especialidade2 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade2Id select e).Select(info => info.descricao).FirstOrDefault() ?? "",
                 especialidade3Id = entity.especialidade3Id,
+                nome_especialidade3 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade3Id select e).Select(info => info.descricao).FirstOrDefault() ?? "",
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
-
-            #region somente usar esse código fonte se não funcionar o LINQ acima
-            if ((from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).Count() > 0)
-                medicoViewModel.nome_especialidade1 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade1Id select e).FirstOrDefault().descricao;
-            if ((from a in db.NaoLocalizadoCorreios where a.correioId == entity.correioId select a).Count() > 0)
-                medicoViewModel.nome_correio = (from a in db.NaoLocalizadoCorreios where a.correioId == entity.correioId select a).FirstOrDefault().descricao;
-            #endregion
 
             return medicoViewModel;
         }
 
         public override Medico Find(MedicoViewModel key)
         {
-            return db.Medicos.Find(key.getCodigo());
+            return db.Medicos.Find(key.associadoId);
         }
 
         public override Validate Validate(MedicoViewModel value, Crud operation)
@@ -196,7 +197,7 @@ namespace Sindemed.Models.Persistence
                     select new MedicoViewModel
                     {
                         //codigo = SqlFunctions.StringConvert((decimal)med.associadoId),
-                        codigo = socio.associadoId,
+                        associadoId = socio.associadoId,
                         nome = socio.nome,
                         dt_nascimento = socio.dt_nascimento,
                         cpf = socio.cpf,
@@ -241,7 +242,6 @@ namespace Sindemed.Models.Persistence
                         especialidade3Id = socio.especialidade3Id,
                         PageSize = pageSize,
                         TotalCount = (from socio1 in db.Medicos
-                                      //join med1 in db.Medicos on socio.associadoId equals med.associadoId
                                       where (_descricao == null || String.IsNullOrEmpty(_descricao) || socio1.nome.StartsWith(_descricao.Trim()) || socio1.CRM == _descricao || socio1.CRM_Seg == _descricao)
                                       select socio1).Count()
                     }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
