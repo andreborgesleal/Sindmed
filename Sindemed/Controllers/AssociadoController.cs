@@ -1,5 +1,6 @@
 ﻿using App_Dominio.Controllers;
 using App_Dominio.Security;
+using App_Dominio.Contratos;
 using Sindemed.Models.Persistence;
 using Sindemed.Models.Repositories;
 using System.Web.Mvc;
@@ -32,6 +33,21 @@ namespace Sindemed.Controllers
         {
             LookupMedicoFiltroModel l = new LookupMedicoFiltroModel();
             return this.ListModal(index, pageSize, l, "Médicos", descricao);
+        }
+        #endregion
+
+        #region CreateError
+        public override void OnCreateError(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
+        {
+            value.nome_correio = collection["nome_correio1"] ?? "";
+            value.nome_cidade = collection["nome_cidade1"] ?? "";
+            value.nome_cidadeCom = collection["nome_cidadeCom1"] ?? "";
+            value.descricao_areaAtuacao1 = collection["descricao_areaAtuacao11"] ?? "";
+            value.descricao_areaAtuacao2 = collection["descricao_areaAtuacao21"] ?? "";
+            value.descricao_areaAtuacao3 = collection["descricao_areaAtuacao31"] ?? "";
+            value.nome_especialidade1 = collection["descricao_especialidade11"] ?? "";
+            value.nome_especialidade2 = collection["descricao_especialidade21"] ?? "";
+            value.nome_especialidade3 = collection["descricao_especialidade31"] ?? "";
         }
         #endregion
 

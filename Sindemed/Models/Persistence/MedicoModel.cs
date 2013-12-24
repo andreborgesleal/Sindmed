@@ -48,7 +48,7 @@ namespace Sindemed.Models.Persistence
                 telParticular3 = value.telParticular3 != null ? value.telParticular3.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 telParticular4 = value.telParticular1 != null ? value.telParticular4.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 telCom1 = value.telCom1 != null ?  value.telCom1.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
-                telCom2 = value.telCom1 != null ?  value.telCom2.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
+                telCom2 = value.telCom2 != null ?  value.telCom2.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 fax = value.fax != null ?  value.fax.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 isSindicalizado = value.isSindicalizado,
                 dt_admin_sindicato = dt_admissao,
