@@ -147,7 +147,7 @@ namespace Sindemed.Models.Repositories
         public string email3 { get; set; }
 
         [DisplayName("Usuário")]
-        public Nullable<decimal> usuarioId { get; set; }
+        public Nullable<int> usuarioId { get; set; }
 
         [DisplayName("Observação")]
         public string observacao { get; set; }
