@@ -45,7 +45,7 @@ namespace Sindemed.Models.Entidades
         public string email1 { get; set; }
         public string email2 { get; set; }
         public string email3 { get; set; }
-        public Nullable<decimal> usuarioId { get; set; }
+        public Nullable<int> usuarioId { get; set; }
         public string observacao { get; set; }
     }
 

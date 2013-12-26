@@ -11,7 +11,7 @@ namespace Sindemed.Models.Entidades
         public int areaAtendimentoId { get; set; }
         public string descricao { get; set; }
         public string codigo { get; set; }
-        public decimal usuario1Id { get; set; }
-        public Nullable<decimal> usuario2Id { get; set; }
+        public int usuario1Id { get; set; }
+        public Nullable<int> usuario2Id { get; set; }
     }
 }

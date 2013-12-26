@@ -21,12 +21,12 @@ namespace Sindemed.Models.Repositories
 
         [DisplayName("Atendente 1")]
         [Required(ErrorMessage = "Por favor, informe o Atendente 1")]
-        public Nullable<decimal> usuario1Id { get; set; }
+        public Nullable<int> usuario1Id { get; set; }
 
         public string nome_usuario1 { get; set; }
 
         [DisplayName("Atendente 2")]
-        public Nullable<decimal> usuario2Id { get; set; }
+        public Nullable<int> usuario2Id { get; set; }
 
         public string nome_usuario2 { get; set; }
     }

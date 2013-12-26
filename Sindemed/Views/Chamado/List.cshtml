@@ -1,0 +1,73 @@
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ChamadoViewModel>
+@{
+    Layout = null;
+}
+@if (Model.Count > 0)
+{
+    <div class="row Scroll">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                <caption></caption>
+                <thead style="background-color: #fff1a5">
+                    <tr>
+                        <th></th>
+                        <th>Data</th>
+                        <th>ID</th>
+                        <th>Assunto</th>
+                        <th>Área de Atendimento</th>
+                        <th>Nome</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                @foreach (Sindemed.Models.Repositories.ChamadoViewModel cham in Model)
+                {
+                    <tr>
+                        <td style="width: 20%">
+                            <div class="row-clearfix">
+                                <div class="col-md-12">
+                                    @*<div class="btn-group btn-group-xs">
+                                            <button class="btn btn-default btn-xs">Ação</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = med.codigo})
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = med.codigo})
+                                                </li>
+                                            </ul>
+                                        </div>*@
+                                    <div class="btn-group btn-group-xs">
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Edit", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @cham.dt_chamado.ToString("dd/MM/yyyy HH:mm")
+                        </td>
+                        <td>
+                            @cham.chamadoId
+                        </td>
+                        <td>
+                            @cham.assunto
+                        </td>
+                        <td>
+                            @cham.descricao_areaAtendimento
+                        </td>
+                        <td>
+                            @cham.nome_associado
+                        </td>
+                        <td>
+                            @cham.situacao == "A" ? "Aberto" : "Fechado"
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    @Html.Partial("Paginacao", Model)
+}
+
+

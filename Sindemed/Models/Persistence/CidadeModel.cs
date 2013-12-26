@@ -104,7 +104,6 @@ namespace Sindemed.Models.Persistence
             return "../Cidade/ListCidadeComModal";
         }
     }
-
     public class LookupCidadeFiltroModel : ListViewCidade
     {
         public override string action()

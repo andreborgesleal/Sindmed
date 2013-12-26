@@ -48,6 +48,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -162,6 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ChamadoController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AreaAtendimentoController.cs" />
     <Compile Include="Controllers\AreaAtuacaoController.cs" />
@@ -183,12 +186,14 @@
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
     <Compile Include="Models\Entidades\Associado.cs" />
+    <Compile Include="Models\Entidades\Chamado.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
     <Compile Include="Models\Entidades\Comunicacao.cs" />
     <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
     <Compile Include="Models\Entidades\Medico.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
+    <Compile Include="Models\Enumeracoes\BindDropDownList.cs" />
     <Compile Include="Models\Enumeracoes\SindmedEnum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LookupUsuarioModel.cs">
@@ -196,6 +201,7 @@
     </Compile>
     <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
+    <Compile Include="Models\Persistence\ChamadoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
     <Compile Include="Models\Persistence\ComunicacaoModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
@@ -207,6 +213,7 @@
     <Compile Include="Models\Repositories\AssociadoViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Repositories\ChamadoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
@@ -323,6 +330,15 @@
     </Content>
     <Content Include="Views\Associado\Delete.cshtml" />
     <Content Include="Views\Associado\List.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Chamado\Browse.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Chamado\Create.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Chamado\List.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Cidade\Delete.cshtml" />
