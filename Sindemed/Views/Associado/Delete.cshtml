@@ -7,6 +7,18 @@
 @using (Html.BeginForm("Edit", "Associado", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.HiddenFor(info => info.associadoId)
+    @Html.HiddenFor(info => info.nome)
+    @Html.HiddenFor(info => info.situacao)
+    @Html.HiddenFor(info => info.sexo)
+    @Html.HiddenFor(info => info.cidadeId)
+    @Html.HiddenFor(info => info.cidadeComId)
+    @Html.HiddenFor(info => info.correioId)
+    @Html.HiddenFor(info => info.areaAtuacao1Id)
+    @Html.HiddenFor(info => info.areaAtuacao2Id)
+    @Html.HiddenFor(info => info.areaAtuacao3Id)
+    @Html.HiddenFor(info => info.email1)
+    @Html.HiddenFor(info => info.usuarioId)
+    
     <div id="div-lov"></div>
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
@@ -46,7 +58,7 @@
                                         @Html.LabelFor(m => m.nome, "Nome *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @Style = "width: 180%; text-transform: uppercase;", @maxlength = "40" })
+                                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @Style = "width: 180%; text-transform: uppercase;", @maxlength = "40", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -56,7 +68,7 @@
                                         @Html.LabelFor(m => m.cpf, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.cpf, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.cpf, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +80,7 @@
                                         @Html.LabelFor(m => m.CRM, "CRM *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.CRM, new { @class = "form-control input-sm", @maxlength = "5" })
+                                                @Html.TextBoxFor(m => m.CRM, new { @class = "form-control input-sm", @maxlength = "5", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +90,7 @@
                                         @Html.LabelFor(m => m.ufCRM, "UF *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.ufCRM, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
+                                                @Html.TextBoxFor(m => m.ufCRM, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +102,7 @@
                                         @Html.LabelFor(m => m.CRM_Seg, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.CRM_Seg, new { @class = "form-control input-sm", @maxlength = "5" })
+                                                @Html.TextBoxFor(m => m.CRM_Seg, new { @class = "form-control input-sm", @maxlength = "5", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +112,7 @@
                                         @Html.LabelFor(m => m.ufCRM_Seg, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.ufCRM_Seg, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
+                                                @Html.TextBoxFor(m => m.ufCRM_Seg, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +123,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.dt_nascimento, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
-                                            @Html.EditorFor(info => info.dt_nascimento, "DATE", new { identificador = "dt_nascimento", readOnly = "false" })
+                                            @Html.EditorFor(info => info.dt_nascimento, "DATE", new { identificador = "dt_nascimento", readOnly = "true" })
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +132,7 @@
                                         @Html.LabelFor(m => m.rg, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.rg, new { @class = "form-control input-sm", @maxlength = "10" })
+                                                @Html.TextBoxFor(m => m.rg, new { @class = "form-control input-sm", @maxlength = "10", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -132,7 +144,7 @@
                                         @Html.LabelFor(m => m.orgaoEmissor, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.orgaoEmissor, new { @class = "form-control input-sm", @maxlength = "15" })
+                                                @Html.TextBoxFor(m => m.orgaoEmissor, new { @class = "form-control input-sm", @maxlength = "15", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -142,7 +154,7 @@
                                         @Html.LabelFor(m => m.sexo, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.DropDownListFor(m => m.sexo, App_Dominio.Enumeracoes.DropDownListEnum.Sexo(), new { @class = "form-control input-sm" })
+                                                @Html.DropDownListFor(m => m.sexo, App_Dominio.Enumeracoes.DropDownListEnum.Sexo(), new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +166,7 @@
                                         @Html.LabelFor(m => m.isSindicalizado, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.DropDownListFor(m => m.isSindicalizado, App_Dominio.Enumeracoes.DropDownListEnum.SimNao(), new { @class = "form-control input-sm" })
+                                                @Html.DropDownListFor(m => m.isSindicalizado, App_Dominio.Enumeracoes.DropDownListEnum.SimNao(), new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +175,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.dt_admin_sindicato, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
-                                            @Html.EditorFor(info => info.dt_admin_sindicato, "DATE", new { identificador = "dt_admin_sindicato", readOnly = "false" })
+                                            @Html.EditorFor(info => info.dt_admin_sindicato, "DATE", new { identificador = "dt_admin_sindicato", readOnly = "true" })
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +186,7 @@
                                         @Html.LabelFor(m => m.email1, "E-mail *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.email1, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100" })
+                                                @Html.TextBoxFor(m => m.email1, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -197,7 +209,7 @@
                                                                Value = Model.correioId.ToString(),
                                                                Text = Model.nome_correio
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "endereco"
                                                        }
                                                })
@@ -211,33 +223,12 @@
                                         @Html.LabelFor(m => m.situacao, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.DropDownListFor(m => m.situacao, App_Dominio.Enumeracoes.DropDownListEnum.Situacao(), new { @class = "form-control input-sm" })
+                                                @Html.DropDownListFor(m => m.situacao, App_Dominio.Enumeracoes.DropDownListEnum.Situacao(), new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_usuario1ID", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Atendente 1",
-                                                           id = "usuario1Id",
-                                                           text = "nome_usuario",
-                                                           lovModal = "LovUsuarioModal",
-                                                           controller = "usuario",
-                                                           descricao = "nome",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.usuarioId != null ? Model.usuarioId.ToString() : "",
-                                                               Text = Model.nome_usuario != null ? Model.nome_usuario.ToString() : ""
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "endereco"
-                                                       }
-                                               })
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +239,7 @@
                                         @Html.LabelFor(m => m.endereco, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.endereco, new { @class = "form-control input-sm", @placeholder = "Endereço residencial", @Style = "width: 180%", @maxlength = "50" })
+                                                @Html.TextBoxFor(m => m.endereco, new { @class = "form-control input-sm", @placeholder = "Endereço residencial", @Style = "width: 180%", @maxlength = "50", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -258,7 +249,7 @@
                                         @Html.LabelFor(m => m.complementoEnd, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.complementoEnd, new { @class = "form-control input-sm", @style = "width: 180%", @maxlength = "40" })
+                                                @Html.TextBoxFor(m => m.complementoEnd, new { @class = "form-control input-sm", @style = "width: 180%", @maxlength = "40", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -282,7 +273,7 @@
                                                                Value = Model.cidadeId.ToString(),
                                                                Text = Model.nome_cidade
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "uf"
                                                        }
                                                })
@@ -293,7 +284,7 @@
                                         @Html.LabelFor(m => m.uf, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.uf, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
+                                                @Html.TextBoxFor(m => m.uf, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -305,7 +296,7 @@
                                         @Html.LabelFor(m => m.cep, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.cep, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.cep, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -315,7 +306,7 @@
                                         @Html.LabelFor(m => m.bairro, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-6">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.bairro, new { @class = "form-control input-sm", @maxlength = "25" })
+                                                @Html.TextBoxFor(m => m.bairro, new { @class = "form-control input-sm", @maxlength = "25", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -327,7 +318,7 @@
                                         @Html.LabelFor(m => m.telParticular1, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telParticular1, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telParticular1, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -337,7 +328,7 @@
                                         @Html.LabelFor(m => m.telParticular2, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telParticular2, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telParticular2, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -349,7 +340,7 @@
                                         @Html.LabelFor(m => m.telParticular3, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telParticular3, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telParticular3, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -359,7 +350,7 @@
                                         @Html.LabelFor(m => m.telParticular4, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telParticular4, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telParticular4, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -373,7 +364,7 @@
                                         @Html.LabelFor(m => m.enderecoCom, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.enderecoCom, new { @class = "form-control input-sm", @placeholder = "Endereço comercial", @Style = "width: 180%", @maxlength = "50" })
+                                                @Html.TextBoxFor(m => m.enderecoCom, new { @class = "form-control input-sm", @placeholder = "Endereço comercial", @Style = "width: 180%", @maxlength = "50", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -383,7 +374,7 @@
                                         @Html.LabelFor(m => m.complementoEndCom, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.complementoEndCom, new { @class = "form-control input-sm", @style = "width: 180%", @maxlength = "40" })
+                                                @Html.TextBoxFor(m => m.complementoEndCom, new { @class = "form-control input-sm", @style = "width: 180%", @maxlength = "40", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -407,7 +398,7 @@
                                                                Value = Model.cidadeComId.ToString(),
                                                                Text = Model.nome_cidadeCom
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "ufCom"
                                                        }
                                                })
@@ -418,7 +409,7 @@
                                         @Html.LabelFor(m => m.ufCom, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.ufCom, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
+                                                @Html.TextBoxFor(m => m.ufCom, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -430,7 +421,7 @@
                                         @Html.LabelFor(m => m.cepCom, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.cepCom, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.cepCom, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -440,7 +431,7 @@
                                         @Html.LabelFor(m => m.bairroCom, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-6">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.bairroCom, new { @class = "form-control input-sm", @maxlength = "25" })
+                                                @Html.TextBoxFor(m => m.bairroCom, new { @class = "form-control input-sm", @maxlength = "25", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -452,7 +443,7 @@
                                         @Html.LabelFor(m => m.telCom1, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telCom1, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telCom1, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -462,7 +453,7 @@
                                         @Html.LabelFor(m => m.telCom2, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telCom2, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telCom2, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -474,7 +465,7 @@
                                         @Html.LabelFor(m => m.fax, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.fax, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.fax, new { @class = "form-control input-sm", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -502,7 +493,7 @@
                                                                Value = Model.areaAtuacao1Id.ToString(),
                                                                Text = Model.descricao_areaAtuacao1
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "areaAtuacao2Id"
                                                        }
                                                })
@@ -525,7 +516,7 @@
                                                                Value = Model.areaAtuacao2Id.ToString(),
                                                                Text = Model.descricao_areaAtuacao2
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "areaAtuacao3Id"
                                                        }
                                                })
@@ -550,7 +541,7 @@
                                                                Value = Model.areaAtuacao3Id.ToString(),
                                                                Text = Model.descricao_areaAtuacao3
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "especialidade1Id"
                                                        }
                                                })
@@ -573,7 +564,7 @@
                                                                Value = Model.especialidade1Id.ToString(),
                                                                Text = Model.nome_especialidade1
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "especialidade2Id"
                                                        }
                                                })
@@ -598,7 +589,7 @@
                                                                Value = Model.especialidade2Id.ToString(),
                                                                Text = Model.nome_especialidade2
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "especialidade3Id"
                                                        }
                                                })
@@ -621,7 +612,7 @@
                                                                Value = Model.especialidade3Id.ToString(),
                                                                Text = Model.nome_especialidade3
                                                            },
-                                                           disableButtons = false,
+                                                           disableButtons = true,
                                                            nextField = "email2"
                                                        }
                                                })
@@ -634,7 +625,7 @@
                                         @Html.LabelFor(m => m.email2, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.email2, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100" })
+                                                @Html.TextBoxFor(m => m.email2, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -644,7 +635,7 @@
                                         @Html.LabelFor(m => m.email3, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.email3, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100" })
+                                                @Html.TextBoxFor(m => m.email3, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100", @disabled = "disable" })
                                             </div>
                                         </div>
                                     </div>
@@ -666,7 +657,7 @@
                                     <div class="form-group">
                                         <div class="col-md-10">
                                             <div class="input-group col-md-12">
-                                                @Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes: new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado" })<br />
+                                                @Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes: new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado", @disabled = "disable" })<br />
                                             </div>
                                         </div>
                                     </div>
@@ -683,7 +674,7 @@
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
-                            new ButtonRepository() {    linkText = "Salvar",
+                            new ButtonRepository() {    linkText = "Excluir",
                                                         actionName = "",
                                                         controllerName = "",
                                                         buttonType = "submit"
@@ -720,4 +711,5 @@
     $("#fax").mask("99 9999-9999");
 
 </script>
+
 
