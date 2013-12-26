@@ -328,6 +328,7 @@
     <Content Include="Views\Associado\Create.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Associado\Delete.cshtml" />
     <Content Include="Views\Associado\List.cshtml">
       <SubType>Code</SubType>
     </Content>
