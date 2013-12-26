@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Sindemed.Controllers
 {
-    public class ChamadoController : RootController<ChamadoViewModel, ChamadoModel>
+    public class ChamadoController : ProcessController<ChamadoViewModel, ChamadoModel>
     {
 
         public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
