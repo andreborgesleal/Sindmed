@@ -448,6 +448,7 @@
     <Content Include="Views\Especialidade\ListEspecialidadeMedica3Modal.cshtml" />
     <Content Include="Views\Especialidade\_ListEspecialidadeMedicaModal.cshtml" />
     <Content Include="Views\Associado\Edit.cshtml" />
+    <Content Include="Views\Associado\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />
