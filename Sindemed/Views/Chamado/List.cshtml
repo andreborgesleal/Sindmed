@@ -10,19 +10,18 @@
                 <caption></caption>
                 <thead style="background-color: #fff1a5">
                     <tr>
-                        <th></th>
-                        <th>Data</th>
-                        <th>ID</th>
+                        <th style="text-align: center">Ação</th>
+                        <th style="text-align: center">Data</th>
+                        <th style="text-align: center">ID</th>
                         <th>Assunto</th>
-                        <th>Área de Atendimento</th>
-                        <th>Nome</th>
-                        <th>Situação</th>
+                        <th style="text-align: center">Área de Atendimento</th>
+                        <th style="text-align: center">Situação</th>
                     </tr>
                 </thead>
                 @foreach (Sindemed.Models.Repositories.ChamadoViewModel cham in Model)
                 {
                     <tr>
-                        <td style="width: 20%">
+                        <td style="width: 20%; text-align: center">
                             <div class="row-clearfix">
                                 <div class="col-md-12">
                                     @*<div class="btn-group btn-group-xs">
@@ -38,29 +37,27 @@
                                         </div>*@
                                     <div class="btn-group btn-group-xs">
                                         <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Edit", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Edit", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" }) &nbsp; &nbsp;
+                                            <em class="glyphicon glyphicon-folder-open"></em> @Html.ActionLink("Detalhar", "Detail", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td style="width: 15%; text-align: center">
                             @cham.dt_chamado.ToString("dd/MM/yyyy HH:mm")
                         </td>
-                        <td>
+                        <td style="width: 10%; text-align: center">
                             @cham.chamadoId
                         </td>
-                        <td>
+                        <td style="width: 30%">
                             @cham.assunto
                         </td>
-                        <td>
+                        <td style="width: 20%; text-align: center">
                             @cham.descricao_areaAtendimento
                         </td>
-                        <td>
-                            @cham.nome_associado
-                        </td>
-                        <td>
-                            @cham.situacao == "A" ? "Aberto" : "Fechado"
+                        <td style="width: 5%; text-align: center">
+                            @(cham.situacao == "A" ? "Aberto" : "Fechado")
                         </td>
                     </tr>
                 }

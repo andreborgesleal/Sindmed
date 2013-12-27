@@ -85,14 +85,14 @@ namespace Sindemed.Models.Persistence
                 {
                     chamadoId = entity.chamadoId,
                     associadoId = entity.associadoId,
-                    nome_associado = entity.Associado.nome,
+                    nome_associado = db.Associados.Find(entity.associadoId).nome,
                     areaAtendimentoId = entity.areaAtendimentoId,
-                    descricao_areaAtendimento = entity.AreaAtendimento.descricao,
+                    descricao_areaAtendimento = db.AreaAtendimentos.Find(entity.areaAtendimentoId).descricao,
                     dt_chamado = entity.dt_chamado,
                     assunto = entity.assunto,
                     situacao = entity.situacao,
                     usuarioId = entity.usuarioId,
-                    nome_usuario = seg.Usuarios.Find(entity.usuarioId).nome,
+                    nome_usuario = entity.usuarioId.HasValue ? seg.Usuarios.Find(entity.usuarioId).nome : null,
                     mensagemOriginal = entity.mensagemOriginal,
                     mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
                 };
