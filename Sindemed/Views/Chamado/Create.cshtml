@@ -54,7 +54,7 @@
                         @Html.LabelFor(m => m.areaAtendimentoId, "Área de atendimento *", new { @class = "col-md-2 control-label" })
                         <div class="col-md-8">
                             <div class="input-group col-md-4">
-                                @Html.DropDownListFor(m => m.areaAtendimentoId, new BindDropDownList().AreaAtendimento("-1"), new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(m => m.areaAtendimentoId, new BindDropDownList().AreaAtendimento("Selecione...",""), new { @class = "form-control input-sm" })
                             </div>
                         </div>
                     </div>
@@ -65,8 +65,12 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.mensagemOriginal, "Mensagem *", new { @class = "col-md-2 control-label" })
                         <div class="col-md-8">
-                            <div class="input-group col-md-10">
-                                @Html.TextAreaFor(m => m.mensagemOriginal, 6, 1, htmlAttributes: new { @class = "form-control input-sm", @placehoder = "Digite aqui sua solicitação" })<br />
+                            <div class="input-group col-md-12">
+                                @*@Html.TextAreaFor(m => m.mensagemOriginal, 6, 1, htmlAttributes: new { @class = "form-control input-sm", @placehoder = "Digite aqui sua solicitação" })<br />*@
+                                <textarea name="mensagemOriginal"></textarea>
+                                <script>
+                                    CKEDITOR.replace('mensagemOriginal');
+                                </script>
                             </div>
                         </div>
                     </div>

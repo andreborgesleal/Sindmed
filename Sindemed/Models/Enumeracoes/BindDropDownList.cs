@@ -14,21 +14,26 @@ namespace Sindemed.Models.Enumeracoes
     {
         public IEnumerable<SelectListItem> AreaAtendimento(params object[] param)
         {
-            string selectedValue = param[0].ToString();
+            // params[0] -> cabeçalho (Selecione..., Todos...)
+            // params[1] -> SelectedValue
+            string cabecalho = param[0].ToString();
+            string selectedValue = param[1].ToString();
 
             using (ApplicationContext db = new ApplicationContext())
             {
-                IEnumerable<SelectListItem> q = (from a in db.AreaAtendimentos.AsEnumerable()
-                                                  orderby a.descricao
-                                                  select new SelectListItem()
-                                                  {
-                                                      //Value = SqlFunctions.StringConvert((decimal?)a.areaAtendimentoId),
-                                                      Value = a.areaAtendimentoId.ToString(),
-                                                      Text = a.descricao,
-                                                      Selected = (selectedValue != "" ? a.descricao.Equals(selectedValue) : false)
-                                                  }).ToList();
+                IList<SelectListItem> q = new List<SelectListItem>();
+                
+                if (cabecalho != "")
+                    q.Add(new SelectListItem() { Value = "", Text = cabecalho });
 
-                q.ToList().Add(new SelectListItem() { Value = "-1", Text = "Selecione...", Selected = selectedValue == "-1" });
+                q = q.Union(from a in db.AreaAtendimentos.AsEnumerable()
+                     orderby a.descricao
+                     select new SelectListItem()
+                     {
+                         Value = a.areaAtendimentoId.ToString(),
+                         Text = a.descricao,
+                         Selected = (selectedValue != "" ? a.descricao.Equals(selectedValue) : false)
+                     }).ToList();
 
                 return q;
             }
