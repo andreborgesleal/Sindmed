@@ -16,23 +16,24 @@ namespace Sindemed.Models.Persistence
     public class ChamadoModel : ProcessContext<Chamado, ChamadoViewModel, ApplicationContext>
     {
         #region Métodos da classe CrudContext
-        public override ChamadoViewModel ExecProcess(ChamadoViewModel value)
+        public override Chamado ExecProcess(ChamadoViewModel value)
         {
             Chamado chamado = MapToEntity(value);
             this.db.Set<Chamado>().Add(chamado);
-            return MapToRepository(chamado);
+            return chamado;
         }
 
         public override Validate AfterInsert(ChamadoViewModel value)
         {
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
-
             #region Alerta 1
             AlertaRepository alerta = new AlertaRepository()
             {
                 usuarioId = (from al in db.AreaAtendimentos where al.areaAtendimentoId == value.areaAtendimentoId select al.usuario1Id).First(),
                 dt_emissao = DateTime.Now,
-                mensagemAlerta = "Abertura de chamado <p>Assunto: " + value.assunto + "</p>"
+                linkText = "<span class=\"label label-warning\">Atendimento</span>",
+                url = "../Atendimento/Responder?chamadoId=" + value.chamadoId.ToString(),
+                mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
             };
 
             AlertaRepository r = empresaSecurity.InsertAlerta(alerta);
@@ -49,7 +50,9 @@ namespace Sindemed.Models.Persistence
                 {
                     usuarioId = usuario2Id.Value,
                     dt_emissao = DateTime.Now,
-                    mensagemAlerta = "Abertura de chamado <p>Assunto: " + value.assunto + "</p>"
+                    linkText = "<span class=\"label label-warning\">Atendimento</span>",
+                    url = "../Atendimento/Responder?chamadoId=" + value.chamadoId.ToString(),
+                    mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
                 };
 
                 AlertaRepository r2 = empresaSecurity.InsertAlerta(alerta2);

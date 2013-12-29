@@ -1,4 +1,9 @@
-﻿function AddMiniCrud(id, text, controller, action, DivId) {
+﻿function ReadAlert(id) {
+    var link = "../Home/ReadAlert?alertaId=" + id;
+    $('#read-alert').load(encodeURI(link));
+}
+
+function AddMiniCrud(id, text, controller, action, DivId) {
     if ($("#" + id).val() != "" && $("#" + id).val() != "0") {
         var link = action + '?value=' + $("#" + id).val() + '&text=' + $("#" + text).val() + "&DivId=" + DivId
         $('#' + id).val("");

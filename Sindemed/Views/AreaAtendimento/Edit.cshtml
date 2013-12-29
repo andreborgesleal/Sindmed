@@ -15,10 +15,10 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Alteração de Área de Atendimento
+                            Inclusão de Área de Atendimento
                         </p> <small>Informar o nome da área de atendimento e pelo menos um atendente responsável pelo atendimento ao associado neste setor.</small>
                     </blockquote>
                 </div>
@@ -29,19 +29,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-8">
+                    <div class="form-group">
                         @Html.LabelFor(m => m.descricao, new { @class = "col-md-3 control-label" })
-                        <div class="col-lg-10">
+                        <div class="col-md-8">
                             <div class="input-group">
-                                @Html.TextBoxFor(m => m.descricao, new { @class = "form-control input-sm", @placeholder = "Nome da área de atendimento", @style = "width: 450%" })<br />
+                                @Html.TextBoxFor(m => m.descricao, new { @class = "form-control input-sm", @placeholder = "Nome da área ou setor", @style = "width: 150%" })<br />
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8">
                     <div class="form-group">
                         @Html.Editor("_usuario1ID", "TYPEAHEAD", new
                                                {
@@ -66,7 +62,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-md-8">
                     <div class="form-group">
                         @Html.Editor("_usuario2ID", "TYPEAHEAD", new
                                                {
@@ -88,10 +84,6 @@
                                                        }
                                                })
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8">
                     <div class="form-group">
                         @Html.LabelFor(m => m.codigo, new { @class = "col-md-3 control-label" })
                         <div class="col-lg-2">
@@ -105,7 +97,7 @@
         </div>
         <div class="panel-footer">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-md-8">
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
@@ -121,12 +113,12 @@
                                                     }
                         })
                 </div>
-                <div class="col-lg-offset-4">
+                <div class="col-md-offset-4">
                     ( * ) - Campo de preenchimento obrigatório
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
     <div id="div-lov"></div>
 }
 

@@ -643,9 +643,13 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <div class="col-md-10">
+                                        <div class="col-md-12">
                                             <div class="input-group col-md-12">
-                                                @Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes : new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado" })<br />
+                                                @*@Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes : new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado" })*@
+                                                <textarea name="observacao"></textarea>
+                                                <script>
+                                                    CKEDITOR.replace('observacao');
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
