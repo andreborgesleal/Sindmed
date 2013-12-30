@@ -15,6 +15,11 @@ namespace Sindemed.Controllers
             return "Listagem de Atendimentos";
         }
 
+        public override bool mustListOnLoad()
+        {
+            return false;
+        }
+
         #region List
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
