@@ -164,7 +164,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AtendimentoController.cs" />
+    <Compile Include="Controllers\AssociadoGrupoController.cs" />
+    <Compile Include="Controllers\AtendimentoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\ChamadoController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AreaAtendimentoController.cs" />
@@ -173,6 +176,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\CidadeController.cs" />
+    <Compile Include="Controllers\ComunicacaoGrupoController.cs" />
     <Compile Include="Controllers\ComunicadoGeralController.cs" />
     <Compile Include="Controllers\EspecialidadeController.cs" />
     <Compile Include="Controllers\GrupoMedicoController.cs" />
@@ -187,10 +191,12 @@
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
     <Compile Include="Models\Entidades\Associado.cs" />
+    <Compile Include="Models\Entidades\AssociadoGrupo.cs" />
     <Compile Include="Models\Entidades\Atendimento.cs" />
     <Compile Include="Models\Entidades\Chamado.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
     <Compile Include="Models\Entidades\Comunicacao.cs" />
+    <Compile Include="Models\Entidades\ComunicacaoGrupo.cs" />
     <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
     <Compile Include="Models\Entidades\Medico.cs" />
@@ -203,9 +209,13 @@
     </Compile>
     <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
-    <Compile Include="Models\Persistence\AtendimentoModel.cs" />
+    <Compile Include="Models\Persistence\AssociadoGrupoModel.cs" />
+    <Compile Include="Models\Persistence\AtendimentoModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Persistence\ChamadoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
+    <Compile Include="Models\Persistence\ComunicacaoGrupoModel.cs" />
     <Compile Include="Models\Persistence\ComunicacaoModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
@@ -213,12 +223,14 @@
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
+    <Compile Include="Models\Repositories\AssociadoGrupoViewModel.cs" />
     <Compile Include="Models\Repositories\AssociadoViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Repositories\AtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\ChamadoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
+    <Compile Include="Models\Repositories\ComunicacaoGrupoViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
     <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
@@ -511,6 +523,23 @@
     <Content Include="Views\Associado\Delete.cshtml" />
     <Content Include="Views\Atendimento\List.cshtml" />
     <Content Include="Views\Atendimento\Browse.cshtml" />
+    <Content Include="Views\Associado\ListMedicoModal.cshtml" />
+    <Content Include="Views\Associado\_ListMedicoModal.cshtml" />
+    <Content Include="Views\AssociadoGrupo\Browse.cshtml" />
+    <Content Include="Views\AssociadoGrupo\Create.cshtml" />
+    <Content Include="Views\AssociadoGrupo\Delete.cshtml" />
+    <Content Include="Views\AssociadoGrupo\List.cshtml" />
+    <Content Include="Views\ComunicacaoGrupo\Browse.cshtml" />
+    <Content Include="Views\ComunicacaoGrupo\Create.cshtml" />
+    <Content Include="Views\ComunicacaoGrupo\Delete.cshtml" />
+    <Content Include="Views\ComunicacaoGrupo\List.cshtml" />
+    <Content Include="Views\ComunicadoGeral\ListComunicacaoModal.cshtml" />
+    <Content Include="Views\ComunicadoGeral\_ListComunicacaoModal.cshtml" />
+    <Content Include="Views\GrupoMedico\ListGrupoAssociadoModal.cshtml" />
+    <Content Include="Views\GrupoMedico\_ListGrupoAssociadoModal.cshtml" />
+    <Content Include="Views\Home\LovComunicacaoModal.cshtml" />
+    <Content Include="Views\Home\LovGrupoAssociadoModal.cshtml" />
+    <Content Include="Views\Home\LovMedicoModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

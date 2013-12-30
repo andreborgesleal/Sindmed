@@ -14,6 +14,8 @@ namespace Sindemed.Models.Repositories
         [Required(ErrorMessage = "O campo Nome do associado dever ser informado")]
         [StringLength(40, ErrorMessage = "O nome do associado deve ter no mínimo 10 e no máximo 40 caracteres", MinimumLength = 10)]
         public string nome { get; set; }
+
+        public string nome_associado { get; set; }
         
         [DisplayName("Nascimento")]
         public Nullable<DateTime> dt_nascimento { get; set; }

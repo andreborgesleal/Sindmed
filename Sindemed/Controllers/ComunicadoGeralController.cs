@@ -22,6 +22,19 @@ namespace Sindemed.Controllers
             ListViewComunicacao l = new ListViewComunicacao();
             return this._List(index, pageSize, "Browse", l, descricao);
         }
+
+        [AuthorizeFilter]
+        public ActionResult ListComunicacaoModal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupComunicacaoModel l = new LookupComunicacaoModel();
+            return this.ListModal(index, pageSize, l, "Comunicacaos", descricao);
+        }
+
+        public ActionResult _ListComunicacaoModal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupComunicacaoFiltroModel l = new LookupComunicacaoFiltroModel();
+            return this.ListModal(index, pageSize, l, "Comunicacaos", descricao);
+        }
         #endregion
 
         #region edit

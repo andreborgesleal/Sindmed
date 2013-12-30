@@ -1,0 +1,109 @@
+﻿@using Sindemed.Models.Repositories
+@using App_Dominio.Repositories
+@model Sindemed.Models.Repositories.ComunicacaoGrupoViewModel
+@{
+    ViewBag.Title = "Sindmed";
+}
+@using (Html.BeginForm("Create", "ComunicacaoGrupo", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div id="div-lov"></div>
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Cidades <small>Ex: Belém, Castanhal, Santarém, etc.</small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <blockquote>
+                        <p>
+                            Inclusão de Cidades
+                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
+                    </blockquote>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.ValidationSummary(false)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                @Html.Editor("_comunicacaoId", "TYPEAHEAD", new
+                                               {
+                                                   typeahead = new TypeaheadRepository()
+                                                       {
+                                                           label = "Comunicacao",
+                                                           id = "comunicacaoId",
+                                                           text = "nome_comunicacao",
+                                                           lovModal = "LovComunicacaoModal",
+                                                           controller = "ComunicadoGeral",
+                                                           descricao = "descricao",
+                                                           values = new SelectListItem()
+                                                           {
+                                                               Value = Model.comunicacaoId.ToString(),
+                                                               Text = Model.cabecalho
+                                                           },
+                                                           disableButtons = false,
+                                                           nextField = "_grupoAssociadoId"
+                                                       }
+                                               })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                @Html.Editor("_grupoAssociadoId", "TYPEAHEAD", new
+                                               {
+                                                   typeahead = new TypeaheadRepository()
+                                                       {
+                                                           label = "Grupo Associado",
+                                                           id = "grupoAssociadoId",
+                                                           text = "nome_grupoAssociado",
+                                                           lovModal = "LovGrupoAssociadoModal",
+                                                           controller = "GrupoAssociado",
+                                                           descricao = "descricao",
+                                                           values = new SelectListItem()
+                                                           {
+                                                               Value = Model.grupoAssociadoId.ToString(),
+                                                               Text = Model.descricao
+                                                           },
+                                                           disableButtons = false,
+                                                           nextField = ""
+                                                       }
+                                               })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    @Html.Partial("_defaultListButtons",
+                        new List<ButtonRepository>
+                        {
+                            new ButtonRepository() {    linkText = "Salvar",
+                                                        actionName = "",
+                                                        controllerName = "",
+                                                        buttonType = "submit"
+                                                    } ,
+                            new ButtonRepository() {    linkText = "Cancelar",
+                                                        actionName = "Browse",
+                                                        controllerName = "Cidade",
+                                                        buttonType = "link"
+                                                    }
+                        })
+                </div>
+                <div class="col-md-offset-4">
+                    ( * ) - Campo de preenchimento obrigatório
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

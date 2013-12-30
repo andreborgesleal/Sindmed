@@ -1,0 +1,33 @@
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.GrupoAssociadoViewModel>
+@{
+    Layout = null;
+    Model.action = "../GrupoMedico/_ListGrupoAssociadoModal";
+}
+
+<div class="row">
+    <div class="col-md-11" style="margin: 0px">
+        @Html.Partial("_Filter", Model)
+        <div id="div-list" style="padding-top: 0px">
+            @Html.Partial("../GrupoMedico/_ListGrupoAssociadoModal", Model)
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function Move(id, descricao) {
+        $("#grupoAssociadoId").val(id);
+        $("#nome_grupoAssociado").val(descricao);
+        $("#nome_grupoAssociado1").val(descricao);
+        $("#btnModal").click();
+    }
+
+</script>
+
+
+
+
+
+
+

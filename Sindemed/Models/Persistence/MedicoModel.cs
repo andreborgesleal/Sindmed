@@ -258,7 +258,7 @@ namespace Sindemed.Models.Persistence
     {
         public override string action()
         {
-            return "../Medico/ListMedicoModal";
+            return "../Associado/ListMedicoModal";
         }
     }
 
@@ -266,7 +266,7 @@ namespace Sindemed.Models.Persistence
     {
         public override string action()
         {
-            return "../Medico/_ListMedicoModal";
+            return "../Associado/_ListMedicoModal";
         }
     }
 
