@@ -1,0 +1,29 @@
+﻿@using Sindemed.Models.Repositories
+@using App_Dominio.Repositories
+@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ComunicacaoGrupoViewModel>
+@{
+    ViewBag.Title = "Sindmed";
+    ViewBag.Header = "ComunicacaoGrupos";
+}
+
+<div class="row" style="margin-top: 10px">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="padding: -2px">
+            <div class="panel-heading" style="padding: 0px; height: 50px">
+                @Html.Partial("_Filter", Model)
+            </div>
+            <div class="panel-body">
+                <div id="div-list">
+                    @Html.Partial("List", Model)
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="col-lg-offset-11">
+                    @Html.Partial("_defaultListButtons", new List<ButtonRepository> { new ButtonRepository() { linkText = "Incluir", actionName = "Create", controllerName = "ComunicacaoGrupo", buttonType = "link" } })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -87,4 +87,20 @@ namespace Sindemed.Models.Persistence
         #endregion
     }
 
+    public class LookupComunicacaoModel : ListViewComunicacao
+    {
+        public override string action()
+        {
+            return "../ComunicadoGeral/ListComunicacaoModal";
+        }
+    }
+
+    public class LookupComunicacaoFiltroModel : ListViewComunicacao
+    {
+        public override string action()
+        {
+            return "../ComunicadoGeral/_ListComunicacaoModal";
+        }
+    }
+
 }
