@@ -142,7 +142,9 @@ namespace Sindemed.Models.Persistence
             int? _chamadoId = null;
             _chamadoId = param != null && param.Count() > 0 && param[0] != null ? int.Parse(param[0].ToString()) : _chamadoId;
             return (from cham in db.Chamados
-                    where cham.Associado.usuarioId == sessaoCorrente.usuarioId &&
+                    join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
+                    join ass in db.Associados on cham.Associado equals ass
+                    where ass.usuarioId == sessaoCorrente.usuarioId &&
                           (_chamadoId == null || cham.chamadoId == _chamadoId)
                     orderby cham.dt_chamado descending
                     select new ChamadoViewModel
@@ -151,16 +153,99 @@ namespace Sindemed.Models.Persistence
                         dt_chamado = cham.dt_chamado,
                         assunto = cham.assunto,
                         areaAtendimentoId = cham.areaAtendimentoId,
-                        descricao_areaAtendimento = cham.AreaAtendimento.descricao,
+                        descricao_areaAtendimento = are.descricao,
                         associadoId = cham.associadoId,
-                        nome_associado = cham.Associado.nome,
+                        nome_associado = ass.nome,
                         situacao = cham.situacao,                        
                         PageSize = pageSize,
                         TotalCount = (from cham1 in db.Chamados
-                                      where cham1.Associado.usuarioId == sessaoCorrente.usuarioId &&
+                                      join are1 in db.AreaAtendimentos on cham1.AreaAtendimento equals are1
+                                      join ass1 in db.Associados on cham1.Associado equals ass1
+                                      where ass1.usuarioId == sessaoCorrente.usuarioId &&
                                             (_chamadoId == null || cham1.chamadoId == _chamadoId)
                                       select cham1).Count()
                     }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
+        }
+
+        public override Repository getRepository(Object id)
+        {
+            return new ChamadoModel().getObject((ChamadoViewModel)id);
+        }
+        #endregion
+    }
+
+    public class ListViewChamadoAdministracao : ListViewRepository<ChamadoViewModel, ApplicationContext>
+    {
+        #region Métodos da classe ListViewRepository
+        public override IEnumerable<ChamadoViewModel> Bind(int? index, int pageSize = 50, params object[] param)
+        {
+            #region Parâmetros
+            int? _chamadoId = (int)param[0];
+            int? _associadoId = (int?)param[1];
+            DateTime _data1 = (DateTime)param[2];
+            DateTime _data2 = (DateTime)param[3];
+            int? _areaAtendimentoId = (int?)param[4];
+            string _situacao = (string)param[5]; // ""-Todos, "A"-Chamados abertos ou "F"-Chamados fechados
+            #endregion
+
+            EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
+            sessaoCorrente = security.getSessaoCorrente();
+
+            IEnumerable<ChamadoViewModel> q = null;
+
+            if (_chamadoId != null)
+                q = (from cham in db.Chamados
+                     join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
+                     join ass in db.Associados on cham.Associado equals ass
+                     where cham.chamadoId == _chamadoId &&
+                            ((cham.usuarioId == sessaoCorrente.usuarioId) || (cham.usuarioId == null && (are.usuario1Id == sessaoCorrente.usuarioId || are.usuario2Id == sessaoCorrente.usuarioId)))
+                     orderby cham.dt_chamado descending
+                     select new ChamadoViewModel
+                     {
+                         chamadoId = cham.chamadoId,
+                         dt_chamado = cham.dt_chamado,
+                         assunto = cham.assunto,
+                         areaAtendimentoId = cham.areaAtendimentoId,
+                         descricao_areaAtendimento = are.descricao,
+                         associadoId = cham.associadoId,
+                         nome_associado = ass.nome,
+                         situacao = cham.situacao,
+                         PageSize = pageSize,
+                         TotalCount = 1
+                     }).ToList();
+            else
+                q = (from cham in db.Chamados
+                     join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
+                     join ass in db.Associados on cham.Associado equals ass
+                     where ((cham.usuarioId == sessaoCorrente.usuarioId) || (cham.usuarioId == null && (are.usuario1Id == sessaoCorrente.usuarioId || are.usuario2Id == sessaoCorrente.usuarioId))) &&
+                            (_associadoId == null || cham.associadoId == _associadoId) &&
+                            (cham.dt_chamado >= _data1 && cham.dt_chamado <= _data2) &&
+                            (_areaAtendimentoId == null || cham.areaAtendimentoId == _areaAtendimentoId) &&
+                            (_situacao == "" || cham.situacao == _situacao)
+                     orderby cham.dt_chamado descending
+                     select new ChamadoViewModel
+                     {
+                         chamadoId = cham.chamadoId,
+                         dt_chamado = cham.dt_chamado,
+                         assunto = cham.assunto,
+                         areaAtendimentoId = cham.areaAtendimentoId,
+                         descricao_areaAtendimento = are.descricao,
+                         associadoId = cham.associadoId,
+                         nome_associado = ass.nome,
+                         situacao = cham.situacao,
+                         PageSize = pageSize,
+                         TotalCount = (from cham1 in db.Chamados
+                                       join are1 in db.AreaAtendimentos on cham1.AreaAtendimento equals are1
+                                       join ass1 in db.Associados on cham1.Associado equals ass1
+                                       where ((cham1.usuarioId == sessaoCorrente.usuarioId) || (cham1.usuarioId == null && (are1.usuario1Id == sessaoCorrente.usuarioId || are1.usuario2Id == sessaoCorrente.usuarioId))) &&
+                                              (_associadoId == null || cham1.associadoId == _associadoId) &&
+                                              (cham1.dt_chamado >= _data1 && cham1.dt_chamado <= _data2) &&
+                                              (_areaAtendimentoId == null || cham1.areaAtendimentoId == _areaAtendimentoId) &&
+                                              (_situacao == "" || cham1.situacao == _situacao)
+                                       select cham1).Count()
+                     }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
+
+            return q;
         }
 
         public override Repository getRepository(Object id)

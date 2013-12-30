@@ -164,6 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AtendimentoController.cs" />
     <Compile Include="Controllers\ChamadoController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AreaAtendimentoController.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
     <Compile Include="Models\Entidades\Associado.cs" />
+    <Compile Include="Models\Entidades\Atendimento.cs" />
     <Compile Include="Models\Entidades\Chamado.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
     <Compile Include="Models\Entidades\Comunicacao.cs" />
@@ -201,6 +203,7 @@
     </Compile>
     <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
+    <Compile Include="Models\Persistence\AtendimentoModel.cs" />
     <Compile Include="Models\Persistence\ChamadoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
     <Compile Include="Models\Persistence\ComunicacaoModel.cs" />
@@ -213,6 +216,7 @@
     <Compile Include="Models\Repositories\AssociadoViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Repositories\AtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\ChamadoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
@@ -235,6 +239,7 @@
     <Content Include="Content\images\menu-id-10.png" />
     <Content Include="Content\images\menu-id-11.png" />
     <Content Include="Content\images\menu-id-12.png" />
+    <Content Include="Content\images\menu-id-13.png" />
     <Content Include="Content\images\menu-id-2.png" />
     <Content Include="Content\images\menu-id-3.png" />
     <Content Include="Content\images\menu-id-4.png" />
@@ -504,6 +509,8 @@
     <Content Include="Views\Especialidade\_ListEspecialidadeMedicaModal.cshtml" />
     <Content Include="Views\Associado\Edit.cshtml" />
     <Content Include="Views\Associado\Delete.cshtml" />
+    <Content Include="Views\Atendimento\List.cshtml" />
+    <Content Include="Views\Atendimento\Browse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

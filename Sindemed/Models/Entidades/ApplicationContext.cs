@@ -19,5 +19,6 @@ namespace Sindemed.Models.Entidades
         public DbSet<Associado> Associados { get; set; }
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Chamado> Chamados { get; set; }
+        public DbSet<Atendimento> Atendimentos { get; set; }
     }
 }
