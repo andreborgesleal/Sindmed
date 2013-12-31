@@ -9,11 +9,11 @@ namespace Sindemed.Models.Repositories
     {
         [DisplayName("Grupo Associado")]
         [Required(ErrorMessage="Por favor, preencha o campo grupo associado")]
-        public Nullable<int> grupoAssociadoId { get; set; }
+        public int grupoAssociadoId { get; set; }
 
         [DisplayName("Associado")]
         [Required(ErrorMessage = "Por favor, preencha o campo associado")]
-        public Nullable<int> associadoId { get; set; }
+        public int associadoId { get; set; }
 
         public string descricao { get; set; }
 

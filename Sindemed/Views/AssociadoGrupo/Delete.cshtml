@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Sindmed";
 }
-@using (Html.BeginForm("Create", "AssociadoGrupo", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Delete", "AssociadoGrupo", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     
     @Html.HiddenFor(info => info.associadoId)

@@ -8,10 +8,10 @@ namespace Sindemed.Models.Entidades
     public class AssociadoGrupo
     {
         [Key, Column(Order = 0)]
-        public Nullable<int> grupoAssociadoId { get; set; }
+        public int grupoAssociadoId { get; set; }
 
         [Key, Column(Order = 1)]
-        public Nullable<int> associadoId { get; set; }
+        public int associadoId { get; set; }
 
     }
 }

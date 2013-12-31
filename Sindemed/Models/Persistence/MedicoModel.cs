@@ -9,6 +9,7 @@ using Sindemed.Models.Entidades;
 using App_Dominio.Enumeracoes;
 using System.Data.Entity.SqlServer;
 using App_Dominio.Models;
+using App_Dominio.Security;
 
 namespace Sindemed.Models.Persistence
 {
@@ -46,7 +47,7 @@ namespace Sindemed.Models.Persistence
                 telParticular1 = value.telParticular1 != null ? value.telParticular1.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 telParticular2 = value.telParticular2 != null ? value.telParticular2.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 telParticular3 = value.telParticular3 != null ? value.telParticular3.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
-                telParticular4 = value.telParticular1 != null ? value.telParticular4.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
+                telParticular4 = value.telParticular4 != null ? value.telParticular4.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 telCom1 = value.telCom1 != null ?  value.telCom1.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 telCom2 = value.telCom2 != null ?  value.telCom2.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
                 fax = value.fax != null ?  value.fax.Replace("-", "").Replace(".", "").Replace(" ", "") : null,
@@ -134,6 +135,12 @@ namespace Sindemed.Models.Persistence
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
 
+            if (entity.usuarioId.HasValue)
+            {
+                EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
+                medicoViewModel.nome_usuario = security.getUsuarioById(entity.usuarioId.Value).nome;
+            }
+
             return medicoViewModel;
         }
 
@@ -173,6 +180,17 @@ namespace Sindemed.Models.Persistence
                 value.mensagem.MessageType = MsgType.WARNING;
                 return value.mensagem;
             }
+
+            if (operation == Crud.ALTERAR && (from ass in db.Associados where ass.usuarioId == value.usuarioId && ass.associadoId != value.associadoId select ass.usuarioId).Count() > 0)
+            {
+                value.mensagem.Code = 4;
+                value.mensagem.Message = MensagemPadrao.Message(4, "Usuario", "Este usuário já está vinculado a outro associado.").ToString();
+                value.mensagem.MessageBase = "Este usuário já está vinculado a outro associado.";
+                value.mensagem.MessageType = MsgType.WARNING;
+                return value.mensagem;
+            }
+            
+            
 
 
             return value.mensagem;

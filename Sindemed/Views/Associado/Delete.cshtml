@@ -229,6 +229,27 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Editor("_usuarioID", "TYPEAHEAD", new
+                                               {
+                                                   typeahead = new TypeaheadRepository()
+                                                       {
+                                                           label = "Usuário",
+                                                           id = "usuarioId",
+                                                           text = "nome_usuario",
+                                                           lovModal = "LovUsuarioModal",
+                                                           controller = "usuario",
+                                                           descricao = "nome",
+                                                           values = new SelectListItem()
+                                                           {
+                                                               Value = Model.usuarioId != null ? Model.usuarioId.ToString() : "",
+                                                               Text = Model.nome_usuario != null ? Model.nome_usuario.ToString() : ""
+                                                           },
+                                                           disableButtons = true,
+                                                           nextField = "endereco"
+                                                       }
+                                               })
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -657,7 +678,9 @@
                                     <div class="form-group">
                                         <div class="col-md-10">
                                             <div class="input-group col-md-12">
-                                                @Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes: new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado", @disabled = "disable" })<br />
+                                                <div class="well well-lg" >
+                                                    @Html.DisplayTextFor(m => m.observacao)
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

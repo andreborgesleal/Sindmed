@@ -57,6 +57,17 @@ namespace Sindemed.Controllers
         {
             return _Edit(new MedicoViewModel() { associadoId = associadoId });
         }
+
+        #region Edit Error
+        public override void OnEditError(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
+        {
+            value.nome_usuario = collection["nome_usuario1"] ?? "";
+            OnCreateError(ref value, model, collection);
+
+        }
+        #endregion
+
+
         #endregion
 
         #region Delete
@@ -65,6 +76,15 @@ namespace Sindemed.Controllers
         {
             return Edit(associadoId);
         }
+
+        #region Delete Error
+        public override void OnDeleteError(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
+        {
+            OnEditError(ref value, model, collection);
+
+        }
+        #endregion
+
         #endregion
 
 	}
