@@ -2,7 +2,7 @@
 @using App_Dominio.Repositories
 @using Sindemed.Models.Enumeracoes
 @using App_Dominio.Enumeracoes
-@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ChamadoViewModel>
+@*@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ChamadoViewModel>*@
 @{
     ViewBag.Title = "Sindmed";
     ViewBag.Header = "Atendimento";
@@ -16,7 +16,7 @@
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">@ViewBag.Header</a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "navbar-form navbar-left", @role = "search" }))
+                        @using (Ajax.BeginForm("Browse", "Atendimento", new AjaxOptions { HttpMethod = "get" }, new { @class = "navbar-form navbar-left", @role = "search" }))
                         {
                             <div class="row">
                                 <div class="col-md-6">
@@ -38,7 +38,7 @@
                                                            label = "Associado",
                                                            id = "associadoId",
                                                            text = "nome_associado",
-                                                           lovModal = "LovAssociadoModal",
+                                                           lovModal = "LovMedicoModal",
                                                            controller = "Associado",
                                                            descricao = "nome_associado",
                                                            values = new SelectListItem()
@@ -92,7 +92,8 @@
                             </div>   
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>
+                                    @*<button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>*@
+                                    <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), 'List', 'div-list')">Buscar</button>
                                 </div>
                             </div>                         
                         }
@@ -101,7 +102,7 @@
             </div>
             <div class="panel-body">
                 <div id="div-list">
-                    @Html.Partial("List", Model)
+                    @*@Html.Partial("List", Model)*@
                 </div>
             </div>
             <div class="panel-footer">
