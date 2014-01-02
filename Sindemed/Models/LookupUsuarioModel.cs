@@ -22,6 +22,24 @@ namespace Sindemed.Models
         }
     }
 
+
+    public class LookupUsuarioMedicoModel : ListViewUsuario
+    {
+        public override string action()
+        {
+            return "../Usuario/ListUsuarioMedicoModal";
+        }
+    }
+
+    public class LookupUsuarioMedicoFiltroModel : ListViewUsuario
+    {
+        public override string action()
+        {
+            return "../Usuario/_ListUsuarioMedicoModal";
+        }
+    }
+
+
     #region Usuario2
     public class LookupUsuario2Model : ListViewUsuario
     {

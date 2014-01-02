@@ -230,6 +230,7 @@
     <Compile Include="Models\Repositories\AtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\ChamadoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
+    <Compile Include="Models\Repositories\ComunicacaoGlobalViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoGrupoViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
@@ -539,6 +540,9 @@
     <Content Include="Views\Home\LovComunicacaoModal.cshtml" />
     <Content Include="Views\Home\LovGrupoAssociadoModal.cshtml" />
     <Content Include="Views\Home\LovMedicoModal.cshtml" />
+    <Content Include="Views\Usuario\_ListUsuarioMedicoModal.cshtml" />
+    <Content Include="Views\Usuario\ListUsuarioMedicoModal.cshtml" />
+    <Content Include="Views\Home\LovUsuarioMedicoModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

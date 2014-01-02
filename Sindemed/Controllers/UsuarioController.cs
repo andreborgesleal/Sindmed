@@ -40,6 +40,21 @@ namespace Sindemed.Controllers
             LookupUsuarioFiltroModel l = new LookupUsuarioFiltroModel();
             return this.ListModal(index, pageSize, l, "Usuáiros", descricao);
         }
+
+        [AuthorizeFilter]
+        public ActionResult ListUsuarioMedicoModal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupUsuarioMedicoModel l = new LookupUsuarioMedicoModel();
+            return this.ListModal(index, pageSize, l, "Usuários", descricao);
+        }
+
+        [AuthorizeFilter]
+        public ActionResult _ListUsuarioMedicoModal(int? index, int? pageSize = 50, string descricao = null)
+        {
+            LookupUsuarioMedicoFiltroModel l = new LookupUsuarioMedicoFiltroModel();
+            return this.ListModal(index, pageSize, l, "Usuáiros", descricao);
+        }
+
         #endregion
 
         #region Typeahead

@@ -1,5 +1,5 @@
 ﻿@using Sindemed.Models.Repositories
-@model IEnumerable<ComunicacaoViewModel>
+@model ComunicacaoGlobalViewModel
 @{
     ViewBag.Title = "Sindmed";
 }
@@ -49,10 +49,9 @@
     </a>
 </div>
 <!-- --------------------------------------FIM do carrossel----------------------------------------->
-
 <div class="row">
     <div class="col-md-4">
-        <h2>@Model.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho</h2>
+        <h2>@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho</h2>
         <p>
             @Model.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().resumo
         </p>
@@ -68,7 +67,7 @@
         <p>@Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().resumo</p>
         <p><a class="btn btn-default" href="#modal-container-964987c" data-toggle="modal">Leia mais &raquo;</a></p>
     </div>
-</div>
+</div>    
 
 
 @***********Formulário Modal Botão 1**************@
@@ -136,3 +135,36 @@
     </div>
 
 </div>
+
+@*********** Mensagens de Grupos Específicos Ao Médico (Featurette) **************@
+<hr class="featurette-divider">
+
+<div class="row featurette">
+    <div class="col-md-12">
+        <h2 class="featurette-heading">Teste<span class="text-muted">It'll blow your mind.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+    <div class="col-md-12">
+        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+    <div class="col-md-12">
+        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+</div>
+
+
+@***********  FIM das Mensagens (Featurette) **************@
+
+

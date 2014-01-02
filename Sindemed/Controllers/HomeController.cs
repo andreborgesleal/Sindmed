@@ -32,7 +32,18 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult Index()
         {
-            var q = new ListViewComunicacao().ListRepository(null);
+            var _com = new ListViewComunicacao();
+            IEnumerable<ComunicacaoViewModel> _com1 = (IEnumerable<ComunicacaoViewModel>)_com.ListRepository(null);
+
+            var _comGrupo = new ListViewComunicacaoGrupoEspecifico();
+            IEnumerable<ComunicacaoViewModel> _comGrupo1 = (IEnumerable<ComunicacaoViewModel>)_comGrupo.ListRepository(null);
+
+            ComunicacaoGlobalViewModel q = new ComunicacaoGlobalViewModel()
+            {
+                comGrupo = _comGrupo1,
+                com = _com1
+            };
+
             return View(q);
         }
 
@@ -68,6 +79,13 @@ namespace Sindemed.Controllers
         public ActionResult LovUsuario2Modal(int? index, int? pageSize = 50)
         {
             return this.ListModal(index, pageSize, new LookupUsuario2Model(), "Usuários", null, Sistema.SINDMED);
+        }
+        #endregion
+
+        #region Formulário Modal Usuario Médico
+        public ActionResult LovUsuarioMedicoModal(int? index, int? pageSize = 50)
+        {
+            return this.ListModal(index, pageSize, new LookupUsuarioMedicoModel(), "Usuários", null, Sistema.SINDMED);
         }
         #endregion
 
