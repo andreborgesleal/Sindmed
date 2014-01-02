@@ -3,7 +3,16 @@
 @model Nullable<System.DateTime>
 
 @{
-    string value = @Model.HasValue ? @Model.Value.ToString("dd/MM/yyyy") : "";
+    string value = "";
+    if (@ViewData["value"] != null)
+    {
+        value = ((DateTime)@ViewData["value"]).ToString("dd/MM/yyyy");
+    }
+    else
+    {
+        value = Model.HasValue ? @Model.Value.ToString("dd/MM/yyyy") : "";
+    }
+        
 }
 
 <div class="input-group date" data-date-format="dd/MM/yyyy">
