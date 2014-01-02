@@ -1,0 +1,66 @@
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ChamadoViewModel>
+@{
+    Layout = null;
+}
+@if (Model.Count > 0)
+{
+    <div class="row Scroll">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                <caption></caption>
+                <thead style="background-color: #fff1a5">
+                    <tr>
+                        <th style="text-align: center">Ação</th>
+                        <th style="text-align: center">Data</th>
+                        <th style="text-align: center">ID</th>
+                        <th>Assunto</th>
+                        <th style="text-align: center">Área</th>
+                        <th>Sócio</th>
+                        <th style="text-align: center">Situação</th>
+                    </tr>
+                </thead>
+                @foreach (Sindemed.Models.Repositories.ChamadoViewModel cham in Model)
+                {
+                    <tr>
+                        <td style="width: 25%">
+                            <div class="row" style="padding: 0px">
+                                <div class="col-md-12">
+                                    <div class="btn-group btn-group-xs">
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Edit", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                        </button>
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Detalhar", "Delete", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                        </button>
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-ok"></em> @Html.ActionLink("Fechar", "Fechar", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 15%; text-align: center">
+                            @cham.dt_chamado.ToString("dd/MM/yyyy HH:mm")
+                        </td>
+                        <td style="width: 5%; text-align: center">
+                            @cham.chamadoId
+                        </td>
+                        <td style="width: 40%">
+                            @cham.assunto
+                        </td>
+                        <td style="width: 15%; text-align: center">
+                            @cham.descricao_areaAtendimento
+                        </td>
+                        <td style="width: 5%; text-align: center" data-toggle="tooltip" data-placement="top" title="" data-original-title="@cham.nome_associado">
+                            @cham.associadoId
+                        </td>
+                        <td style="width: 5%; text-align: center">
+                            @(cham.situacao == "A" ? "Aberto" : "Fechado")
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    @Html.Partial("Paginacao", Model)
+}

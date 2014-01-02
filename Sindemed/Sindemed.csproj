@@ -393,6 +393,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\AreaAtendimento\List.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Views\Associado\Browse.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -481,7 +484,6 @@
     <Content Include="Views\AreaAtuacao\Create.cshtml" />
     <Content Include="Views\AreaAtuacao\Edit.cshtml" />
     <Content Include="Views\AreaAtuacao\Delete.cshtml" />
-    <Content Include="Views\AreaAtendimento\List.cshtml" />
     <Content Include="Views\AreaAtendimento\Browse.cshtml" />
     <Content Include="Views\AreaAtendimento\Create.cshtml" />
     <Content Include="Views\Home\LovUsuarioModal.cshtml" />
@@ -539,6 +541,7 @@
     <Content Include="Views\Home\LovComunicacaoModal.cshtml" />
     <Content Include="Views\Home\LovGrupoAssociadoModal.cshtml" />
     <Content Include="Views\Home\LovMedicoModal.cshtml" />
+    <Content Include="Views\Atendimento\ListChamados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

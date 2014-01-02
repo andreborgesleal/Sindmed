@@ -7,114 +7,110 @@
     ViewBag.Title = "Sindmed";
     ViewBag.Header = "Atendimento";
 }
-<div class="row" style="margin-top: 10px">
-    <div class="col-md-12">
-        <div class="panel panel-default" style="padding: -2px">
-            <div class="panel-heading" style="padding: 0px; height: 50px">
-                <nav class="navbar navbar-default" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">@ViewBag.Header</a>
+@using (Ajax.BeginForm(null,null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Atendimento <small>Listagem dos chamados</small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Label("ID", new { @class = "col-md-2 control-label" })
+                        <div class="input-group col-md-2">
+                            @Html.TextBox("chamadoId", "", new { @class = "form-control input-sm" })
+                        </div>
                     </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        @using (Ajax.BeginForm("Browse", "Atendimento", new AjaxOptions { HttpMethod = "get" }, new { @class = "navbar-form navbar-left", @role = "search" }))
-                        {
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Label("ID", new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group col-md-3">
-                                                @Html.TextBox("chamadoId", new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                            @Html.Editor("_associadoId", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Associado",
-                                                           id = "associadoId",
-                                                           text = "nome_associado",
-                                                           lovModal = "LovMedicoModal",
-                                                           controller = "Associado",
-                                                           descricao = "nome_associado",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = "",
-                                                               Text = ""
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "data1"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Label("Período", new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group col-md-8">
-                                                @Html.Editor("data1", "DATE", new { identificador = "data1", readOnly = "false" })
-                                                @Html.Editor("data2", "DATE", new { identificador = "data2", readOnly = "false" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Label("Área de atendimento", new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group col-md-4">
-                                                @Html.DropDownList("areaAtendimentoId", new BindDropDownList().AreaAtendimento("Todas...", "", ""), new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Label("Situação", new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-4">
-                                            <div class="input-group col-md-8">
-                                                @Html.DropDownList("situacao", DropDownListEnum.AbertoFechado("","Todas..."), new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                </div>
-                            </div>   
-                            <div class="row">
-                                <div class="col-md-12">
-                                    @*<button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), '@Model.action', '@Model.DivId')">Buscar</button>*@
-                                    <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), 'List', 'div-list')">Buscar</button>
-                                </div>
-                            </div>                         
-                        }
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Editor("_associadoId", "TYPEAHEAD", new
+                                                               {
+                                                                   typeahead = new TypeaheadRepository()
+                                                                       {
+                                                                           label = "Associado",
+                                                                           id = "associadoId",
+                                                                           text = "nome_associado",
+                                                                           lovModal = "LovMedicoModal",
+                                                                           controller = "Associado",
+                                                                           descricao = "nome_associado",
+                                                                           values = new SelectListItem()
+                                                                           {
+                                                                               Value = "",
+                                                                               Text = ""
+                                                                           },
+                                                                           disableButtons = false,
+                                                                           nextField = ""
+                                                                       }
+                                                               })
                     </div>
-                </nav>
-            </div>
-            <div class="panel-body">
-                <div id="div-list">
-                    @*@Html.Partial("List", Model)*@
                 </div>
             </div>
-            <div class="panel-footer">
-                <div class="col-lg-offset-11">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Label("Início", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                @Html.Editor("data1", "DATE", new { identificador = "data1", readOnly = "false", value = DateTime.Parse("01/" + DateTime.Today.ToString("MM/yyyy")) })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Label("Fim", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                @Html.Editor("data2", "DATE", new { identificador = "data2", readOnly = "false", value = DateTime.Today })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Label("Área", new { @class = "col-md-2 control-label" })
+                        <div>
+                            <div class="input-group col-md-6">
+                                @Html.DropDownList("areaAtendimentoId", new BindDropDownList().AreaAtendimento("Todas...", "", ""), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Label("Situação", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                @Html.DropDownList("situacao", DropDownListEnum.AbertoFechado("", "Todas..."), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="div-list">
+                        @*@Html.Partial("List", Model)*@
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <div class="panel-footer">
+            <div class="col-lg-offset-11">
+                <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), 'ListChamados', 'div-list')">Buscar</button>
+            </div>
+        </div>
+   </div>
+}
 
-<script type="text/javascript">
-    $("#chamadoId").mask("?99999");
-</script>
+    <script type="text/javascript">
+        $("#chamadoId").mask("?9999999");
+    </script>
 
 

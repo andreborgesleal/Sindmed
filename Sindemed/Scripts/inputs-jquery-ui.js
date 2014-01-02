@@ -53,6 +53,7 @@ function Refresh(index, pagesize, action, DivId) {
     $('#carregando').css("top", "0%");
 
     link = encodeURI(link + '&noCahce=' + new Date());
+
     $('#' + DivId).load(link);
     $( document ).ajaxSuccess(function (event, xhr, settings) {
         $('#carregando').css("visibility", "hidden");

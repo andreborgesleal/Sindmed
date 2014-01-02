@@ -140,7 +140,7 @@ namespace Sindemed.Models.Persistence
             EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
             sessaoCorrente = security.getSessaoCorrente();
             int? _chamadoId = null;
-            _chamadoId = param != null && param.Count() > 0 && param[0] != null ? int.Parse(param[0].ToString()) : _chamadoId;
+            _chamadoId = param != null && param.Count() > 0 && param[0] != null &&  param[0] != "" ? int.Parse(param[0].ToString()) : _chamadoId;
             return (from cham in db.Chamados
                     join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
                     join ass in db.Associados on cham.Associado equals ass
@@ -180,12 +180,19 @@ namespace Sindemed.Models.Persistence
         public override IEnumerable<ChamadoViewModel> Bind(int? index, int pageSize = 50, params object[] param)
         {
             #region Parâmetros
-            int? _chamadoId = (int)param[0];
-            int? _associadoId = (int?)param[1];
+            int? _chamadoId = null;
+            int? _associadoId = null;
+            int? _areaAtendimentoId = null;
+            string _situacao = "";
+
+            _chamadoId = param[0] != null ? (int)param[0] : _chamadoId;
+            _associadoId = param[1] != null ? (int)param[1] : _associadoId;
+            
             DateTime _data1 = (DateTime)param[2];
             DateTime _data2 = (DateTime)param[3];
-            int? _areaAtendimentoId = (int?)param[4];
-            string _situacao = (string)param[5]; // ""-Todos, "A"-Chamados abertos ou "F"-Chamados fechados
+
+            _areaAtendimentoId = param[4] != null ? (int)param[4] : _areaAtendimentoId;
+            _situacao = param[5] != null ? (string)param[5] : _situacao; //""-Todos, "A"-Chamados abertos ou "F"-Chamados fechados
             #endregion
 
             EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
@@ -251,6 +258,10 @@ namespace Sindemed.Models.Persistence
         public override Repository getRepository(Object id)
         {
             return new ChamadoModel().getObject((ChamadoViewModel)id);
+        }
+        public override string action()
+        {
+            return "ListChamados";
         }
         #endregion
     }
