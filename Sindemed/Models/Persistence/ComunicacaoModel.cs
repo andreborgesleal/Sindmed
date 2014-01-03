@@ -64,7 +64,9 @@ namespace Sindemed.Models.Persistence
         public override IEnumerable<ComunicacaoViewModel> Bind(int? index, int pageSize = 50, params object[] param)
         {
             string _descricao = param != null && param.Count() > 0 && param[0] != null ? param[0].ToString() : null;
-            return (from com in db.Comunicacaos
+            return (from com in db.Comunicacaos 
+                    join comGrupo in db.ComunicacaoGrupos on com.comunicacaoId equals comGrupo.comunicacaoId into COM
+                    from comGrupo in COM.DefaultIfEmpty()
                     where (_descricao == null || String.IsNullOrEmpty(_descricao) || com.cabecalho.StartsWith(_descricao.Trim()) || com.resumo.StartsWith(_descricao.Trim()) || com.mensagemDetalhada.StartsWith(_descricao.Trim()))
                     orderby com.dt_comunicacao descending
                     select new ComunicacaoViewModel
@@ -74,6 +76,7 @@ namespace Sindemed.Models.Persistence
                         cabecalho = com.cabecalho,
                         resumo = com.resumo,
                         mensagemDetalhada = com.mensagemDetalhada,
+                        grupoAssociadoId = comGrupo.grupoAssociadoId,
                         PageSize = pageSize,
                         TotalCount = (from com1 in db.Comunicacaos
                                       where (_descricao == null || String.IsNullOrEmpty(_descricao) || com1.cabecalho.StartsWith(_descricao.Trim()) || com1.resumo.StartsWith(_descricao.Trim()) || com1.mensagemDetalhada.StartsWith(_descricao.Trim()))

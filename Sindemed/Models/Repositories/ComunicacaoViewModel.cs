@@ -27,5 +27,7 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Detalhe *")]
         [Required(ErrorMessage = "Por favor, informe o detalhe do comunicado")]
         public string mensagemDetalhada { get; set; }
+
+        public Nullable<int> grupoAssociadoId { get; set; }
     }
 }
