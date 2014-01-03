@@ -9,5 +9,6 @@ namespace Sindemed.Models.Repositories
     {
         public IEnumerable<ComunicacaoViewModel> comGrupo { get; set; }
         public IEnumerable<ComunicacaoViewModel> com { get; set; }
+
     }
 }
