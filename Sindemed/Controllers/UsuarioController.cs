@@ -52,7 +52,7 @@ namespace Sindemed.Controllers
         public ActionResult _ListUsuarioMedicoModal(int? index, int? pageSize = 50, string descricao = null)
         {
             LookupUsuarioMedicoFiltroModel l = new LookupUsuarioMedicoFiltroModel();
-            return this.ListModal(index, pageSize, l, "Usuáiros", descricao);
+            return this.ListModal(index, pageSize, l, "Usuáiros", descricao, Sistema.SINDMED);
         }
 
         #endregion

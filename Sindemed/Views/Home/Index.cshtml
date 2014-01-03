@@ -53,18 +53,18 @@
     <div class="col-md-4">
         <h2>@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho</h2>
         <p>
-            @Model.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().resumo
+            @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().resumo
         </p>
         <p><a class="btn btn-default" href="#modal-container-964987a" data-toggle="modal">Leia mais &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>@Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().cabecalho</h2>
-        <p>@Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().resumo</p>
+        <h2>@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().cabecalho</h2>
+        <p>@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().resumo</p>
         <p><a class="btn btn-default" href="#modal-container-964987b" data-toggle="modal">Leia mais &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>@Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().cabecalho</h2>
-        <p>@Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().resumo</p>
+        <h2>@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().cabecalho</h2>
+        <p>@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().resumo</p>
         <p><a class="btn btn-default" href="#modal-container-964987c" data-toggle="modal">Leia mais &raquo;</a></p>
     </div>
 </div>    
@@ -77,11 +77,11 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">
-                    @Model.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho
+                    @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho
                 </h4>
             </div>
             <div class="modal-body">
-                @Model.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().mensagemDetalhada
+                @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().mensagemDetalhada
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
@@ -94,19 +94,93 @@
 
 @***********Formulário Modal Botão 2**************@
 <div class="modal fade" id="modal-container-964987b" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().cabecalho
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().mensagemDetalhada
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+@***********Formulário Modal Botão 3**************@
+<div class="modal fade" id="modal-container-964987c" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().cabecalho
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().mensagemDetalhada
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+@*********** Mensagens de Grupos Específicos Ao Médico (Featurette) **************@
+<hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-12">
+            <h2 class="featurette-heading">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho</h2>
+            <p class="lead">@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().resumo</p>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-12">
+            <h2 class="featurette-heading">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().cabecalho</h2>
+            <p class="lead">@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().resumo</p>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+    <div class="col-md-12">
+        <h2 class="featurette-heading">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().cabecalho</h2>
+        <p class="lead">@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().resumo</p>
+    </div>
+</div>
+
+
+@***********  FIM das Mensagens (Featurette) **************@
+@***********Formulário Modal Botão 1 - Mensagens Específicas **************@
+<div class="modal fade" id="modal-container-964987a" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">
-                    @Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().cabecalho
+                    @Model.com.(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho
                 </h4>
             </div>
             <div class="modal-body">
-                @Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().mensagemDetalhada
+                @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().mensagemDetalhada
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
 
@@ -114,57 +188,47 @@
 
 </div>
 
-@***********Formulário Modal Botão 3**************@
+@***********Formulário Modal Botão 2 Mensagens Específicas**************@
+<div class="modal fade" id="modal-container-964987b" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().cabecalho
+                </h4>
+            </div>
+            <div class="modal-body">
+                @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().mensagemDetalhada
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@***********Formulário Modal Botão 3 Mensagens Específicas**************@
 <div class="modal fade" id="modal-container-964987c" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">
-                    @Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().cabecalho
+                    @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().cabecalho
                 </h4>
             </div>
             <div class="modal-body">
-                @Model.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().mensagemDetalhada
+                @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().mensagemDetalhada
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
 
     </div>
 
 </div>
-
-@*********** Mensagens de Grupos Específicos Ao Médico (Featurette) **************@
-<hr class="featurette-divider">
-
-<div class="row featurette">
-    <div class="col-md-12">
-        <h2 class="featurette-heading">Teste<span class="text-muted">It'll blow your mind.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-    </div>
-</div>
-
-<hr class="featurette-divider">
-
-<div class="row featurette">
-    <div class="col-md-12">
-        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-    </div>
-</div>
-
-<hr class="featurette-divider">
-
-<div class="row featurette">
-    <div class="col-md-12">
-        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-    </div>
-</div>
-
-
-@***********  FIM das Mensagens (Featurette) **************@
-
 
