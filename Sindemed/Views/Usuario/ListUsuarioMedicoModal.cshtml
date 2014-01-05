@@ -4,15 +4,12 @@
     Model.action = "../Usuario/_ListUsuarioMedicoModal";
 }
 
-<div class="row" style="margin-top: 10px">
-    <div class="col-md-10" style="padding-left: 40px">
-        @Html.Partial("_Filter", Model)
-    </div>
-</div>
+
 
 <div class="row">
-    <div class="col-md-12">
-        <div id="div-list">
+    <div class="col-md-11" style="margin: 0px">
+        @Html.Partial("_Filter", Model)
+        <div id="div-list" style="padding-top: 0px">
             @Html.Partial("../Usuario/_ListUsuarioMedicoModal", Model)
         </div>
     </div>

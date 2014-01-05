@@ -81,7 +81,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today && info.grupoAssociadoId == null).FirstOrDefault().mensagemDetalhada
+                  @Html.DisplayTextFor(info => info.com.Where(com => com.dt_comunicacao <= DateTime.Today && com.grupoAssociadoId == null).FirstOrDefault().mensagemDetalhada)
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
@@ -103,7 +103,7 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today && info.grupoAssociadoId == null).Skip(1).FirstOrDefault().mensagemDetalhada
+                    @Html.DisplayTextFor(info => info.com.Where(com => com.dt_comunicacao <= DateTime.Today && com.grupoAssociadoId == null).Skip(1).FirstOrDefault().mensagemDetalhada)
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -125,7 +125,7 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    @Model.com.Where(info => info.dt_comunicacao <= DateTime.Today && info.grupoAssociadoId == null).Skip(2).FirstOrDefault().mensagemDetalhada
+                    @Html.DisplayTextFor(info => info.com.Where(com => com.dt_comunicacao <= DateTime.Today && com.grupoAssociadoId == null).Skip(2).FirstOrDefault().mensagemDetalhada)
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -144,7 +144,7 @@
     <div class="row featurette">
         <div class="col-md-12">
             <h2 class="featurette-heading">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().cabecalho</h2>
-            <p class="lead">@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().resumo</p>
+            <p class="lead">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().resumo</p>
             <p><a class="btn btn-primary" href="#modal-container-964987d" data-toggle="modal">Leia mais &raquo;</a></p>
         </div>
     </div>
@@ -156,7 +156,7 @@
         <div class="row featurette">
             <div class="col-md-12">
                 <h2 class="featurette-heading">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().cabecalho</h2>
-                <p class="lead">@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().resumo</p>
+                <p class="lead">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().resumo</p>
                 <p><a class="btn btn-primary" href="#modal-container-964987e" data-toggle="modal">Leia mais &raquo;</a></p>
             </div>
         </div>
@@ -170,7 +170,7 @@
         <div class="row featurette">
             <div class="col-md-12">
                 <h2 class="featurette-heading">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().cabecalho</h2>
-                <p class="lead">@Model.com.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().resumo</p>
+                <p class="lead">@Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().resumo</p>
                 <p><a class="btn btn-primary" href="#modal-container-964987f" data-toggle="modal">Leia mais &raquo;</a></p>
             </div>
         </div>
@@ -189,7 +189,7 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).FirstOrDefault().mensagemDetalhada
+                    @Html.DisplayTextFor(info => info.comGrupo.Where(m => m.dt_comunicacao <= DateTime.Today).FirstOrDefault().mensagemDetalhada)
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -213,7 +213,7 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                        @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().mensagemDetalhada
+                        @Html.DisplayTextFor(info => info.comGrupo.Where(m => m.dt_comunicacao <= DateTime.Today).Skip(1).FirstOrDefault().mensagemDetalhada)
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -238,7 +238,7 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                        @Model.comGrupo.Where(info => info.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().mensagemDetalhada
+                        @Html.DisplayTextFor(info => info.comGrupo.Where(m => m.dt_comunicacao <= DateTime.Today).Skip(2).FirstOrDefault().mensagemDetalhada)
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>

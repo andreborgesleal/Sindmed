@@ -50,10 +50,13 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.mensagemDetalhada, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-8">
-                            @Html.TextAreaFor(m => m.mensagemDetalhada, 8, 1, new { @class = "form-control input-sm", @disabled = "disable" })
+                        <div class="col-md-9">
+                            <div class="well">
+                                @Html.DisplayTextFor(m => m.mensagemDetalhada)
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

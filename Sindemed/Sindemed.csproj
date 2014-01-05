@@ -548,6 +548,9 @@
     <Content Include="Views\Atendimento\Create.cshtml" />
     <Content Include="Views\Atendimento\Fechar.cshtml" />
     <Content Include="Views\Atendimento\_Resposta.cshtml" />
+    <Content Include="Views\Usuario\_ListUsuarioMedicoModal.cshtml" />
+    <Content Include="Views\Usuario\ListUsuarioMedicoModal.cshtml" />
+    <Content Include="Views\Home\LovUsuarioMedicoModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

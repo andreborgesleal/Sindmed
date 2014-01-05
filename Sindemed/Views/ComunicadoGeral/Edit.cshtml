@@ -46,10 +46,15 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.mensagemDetalhada, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-8">
-                            @Html.TextAreaFor(m => m.mensagemDetalhada, 8, 1, new { @class = "form-control input-sm" })
+                        <div class="col-md-9">
+                            @*@Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes : new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado" })*@
+                            <textarea name="mensagemDetalhada">@Model.mensagemDetalhada</textarea>
+                            <script>
+                                CKEDITOR.replace('mensagemDetalhada');
+                            </script>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
