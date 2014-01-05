@@ -55,10 +55,6 @@ namespace Sindemed.Models.Persistence
             return value.mensagem;
         }
 
-        public override AreaAtuacaoViewModel CreateRepository()
-        {
-            return new AreaAtuacaoViewModel();
-        }
         #endregion
     }
 

@@ -10,6 +10,7 @@ using App_Dominio.Enumeracoes;
 using App_Dominio.Security;
 using App_Dominio.Repositories;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 
 namespace Sindemed.Models.Persistence
 {
@@ -18,6 +19,18 @@ namespace Sindemed.Models.Persistence
         #region Métodos da classe CrudContext
         public override Atendimento ExecProcess(AtendimentoViewModel value)
         {
+            if (value.fluxo == "2") // administração/associado
+            {
+                EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
+
+                Chamado chamado = this.db.Chamados.Find(value.chamadoId);
+                if (!chamado.usuarioId.HasValue)
+                {
+                    chamado.usuarioId = empresaSecurity.getUsuario().usuarioId;
+                    db.Entry(chamado).State = EntityState.Modified;
+                }
+            }
+
             Atendimento atendimento = MapToEntity(value);
             this.db.Set<Atendimento>().Add(atendimento);
             return atendimento;
@@ -84,9 +97,9 @@ namespace Sindemed.Models.Persistence
             Atendimento atendimento = new Atendimento()
             {
                 chamadoId = value.chamadoId,
-                dt_atendimento = value.dt_atendimento,
+                dt_atendimento = DateTime.Now,
                 fluxo = value.fluxo,
-                mensagem = value.mensagemResposta
+                mensagem = value.mensagemResposta,
             };
 
             return atendimento;
@@ -94,25 +107,27 @@ namespace Sindemed.Models.Persistence
 
         public override AtendimentoViewModel MapToRepository(Atendimento entity)
         {
-            using (SecurityContext seg = new SecurityContext())
-                return new AtendimentoViewModel()
-                {
-                    chamadoId = entity.chamadoId,
-                    dt_atendimento = entity.dt_atendimento,
-                    fluxo = entity.fluxo,
-                    mensagemResposta = entity.mensagem,
-                    chamado = new ChamadoModel().getObject(new ChamadoViewModel() {chamadoId = entity.chamadoId}),
-                    atendimentos = (from ate in db.Atendimentos where ate.chamadoId == entity.chamadoId 
-                                    select new AtendimentoViewModel()
-                                    {
-                                        chamadoId = entity.chamadoId,
-                                        dt_atendimento = ate.dt_atendimento,
-                                        fluxo = ate.fluxo,
-                                        mensagemResposta = ate.mensagem,
-                                        mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
-                                    }).ToList(),
-                    mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
-                };
+            Chamado chamado = db.Chamados.Find(entity.chamadoId);
+
+            return new AtendimentoViewModel()
+            {
+                chamadoId = entity.chamadoId,
+                dt_atendimento = entity.dt_atendimento,
+                fluxo = entity.fluxo,
+                mensagemResposta = entity.mensagem,
+                chamado = new ChamadoModel(db).MapToRepository(chamado),
+                atendimentos = (from ate in db.Atendimentos
+                                where ate.chamadoId == entity.chamadoId
+                                select new AtendimentoViewModel()
+                                {
+                                    chamadoId = entity.chamadoId,
+                                    dt_atendimento = ate.dt_atendimento,
+                                    fluxo = ate.fluxo,
+                                    mensagemResposta = ate.mensagem,
+                                    mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
+                                }).ToList(),
+                mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
+            };
         }
 
         public override Atendimento Find(AtendimentoViewModel key)
@@ -123,8 +138,29 @@ namespace Sindemed.Models.Persistence
         public override Validate Validate(AtendimentoViewModel value, Crud operation)
         {
             value.mensagem = new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
-
+            
+            if (value.mensagemResposta == null ||value.mensagemResposta.Trim() == "")
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "Mensagem de Resposta").ToString();
+                value.mensagem.MessageBase = "Campo Mensagem de resposta deve ser informada.";
+                value.mensagem.MessageType = MsgType.WARNING;
+                return value.mensagem;
+            }
             return value.mensagem;
+        }
+
+        public override AtendimentoViewModel CreateRepository(AtendimentoViewModel value)
+        {
+            Atendimento entity = new Atendimento()
+            {
+                chamadoId = value.chamadoId,
+                fluxo = value.fluxo,
+                dt_atendimento = DateTime.Now
+            };
+
+            using (db = getContextInstance())
+                return MapToRepository(entity);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using App_Dominio.Controllers;
+﻿using App_Dominio.Contratos;
+using App_Dominio.Controllers;
 using App_Dominio.Security;
 using Sindemed.Models.Persistence;
 using Sindemed.Models.Repositories;
@@ -40,5 +41,30 @@ namespace Sindemed.Controllers
             return _List(index, pageSize, "Browse", l, chamadoId, associadoId, _data1, _data2, areaAtendimento, situacao);
         }
         #endregion
-	}
+
+        #region Create
+        [ValidateInput(false)]
+        [HttpPost]
+        [AuthorizeFilter]
+        public override ActionResult Create(AtendimentoViewModel value, FormCollection collection)
+        {
+            //if (AccessDenied(System.Web.HttpContext.Current.Session.SessionID))
+            //    return RedirectToAction("Index", "Home");
+
+            AtendimentoViewModel ret = SetCreate(value, getModel(), collection);
+
+            if (ret.mensagem.Code == 0)
+                return RedirectToAction("Browse");
+            else
+                return View(ret);
+        }
+
+        
+        public override void OnCreateError(ref AtendimentoViewModel value, ICrudContext<AtendimentoViewModel> model, FormCollection collection)
+        {
+            value = model.CreateRepository(value);
+            value.mensagemResposta = collection["mensagemResposta"];
+        }
+        #endregion
+    }
 }

@@ -1,0 +1,166 @@
+﻿@using Sindemed.Models.Repositories
+@using Sindemed.Models.Entidades
+@using App_Dominio.Repositories
+@using Sindemed.Models.Enumeracoes
+@model Sindemed.Models.Repositories.AtendimentoViewModel
+@{
+    ViewBag.Title = "Sindmed";
+
+}
+@using (Html.BeginForm("Create", "Atendimento", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(info => info.fluxo)
+    @Html.HiddenFor(info => info.chamadoId)
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Atendimento <small>Responder chamado ao associado</small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <blockquote>
+                        <p>
+                            Resposta de Chamado
+                        </p> <small>Resposta de chamado para o associado. Esse recurso deve ser utilizado pela administração para responder uma dúvida, complementar uma informação ou até mesmo questionar um dado ou documento do associado para que o chamado possa ser atendido. Preencher os campos abaixo e depois clicar no botão "Salvar"</small>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.ValidationSummary(false)
+                    </div>
+                </div>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item active">ID: @Model.chamadoId</a>
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.chamado.assunto, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-8">
+                                    <div class="input-group col-md-10">
+                                        @Html.TextBoxFor(m => m.chamado.assunto, new { @class = "form-control input-sm", @disabled = "disable" })<br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.chamado.areaAtendimentoId, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-8">
+                                    <div class="input-group col-md-4">
+                                        @Html.DropDownListFor(m => m.chamado.areaAtendimentoId, new BindDropDownList().AreaAtendimento("Selecione...", Model.chamado.areaAtendimentoId.ToString()), new { @class = "form-control input-sm", @disabled = "disable" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.chamado.mensagemOriginal, "Mensagem Original", new { @class = "col-md-2 control-label" })
+                                <div class="col-md-8">
+                                    <div class="input-group col-md-12" style="margin-top: -15px">
+                                        @Html.DisplayTextFor(m => m.chamado.mensagemOriginal)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.mensagemResposta, "Resposta *", new { @class = "col-md-2 control-label" })
+                                <div class="col-md-12">
+                                    <div class="input-group col-md-10">
+                                        <textarea name="mensagemResposta"></textarea>
+                                        <script>
+                                            CKEDITOR.replace('mensagemResposta');
+                                        </script>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="list-group-item">
+                    <span class="badge">14</span>Help
+                </div> <a class="list-group-item active"><span class="badge">14</span>Help</a>*@
+            </div>
+            <div class="panel-group" id="panel-265457">
+                @{
+                    int contador = 1;
+                }
+                @foreach (AtendimentoViewModel value in Model.atendimentos.OrderByDescending(info => info.dt_atendimento))
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="panel-title" data-toggle="collapse" data-parent="#panel-265457" href="#panel-element-@contador" style="cursor: pointer; text-decoration: none"><span class="label label-primary">@value.dt_atendimento.ToString("dd/MM/yyyy HH:mm")</span></a>
+                        </div>
+                        <div id="panel-element-@contador" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                @Html.DisplayTextFor(m => value.mensagemResposta)
+                            </div>
+                        </div>
+                    </div>
+                    contador++;
+                }
+            </div>
+                @*<div class="panel-group" id="panel-265457">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title" data-toggle="collapse" data-parent="#panel-265457" href="#panel-element-212714" style="cursor: pointer">Collapsible Group Item #1</a>
+                    </div>
+                    <div id="panel-element-212714" class="panel-collapse in">
+                        <div class="panel-body">
+                            Anim pariatur cliche...
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-265457" href="#panel-element-320869" style="cursor: pointer">Collapsible Group Item #2</a>
+                    </div>
+                    <div id="panel-element-320869" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Anim pariatur cliche...
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    @Html.Partial("_defaultListButtons",
+                        new List<ButtonRepository>
+                        {
+                            new ButtonRepository() {    linkText = "Salvar",
+                                                        actionName = "",
+                                                        controllerName = "",
+                                                        buttonType = "submit"
+                                                    } ,
+                            new ButtonRepository() {    linkText = "Cancelar",
+                                                        actionName = "Browse",
+                                                        controllerName = "Chamado",
+                                                        buttonType = "link"
+                                                    }
+                        })
+                </div>
+                <div class="col-md-offset-4">
+                    ( * ) - Campo de preenchimento obrigatório
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

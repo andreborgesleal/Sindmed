@@ -195,11 +195,6 @@ namespace Sindemed.Models.Persistence
 
             return value.mensagem;
         }
-
-        public override MedicoViewModel CreateRepository()
-        {
-            return new MedicoViewModel();
-        }
         #endregion
     }
 

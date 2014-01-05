@@ -27,7 +27,7 @@
                                 <div class="col-md-12">
                                     <div class="btn-group btn-group-xs">
                                         <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Edit", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Create", routeValues: new Sindemed.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "2" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                         </button>
                                         <button class="btn btn-sm" type="button">
                                             <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Detalhar", "Delete", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })

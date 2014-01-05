@@ -17,6 +17,6 @@ namespace Sindemed.Models.Entidades
 
         public string mensagem { get; set; }
 
-        public virtual Chamado Chamado { get; set; }
+        //public virtual Chamado Chamado { get; set; }
     }
 }

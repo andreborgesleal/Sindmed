@@ -81,11 +81,6 @@ namespace Sindemed.Models.Persistence
 
             return value.mensagem;
         }
-
-        public override AreaAtendimentoViewModel CreateRepository()
-        {
-            return new AreaAtendimentoViewModel();
-        }
         #endregion
     }
 

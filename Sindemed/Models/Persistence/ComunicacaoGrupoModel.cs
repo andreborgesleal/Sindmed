@@ -66,10 +66,6 @@ namespace Sindemed.Models.Persistence
             return value.mensagem;
         }
 
-        public override ComunicacaoGrupoViewModel CreateRepository()
-        {
-            return new ComunicacaoGrupoViewModel();
-        }
         #endregion
     }
 

@@ -15,6 +15,15 @@ namespace Sindemed.Models.Persistence
 {
     public class ChamadoModel : ProcessContext<Chamado, ChamadoViewModel, ApplicationContext>
     {
+        public  ChamadoModel() : base()
+        {
+        }
+
+        public ChamadoModel(ApplicationContext _db)
+        {
+            this.db = _db;
+        }
+
         #region Métodos da classe CrudContext
         public override Chamado ExecProcess(ChamadoViewModel value)
         {
@@ -113,7 +122,7 @@ namespace Sindemed.Models.Persistence
             return value.mensagem;
         }
 
-        public override ChamadoViewModel CreateRepository()
+        public override ChamadoViewModel CreateRepository(ChamadoViewModel value = null)
         {
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
             int usuarioId = empresaSecurity.getSessaoCorrente().usuarioId;

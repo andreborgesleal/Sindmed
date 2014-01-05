@@ -55,10 +55,6 @@ namespace Sindemed.Models.Persistence
             return value.mensagem;
         }
 
-        public override EspecialidadeMedicaViewModel CreateRepository()
-        {
-            return new EspecialidadeMedicaViewModel();
-        }
         #endregion
     }
 

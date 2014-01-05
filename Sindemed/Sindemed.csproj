@@ -523,7 +523,6 @@
     <Content Include="Views\Especialidade\ListEspecialidadeMedica3Modal.cshtml" />
     <Content Include="Views\Especialidade\_ListEspecialidadeMedicaModal.cshtml" />
     <Content Include="Views\Associado\Edit.cshtml" />
-    <Content Include="Views\Atendimento\List.cshtml" />
     <Content Include="Views\Atendimento\Browse.cshtml" />
     <Content Include="Views\Associado\ListMedicoModal.cshtml" />
     <Content Include="Views\Associado\_ListMedicoModal.cshtml" />
@@ -543,6 +542,7 @@
     <Content Include="Views\Home\LovGrupoAssociadoModal.cshtml" />
     <Content Include="Views\Home\LovMedicoModal.cshtml" />
     <Content Include="Views\Atendimento\ListChamados.cshtml" />
+    <Content Include="Views\Atendimento\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

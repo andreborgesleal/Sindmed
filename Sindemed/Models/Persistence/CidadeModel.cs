@@ -55,10 +55,6 @@ namespace Sindemed.Models.Persistence
             return value.mensagem;
         }
 
-        public override CidadeViewModel CreateRepository()
-        {
-            return new CidadeViewModel();
-        }
         #endregion
     }
 

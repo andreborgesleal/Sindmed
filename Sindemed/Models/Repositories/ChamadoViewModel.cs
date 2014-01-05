@@ -36,6 +36,7 @@ namespace Sindemed.Models.Repositories
         [DisplayName("Atendente")]
         public Nullable<int> usuarioId { get; set; }
 
+        [DisplayName("Usuário")]
         public string nome_usuario { get; set; }
 
         [DisplayName("Mensagem")]
