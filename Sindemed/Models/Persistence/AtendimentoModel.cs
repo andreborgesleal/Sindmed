@@ -16,6 +16,14 @@ namespace Sindemed.Models.Persistence
 {
     public class AtendimentoModel : ProcessContext<Atendimento, AtendimentoViewModel, ApplicationContext>
     {
+        protected virtual void AtualizarChamado(Chamado chamado, EmpresaSecurity<SecurityContext> empresaSecurity)
+        {
+            if (!chamado.usuarioId.HasValue)
+            {
+                chamado.usuarioId = empresaSecurity.getUsuario().usuarioId;
+                db.Entry(chamado).State = EntityState.Modified;
+            }
+        }
         #region Métodos da classe CrudContext
         public override Atendimento ExecProcess(AtendimentoViewModel value)
         {
@@ -24,11 +32,8 @@ namespace Sindemed.Models.Persistence
                 EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
 
                 Chamado chamado = this.db.Chamados.Find(value.chamadoId);
-                if (!chamado.usuarioId.HasValue)
-                {
-                    chamado.usuarioId = empresaSecurity.getUsuario().usuarioId;
-                    db.Entry(chamado).State = EntityState.Modified;
-                }
+
+                AtualizarChamado(chamado, empresaSecurity);
             }
 
             Atendimento atendimento = MapToEntity(value);
@@ -57,7 +62,7 @@ namespace Sindemed.Models.Persistence
                 usuarioId = _usuarioId.Value,
                 dt_emissao = DateTime.Now,
                 linkText = "<span class=\"label label-primary\">Resposta</span>",
-                url = "../Atendimento/Responder?chamadoId=" + value.chamadoId.ToString(),
+                url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=" + (value.fluxo == "2" ? "1" : "2"),
                 mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.chamado.assunto + "</p>"
             };
 
@@ -78,7 +83,7 @@ namespace Sindemed.Models.Persistence
                         usuarioId = _usuarioId.Value,
                         dt_emissao = DateTime.Now,
                         linkText = "<span class=\"label label-primary\">Resposta</span>",
-                        url = "../Atendimento/Responder?chamadoId=" + value.chamadoId.ToString(),
+                        url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
                         mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.chamado.assunto + "</p>"
                     };
 
@@ -163,5 +168,19 @@ namespace Sindemed.Models.Persistence
                 return MapToRepository(entity);
         }
         #endregion
+    }
+
+    public class FechamentoChamadoModel : AtendimentoModel
+    {
+        protected override void AtualizarChamado(Chamado chamado, EmpresaSecurity<SecurityContext> empresaSecurity)
+        {
+            chamado.situacao = "F";
+
+            if (!chamado.usuarioId.HasValue)
+                chamado.usuarioId = empresaSecurity.getUsuario().usuarioId;
+
+            db.Entry(chamado).State = EntityState.Modified;
+        }
+
     }
 }

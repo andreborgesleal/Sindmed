@@ -407,6 +407,9 @@
     <Content Include="Views\Associado\List.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Atendimento\_Create.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Views\Chamado\Browse.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -543,6 +546,8 @@
     <Content Include="Views\Home\LovMedicoModal.cshtml" />
     <Content Include="Views\Atendimento\ListChamados.cshtml" />
     <Content Include="Views\Atendimento\Create.cshtml" />
+    <Content Include="Views\Atendimento\Fechar.cshtml" />
+    <Content Include="Views\Atendimento\_Resposta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

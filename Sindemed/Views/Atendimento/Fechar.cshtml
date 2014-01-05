@@ -4,12 +4,12 @@
     ViewBag.Title = "Sindmed";
     ViewBag.ind_resposta = "S";
 }
-@using (Html.BeginForm("Create", "Atendimento", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Fechar", "Atendimento", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Atendimento <small>Responder chamado ao associado</small>
+                Encerramento <small>Fechar chamado do associado</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -17,8 +17,8 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Resposta de Chamado
-                        </p> <small>Resposta de chamado para o associado. Esse recurso deve ser utilizado pela administração para responder uma dúvida, complementar uma informação ou até mesmo questionar um dado ou documento do associado para que o chamado possa ser atendido. Preencher os campos abaixo e depois clicar no botão "Salvar"</small>
+                            Fechar Chamado
+                        </p> <small>Encerrar o chamado do associado. Esse recurso deve ser utilizado pela administração para dar a resposta final com a descrição do atendinebto que foi concluído. Uma vez encerrado o atendimento, não será possível adicionar novas mensagens a ele. Preencher os campos abaixo e depois clicar no botão "Encerrar"</small>
                     </blockquote>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
-                            new ButtonRepository() {    linkText = "Salvar",
+                            new ButtonRepository() {    linkText = "Encerrar",
                                                         actionName = "",
                                                         controllerName = "",
                                                         buttonType = "submit"
@@ -56,5 +56,6 @@
         </div>
     </div>
 }
+
 
 

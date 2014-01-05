@@ -41,7 +41,7 @@ namespace Sindemed.Models.Persistence
                 usuarioId = (from al in db.AreaAtendimentos where al.areaAtendimentoId == value.areaAtendimentoId select al.usuario1Id).First(),
                 dt_emissao = DateTime.Now,
                 linkText = "<span class=\"label label-warning\">Atendimento</span>",
-                url = "../Atendimento/Responder?chamadoId=" + value.chamadoId.ToString(),
+                url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
                 mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
             };
 
@@ -60,7 +60,7 @@ namespace Sindemed.Models.Persistence
                     usuarioId = usuario2Id.Value,
                     dt_emissao = DateTime.Now,
                     linkText = "<span class=\"label label-warning\">Atendimento</span>",
-                    url = "../Atendimento/Responder?chamadoId=" + value.chamadoId.ToString(),
+                    url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
                     mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
                 };
 

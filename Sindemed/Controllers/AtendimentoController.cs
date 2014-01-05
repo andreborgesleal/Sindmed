@@ -53,12 +53,13 @@ namespace Sindemed.Controllers
 
             AtendimentoViewModel ret = SetCreate(value, getModel(), collection);
 
-            if (ret.mensagem.Code == 0)
+            if (ret.mensagem.Code == 0 && collection["fluxo"] == "2")
                 return RedirectToAction("Browse");
+            else if (ret.mensagem.Code == 0)
+                return RedirectToAction("Browse", "Chamado");
             else
                 return View(ret);
         }
-
         
         public override void OnCreateError(ref AtendimentoViewModel value, ICrudContext<AtendimentoViewModel> model, FormCollection collection)
         {
@@ -66,5 +67,33 @@ namespace Sindemed.Controllers
             value.mensagemResposta = collection["mensagemResposta"];
         }
         #endregion
+
+        #region Fechar
+
+        [AuthorizeFilter]
+        public virtual ActionResult Fechar(AtendimentoViewModel value = null)
+        {
+            return Create(value);
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        [AuthorizeFilter]
+        public ActionResult Fechar(AtendimentoViewModel value, FormCollection collection)
+        {
+            //if (AccessDenied(System.Web.HttpContext.Current.Session.SessionID))
+            //    return RedirectToAction("Index", "Home");
+
+            AtendimentoViewModel ret = SetCreate(value, new FechamentoChamadoModel(), collection);
+
+            if (ret.mensagem.Code == 0 && collection["fluxo"] == "2")
+                return RedirectToAction("Browse");
+            else if (ret.mensagem.Code == 0)
+                return RedirectToAction("Browse", "Chamado");
+            else
+                return View(ret);
+        }
+        #endregion
+
     }
 }

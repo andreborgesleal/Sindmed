@@ -1,0 +1,19 @@
+﻿@model Sindemed.Models.Repositories.AtendimentoViewModel
+<div class="list-group-item">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.mensagemResposta, "Resposta *", new { @class = "col-md-2 control-label" })
+                <div class="col-md-12">
+                    <div class="input-group col-md-10">
+                        <textarea name="mensagemResposta"></textarea>
+                        <script>
+                            CKEDITOR.replace('mensagemResposta');
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -181,7 +181,7 @@ namespace Sindemed.Models.Persistence
                 return value.mensagem;
             }
 
-            if (operation == Crud.ALTERAR && (from ass in db.Associados where ass.usuarioId == value.usuarioId && ass.associadoId != value.associadoId select ass.usuarioId).Count() > 0)
+            if (operation == Crud.ALTERAR && value.usuarioId.HasValue && (from ass in db.Associados where ass.usuarioId == value.usuarioId && ass.associadoId != value.associadoId select ass.usuarioId).Count() > 0)
             {
                 value.mensagem.Code = 4;
                 value.mensagem.Message = MensagemPadrao.Message(4, "Usuario", "Este usuário já está vinculado a outro associado.").ToString();
@@ -189,12 +189,24 @@ namespace Sindemed.Models.Persistence
                 value.mensagem.MessageType = MsgType.WARNING;
                 return value.mensagem;
             }
-            
-            
-
 
             return value.mensagem;
         }
+        #endregion
+
+        #region Métodos customizados
+        public MedicoViewModel getAssociadoByUsuario(int usuarioId)
+        {
+            using (db = getContextInstance())
+            {
+                Medico entity = db.Medicos.Where(info => info.usuarioId == usuarioId).FirstOrDefault();
+                if (entity != null)
+                    return MapToRepository(entity);
+                else
+                    return null;
+            }
+        }
+
         #endregion
     }
 

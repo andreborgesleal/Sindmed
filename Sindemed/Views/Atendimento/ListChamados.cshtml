@@ -30,10 +30,17 @@
                                             <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Create", routeValues: new Sindemed.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "2" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                         </button>
                                         <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Detalhar", "Delete", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Detalhar", "Detail", routeValues: new Sindemed.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "2" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })    
                                         </button>
                                         <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-ok"></em> @Html.ActionLink("Fechar", "Fechar", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            @if (cham.situacao == "A")
+                                            {
+                                                <em class="glyphicon glyphicon-ok"></em> @Html.ActionLink("Fechar", "Fechar", routeValues: new Sindemed.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "2" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })    
+                                            }
+                                            else
+                                            {
+                                                <em class="glyphicon glyphicon-ok"></em> <span style="text-decoration: none; color: #646464; cursor: text">Fechar</span>
+                                            }
                                         </button>
                                     </div>
                                 </div>
