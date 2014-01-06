@@ -44,7 +44,7 @@
                                                     } ,
                             new ButtonRepository() {    linkText = "Cancelar",
                                                         actionName = "Browse",
-                                                        controllerName = "Atendimento",
+                                                        controllerName = (Model.fluxo == "2" ? "Atendimento" : "Chamado"),
                                                         buttonType = "link"
                                                     }
                         })

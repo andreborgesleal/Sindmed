@@ -51,7 +51,7 @@ namespace Sindemed.Models.Persistence
             return value.mensagem;
         }
 
-        public override ComunicacaoViewModel CreateRepository(ComunicacaoViewModel value = null)
+        public override ComunicacaoViewModel CreateRepository()
         {
             return new ComunicacaoViewModel() { dt_comunicacao = DateTime.Today };
         }

@@ -121,8 +121,10 @@ namespace Sindemed.Models.Persistence
 
             return value.mensagem;
         }
+        #endregion
 
-        public override ChamadoViewModel CreateRepository(ChamadoViewModel value = null)
+        #region Métodos customizados
+        public ChamadoViewModel Create()
         {
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
             int usuarioId = empresaSecurity.getSessaoCorrente().usuarioId;

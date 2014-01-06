@@ -551,6 +551,7 @@
     <Content Include="Views\Usuario\_ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Usuario\ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Home\LovUsuarioMedicoModal.cshtml" />
+    <Content Include="Views\Atendimento\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />
