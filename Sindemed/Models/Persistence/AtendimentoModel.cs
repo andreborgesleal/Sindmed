@@ -207,5 +207,10 @@ namespace Sindemed.Models.Persistence
             db.Entry(chamado).State = EntityState.Modified;
         }
 
+        protected override string getLinkTextAlerta()
+        {
+            return "<span class=\"label label-success\">Fechado</span>";
+        }
+
     }
 }

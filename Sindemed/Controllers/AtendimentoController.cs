@@ -77,7 +77,7 @@ namespace Sindemed.Controllers
             else
                 return View(ret);
         }
-       
+        
         public override void OnCreateError(ref AtendimentoViewModel value, ICrudContext<AtendimentoViewModel> model, FormCollection collection)
         {
             AtendimentoModel atendimentoModel = new AtendimentoModel();
