@@ -57,7 +57,7 @@ namespace Sindemed.Controllers
             if (value.chamado.situacao != "F")
                 return View(value);
             else
-                return RedirectToAction("Detail", new AtendimentoViewModel() { chamadoId = value.chamadoId });
+                return RedirectToAction("Detail", new AtendimentoViewModel() { chamadoId = value.chamadoId, fluxo = value.fluxo });
         }
 
         [ValidateInput(false)]
@@ -116,25 +116,9 @@ namespace Sindemed.Controllers
         #region Detalhar
         public virtual ActionResult Detail(AtendimentoViewModel value = null)
         {
-            return Create(value);
-        }
-
-        [ValidateInput(false)]
-        [HttpPost]
-        [AuthorizeFilter]
-        public ActionResult Detail(AtendimentoViewModel value, FormCollection collection)
-        {
-            //if (AccessDenied(System.Web.HttpContext.Current.Session.SessionID))
-            //    return RedirectToAction("Index", "Home");
-
-            AtendimentoViewModel ret = SetCreate(value, new DetalhamentoChamadoModel(), collection);
-
-            if (ret.mensagem.Code == 0 && collection["fluxo"] == "2")
-                return RedirectToAction("Browse");
-            else if (ret.mensagem.Code == 0)
-                return RedirectToAction("Browse", "Chamado");
-            else
-                return View(ret);
+            GetCreate();
+            value = getModel().Create(value);
+            return View(value);
         }
         #endregion
 

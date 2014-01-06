@@ -284,6 +284,8 @@
     <Content Include="App_Code\Lookup.cshtml" />
     <Content Include="App_Code\TextBoxDatePicker.cshtml" />
     <Content Include="App_Code\Typeahead.cshtml" />
+    <None Include="Properties\PublishProfiles\Sindmed - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Sindmed - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Sindmed.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
@@ -405,6 +407,9 @@
     </Content>
     <Content Include="Views\Associado\Delete.cshtml" />
     <Content Include="Views\Associado\List.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Atendimento\Detail.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Atendimento\_Create.cshtml">
@@ -551,7 +556,6 @@
     <Content Include="Views\Usuario\_ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Usuario\ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Home\LovUsuarioMedicoModal.cshtml" />
-    <Content Include="Views\Atendimento\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

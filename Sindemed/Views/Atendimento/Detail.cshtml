@@ -2,14 +2,14 @@
 @model Sindemed.Models.Repositories.AtendimentoViewModel
 @{
     ViewBag.Title = "Sindmed";
-    ViewBag.ind_resposta = "S";
+    ViewBag.ind_resposta = "N";
 }
 @using (Html.BeginForm("Fechar", "Atendimento", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Encerramento <small>Fechar chamado do associado</small>
+                Detalhamento <small>Histórico do chamado do associado</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -17,16 +17,9 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Fechar Chamado
-                        </p> <small>Encerrar o chamado do associado. Esse recurso deve ser utilizado pela administração para dar a resposta final com a descrição do atendinebto que foi concluído. Uma vez encerrado o atendimento, não será possível adicionar novas mensagens a ele. Preencher os campos abaixo e depois clicar no botão "Encerrar"</small>
+                            Detalhar Chamado
+                        </p> <small>Exibe o histórico com todas as mensagens de resposta do atendimento.</small>
                     </blockquote>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        @Html.ValidationSummary(false)
-                    </div>
                 </div>
             </div>
             @Html.Partial("_Create", Model)
@@ -37,25 +30,18 @@
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
-                            new ButtonRepository() {    linkText = "Encerrar",
-                                                        actionName = "",
-                                                        controllerName = "",
-                                                        buttonType = "submit"
-                                                    } ,
                             new ButtonRepository() {    linkText = "Cancelar",
                                                         actionName = "Browse",
-                                                        controllerName = "Atendimento",
+                                                        controllerName = (Model.fluxo == "2" ? "Atendimento" : "Chamado"),
                                                         buttonType = "link"
                                                     }
                         })
-                </div>
-                <div class="col-md-offset-4">
-                    ( * ) - Campo de preenchimento obrigatório
                 </div>
             </div>
         </div>
     </div>
 }
+
 
 
 
