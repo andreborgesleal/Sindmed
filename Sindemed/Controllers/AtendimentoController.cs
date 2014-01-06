@@ -43,6 +43,23 @@ namespace Sindemed.Controllers
         #endregion
 
         #region Create
+        [AuthorizeFilter]
+        [HttpGet]
+        public ActionResult Create(AtendimentoViewModel value)
+        {
+            //if (AccessDenied(System.Web.HttpContext.Current.Session.SessionID))
+            //    return RedirectToAction("Index", "Home");
+
+            GetCreate();
+
+            value = getModel().Create(value);
+
+            if (value.chamado.situacao != "F")
+                return View(value);
+            else
+                return RedirectToAction("Detail", new AtendimentoViewModel() { chamadoId = value.chamadoId });
+        }
+
         [ValidateInput(false)]
         [HttpPost]
         [AuthorizeFilter]
@@ -60,10 +77,11 @@ namespace Sindemed.Controllers
             else
                 return View(ret);
         }
-        
+       
         public override void OnCreateError(ref AtendimentoViewModel value, ICrudContext<AtendimentoViewModel> model, FormCollection collection)
         {
-            value = model.CreateRepository(value);
+            AtendimentoModel atendimentoModel = new AtendimentoModel();
+            value = atendimentoModel.Create(value);
             value.mensagemResposta = collection["mensagemResposta"];
         }
         #endregion
@@ -71,7 +89,7 @@ namespace Sindemed.Controllers
         #region Fechar
 
         [AuthorizeFilter]
-        public virtual ActionResult Fechar(AtendimentoViewModel value = null)
+        public ActionResult Fechar(AtendimentoViewModel value)
         {
             return Create(value);
         }

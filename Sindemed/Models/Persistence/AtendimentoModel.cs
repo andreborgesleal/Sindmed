@@ -24,6 +24,12 @@ namespace Sindemed.Models.Persistence
                 db.Entry(chamado).State = EntityState.Modified;
             }
         }
+
+        protected virtual string getLinkTextAlerta()
+        {
+            return "<span class=\"label label-primary\">Resposta</span>";
+        }
+
         #region Métodos da classe CrudContext
         public override Atendimento ExecProcess(AtendimentoViewModel value)
         {
@@ -61,7 +67,7 @@ namespace Sindemed.Models.Persistence
             {
                 usuarioId = _usuarioId.Value,
                 dt_emissao = DateTime.Now,
-                linkText = "<span class=\"label label-primary\">Resposta</span>",
+                linkText = getLinkTextAlerta(),
                 url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=" + (value.fluxo == "2" ? "1" : "2"),
                 mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.chamado.assunto + "</p>"
             };
@@ -154,8 +160,10 @@ namespace Sindemed.Models.Persistence
             }
             return value.mensagem;
         }
+        #endregion
 
-        public override AtendimentoViewModel CreateRepository(AtendimentoViewModel value)
+        #region Métodos customizados
+        public AtendimentoViewModel Create(AtendimentoViewModel value)
         {
             Atendimento entity = new Atendimento()
             {
@@ -180,6 +188,11 @@ namespace Sindemed.Models.Persistence
                 chamado.usuarioId = empresaSecurity.getUsuario().usuarioId;
 
             db.Entry(chamado).State = EntityState.Modified;
+        }
+
+        protected override string getLinkTextAlerta()
+        {
+            return "<span class=\"label label-success\">Fechado</span>";
         }
 
     }

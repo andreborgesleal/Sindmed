@@ -1,7 +1,11 @@
-﻿using App_Dominio.Controllers;
+﻿using App_Dominio.Contratos;
+using App_Dominio.Controllers;
+using App_Dominio.Entidades;
 using App_Dominio.Security;
+using Sindemed.Models.Entidades;
 using Sindemed.Models.Persistence;
 using Sindemed.Models.Repositories;
+using System;
 using System.Web.Mvc;
 
 namespace Sindemed.Controllers
@@ -24,6 +28,14 @@ namespace Sindemed.Controllers
         }
         #endregion
 
-    
+        public override void BeforeCreate(ref ChamadoViewModel value, ICrudContext<ChamadoViewModel> model, FormCollection collection)
+        {
+            ChamadoViewModel repository = new ChamadoModel().Create();
+
+            value.situacao = repository.situacao;
+            value.associadoId = repository.associadoId;
+            value.dt_chamado = repository.dt_chamado;
+            value.nome_associado = repository.nome_associado;
+        }
     }
 }

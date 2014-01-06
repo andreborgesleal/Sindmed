@@ -26,7 +26,14 @@
                                 <div class="col-md-12">
                                     <div class="btn-group btn-group-xs">
                                         <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Create", "Atendimento", routeValues: new Sindemed.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "1" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            @if (cham.situacao == "A")
+                                            {
+                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Create", "Atendimento", routeValues: new Sindemed.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "1" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            }
+                                            else
+                                            {
+                                                <em class="glyphicon glyphicon-edit"></em> <span style="text-decoration: none; color: #646464; cursor: text">Responder</span>
+                                            }
                                         </button>
                                         <button class="btn btn-sm" type="button">
                                             <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Detalhar", "Delete", routeValues: new { chamadoId = cham.chamadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
