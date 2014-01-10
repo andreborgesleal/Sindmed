@@ -52,6 +52,8 @@ namespace Sindemed.Models.Persistence
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
             int? _usuarioId = null;
 
+            sessaoCorrente = empresaSecurity.getSessaoCorrente();
+
             #region Alerta 1
             if (value.fluxo == "1") // 1-associado/sindmed (o alerta deve ser criado p/ o funcionário)
             {
@@ -66,6 +68,7 @@ namespace Sindemed.Models.Persistence
             AlertaRepository alerta = new AlertaRepository()
             {
                 usuarioId = _usuarioId.Value,
+                sistemaId = sessaoCorrente.sistemaId,
                 dt_emissao = DateTime.Now,
                 linkText = getLinkTextAlerta(),
                 url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=" + (value.fluxo == "2" ? "1" : "2"),
@@ -87,6 +90,7 @@ namespace Sindemed.Models.Persistence
                     AlertaRepository alerta2 = new AlertaRepository()
                     {
                         usuarioId = _usuarioId.Value,
+                        sistemaId = sessaoCorrente.sistemaId,
                         dt_emissao = DateTime.Now,
                         linkText = "<span class=\"label label-primary\">Resposta</span>",
                         url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",

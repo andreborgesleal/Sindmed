@@ -35,10 +35,13 @@ namespace Sindemed.Models.Persistence
         public override Validate AfterInsert(ChamadoViewModel value)
         {
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
+            sessaoCorrente = empresaSecurity.getSessaoCorrente();
+
             #region Alerta 1
             AlertaRepository alerta = new AlertaRepository()
             {
                 usuarioId = (from al in db.AreaAtendimentos where al.areaAtendimentoId == value.areaAtendimentoId select al.usuario1Id).First(),
+                sistemaId = sessaoCorrente.sistemaId,
                 dt_emissao = DateTime.Now,
                 linkText = "<span class=\"label label-warning\">Atendimento</span>",
                 url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
@@ -58,6 +61,7 @@ namespace Sindemed.Models.Persistence
                 AlertaRepository alerta2 = new AlertaRepository()
                 {
                     usuarioId = usuario2Id.Value,
+                    sistemaId = sessaoCorrente.sistemaId,
                     dt_emissao = DateTime.Now,
                     linkText = "<span class=\"label label-warning\">Atendimento</span>",
                     url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
