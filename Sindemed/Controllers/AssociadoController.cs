@@ -4,6 +4,7 @@ using App_Dominio.Contratos;
 using Sindemed.Models.Persistence;
 using Sindemed.Models.Repositories;
 using System.Web.Mvc;
+using System;
 
 namespace Sindemed.Controllers
 {
@@ -51,7 +52,23 @@ namespace Sindemed.Controllers
         }
         #endregion
 
+        #region BeforeCreate
+        public override void BeforeCreate(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
+        {
+            if (collection["dt_nascimento"] != "")
+                value.dt_nascimento = DateTime.Parse(collection["dt_nascimento"].Substring(6, 4) + "-" + collection["dt_nascimento"].Substring(3, 2) + "-" + collection["dt_nascimento"].Substring(0, 2));
+
+            if (collection["dt_admin_sindicato"] != "")
+                value.dt_admin_sindicato = DateTime.Parse(collection["dt_admin_sindicato"].Substring(6, 4) + "-" + collection["dt_admin_sindicato"].Substring(3, 2) + "-" + collection["dt_admin_sindicato"].Substring(0, 2));
+        }
+        #endregion
+
         #region edit
+        public override void BeforeEdit(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
+        {
+            BeforeCreate(ref value, model, collection);
+        }
+
         [AuthorizeFilter]
         public ActionResult Edit(int associadoId)
         {

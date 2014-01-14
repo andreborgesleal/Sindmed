@@ -17,8 +17,8 @@
     DateTime? d1 = null;
     DateTime? d2 = null;
     
-    d1 = filtros.Where(info => info.atributo == "data1").Select(info => info.valor).First() != "" ? (filtros.Where(info => info.atributo == "data1").Select(info => info.valor).First()) : d1;
-    d2 = filtros.Where(info => info.atributo == "data2").Select(info => info.valor).First() != "" ? (filtros.Where(info => info.atributo == "data2").Select(info => info.valor).First()) : d2;
+    d1 = filtros.Where(info => info.atributo == "data1").Select(info => info.valor).First() != "" ? DateTime.Parse(filtros.Where(info => info.atributo == "data1").Select(info => info.valor).First()) : d1;
+    d2 = filtros.Where(info => info.atributo == "data2").Select(info => info.valor).First() != "" ? DateTime.Parse(filtros.Where(info => info.atributo == "data2").Select(info => info.valor).First()) : d2;
     
     <div class="row-fluid">
         <div class="span12">@label</div>

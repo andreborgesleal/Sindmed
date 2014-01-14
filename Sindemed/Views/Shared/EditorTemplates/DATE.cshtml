@@ -6,7 +6,7 @@
     string value = "";
     if (@ViewData["value"] != null)
     {
-        value = ((DateTime)@ViewData["value"]).ToString("yyyy-MM-dd");
+        value = ((DateTime)@ViewData["value"]).ToString("dd/MM/yyyy");
     }
     else
     {

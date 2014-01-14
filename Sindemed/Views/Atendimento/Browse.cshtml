@@ -55,7 +55,7 @@
                         @Html.Label("Início", new { @class = "col-md-2 control-label" })
                         <div class="col-md-6">
                             <div class="input-group">
-                                @Html.Editor("data1", "DATE", new { identificador = "data1", readOnly = "false", value = (DateTime.Today.ToString("yyyy-MM") + "-01") })
+                                @Html.Editor("data1", "DATE", new { identificador = "data1", readOnly = "false", value = DateTime.Parse(DateTime.Today.ToString("yyyy-MM") + "-01") })
                             </div>
                         </div>
                     </div>

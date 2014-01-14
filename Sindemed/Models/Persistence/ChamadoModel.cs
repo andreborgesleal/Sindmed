@@ -48,6 +48,8 @@ namespace Sindemed.Models.Persistence
                 mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
             };
 
+            alerta.uri = value.uri;
+
             AlertaRepository r = empresaSecurity.InsertAlerta(alerta);
             if (r.mensagem.Code > 0)
                 throw new DbUpdateException(r.mensagem.Message);
@@ -67,6 +69,8 @@ namespace Sindemed.Models.Persistence
                     url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
                     mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
                 };
+
+                alerta2.uri = value.uri;
 
                 AlertaRepository r2 = empresaSecurity.InsertAlerta(alerta2);
                 if (r2.mensagem.Code > 0)

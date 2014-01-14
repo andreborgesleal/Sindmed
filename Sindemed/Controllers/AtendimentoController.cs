@@ -32,10 +32,10 @@ namespace Sindemed.Controllers
             DateTime _data2 = DateTime.Parse(DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"));
 
             if (data1 != null && data1 != "")
-                _data1 = DateTime.Parse(data1);
+                _data1 = DateTime.Parse(data1.Substring(6,4) + "-" + data1.Substring(3,2) + "-" + data1.Substring(0,2));
 
             if (data2 != null && data2 != "")
-                _data2 = DateTime.Parse(data2).AddDays(1);
+                _data2 = DateTime.Parse(data2.Substring(6, 4) + "-" + data2.Substring(3, 2) + "-" + data2.Substring(0, 2)).AddDays(1);
             
             ListViewChamadoAdministracao l = new ListViewChamadoAdministracao();
             return _List(index, pageSize, "Browse", l, chamadoId, associadoId, _data1, _data2, areaAtendimento, situacao);

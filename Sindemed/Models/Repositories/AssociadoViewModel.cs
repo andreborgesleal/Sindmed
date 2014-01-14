@@ -18,6 +18,7 @@ namespace Sindemed.Models.Repositories
         public string nome_associado { get; set; }
         
         [DisplayName("Nascimento")]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> dt_nascimento { get; set; }
 
         [DisplayName("CPF")]
