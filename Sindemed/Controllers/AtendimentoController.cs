@@ -28,8 +28,8 @@ namespace Sindemed.Controllers
                                     string nome_associado1 = null, string nome_associado = null, string data1 = null, string data2 = null, 
                                     int? areaAtendimento = null, string situacao = null)
         {
-            DateTime _data1 = DateTime.Parse("01/" + DateTime.Today.ToString("MM/yyyy"));
-            DateTime _data2 = DateTime.Parse(DateTime.Today.AddDays(1).ToString("dd/MM/yyyy"));
+            DateTime _data1 = DateTime.Parse(DateTime.Today.ToString("yyyy-MM") + "-01" );
+            DateTime _data2 = DateTime.Parse(DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"));
 
             if (data1 != null && data1 != "")
                 _data1 = DateTime.Parse(data1);

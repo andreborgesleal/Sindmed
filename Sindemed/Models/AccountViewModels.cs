@@ -22,7 +22,7 @@ namespace Sindemed.Models
         [Display(Name = "Nova Senha")]
         public string NewPassword { get; set; }
 
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password)] 
         [Display(Name = "Confirmação da nova senha")]
         [Compare("Confirmação de senha", ErrorMessage = "As senhas não combinam.")]
         public string ConfirmPassword { get; set; }
