@@ -10,7 +10,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Cidades <small>Ex: Belém, Castanhal, Santarém, etc.</small>
+                Comunicados do Grupo <small>Vincular um comunicado geral a um grupo de associados.</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -18,8 +18,13 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Inclusão de Cidades
-                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
+                            Vincular 
+                        </p> 
+                        <small>Para vincular o comunicado ao grupo, localize o respectivo comunicado geral já existente e 
+                        depois informe o grupo no qual este comunicado vai pertencer. </small>
+                        <small>A partir do momento que o comunicado geral for vinculado a um grupo ele deixa de aparecer para todos os usuários e será exibido apenas para os usuários do respectivo grupo</small>
+                        <small>O mesmo comunicado pode pertencer a vários grupos</small>
+                        <small>Quando um comunicado geral é vinculado a um grupo, ele deixa de ser "Comunicado geral" e passa a ser um "Comunicado específico" de um ou mais grupos.</small>
                     </blockquote>
                 </div>
                 <div class="col-md-12">
@@ -28,14 +33,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <div class="form-group">
                                 @Html.Editor("_comunicacaoId", "TYPEAHEAD", new
                                                {
                                                    typeahead = new TypeaheadRepository()
                                                        {
-                                                           label = "Comunicacao",
+                                                           label = "Comunicado",
                                                            id = "comunicacaoId",
                                                            text = "nome_comunicacao",
                                                            lovModal = "LovComunicacaoModal",
@@ -53,14 +58,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <div class="form-group">
                                 @Html.Editor("_grupoAssociadoId", "TYPEAHEAD", new
                                                {
                                                    typeahead = new TypeaheadRepository()
                                                        {
-                                                           label = "Grupo Associado",
+                                                           label = "Grupo",
                                                            id = "grupoAssociadoId",
                                                            text = "nome_grupoAssociado",
                                                            lovModal = "LovGrupoAssociadoModal",

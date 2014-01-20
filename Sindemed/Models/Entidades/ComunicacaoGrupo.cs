@@ -9,11 +9,11 @@ namespace Sindemed.Models.Entidades
     public class ComunicacaoGrupo
     {
         [Key, Column(Order = 0)]
-        [DisplayName("ID_Grupo_Associado")]
-        public Nullable<int> grupoAssociadoId { get; set; }
-            
-        [Key, Column(Order = 1)]
-        [DisplayName("ID_Comunicado")]
+        [DisplayName("ComunicadoID")]
         public Nullable<int> comunicacaoId { get; set; }
+
+        [Key, Column(Order = 1)]
+        [DisplayName("Grupo_AssociadoID")]
+        public Nullable<int> grupoAssociadoId { get; set; }            
     }
 }

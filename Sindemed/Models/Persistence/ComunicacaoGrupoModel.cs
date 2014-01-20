@@ -30,7 +30,9 @@ namespace Sindemed.Models.Persistence
             return new ComunicacaoGrupoViewModel()
             {
                 comunicacaoId = entity.comunicacaoId,
+                cabecalho = db.Comunicacaos.Find(entity.comunicacaoId).cabecalho,
                 grupoAssociadoId = entity.grupoAssociadoId,
+                descricao = db.GrupoAssociados.Find(entity.grupoAssociadoId).descricao,
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
         }

@@ -10,7 +10,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Cidades <small>Ex: Belém, Castanhal, Santarém, etc.</small>
+                Associados dos grupos <small>Vincular associado a um grupo.</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -18,8 +18,11 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Inclusão de Cidades
-                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
+                            Vincular
+                        </p> <small>Para vincular o associado ao grupo, localize o respectivo associado e depois informe o grupo no qual este associado vai pertencer.
+                        </small>
+                        <small>A partir do momento que o associado for vinculado a um grupo ele passa a visualizar na tela principal todos os comunicados que são exibidos para o respectivo grupo.</small>
+                        <small>O mesmo associado pode pertencer a vários grupos e visualizar as mensagens de vários grupos.</small>
                     </blockquote>
                 </div>
                 <div class="col-md-12">
@@ -60,7 +63,7 @@
                                                {
                                                    typeahead = new TypeaheadRepository()
                                                        {
-                                                           label = "Grupo Associado",
+                                                           label = "Grupo",
                                                            id = "grupoAssociadoId",
                                                            text = "nome_grupoAssociado",
                                                            lovModal = "LovGrupoAssociadoModal",
