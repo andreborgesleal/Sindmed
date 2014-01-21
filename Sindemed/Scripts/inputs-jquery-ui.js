@@ -1,4 +1,74 @@
-﻿function ReadAlert(id) {
+﻿function ShowMessageAlert(mensagem, tipo) {
+    $('#MsgAlert').html(mensagem);
+    if (tipo == "danger") {
+        $('#alerta-heading').hide();
+        $('#alerta').attr('class', 'alert alert-danger fade in');
+    }
+    else if (tipo == "warning") {
+        $('#alerta-heading').show();
+        $('#alerta').attr('class', 'alert alert-dismissable alert-warning');
+    }
+    else {
+        $('#alerta-heading').hide();
+        $('#alerta').attr('class', 'alert alert-dismissable alert-success');
+    }
+
+    $("#alerta").show();
+}
+
+function CarregandoIn() {
+    $('#carregando').css("visibility", "visible");
+    $('#carregando').css("width", "100%");
+    $('#carregando').css("height", "100%");
+    $('#carregando').css("position", "absolute");
+    $('#carregando').css("background-color", "black");
+    $('#carregando').css("filter", "alpha(opacity=60)");
+    $('#carregando').css("opacity", "0.6");
+    $('#carregando').css("left", "0%");
+    $('#carregando').css("top", "0%");
+}
+
+function GetSelectListOnCascade(thisId, nextId) {
+
+    var link = "GetNames";
+    var _Id = "";
+
+    // Recupera o VALUE do dropdownlist selecionado
+    _Id = $("#" + thisId + " option:selected").val();
+
+    if (_Id == "") {
+        $('#' + nextId).html('<select class="form-control input-sm" id="' + nextId + '" name="' + nextId + '"><option value="">Selecione...</option></select>');
+        return
+    }
+
+    link = encodeURI(link + '?term=' + _Id);
+
+    CarregandoIn();
+
+    link = encodeURI(link + '&noCahce=' + new Date());
+
+    $.ajax({
+        type: "POST",
+        url: link,
+        contentType: "application/json; charset=utf-8",
+        global: false,
+        async: false,
+        dataType: "json",
+        success: function (jsonObj) {
+            var listItems = "";
+            for (i in jsonObj) {
+                listItems += "<option value='" + jsonObj[i].Value + "'>" + jsonObj[i].Text + "</option>";
+            }
+            $("#" + nextId).html(listItems);
+            $('#carregando').css("visibility", "hidden");
+            $('#carregando').css("height", "0px");
+            $('#carregando').css("margin-top", "0%");
+            $('#carregando').css("margin-left", "0%");
+        }
+    });
+}
+
+function ReadAlert(id) {
     var link = "../Home/ReadAlert?alertaId=" + id;
     $('#read-alert').load(encodeURI(link));
 }
@@ -56,6 +126,11 @@ function Refresh(index, pagesize, action, DivId) {
 
     $('#' + DivId).load(link);
     $( document ).ajaxSuccess(function (event, xhr, settings) {
+        $('#carregando').css("visibility", "hidden");
+        $('#carregando').css("height", "0px");
+        $('#carregando').css("margin-top", "0%");
+        $('#carregando').css("margin-left", "0%");
+    }).error(function () {
         $('#carregando').css("visibility", "hidden");
         $('#carregando').css("height", "0px");
         $('#carregando').css("margin-top", "0%");

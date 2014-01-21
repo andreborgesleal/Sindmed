@@ -59,6 +59,11 @@
 
         @Html.Partial("_alerts")
         @BreadCrumbPage.Trace((App_Dominio.Component.BreadCrumb)ViewBag.BreadCrumb)
+        <div class="alert alert-dismissable alert-warning" id="alerta">
+            <a class="close" href="#" aria-hidden="true" onclick="$('#alerta').hide()">x</a>
+            <h4 class="alert-heading" id="alerta-heading">Atenção!</h4>
+            <div id="MsgAlert"></div>
+        </div>
         @RenderBody()
         <hr />
         <footer>
@@ -72,5 +77,10 @@
     @Scripts.Render("~/scripts")
     @Scripts.Render("~/js")
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $("#alerta").hide();
+    </script>
+
 </body>
 </html>

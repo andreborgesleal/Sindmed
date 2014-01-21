@@ -429,6 +429,9 @@
     <Content Include="Views\Shared\EditorTemplates\TYPEAHEAD.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Shared\_AcessoNegado.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -438,7 +441,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -553,6 +555,8 @@
     <Content Include="Views\Usuario\_ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Usuario\ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Home\LovUsuarioMedicoModal.cshtml" />
+    <Content Include="Views\Home\_Error.cshtml" />
+    <Content Include="Views\Shared\_AcessoNegadoModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

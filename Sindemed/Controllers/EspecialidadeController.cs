@@ -43,8 +43,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListEspecialidadeMedicaModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupEspecialidadeMedicaFiltroModel l = new LookupEspecialidadeMedicaFiltroModel();
-            return this.ListModal(index, pageSize, l, "Especialidades Médicas", descricao);
+            if (ValidateRequest)
+            {
+                LookupEspecialidadeMedicaFiltroModel l = new LookupEspecialidadeMedicaFiltroModel();
+                return this.ListModal(index, pageSize, l, "Especialidades Médicas", descricao);
+            }
+            else
+                return View();
         }
         #endregion
 

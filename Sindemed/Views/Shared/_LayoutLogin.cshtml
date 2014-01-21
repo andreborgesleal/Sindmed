@@ -67,6 +67,14 @@
     @Scripts.Render("~/scripts")
     @Scripts.Render("~/js")
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $('#carregando').css("visibility", "hidden");
+        $('#carregando').css("height", "0px");
+        $('#carregando').css("margin-top", "0%");
+        $('#carregando').css("margin-left", "0%");
+    </script>
+
 </body>
 </html>
 

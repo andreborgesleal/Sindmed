@@ -3,5 +3,11 @@
 @{
     Layout = null;
 }
-@Html.Partial("LOVModal", Model)
-
+@if (Model != null)
+{
+    @Html.Partial("LOVModal", Model)
+}
+else
+{
+    @Html.Partial("_AcessoNegado")
+}

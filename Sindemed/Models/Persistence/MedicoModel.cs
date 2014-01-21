@@ -203,7 +203,7 @@ namespace Sindemed.Models.Persistence
                 if (entity != null)
                     return MapToRepository(entity);
                 else
-                    return null;
+                    return new MedicoViewModel();
             }
         }
 

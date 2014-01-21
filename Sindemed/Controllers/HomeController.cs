@@ -62,6 +62,11 @@ namespace Sindemed.Controllers
             return View();
         }
 
+        public ActionResult _Error()
+        {
+            return View();
+        }
+
         #region Alerta - segurança
         public ActionResult ReadAlert(int? alertaId)
         {
@@ -90,95 +95,149 @@ namespace Sindemed.Controllers
         #endregion
 
         #region Formulário Modal Usuario
+        [AuthorizeFilter]
         public ActionResult LovUsuarioModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupUsuarioModel(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupUsuarioModel(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
-
+        [AuthorizeFilter]
         public ActionResult LovUsuario2Modal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupUsuario2Model(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupUsuario2Model(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal Usuario Médico
+        [AuthorizeFilter]
         public ActionResult LovUsuarioMedicoModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupUsuarioMedicoModel(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupUsuarioMedicoModel(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal Cidade
+        [AuthorizeFilter]
         public ActionResult LovCidadeModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupCidadeModel(), "Cidades", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupCidadeModel(), "Cidades", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
-
+        [AuthorizeFilter]
         public ActionResult LovCidadeComModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupCidadeComModel(), "Cidades", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupCidadeComModel(), "Cidades", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal NaoLocalizadoCorreio
+        [AuthorizeFilter]
         public ActionResult LovNaoLocalizadoCorreioModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupNaoLocalizadoCorreioModel(), "Motivos Correios", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupNaoLocalizadoCorreioModel(), "Motivos Correios", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal Área de Atuação
+        [AuthorizeFilter]
         public ActionResult LovAreaAtuacao1Modal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupAreaAtuacao1Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupAreaAtuacao1Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
-
+        [AuthorizeFilter]
         public ActionResult LovAreaAtuacao2Modal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupAreaAtuacao2Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupAreaAtuacao2Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
-
+        [AuthorizeFilter]
         public ActionResult LovAreaAtuacao3Modal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupAreaAtuacao3Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupAreaAtuacao3Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal Especialidade Médica
+        [AuthorizeFilter]
         public ActionResult LovEspecialidadeMedica1Modal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupEspecialidadeMedica1Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupEspecialidadeMedica1Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
-
+        [AuthorizeFilter]
         public ActionResult LovEspecialidadeMedica2Modal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupEspecialidadeMedica2Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupEspecialidadeMedica2Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
-
+        [AuthorizeFilter]
         public ActionResult LovEspecialidadeMedica3Modal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupEspecialidadeMedica3Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupEspecialidadeMedica3Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal Associado
+        [AuthorizeFilter]
         public ActionResult LovMedicoModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupMedicoModel(), "Associado", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupMedicoModel(), "Associado", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal Grupo Associado
+        [AuthorizeFilter]        
         public ActionResult LovGrupoAssociadoModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupGrupoAssociadoModel(), "Grupo Associado", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupGrupoAssociadoModel(), "Grupo Associado", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
         #region Formulário Modal Comunicacao
+        [AuthorizeFilter]
         public ActionResult LovComunicacaoModal(int? index, int? pageSize = 50)
         {
-            return this.ListModal(index, pageSize, new LookupComunicacaoModel(), "Comunicacao", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            if (ValidateRequest)
+                return this.ListModal(index, pageSize, new LookupComunicacaoModel(), "Comunicacao", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
+            else
+                return View();
         }
         #endregion
 
