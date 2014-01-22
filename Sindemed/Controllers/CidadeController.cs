@@ -19,8 +19,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewCidade l = new ListViewCidade();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewCidade l = new ListViewCidade();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         [AuthorizeFilter]
         public ActionResult ListCidadeModal(int? index, int? pageSize = 50, string descricao = null)
@@ -31,8 +36,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListCidadeModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupCidadeFiltroModel l = new LookupCidadeFiltroModel();
-            return this.ListModal(index, pageSize, l, "Cidades", descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupCidadeFiltroModel l = new LookupCidadeFiltroModel();
+                return this.ListModal(index, pageSize, l, "Cidades", descricao);
+            }
+            else
+                return View();
         }
         #endregion
 
@@ -43,7 +53,6 @@ namespace Sindemed.Controllers
             return _Edit(new CidadeViewModel() { cidadeId = cidadeId });
         }
         #endregion
-
 
         #region Delete
         [AuthorizeFilter]

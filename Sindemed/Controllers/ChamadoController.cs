@@ -23,8 +23,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewChamadoAssociado l = new ListViewChamadoAssociado();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewChamadoAssociado l = new ListViewChamadoAssociado();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         #endregion
 

@@ -19,8 +19,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewEspecialidadeMedica l = new ListViewEspecialidadeMedica();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewEspecialidadeMedica l = new ListViewEspecialidadeMedica();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         [AuthorizeFilter]
         public ActionResult ListEspecialidadeMedica1Modal(int? index, int? pageSize = 50, string descricao = null)
@@ -43,7 +48,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListEspecialidadeMedicaModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
             {
                 LookupEspecialidadeMedicaFiltroModel l = new LookupEspecialidadeMedicaFiltroModel();
                 return this.ListModal(index, pageSize, l, "Especialidades Médicas", descricao);

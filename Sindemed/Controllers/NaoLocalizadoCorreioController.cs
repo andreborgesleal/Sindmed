@@ -19,8 +19,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewNaoLocalizadoCorreio l = new ListViewNaoLocalizadoCorreio();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewNaoLocalizadoCorreio l = new ListViewNaoLocalizadoCorreio();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         [AuthorizeFilter]
         public ActionResult ListNaoLocalizadoCorreioModal(int? index, int? pageSize = 50, string descricao = null)
@@ -31,8 +36,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListNaoLocalizadoCorreioModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupNaoLocalizadoCorreioFiltroModel l = new LookupNaoLocalizadoCorreioFiltroModel();
-            return this.ListModal(index, pageSize, l, "Correios", descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupNaoLocalizadoCorreioFiltroModel l = new LookupNaoLocalizadoCorreioFiltroModel();
+                return this.ListModal(index, pageSize, l, "Correios", descricao);
+            }
+            else
+                return View();
         }
         #endregion
 
@@ -43,7 +53,6 @@ namespace Sindemed.Controllers
             return _Edit(new NaoLocalizadoCorreioViewModel() { correioId = correioId });
         }
         #endregion
-
 
         #region Delete
         [AuthorizeFilter]

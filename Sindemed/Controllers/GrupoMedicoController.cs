@@ -19,8 +19,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewGrupoAssociado l = new ListViewGrupoAssociado();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewGrupoAssociado l = new ListViewGrupoAssociado();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         [AuthorizeFilter]
         public ActionResult ListGrupoAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
@@ -31,8 +36,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListGrupoAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupGrupoAssociadoFiltroModel l = new LookupGrupoAssociadoFiltroModel();
-            return this.ListModal(index, pageSize, l, "Grupos de Associados", descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupGrupoAssociadoFiltroModel l = new LookupGrupoAssociadoFiltroModel();
+                return this.ListModal(index, pageSize, l, "Grupos de Associados", descricao);
+            }
+            else
+                return View();
         }
         #endregion
 
@@ -43,7 +53,6 @@ namespace Sindemed.Controllers
             return _Edit(new GrupoAssociadoViewModel() { grupoAssociadoId = grupoAssociadoId });
         }
         #endregion
-
 
         #region Delete
         [AuthorizeFilter]

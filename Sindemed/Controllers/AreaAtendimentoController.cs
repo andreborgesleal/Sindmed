@@ -19,8 +19,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewAreaAtendimento l = new ListViewAreaAtendimento();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewAreaAtendimento l = new ListViewAreaAtendimento();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         [AuthorizeFilter]
         public ActionResult ListAreaAtendimentoModal(int? index, int? pageSize = 50, string descricao = null)
@@ -31,8 +36,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListAreaAtendimentoModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupAreaAtendimentoFiltroModel l = new LookupAreaAtendimentoFiltroModel();
-            return this.ListModal(index, pageSize, l, "Áreas de Atendimento", descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupAreaAtendimentoFiltroModel l = new LookupAreaAtendimentoFiltroModel();
+                return this.ListModal(index, pageSize, l, "Áreas de Atendimento", descricao);
+            }
+            else
+                return View();
         }
         #endregion
 

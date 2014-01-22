@@ -19,8 +19,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewComunicacao l = new ListViewComunicacao();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewComunicacao l = new ListViewComunicacao();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
 
         [AuthorizeFilter]
@@ -32,8 +37,14 @@ namespace Sindemed.Controllers
 
         public ActionResult _ListComunicacaoModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupComunicacaoFiltroModel l = new LookupComunicacaoFiltroModel();
-            return this.ListModal(index, pageSize, l, "Comunicacaos", descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupComunicacaoFiltroModel l = new LookupComunicacaoFiltroModel();
+                return this.ListModal(index, pageSize, l, "Comunicacaos", descricao);
+
+            }
+            else
+                return View();
         }
         #endregion
 
@@ -44,7 +55,6 @@ namespace Sindemed.Controllers
             return _Edit(new ComunicacaoViewModel() { comunicacaoId = comunicacaoId });
         }
         #endregion
-
 
         #region Delete
         [AuthorizeFilter]

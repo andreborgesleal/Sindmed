@@ -24,8 +24,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewUsuario l = new ListViewUsuario();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewUsuario l = new ListViewUsuario();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         [AuthorizeFilter]
         public ActionResult ListUsuarioModal(int? index, int? pageSize = 50, string descricao = null)
@@ -37,8 +42,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListUsuarioModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupUsuarioFiltroModel l = new LookupUsuarioFiltroModel();
-            return this.ListModal(index, pageSize, l, "Usuáiros", descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupUsuarioFiltroModel l = new LookupUsuarioFiltroModel();
+                return this.ListModal(index, pageSize, l, "Usuáiros", descricao);
+            }
+            else
+                return View();
         }
 
         [AuthorizeFilter]
@@ -51,8 +61,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListUsuarioMedicoModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupUsuarioMedicoFiltroModel l = new LookupUsuarioMedicoFiltroModel();
-            return this.ListModal(index, pageSize, l, "Usuáiros", descricao, Sistema.SINDMED);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupUsuarioMedicoFiltroModel l = new LookupUsuarioMedicoFiltroModel();
+                return this.ListModal(index, pageSize, l, "Usuáiros", descricao, Sistema.SINDMED);
+            }
+            else
+                return View();
         }
 
         #endregion

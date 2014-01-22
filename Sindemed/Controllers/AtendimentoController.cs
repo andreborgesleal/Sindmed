@@ -20,25 +20,33 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            return ListChamados(index, PageSize);
+            if (ViewBag.ValidateRequest)
+                return ListChamados(index, PageSize);
+            else
+                return View();
         }
 
-        //[AuthorizeFilter]
+        [AuthorizeFilter]
         public ActionResult ListChamados(int? index, int? pageSize = 50, int? chamadoId = null, int? associadoId = null, 
                                     string nome_associado1 = null, string nome_associado = null, string data1 = null, string data2 = null, 
                                     int? areaAtendimento = null, string situacao = null)
         {
-            DateTime _data1 = DateTime.Parse(DateTime.Today.ToString("yyyy-MM") + "-01" );
-            DateTime _data2 = DateTime.Parse(DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"));
+            if (ViewBag.ValidateRequest)
+            {
+                DateTime _data1 = DateTime.Parse(DateTime.Today.ToString("yyyy-MM") + "-01");
+                DateTime _data2 = DateTime.Parse(DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"));
 
-            if (data1 != null && data1 != "")
-                _data1 = DateTime.Parse(data1.Substring(6,4) + "-" + data1.Substring(3,2) + "-" + data1.Substring(0,2));
+                if (data1 != null && data1 != "")
+                    _data1 = DateTime.Parse(data1.Substring(6, 4) + "-" + data1.Substring(3, 2) + "-" + data1.Substring(0, 2));
 
-            if (data2 != null && data2 != "")
-                _data2 = DateTime.Parse(data2.Substring(6, 4) + "-" + data2.Substring(3, 2) + "-" + data2.Substring(0, 2)).AddDays(1);
-            
-            ListViewChamadoAdministracao l = new ListViewChamadoAdministracao();
-            return _List(index, pageSize, "Browse", l, chamadoId, associadoId, _data1, _data2, areaAtendimento, situacao);
+                if (data2 != null && data2 != "")
+                    _data2 = DateTime.Parse(data2.Substring(6, 4) + "-" + data2.Substring(3, 2) + "-" + data2.Substring(0, 2)).AddDays(1);
+
+                ListViewChamadoAdministracao l = new ListViewChamadoAdministracao();
+                return _List(index, pageSize, "Browse", l, chamadoId, associadoId, _data1, _data2, areaAtendimento, situacao);
+            }
+            else
+                return View();
         }
         #endregion
 
@@ -47,17 +55,17 @@ namespace Sindemed.Controllers
         [HttpGet]
         public ActionResult Create(AtendimentoViewModel value)
         {
-            //if (AccessDenied(System.Web.HttpContext.Current.Session.SessionID))
-            //    return RedirectToAction("Index", "Home");
-
-            GetCreate();
-
-            value = getModel().Create(value);
-
-            if (value.chamado.situacao != "F")
-                return View(value);
+            if (ViewBag.ValidateRequest)
+            {
+                GetCreate();
+                value = getModel().Create(value);
+                if (value.chamado.situacao != "F")
+                    return View(value);
+                else
+                    return RedirectToAction("Detail", new AtendimentoViewModel() { chamadoId = value.chamadoId, fluxo = value.fluxo });
+            }
             else
-                return RedirectToAction("Detail", new AtendimentoViewModel() { chamadoId = value.chamadoId, fluxo = value.fluxo });
+                return null;
         }
 
         [ValidateInput(false)]
@@ -65,17 +73,19 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult Create(AtendimentoViewModel value, FormCollection collection)
         {
-            //if (AccessDenied(System.Web.HttpContext.Current.Session.SessionID))
-            //    return RedirectToAction("Index", "Home");
+            if (ViewBag.ValidateRequest)
+            {
+                AtendimentoViewModel ret = SetCreate(value, getModel(), collection);
 
-            AtendimentoViewModel ret = SetCreate(value, getModel(), collection);
-
-            if (ret.mensagem.Code == 0 && collection["fluxo"] == "2")
-                return RedirectToAction("Browse");
-            else if (ret.mensagem.Code == 0)
-                return RedirectToAction("Browse", "Chamado");
+                if (ret.mensagem.Code == 0 && collection["fluxo"] == "2")
+                    return RedirectToAction("Browse");
+                else if (ret.mensagem.Code == 0)
+                    return RedirectToAction("Browse", "Chamado");
+                else
+                    return View(ret);
+            }
             else
-                return View(ret);
+                return null;
         }
         
         public override void OnCreateError(ref AtendimentoViewModel value, ICrudContext<AtendimentoViewModel> model, FormCollection collection)
@@ -91,7 +101,10 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult Fechar(AtendimentoViewModel value)
         {
-            return Create(value);
+            if (ViewBag.ValidateRequest)
+                return Create(value);
+            else
+                return null;
         }
 
         [ValidateInput(false)]
@@ -99,26 +112,34 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult Fechar(AtendimentoViewModel value, FormCollection collection)
         {
-            //if (AccessDenied(System.Web.HttpContext.Current.Session.SessionID))
-            //    return RedirectToAction("Index", "Home");
+            if (ViewBag.ValidateRequest)
+            {
+                AtendimentoViewModel ret = SetCreate(value, new FechamentoChamadoModel(), collection);
 
-            AtendimentoViewModel ret = SetCreate(value, new FechamentoChamadoModel(), collection);
-
-            if (ret.mensagem.Code == 0 && collection["fluxo"] == "2")
-                return RedirectToAction("Browse");
-            else if (ret.mensagem.Code == 0)
-                return RedirectToAction("Browse", "Chamado");
+                if (ret.mensagem.Code == 0 && collection["fluxo"] == "2")
+                    return RedirectToAction("Browse");
+                else if (ret.mensagem.Code == 0)
+                    return RedirectToAction("Browse", "Chamado");
+                else
+                    return View(ret);
+            }
             else
-                return View(ret);
+                return null;
         }
         #endregion
 
         #region Detalhar
+        [AuthorizeFilter]
         public virtual ActionResult Detail(AtendimentoViewModel value = null)
         {
-            GetCreate();
-            value = getModel().Create(value);
-            return View(value);
+            if (ViewBag.ValidateRequest)
+            {
+                GetCreate();
+                value = getModel().Create(value);
+                return View(value);
+            }
+            else
+                return null;
         }
         #endregion
 

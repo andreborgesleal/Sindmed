@@ -98,7 +98,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovUsuarioModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupUsuarioModel(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -106,7 +106,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovUsuario2Modal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupUsuario2Model(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -117,7 +117,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovUsuarioMedicoModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupUsuarioMedicoModel(), "Usuários", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -128,7 +128,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovCidadeModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupCidadeModel(), "Cidades", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -136,7 +136,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovCidadeComModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupCidadeComModel(), "Cidades", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -147,7 +147,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovNaoLocalizadoCorreioModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupNaoLocalizadoCorreioModel(), "Motivos Correios", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -158,7 +158,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovAreaAtuacao1Modal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupAreaAtuacao1Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -166,7 +166,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovAreaAtuacao2Modal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupAreaAtuacao2Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -174,7 +174,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovAreaAtuacao3Modal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupAreaAtuacao3Model(), "Área de Atuação", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -185,7 +185,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovEspecialidadeMedica1Modal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupEspecialidadeMedica1Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -193,7 +193,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovEspecialidadeMedica2Modal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupEspecialidadeMedica2Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -201,7 +201,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovEspecialidadeMedica3Modal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupEspecialidadeMedica3Model(), "Especialidade Médica", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -212,7 +212,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovMedicoModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupMedicoModel(), "Associado", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -223,7 +223,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]        
         public ActionResult LovGrupoAssociadoModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupGrupoAssociadoModel(), "Grupo Associado", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
@@ -234,7 +234,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult LovComunicacaoModal(int? index, int? pageSize = 50)
         {
-            if (ValidateRequest)
+            if (ViewBag.ValidateRequest)
                 return this.ListModal(index, pageSize, new LookupComunicacaoModel(), "Comunicacao", null, Sindemed.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();

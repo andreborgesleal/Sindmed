@@ -20,8 +20,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            ListViewMedico l = new ListViewMedico();
-            return this._List(index, pageSize, "Browse", l, descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                ListViewMedico l = new ListViewMedico();
+                return this._List(index, pageSize, "Browse", l, descricao);
+            }
+            else
+                return View();
         }
         [AuthorizeFilter]
         public ActionResult ListMedicoModal(int? index, int? pageSize = 50, string descricao = null)
@@ -32,8 +37,13 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult _ListMedicoModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupMedicoFiltroModel l = new LookupMedicoFiltroModel();
-            return this.ListModal(index, pageSize, l, "Médicos", descricao);
+            if (ViewBag.ValidateRequest)
+            {
+                LookupMedicoFiltroModel l = new LookupMedicoFiltroModel();
+                return this.ListModal(index, pageSize, l, "Médicos", descricao);
+            }
+            else
+                return View();
         }
         #endregion
 

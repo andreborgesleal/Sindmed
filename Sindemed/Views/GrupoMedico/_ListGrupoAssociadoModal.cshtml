@@ -3,7 +3,7 @@
     Layout = null;
 }
 
-@if (Model.Count > 0)
+@if (Model != null && Model.Count > 0)
 {
     <div class="row Scroll" style="margin-top: -15px">
         <div class="col-md-12" style="padding-right: 0px;">
@@ -29,7 +29,10 @@
     </div>
     @Html.Partial("Paginacao", Model)
 }
-
+else
+{
+    @Html.Partial("_AcessoNegadoModal")
+}
 
 
 
