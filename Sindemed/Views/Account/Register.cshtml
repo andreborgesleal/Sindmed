@@ -1,66 +1,111 @@
-﻿@model Sindemed.Models.RegisterViewModel
+﻿@using App_Dominio.Repositories
+@model Sindemed.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registrar";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Registrar";
 }
 
-<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-8">
+        <p></p>
+        <blockquote>
+            <p>
+                Registro de acesso ao sistema
+            </p> <small>Preencha os dados abaixo para efetivar sua inscrição. Sua solicitação de cadastro será encaminhada para um de nossos atendentes que irá validar os dados informados. Entraremos em contato assim que sua inscrição estiver liberada.</small>
+        </blockquote>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.ValidationSummary(false)
+            @Html.AntiForgeryToken()
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(m => m.nome, "Nome *", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div class="input-group col-md-8">
+                        <span class="input-group-addon glyphicon glyphicon-user"></span>
+                        @Html.TextBoxFor(m => m.nome, new { @class = "form-control", @Style = "text-transform: uppercase;" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.login, "Login *", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div class="input-group col-md-8">
+                        <span class="input-group-addon glyphicon glyphicon-envelope"></span>
+                        @Html.TextBoxFor(m => m.login, new { @class = "form-control", @placeholder = "E-mail" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.cpf, "CPF *", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div class="input-group col-md-5">
+                        <span class="input-group-addon glyphicon glyphicon-info-sign"></span>
+                        @Html.TextBoxFor(m => m.cpf, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CRM, "CRM *", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div class="input-group col-md-4">
+                        <span class="input-group-addon glyphicon glyphicon-registration-mark"></span>
+                        @Html.TextBoxFor(m => m.CRM, new { @class = "form-control", @maxlength = "5" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ufCRM, "UF *", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div class="input-group col-md-3">
+                        <span class="input-group-addon glyphicon glyphicon-map-marker"></span>
+                        @Html.TextBoxFor(m => m.ufCRM, new { @class = "form-control", @style = "text-transform: uppercase", @maxlength = "2" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.senha, "Senha *", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div class="input-group col-md-5">
+                        <span class="input-group-addon glyphicon glyphicon-minus"></span>
+                        @Html.PasswordFor(m => m.senha, new { @class = "form-control", @placeholder = "Mínimo de 6 dígitos" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.confirmacaoSenha, "Confirmar Senha *", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div class="input-group col-md-5">
+                        <span class="input-group-addon glyphicon glyphicon-minus"></span>
+                        @Html.PasswordFor(m => m.confirmacaoSenha, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <div class="input-group col-md-3">
+                        <input type="submit" value="Regitrar" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <div class="input-group col-md-8">
+                        ( * ) - Campo de preenchimento obrigatório
+                    </div> 
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Criar uma nova conta</h4>
-    <hr />
-    @Html.ValidationSummary()
-    
-    <div class="form-group">
-        @Html.LabelFor(m => m.login, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                @Html.TextBoxFor(m => m.login, new { @class = "form-control", @placeholder = "E-mail" })
-            </div>
-        </div>
-    </div>
-    
-     <div class="form-group">
-        @Html.LabelFor(m => m.nome, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                @Html.TextBoxFor(m => m.nome, new { @class = "form-control", @placeholder = "Nome do usuário" })
-            </div>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(m => m.senha, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-minus"></i></span>
-                @Html.PasswordFor(m => m.senha, new { @class = "form-control", @placeholder = "Mínimo de 6 dígitos" })
-            </div>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(m => m.confirmacaoSenha, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-minus"></i></span>
-                @Html.PasswordFor(m => m.confirmacaoSenha, new { @class = "form-control" })
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrar" />
-        </div>
-    </div>
-}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<script type="text/javascript">
+    $("#CRM").mask("?99999");
+    $("#cpf").mask("999.999.999-99");
+</script>

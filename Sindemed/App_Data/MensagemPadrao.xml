@@ -19,7 +19,7 @@
   <Context key="17" value="Problemas de infra estrutura. Tente novamente mais tarde." type="Error"></Context>
   <Context key="18" value="Deseja realmente cancelar a operação? Todos os dados não salvos serão perdidos." type="Alerta"></Context>
   <Context key="19" value="Registro já cadastrado." type="Error"></Context>
-  <Context key="20" value="Nenhum registro foi encontrado para os dados de filtro." type="Error"></Context>
+  <Context key="20" value="Nenhum registro foi encontrado." type="Error"></Context>
   <Context key="21" value="Conta contábil deve ser do tipo [Analítica]." type="Error"></Context>
   <Context key="28" value="Este registro não pode ser editado porque existem outros cadastros vinculados a ele." type="Error"></Context>
   <Context key="29" value="CPF inválido para o dígito verificador digitado" type="Error"></Context>
@@ -43,6 +43,7 @@
   <Context key="47" value="O campo {0} deve ser maior que zero." type="Error"></Context>
   <Context key="48" value="O Campo {0} deve deve estar no período de {1} à {2}." type="Error"></Context>
   <Context key="49" value="O Campo {0} deve deve diferente de {2}." type="Error"></Context>
+  <Context key="50" value="A operação não foi concluída. Foram identificadas algumas inconsistências em nossos registros. Favor entrar em contato com a secretaria desta empresa." type="Error"></Context>
   <Context key="200" value="Sessão não pode ser atualizada porque não existe ou já foi encerrada" type="Error"></Context>
   <Context key="201" value="Acesso não autorizado. A sessão já está em uso. Favor tentar novamente mais tarde." type="Error"></Context>
   <Context key="202" value="Acesso negado. Suas credenciais não estão autorizadas para executar essa operação." type="Error"></Context>

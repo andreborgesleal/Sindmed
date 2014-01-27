@@ -203,6 +203,7 @@
     <Compile Include="Models\LookupUsuarioModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Persistence\AccountModel.cs" />
     <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
     <Compile Include="Models\Persistence\AssociadoGrupoModel.cs" />
@@ -393,6 +394,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sql\sindmed.sql" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\AreaAtendimento\List.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -453,7 +455,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\LOVModal.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DECIMAL.cshtml" />

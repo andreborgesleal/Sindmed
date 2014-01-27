@@ -14,6 +14,8 @@ using App_Dominio.Controllers;
 using System.Data.Entity.Validation;
 using App_Dominio.Entidades;
 using Sindemed.Models;
+using Sindemed.Models.Persistence;
+using App_Dominio.Enumeracoes;
 
 namespace Sindemed.Controllers
 {
@@ -99,25 +101,49 @@ namespace Sindemed.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel value)
         {
             if (ModelState.IsValid)
+                try
+                {
+                    value.uri = this.ControllerContext.Controller.GetType().Name.Replace("Controller", "") + "/" + this.ControllerContext.RouteData.Values["action"].ToString();
+
+                    AccountModel model = new AccountModel();
+
+                    value = model.SaveAll(value);
+                    if (value.mensagem.Code > 0)
+                        throw new App_DominioException(value.mensagem);
+
+                    Success("Registro incluído com sucesso");
+                    return RedirectToAction("Account", "Login");
+                }
+                catch (App_DominioException ex)
+                {
+                    ModelState.AddModelError(ex.Result.Field, ex.Result.Message); // mensagem amigável ao usuário
+                    if (ex.Result.MessageType == MsgType.ERROR)
+                        Error(ex.Result.MessageBase); // Mensagem em inglês com a descrição detalhada do erro e fica no topo da tela
+                    else
+                        Attention(ex.Result.MessageBase); // Mensagem em inglês com a descrição detalhada do erro e fica no topo da tela
+                }
+                catch (Exception ex)
+                {
+                    App_DominioException.saveError(ex, GetType().FullName);
+                    ModelState.AddModelError("", MensagemPadrao.Message(17).ToString()); // mensagem amigável ao usuário
+                    Error(ex.Message); // Mensagem em inglês com a descrição detalhada do erro e fica no topo da tela
+                }
+            else
             {
-                //var user = new ApplicationUser() { UserName = model.UserName };
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    await SignInAsync(user, isPersistent: false);
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //else
-                //{
-                //    AddErrors(result);
-                //}
+                value.mensagem = new Validate()
+                {
+                    Code = 999,
+                    Message = MensagemPadrao.Message(999).ToString(),
+                    MessageBase = ModelState.Values.Where(erro => erro.Errors.Count > 0).First().Errors[0].ErrorMessage
+                };
+                ModelState.AddModelError("", value.mensagem.Message); // mensagem amigável ao usuário
+                Attention(value.mensagem.MessageBase);
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(value);
         }
 
         [AllowAnonymous]

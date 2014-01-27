@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
-using App_Dominio.Component;
 using Sindemed.Models.Repositories;
 using Sindemed.Models.Entidades;
 using App_Dominio.Enumeracoes;

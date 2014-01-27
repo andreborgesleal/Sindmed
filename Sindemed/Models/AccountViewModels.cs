@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sindemed.Models.Repositories;
+using App_Dominio.Component;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sindemed.Models
 {
@@ -45,18 +47,22 @@ namespace Sindemed.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class RegisterViewModel : Repository
     {
+        public int usuarioId { get; set; }
+
+        public int? associadoId { get; set;  }
+
+        [Required(ErrorMessage="O nome do usuário deve ser informado.")]
+        [StringLength(40, ErrorMessage="O nome do Usuário deve possuir no mínimo 10 e no máximo 40 caracteres", MinimumLength=10)]
+        [Display(Name="Nome")]
+        public string nome { get; set; }
+
         [Required(ErrorMessage = "O campo login é de preenhcimento obrigatório e deve ser um e-mail válido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
         [EmailAddress]
         [Display(Name = "Login")]
         public string login { get; set; }
-
-        [Required(ErrorMessage = "O campo Nome é de preenhcimento obrigatório")]
-        [Display(Name = "Nome")]
-        [StringLength(40, ErrorMessage = "O campo {0} deve ter no máximo {2} caracteres.")]
-        public string nome { get; set; }
 
         [Required(ErrorMessage = "O campo Senha é de preenhcimento obrigatório")]
         [StringLength(20, ErrorMessage = "O campo {0} deve ter pelo menos {2} caracteres e no máximo 20 caracteres.", MinimumLength = 6)]
@@ -68,5 +74,21 @@ namespace Sindemed.Models
         [Display(Name = "Confirmação de senha")]
         [Compare("senha", ErrorMessage = "As senhas não conferem.")]
         public string confirmacaoSenha { get; set; }
+
+        [Required(ErrorMessage = "O campo CRM é de preenhcimento obrigatório")]
+        [StringLength(6, ErrorMessage = "O campo CRM deve ter no máximo 6 dígitos numéricos.")]
+        [Display(Name = "CRM")]
+        public string CRM { get; set; }
+
+        [Required(ErrorMessage = "O campo UF é de preenhcimento obrigatório")]
+        [StringLength(2, ErrorMessage = "O campo UF do CRM deve possuir 2 caracteres.", MinimumLength=2)]
+        [Display(Name = "UF")]
+        public string ufCRM { get; set; }
+        
+        [Required(ErrorMessage = "O campo CPF é de preenhcimento obrigatório")]
+        [Display(Name = "CPF")]
+        public string cpf { get; set; }
+
+        
     }
 }
