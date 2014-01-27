@@ -115,7 +115,7 @@ namespace Sindemed.Controllers
                         throw new App_DominioException(value.mensagem);
 
                     Success("Registro incluído com sucesso");
-                    return RedirectToAction("Account", "Login");
+                    return RedirectToAction("Login", "Account");
                 }
                 catch (App_DominioException ex)
                 {

@@ -82,7 +82,7 @@ namespace Sindemed.Models.Persistence
                 associadoId = value.associadoId.Value,
                 areaAtendimentoId = _areaAtendimentoId,
                 dt_chamado = DateTime.Now,
-                assunto = "Solicitação de ativação de cadastro de usuário",
+                assunto = "Solicitação de ativação do usuário " + (usuarioRepository.nome.Length >= 15 ? usuarioRepository.nome.Substring(0,15) : usuarioRepository.nome.Substring(0,usuarioRepository.nome.Length)),
                 situacao = "A"
             };
             chamadoViewModel.mensagemOriginal = "<h4>Liberação de acesso ao sistema para um novo usuário</h4>";
@@ -117,15 +117,20 @@ namespace Sindemed.Models.Persistence
                                 where aa.areaAtendimentoId == _areaAtendimentoId
                                 select aa.usuario1Id).ToArray();
 
+            // obtêm o chamadoId
+            int? _chamadoId = (from cham in db.Chamados.AsEnumerable()
+                              where cham.associadoId == value.associadoId.Value
+                              select cham.chamadoId).LastOrDefault();
+
             for (int i = 0; i <= _usuarioId.Count() - 1; i++)
             {
                 AlertaRepository alerta = new AlertaRepository()
                 {
                     usuarioId = _usuarioId[i],
-                    sistemaId = sessaoCorrente.sistemaId,
+                    sistemaId = _sistemaId,
                     dt_emissao = DateTime.Now,
                     linkText = "<span class=\"label label-warning\">Novo Usuário</span>",
-                    url = "../Atendimento/Create?chamadoId=" + chamadoViewModel.chamadoId.ToString() + "&fluxo=2",
+                    url = "../Atendimento/Create?chamadoId=" + _chamadoId.ToString() + "&fluxo=2",
                     mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + chamadoViewModel.assunto + "</p>"
                 };
 
@@ -136,20 +141,22 @@ namespace Sindemed.Models.Persistence
                     throw new DbUpdateException(r.mensagem.Message);
             }
 
-            #endregion
-
             return new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
         }
 
         public override Medico MapToEntity(RegisterViewModel value)
         {
-            return new Medico();
+            return new Medico()
+            {
+                associadoId = value.associadoId.Value
+            };
         }
 
         public override RegisterViewModel MapToRepository(Medico entity)
         {
             return new RegisterViewModel()
             {
+                associadoId = entity.associadoId,
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
         }
@@ -241,5 +248,6 @@ namespace Sindemed.Models.Persistence
 
             return value.mensagem;
         }
+        #endregion
     }
 }
