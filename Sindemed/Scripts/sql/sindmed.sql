@@ -1,42 +1,40 @@
-﻿use sindmed
--- 12694118291
-select * from Chamado order by 1 desc
+﻿use seguranca
 
-select email1, usuarioId, cpf, * from Associado where email1 is not null and cpf is null order by 1 desc
-select email1, usuarioId, cpf, * from Associado where email1 is not null and cpf is not null order by 1 desc
+select * from Transacao where transacaoId_pai is null and sistemaId = 2
+select * from Transacao where (transacaoId_pai = 85 or transacaoId = 85) and sistemaId = 2
+select * from Transacao where (transacaoId_pai = 139 or transacaoId = 139) and sistemaId = 2
+select * from Transacao where (transacaoId_pai = 143 or transacaoId = 143) and sistemaId = 2
 
-select email1, usuarioId, cpf, * from Associado where email1 = '' and cpf is null order by 1 desc
-select email1, usuarioId, cpf, * from Associado where email1 = '' and cpf is not null order by 1 desc
+select * from grupo where empresaId = 1 and sistemaId = 2
 
+select * from Transacao where nomeCurto = 'Atendimento'
+select * from Transacao where nomeCurto = 'Detalhar Chamado'
+select * from Transacao where nomeCurto = 'Listar Chamados'
+select * from Transacao where url = 'Associado/Edit'
 
-select email1, * from Associado where associadoId = 9
-select * from Medico order by 1 desc
+select distinct referencia from Transacao
 
-delete from seguranca..Usuario where login = 'zlimasilva@yahoo.com.br'
-update associado set usuarioId = null where associadoId = 4149
-delete from Chamado where associadoId = 4149
-
-select * from AreaAtendimento
-
---insert into AreaAtendimento values('Secretaria', null, 1, null)
-
-use seguranca
-go
-
-update sessao set dt_desativacao = GETDATE()
-update GrupoTransacao set situacao = 'A' where grupoId = 2 and transacaoId = 186
-
-select url,* from Transacao where sistemaId = 2 and transacaoId_pai = 84
-select url,* from Transacao where sistemaId = 2 and transacaoId = 84
+select * from GrupoTransacao where transacaoId = 143
 select * from Grupo
 
-select * from LogAuditoria order by 1 desc
-select * from Transacao where sistemaId = 2 and transacaoId_pai is null
-select url, * from Transacao where url like '%Register%'
 
-select * From Alerta order by 1 desc
+use sindmed
+select * from Associado where cpf is not null
 
+select * from seguranca..usuario where login like '%aramis%'
 
+delete from seguranca..usuario where login like '%aramis%'
+update Associado set usuarioId = null where associadoId = 425
 
-update Alerta set url = '../Atendimento/Create?chamadoId=9&fluxo=2' where alertaId = 3
+select * from seguranca..Grupo
+select * from seguranca..usuariogrupo
+select usuarioId From seguranca..Usuario where login = 'aramis@uol.com.br'
 
+insert into seguranca..UsuarioGrupo values((select usuarioId From seguranca..Usuario where login = 'aramis@uol.com.br'), 3, 'A')
+
+update seguranca..Usuario set situacao = 'A' where usuarioId = (select usuarioId From seguranca..Usuario where login = 'aramis@uol.com.br')
+
+425-ARAMIS FRANCISCO MENDONCA DE MORAES
+00051390230
+
+select * from seguranca..Sessao where value1 is not null

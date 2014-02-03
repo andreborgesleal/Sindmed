@@ -28,6 +28,22 @@ function CarregandoIn() {
     $('#carregando').css("top", "0%");
 }
 
+function Mascara(formato, keypress, objeto) {
+    campo = eval(objeto);
+
+    if (formato == 'DATA') {
+        separador = '/';
+        conjunto1 = 2;
+        conjunto2 = 5;
+        if (campo.value.length == conjunto1) {
+            campo.value = campo.value + separador;
+        }
+        if (campo.value.length == conjunto2) {
+            campo.value = campo.value + separador;
+        }
+    }
+}
+
 function GetSelectListOnCascade(thisId, nextId) {
 
     var link = "GetNames";

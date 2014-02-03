@@ -134,12 +134,14 @@ namespace Sindemed.Models.Persistence
                 nome_especialidade3 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade3Id select e).Select(info => info.descricao).FirstOrDefault() ?? "",
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
+            EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
+            sessaoCorrente = security.getSessaoCorrente();
+            Medico m = (from med in db.Medicos.AsEnumerable() where med.usuarioId == sessaoCorrente.usuarioId select med).FirstOrDefault();
 
-            if (entity.usuarioId.HasValue)
-            {
-                EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
+            if (m != null && m.associadoId != entity.associadoId)
+                medicoViewModel = new MedicoViewModel() { mensagem = new Validate() { Code = 202, Message = MensagemPadrao.Message(202).text } };
+            else if (entity.usuarioId.HasValue)
                 medicoViewModel.nome_usuario = security.getUsuarioById(entity.usuarioId.Value).nome;
-            }
 
             return medicoViewModel;
         }

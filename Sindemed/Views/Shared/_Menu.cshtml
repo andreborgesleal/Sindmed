@@ -42,7 +42,7 @@
                         {
                             <li><a href="../@t1.url">@t1.nome </a></li>
                         }
-                        if (!t1.Equals(menuList.Where(info => info.transacaoId_pai == t.transacaoId).Last()))
+                        if (!t1.Equals(menuList.Where(info => info.transacaoId_pai == t.transacaoId && info.exibir == "S").Last()))
                         {
                             <li class="divider"></li>
                         }

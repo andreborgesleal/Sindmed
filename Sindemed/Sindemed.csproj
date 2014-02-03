@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AlterarSenhaController.cs" />
     <Compile Include="Controllers\AssociadoGrupoController.cs" />
     <Compile Include="Controllers\AtendimentoController.cs">
       <SubType>Code</SubType>
@@ -558,6 +559,8 @@
     <Content Include="Views\Home\LovUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Home\_Error.cshtml" />
     <Content Include="Views\Shared\_AcessoNegadoModal.cshtml" />
+    <Content Include="Views\AlterarSenha\Edit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\LOV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />
