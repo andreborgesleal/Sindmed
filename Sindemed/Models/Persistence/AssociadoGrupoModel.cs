@@ -97,7 +97,7 @@ namespace Sindemed.Models.Persistence
 
         public override Repository getRepository(Object id)
         {
-            return new CidadeModel().getObject((CidadeViewModel)id);
+            return new AssociadoGrupoModel().getObject((AssociadoGrupoViewModel)id);
         }
         #endregion
     }

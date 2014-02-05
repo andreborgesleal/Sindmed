@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AlterarSenhaController.cs" />
+    <Compile Include="Controllers\AssociadoDocumentoController.cs" />
     <Compile Include="Controllers\AssociadoGrupoController.cs" />
     <Compile Include="Controllers\AtendimentoController.cs">
       <SubType>Code</SubType>
@@ -188,6 +189,7 @@
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
     <Compile Include="Models\Entidades\Associado.cs" />
+    <Compile Include="Models\Entidades\AssociadoDocumento.cs" />
     <Compile Include="Models\Entidades\AssociadoGrupo.cs" />
     <Compile Include="Models\Entidades\Atendimento.cs" />
     <Compile Include="Models\Entidades\Chamado.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="Models\Persistence\AccountModel.cs" />
     <Compile Include="Models\Persistence\AreaAtendimentoModel.cs" />
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
+    <Compile Include="Models\Persistence\AssociadoDocumentoModel.cs" />
     <Compile Include="Models\Persistence\AssociadoGrupoModel.cs" />
     <Compile Include="Models\Persistence\AtendimentoModel.cs">
       <SubType>Code</SubType>
@@ -221,6 +224,7 @@
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
+    <Compile Include="Models\Repositories\AssociadoDocumentoViewModel.cs" />
     <Compile Include="Models\Repositories\AssociadoGrupoViewModel.cs" />
     <Compile Include="Models\Repositories\AssociadoViewModel.cs">
       <SubType>Code</SubType>
@@ -564,6 +568,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />
+    <Folder Include="App_Data\Users_Data\" />
+    <Folder Include="Views\AssociadoDocumento\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
