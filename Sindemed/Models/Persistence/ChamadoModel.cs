@@ -25,7 +25,7 @@ namespace Sindemed.Models.Persistence
         }
 
         #region Métodos da classe CrudContext
-        public override Chamado ExecProcess(ChamadoViewModel value)
+        public override Chamado ExecProcess(ChamadoViewModel value, Crud operation)
         {
             Chamado chamado = MapToEntity(value);
             this.db.Set<Chamado>().Add(chamado);

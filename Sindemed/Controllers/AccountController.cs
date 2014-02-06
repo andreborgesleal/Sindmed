@@ -110,7 +110,7 @@ namespace Sindemed.Controllers
 
                     AccountModel model = new AccountModel();
 
-                    value = model.SaveAll(value);
+                    value = model.SaveAll(value, Crud.INCLUIR);
                     if (value.mensagem.Code > 0)
                         throw new App_DominioException(value.mensagem);
 

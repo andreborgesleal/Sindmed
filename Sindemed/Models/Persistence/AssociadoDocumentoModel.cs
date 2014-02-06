@@ -15,7 +15,7 @@ namespace Sindemed.Models.Persistence
     public class AssociadoDocumentoModel : ProcessContext<AssociadoDocumento, AssociadoDocumentoViewModel, ApplicationContext>
     {
         #region Métodos da classe CrudContext
-        public override AssociadoDocumento ExecProcess(AssociadoDocumentoViewModel value)
+        public override AssociadoDocumento ExecProcess(AssociadoDocumentoViewModel value, Crud operation)
         {
             AssociadoDocumento entity = MapToEntity(value);
             this.db.Set<AssociadoDocumento>().Add(entity);

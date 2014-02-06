@@ -29,7 +29,7 @@ namespace Sindemed.Models.Persistence
         }
 
         #region Métodos da classe CrudContext
-        public override Atendimento ExecProcess(AtendimentoViewModel value)
+        public override Atendimento ExecProcess(AtendimentoViewModel value, Crud operation)
         {
             if (value.fluxo == "2") // administração/associado
             {

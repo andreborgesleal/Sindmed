@@ -19,7 +19,7 @@ namespace Sindemed.Models.Persistence
         private ChamadoViewModel chamadoViewModel { get; set; }
 
         #region Métodos da classe CrudContext
-        public override Medico ExecProcess(RegisterViewModel value)
+        public override Medico ExecProcess(RegisterViewModel value, Crud operation)
         {
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
             
@@ -99,7 +99,7 @@ namespace Sindemed.Models.Persistence
 
             ChamadoModel chamadoModel = new ChamadoModel();
             chamadoModel.db = db;
-            Chamado chamado = chamadoModel.ExecProcess(chamadoViewModel);
+            Chamado chamado = chamadoModel.ExecProcess(chamadoViewModel, Crud.INCLUIR);
             #endregion
 
             return medico;
