@@ -1,76 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
+using System.IO;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
 using App_Dominio.Component;
+using App_Dominio.Enumeracoes;
 using Sindemed.Models.Repositories;
 using Sindemed.Models.Entidades;
-using App_Dominio.Enumeracoes;
-using System.Data.Entity.SqlServer;
-using App_Dominio.Models;
+
 
 namespace Sindemed.Models.Persistence
 {
     public class AssociadoDocumentoModel : ProcessContext<AssociadoDocumento, AssociadoDocumentoViewModel, ApplicationContext>
     {
+        private void CreateTextFile(AssociadoDocumentoViewModel value)
+        {
+            System.Web.HttpContext web = System.Web.HttpContext.Current;
+            if (!String.IsNullOrWhiteSpace(value.documento))
+            {
+                var fileName = Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId);
+                using (StreamWriter sw = File.CreateText(fileName))
+                    sw.WriteLine(value.documento);
+            }
+        }
+
         #region Métodos da classe CrudContext
         public override AssociadoDocumento ExecProcess(AssociadoDocumentoViewModel value, Crud operation)
         {
             AssociadoDocumento entity = MapToEntity(value);
-            this.db.Set<AssociadoDocumento>().Add(entity);
+            switch (operation)
+            {
+                case Crud.INCLUIR:
+                    this.db.Set<AssociadoDocumento>().Add(entity);
+                    break;
+                case Crud.ALTERAR:
+                    db.Entry(entity).State = EntityState.Modified;
+                    break;
+                case Crud.EXCLUIR:
+                    entity = this.Find(value);
+                    if (entity == null)
+                        throw new ArgumentException("Objeto não identificado para exclusão");
+                    this.db.Set<AssociadoDocumento>().Remove(entity);
+                    break;
+            }
+
             return entity;
         }
 
         public override Validate AfterInsert(AssociadoDocumentoViewModel value)
         {
-            EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
-            sessaoCorrente = empresaSecurity.getSessaoCorrente();
-
-            #region Alerta 1
-            AlertaRepository alerta = new AlertaRepository()
-            {
-                usuarioId = (from al in db.AreaAtendimentos where al.areaAtendimentoId == value.areaAtendimentoId select al.usuario1Id).First(),
-                sistemaId = sessaoCorrente.sistemaId,
-                dt_emissao = DateTime.Now,
-                linkText = "<span class=\"label label-warning\">Atendimento</span>",
-                url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
-                mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
-            };
-
-            alerta.uri = value.uri;
-
-            AlertaRepository r = empresaSecurity.InsertAlerta(alerta);
-            if (r.mensagem.Code > 0)
-                throw new DbUpdateException(r.mensagem.Message);
+            #region Criar o arquivo fisicamente
+            CreateTextFile(value);
             #endregion
 
-            #region Alerta 2
-            int? usuario2Id = (from al in db.AreaAtendimentos where al.areaAtendimentoId == value.areaAtendimentoId select al.usuario2Id).FirstOrDefault();
+            return new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
+        }
 
-            if (usuario2Id.HasValue)
-            {
-                AlertaRepository alerta2 = new AlertaRepository()
-                {
-                    usuarioId = usuario2Id.Value,
-                    sistemaId = sessaoCorrente.sistemaId,
-                    dt_emissao = DateTime.Now,
-                    linkText = "<span class=\"label label-warning\">Atendimento</span>",
-                    url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
-                    mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
-                };
+        public override Validate AfterUpdate(AssociadoDocumentoViewModel value)
+        {
+            #region Criar o arquivo fisicamente
+            CreateTextFile(value);
+            #endregion
 
-                alerta2.uri = value.uri;
+            return new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
+        }
 
-                AlertaRepository r2 = empresaSecurity.InsertAlerta(alerta2);
-                if (r2.mensagem.Code > 0)
-                    throw new DbUpdateException(r2.mensagem.Message);
-            }
+        public override Validate AfterDelete(AssociadoDocumentoViewModel value)
+        {
+            #region Excluir o arquivo Fisicamente
+            System.Web.HttpContext web = System.Web.HttpContext.Current;
+            File.Delete(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
             #endregion
 
             return new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
         }   
-
 
         public override AssociadoDocumento MapToEntity(AssociadoDocumentoViewModel value)
         {
@@ -85,7 +90,7 @@ namespace Sindemed.Models.Persistence
 
         public override AssociadoDocumentoViewModel MapToRepository(AssociadoDocumento entity)
         {
-            return new AssociadoDocumentoViewModel()
+            AssociadoDocumentoViewModel value = new AssociadoDocumentoViewModel()
             {
                 associadoId = entity.associadoId,
                 fileId = entity.fileId,
@@ -94,6 +99,16 @@ namespace Sindemed.Models.Persistence
                 dt_arquivo = entity.dt_arquivo,
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
+
+            System.Web.HttpContext web = System.Web.HttpContext.Current;
+            File.Delete(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
+
+            System.IO.FileInfo file = new FileInfo(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
+
+            if (file.Extension.Contains(".htm") || file.Extension.Contains(".txt"))
+                value.documento = File.ReadAllText(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
+
+            return value;
         }
 
         public override AssociadoDocumento Find(AssociadoDocumentoViewModel key)
@@ -126,6 +141,16 @@ namespace Sindemed.Models.Persistence
 
             return value.mensagem;
         }
+
+        public AssociadoDocumentoViewModel CreateRepository()
+        {
+            AssociadoDocumentoViewModel doc = new AssociadoDocumentoViewModel()
+            {
+                fileId = String.Format("{0}.htm", Guid.NewGuid().ToString())
+            };
+            return doc;
+        }
+
 
         #endregion
     }
