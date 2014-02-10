@@ -1,0 +1,73 @@
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.AssociadoDocumentoViewModel>
+@{
+    Layout = null;
+    System.Web.HttpContext web = System.Web.HttpContext.Current;
+}
+@if (Model != null)
+{
+    <div class="row Scroll">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                <caption></caption>
+                <thead style="background-color: #fff1a5">
+                    <tr>
+                        <th style="text-align: center">Ação</th>
+                        <th>Documento</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                @foreach (Sindemed.Models.Repositories.AssociadoDocumentoViewModel doc in Model)
+                {
+                    var path = System.Configuration.ConfigurationManager.AppSettings["Users_Data"].Replace("~", "");
+                    var fileName =  "../" + path+ "/" + doc.fileId;
+                    
+                    <tr>
+                        <td style="width: 25%">
+                            <div class="row-clearfix">
+                                <div class="col-md-12">
+                                    <div class="btn-group btn-group-xs">
+                                        @if (".htm|.txt|.html".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension))
+                                        {
+                                            <button class="btn btn-sm" type="button">
+                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = doc.associadoId, fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            </button>
+                                        }
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = doc.associadoId, fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                        </button>
+                                        <em class="glyphicon glyphicon-download-alt"></em> <a href="@fileName"><span style="text-decoration: none;">Download</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @doc.nomeArquivoOriginal
+                        </td>
+                        <td>
+                            @doc.dt_arquivo
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    @Html.Partial("Paginacao", Model)
+}
+else
+{
+    @Html.Partial("_AcessoNegadoModal")
+}
+
+
+<script type="text/javascript">
+    function DownLoad(fileId) {
+        var path = '@System.Configuration.ConfigurationManager.AppSettings["Users_Data"]';
+        var fileName =  "../" + path+ "/" + fileId;
+        alert(fileName);
+        $.fileDownload(fileName)
+            .done(function () { alert('File download a success!'); })
+            .fail(function () { alert('File download failed!'); });
+    }
+
+
+</script>

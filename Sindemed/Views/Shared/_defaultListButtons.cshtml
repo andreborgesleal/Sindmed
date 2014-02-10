@@ -41,6 +41,10 @@
     {
         @Html.ActionLink(b.linkText, b.actionName, b.controllerName, null, new { @class = "btn btn-default" })<span>&nbsp;</span>
     }
+    else if (b.buttonType.Equals("primary"))
+    {
+        @Html.ActionLink(b.linkText, b.actionName, b.controllerName, null, new { @class = "btn btn-primary" })<span>&nbsp;</span>
+    }    
     else if (b.buttonType.Equals("modal"))
     {
         <button id="@name" class="btn btn-small btn-primary" type="button" onclick="showLookup('../@b.controllerName/@b.actionName');">@b.linkText</button>

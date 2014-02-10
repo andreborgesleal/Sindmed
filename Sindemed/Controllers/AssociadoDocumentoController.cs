@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Sindemed.Controllers
 {
-    public class AssociadoDocumentoController : RootController<AssociadoDocumentoViewModel, AssociadoDocumentoModel>
+    public class AssociadoDocumentoController : ProcessController<AssociadoDocumentoViewModel, AssociadoDocumentoModel>
     {
         public override int _sistema_id() { return (int)Sistema.SINDMED; }
 
@@ -21,7 +21,7 @@ namespace Sindemed.Controllers
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
             if (ViewBag.ValidateRequest)
-                return ListAssociadoDocumento(index, PageSize);
+                return ListAssociadoDocumento(index, PageSize, int.Parse(Request["associadoId"]), descricao);
             else
                 return View();
         }

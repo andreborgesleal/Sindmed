@@ -565,11 +565,13 @@
     <Content Include="Views\Shared\_AcessoNegadoModal.cshtml" />
     <Content Include="Views\AlterarSenha\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LOV.cshtml" />
+    <Content Include="Views\AssociadoDocumento\ListAssociadoDocumento.cshtml" />
+    <Content Include="Views\AssociadoDocumento\Browse.cshtml" />
+    <Content Include="Views\AssociadoDocumento\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />
-    <Folder Include="App_Data\Users_Data\" />
-    <Folder Include="Views\AssociadoDocumento\" />
+    <Folder Include="Users_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

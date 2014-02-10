@@ -20,7 +20,7 @@ namespace Sindemed.Models.Persistence
             System.Web.HttpContext web = System.Web.HttpContext.Current;
             if (!String.IsNullOrWhiteSpace(value.documento))
             {
-                var fileName = Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId);
+                var fileName = Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), value.fileId);
                 using (StreamWriter sw = File.CreateText(fileName))
                     sw.WriteLine(value.documento);
             }
@@ -34,48 +34,36 @@ namespace Sindemed.Models.Persistence
             {
                 case Crud.INCLUIR:
                     this.db.Set<AssociadoDocumento>().Add(entity);
+
+                    #region Criar o arquivo fisicamente
+                    CreateTextFile(value);
+                    #endregion
+
                     break;
                 case Crud.ALTERAR:
                     db.Entry(entity).State = EntityState.Modified;
+
+                    #region Criar o arquivo fisicamente
+                    CreateTextFile(value);
+                    #endregion
+
                     break;
                 case Crud.EXCLUIR:
                     entity = this.Find(value);
                     if (entity == null)
                         throw new ArgumentException("Objeto não identificado para exclusão");
                     this.db.Set<AssociadoDocumento>().Remove(entity);
+
+                    #region Excluir o arquivo Fisicamente
+                    System.Web.HttpContext web = System.Web.HttpContext.Current;
+                    File.Delete(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), value.fileId));
+                    #endregion
+
                     break;
             }
 
             return entity;
         }
-
-        public override Validate AfterInsert(AssociadoDocumentoViewModel value)
-        {
-            #region Criar o arquivo fisicamente
-            CreateTextFile(value);
-            #endregion
-
-            return new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
-        }
-
-        public override Validate AfterUpdate(AssociadoDocumentoViewModel value)
-        {
-            #region Criar o arquivo fisicamente
-            CreateTextFile(value);
-            #endregion
-
-            return new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
-        }
-
-        public override Validate AfterDelete(AssociadoDocumentoViewModel value)
-        {
-            #region Excluir o arquivo Fisicamente
-            System.Web.HttpContext web = System.Web.HttpContext.Current;
-            File.Delete(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
-            #endregion
-
-            return new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
-        }   
 
         public override AssociadoDocumento MapToEntity(AssociadoDocumentoViewModel value)
         {
@@ -84,7 +72,7 @@ namespace Sindemed.Models.Persistence
                 associadoId = value.associadoId,
                 fileId = value.fileId,
                 nomeArquivoOriginal = value.nomeArquivoOriginal,
-                dt_arquivo = value.dt_arquivo
+                dt_arquivo = DateTime.Now
             };
         }
 
@@ -101,12 +89,10 @@ namespace Sindemed.Models.Persistence
             };
 
             System.Web.HttpContext web = System.Web.HttpContext.Current;
-            File.Delete(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
+            System.IO.FileInfo file = new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), value.fileId));
 
-            System.IO.FileInfo file = new FileInfo(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
-
-            if (file.Extension.Contains(".htm") || file.Extension.Contains(".txt"))
-                value.documento = File.ReadAllText(Path.Combine(web.Server.MapPath("~/App_Data/Users_Data"), value.fileId));
+            if ((file.Extension.Contains("htm") || file.Extension.Contains("txt")) && file.Exists)
+                value.documento = File.ReadAllText(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), value.fileId));
 
             return value;
         }
@@ -142,13 +128,21 @@ namespace Sindemed.Models.Persistence
             return value.mensagem;
         }
 
-        public AssociadoDocumentoViewModel CreateRepository()
+        public override AssociadoDocumentoViewModel CreateRepository(System.Web.HttpRequestBase Request)
         {
-            AssociadoDocumentoViewModel doc = new AssociadoDocumentoViewModel()
-            {
-                fileId = String.Format("{0}.htm", Guid.NewGuid().ToString())
-            };
-            return doc;
+            if (Request["associadoId"] != null)
+                using (db = new ApplicationContext())
+                {
+                    AssociadoDocumentoViewModel doc = new AssociadoDocumentoViewModel()
+                    {
+                        associadoId = int.Parse(Request["associadoId"]),
+                        nome = db.Associados.Find(int.Parse(Request["associadoId"])).nome,
+                        fileId = String.Format("{0}.htm", Guid.NewGuid().ToString())
+                    };
+                    return doc;
+                }
+            else
+                return null;
         }
 
 
