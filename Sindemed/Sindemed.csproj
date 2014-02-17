@@ -293,6 +293,9 @@
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <None Include="Properties\PublishProfiles\sindmepa - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sindmepa - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Sindmepa.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -568,6 +571,7 @@
     <Content Include="Views\AssociadoDocumento\ListAssociadoDocumento.cshtml" />
     <Content Include="Views\AssociadoDocumento\Browse.cshtml" />
     <Content Include="Views\AssociadoDocumento\Create.cshtml" />
+    <Content Include="Views\AssociadoDocumento\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

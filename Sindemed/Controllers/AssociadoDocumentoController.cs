@@ -1,4 +1,5 @@
-﻿using App_Dominio.Controllers;
+﻿using App_Dominio.Component;
+using App_Dominio.Controllers;
 using App_Dominio.Security;
 using Sindemed.Models.Enumeracoes;
 using Sindemed.Models.Persistence;
@@ -20,7 +21,7 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            if (ViewBag.ValidateRequest)
+            if (ViewBag.ValidateRequest && Request["associadoId"] != null)
                 return ListAssociadoDocumento(index, PageSize, int.Parse(Request["associadoId"]), descricao);
             else
                 return View();
@@ -45,7 +46,27 @@ namespace Sindemed.Controllers
         {
             return _Edit(new AssociadoDocumentoViewModel() { associadoId = associadoId, fileId = fileId });
         }
+
+        [ValidateInput(false)]
+        [AuthorizeFilter]
+        [HttpPost]
+        public override ActionResult Edit(AssociadoDocumentoViewModel value, FormCollection collection)
+        {
+            if (ViewBag.ValidateRequest)
+            {
+                AssociadoDocumentoViewModel ret = SetEdit(value, getModel(), collection);
+
+                if (ret.mensagem.Code == 0)
+                    return RedirectToAction("Browse", new { associadoId = ret.associadoId });
+                else
+                    return View(ret);
+            }
+            else
+                return null;
+        }
         #endregion
+
+
 
         #region Delete
         [AuthorizeFilter]
