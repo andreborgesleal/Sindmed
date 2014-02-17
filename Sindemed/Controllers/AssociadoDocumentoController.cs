@@ -39,6 +39,14 @@ namespace Sindemed.Controllers
         }
         #endregion
 
+        #region edit
+        [AuthorizeFilter]
+        public ActionResult Edit(int associadoId, string fileId)
+        {
+            return _Edit(new AssociadoDocumentoViewModel() { associadoId = associadoId, fileId = fileId });
+        }
+        #endregion
+
         #region Delete
         [AuthorizeFilter]
         public ActionResult Delete(int associadoId, string fileId)

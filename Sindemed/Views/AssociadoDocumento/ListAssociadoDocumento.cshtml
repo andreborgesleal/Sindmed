@@ -22,7 +22,7 @@
                     var fileName =  "../" + path+ "/" + doc.fileId;
                     
                     <tr>
-                        <td style="width: 25%">
+                        <td style="width: 30%">
                             <div class="row-clearfix">
                                 <div class="col-md-12">
                                     <div class="btn-group btn-group-xs">
@@ -42,8 +42,12 @@
                                             <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = doc.associadoId, fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                         </button>
                                         <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-download-alt"></em> <a target="_blank" style="text-decoration: none; color: #646464;" href="#modal-container-964987a" data-toggle="modal"><span style="text-decoration: none; color: #646464; cursor: pointer">Visualizar</span></a>
+                                            <em class="glyphicon glyphicon-file"></em> <a style="text-decoration: none; color: #646464;" href="#"><span style="text-decoration: none; color: #646464; cursor: pointer" onclick="Show('@fileName', '@doc.nomeArquivoOriginal')">Visualizar</span></a>
                                         </button>
+                                        <button class="btn btn-sm" type="button">
+                                            <em class="glyphicon glyphicon-download-alt"></em> <a style="text-decoration: none; color: #646464;" href="@fileName" download="@doc.nomeArquivoOriginal"><span style="text-decoration: none; color: #646464; cursor: pointer">Download</span></a>
+                                        </button>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -68,17 +72,17 @@ else
 
 
 <div class="modal fade" id="modal-container-964987a" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 70%">
+    <div class="modal-dialog" style="width: 70%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">
-                    Nome do Arquivo
                 </h4>
             </div>
-            <div class="modal-body Scroll">
-                @*@Html.DisplayTextFor(info => info.com.Where(com => com.dt_comunicacao <= DateTime.Today && com.grupoAssociadoId == null).FirstOrDefault().mensagemDetalhada)*@
-                Teste
+            <div class="modal-body Scroll" style="height: 700px">
+                <div id="catarina" style="width: 100%; height: 100%">
+                    <embed id="fdp">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -86,8 +90,7 @@ else
         </div>
     </div>
 </div>
-
-
+<a id="linkModal" href="#modal-container-964987a" data-toggle="modal"></a>
 
 
 <script type="text/javascript">
@@ -98,6 +101,46 @@ else
         $.fileDownload(fileName)
             .done(function () { alert('File download a success!'); })
             .fail(function () { alert('File download failed!'); });
+    }
+
+    function Show(fileName, documento) {
+
+        //$("#catarina").val(fileName);
+        //$("#catarina").load(fileName); 
+
+        $("#myModalLabel").text(documento);
+        $("#catarina embed").attr("src",fileName + "?ts=" + new Date().getTime());
+
+        if (fileName.toLowerCase().indexOf("pdf") >= 0 || fileName.toLowerCase().indexOf("htm") >= 0) {
+            $("#catarina embed").css("width", "100%");
+            $("#catarina embed").css("height", "100%");
+            $("#catarina embed").css("position", "relative");
+            $("#catarina embed").css("top", "0%");
+            $("#catarina embed").css("left", "0%");
+            $("#catarina embed").css("margin-top","10px");
+            $("#catarina embed").css("margin-left","10px");
+        }
+        else {
+            var imagem = document.createElement('img');
+            var $imagemInstanciada = jQuery(imagem);
+ 
+            $imagemInstanciada.attr("src", fileName); // + "?data=" + new Date().getTime());
+            $imagemInstanciada.appendTo('body');
+            $imagemInstanciada.hide();
+
+            var esquerda = $imagemInstanciada.width() / 2;
+            var topo = $imagemInstanciada.height() / 2;
+
+            $("#catarina embed").css("width", "auto");
+            $("#catarina embed").css("height", "auto");
+            $("#catarina embed").css("position", "absolute");
+            $("#catarina embed").css("top", "50%");
+            $("#catarina embed").css("left", "50%");
+            $("#catarina embed").css("margin-top","-" + topo.toString() + "px");
+            $("#catarina embed").css("margin-left","-" + esquerda.toString() + "px");
+        }
+        $("#linkModal").click();
+
     }
 
 
