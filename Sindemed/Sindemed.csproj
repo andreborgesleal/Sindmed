@@ -572,6 +572,7 @@
     <Content Include="Views\AssociadoDocumento\Browse.cshtml" />
     <Content Include="Views\AssociadoDocumento\Create.cshtml" />
     <Content Include="Views\AssociadoDocumento\Edit.cshtml" />
+    <Content Include="Views\AssociadoDocumento\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\logs\" />

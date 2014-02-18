@@ -1,0 +1,86 @@
+﻿@using Sindemed.Models.Repositories
+@using App_Dominio.Repositories
+@model Sindemed.Models.Repositories.AssociadoDocumentoViewModel
+@{
+    ViewBag.Title = "Sindmed";
+}
+@using (Html.BeginForm("Delete", "AssociadoDocumento", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(info => info.associadoId)
+    @Html.HiddenFor(info => info.nome)
+    @Html.HiddenFor(info => info.fileId)
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Documento <small>Excluir documento vinculado à ficha do associado</small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <blockquote>
+                        <p>
+                            Exclusão de documentos
+                        </p> <small>O arquivo poderá ser excluído pelo associado ou pela administração.</small>
+                    </blockquote>
+                    <div class="col-md-12">
+                        <div class="form-group" style="margin-top: 20px">
+                            @Html.ValidationSummary(false)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.associadoId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.associadoId, new { @class = "form-control input-sm", @disabled = "disable" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.nome, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @disabled = "disable" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.nomeArquivoOriginal, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.nomeArquivoOriginal, new { @class = "form-control input-sm", @disabled = "disable" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.documento, new { @class = "col-md-2 control-label", @disabled = "disable" })
+                        <div class="col-md-9">
+                            <textarea name="documento">@Model.documento</textarea>
+                            <script>
+                                CKEDITOR.replace('documento');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    @Html.Partial("_defaultListButtons",
+                        new List<ButtonRepository>
+                        {
+                            new ButtonRepository() {    linkText = "Excluir",
+                                                        actionName = "",
+                                                        controllerName = "",
+                                                        buttonType = "submit"
+                                                    } ,
+                            new ButtonRepository() {    linkText = "Cancelar",
+                                                        actionName = "Browse",
+                                                        controllerName = "Associado",
+                                                        buttonType = "link"
+                                                    }
+                        })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

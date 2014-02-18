@@ -66,13 +66,29 @@ namespace Sindemed.Controllers
         }
         #endregion
 
-
-
         #region Delete
         [AuthorizeFilter]
         public ActionResult Delete(int associadoId, string fileId)
         {
-            return _Edit(new AssociadoDocumentoViewModel() { associadoId = associadoId, fileId = fileId  });
+            return Edit(associadoId, fileId);
+        }
+
+        [ValidateInput(false)]
+        [AuthorizeFilter]
+        [HttpPost]
+        public override ActionResult Delete(AssociadoDocumentoViewModel value, FormCollection collection)
+        {
+            if (ViewBag.ValidateRequest)
+            {
+                AssociadoDocumentoViewModel ret = SetDelete(value, getModel(), collection);
+
+                if (ret.mensagem.Code == 0)
+                    return RedirectToAction("Browse", new { associadoId = ret.associadoId });
+                else
+                    return View(ret);
+            }
+            else
+                return null;
         }
         #endregion
     }
