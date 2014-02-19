@@ -12,8 +12,8 @@
                 <thead style="background-color: #fff1a5">
                     <tr>
                         <th style="text-align: center">Ação</th>
-                        <th>Documento</th>
                         <th>Data</th>
+                        <th>Documento</th>                        
                     </tr>
                 </thead>
                 @foreach (Sindemed.Models.Repositories.AssociadoDocumentoViewModel doc in Model)
@@ -41,9 +41,18 @@
                                         <button class="btn btn-sm" type="button">
                                             <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = doc.associadoId, fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                         </button>
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-file"></em> <a style="text-decoration: none; color: #646464;" href="#"><span style="text-decoration: none; color: #646464; cursor: pointer" onclick="Show('@fileName', '@doc.nomeArquivoOriginal')">Visualizar</span></a>
-                                        </button>
+                                        @if (".htm|.txt|.html|.pdf|.png|.jpg|.bmp|.gif".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension.ToLower()))
+                                        {
+                                            <button class="btn btn-sm" type="button">
+                                                <em class="glyphicon glyphicon-file"></em> <a style="text-decoration: none; color: #646464;" href="#"><span style="text-decoration: none; color: #646464; cursor: pointer" onclick="Show('@fileName', '@doc.nomeArquivoOriginal')">Visualizar</span></a>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-sm" type="button">
+                                                <em class="glyphicon glyphicon-file"></em> <span style="text-decoration: none; color: #646464; cursor: text">Visualizar</span>
+                                            </button>
+                                        }
                                         <button class="btn btn-sm" type="button">
                                             <em class="glyphicon glyphicon-download-alt"></em> <a style="text-decoration: none; color: #646464;" href="@fileName" download="@doc.nomeArquivoOriginal"><span style="text-decoration: none; color: #646464; cursor: pointer">Download</span></a>
                                         </button>
@@ -53,10 +62,10 @@
                             </div>
                         </td>
                         <td>
-                            @doc.nomeArquivoOriginal
+                            @doc.dt_arquivo.ToString("dd/MM/yyyy HH:mm")
                         </td>
                         <td>
-                            @doc.dt_arquivo
+                            @doc.nomeArquivoOriginal
                         </td>
                     </tr>
                 }
@@ -104,14 +113,10 @@ else
     }
 
     function Show(fileName, documento) {
-
-        //$("#catarina").val(fileName);
-        //$("#catarina").load(fileName); 
-
         $("#myModalLabel").text(documento);
         $("#catarina embed").attr("src",fileName + "?ts=" + new Date().getTime());
 
-        if (fileName.toLowerCase().indexOf("pdf") >= 0 || fileName.toLowerCase().indexOf("htm") >= 0) {
+        if (fileName.toLowerCase().indexOf("pdf") >= 0 || fileName.toLowerCase().indexOf("htm") >= 0 || fileName.toLowerCase().indexOf("txt") >= 0) {
             $("#catarina embed").css("width", "100%");
             $("#catarina embed").css("height", "100%");
             $("#catarina embed").css("position", "relative");
@@ -121,23 +126,8 @@ else
             $("#catarina embed").css("margin-left","10px");
         }
         else {
-            var imagem = document.createElement('img');
-            var $imagemInstanciada = jQuery(imagem);
- 
-            $imagemInstanciada.attr("src", fileName); // + "?data=" + new Date().getTime());
-            $imagemInstanciada.appendTo('body');
-            $imagemInstanciada.hide();
-
-            var esquerda = $imagemInstanciada.width() / 2;
-            var topo = $imagemInstanciada.height() / 2;
-
             $("#catarina embed").css("width", "auto");
             $("#catarina embed").css("height", "auto");
-            $("#catarina embed").css("position", "absolute");
-            $("#catarina embed").css("top", "50%");
-            $("#catarina embed").css("left", "50%");
-            $("#catarina embed").css("margin-top","-" + topo.toString() + "px");
-            $("#catarina embed").css("margin-left","-" + esquerda.toString() + "px");
         }
         $("#linkModal").click();
 

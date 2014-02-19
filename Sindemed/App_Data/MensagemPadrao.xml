@@ -44,6 +44,8 @@
   <Context key="48" value="O Campo {0} deve deve estar no período de {1} à {2}." type="Error"></Context>
   <Context key="49" value="O Campo {0} deve deve diferente de {2}." type="Error"></Context>
   <Context key="50" value="A operação não foi concluída. Foram identificadas algumas inconsistências em nossos registros. Favor entrar em contato com a secretaria desta empresa." type="Error"></Context>
+  <Context key="51" value="Tamanho do arquivo inválido para fazer upload. Tamanho máximo permitido é de {0} kb" type="Error"></Context>
+  <Context key="52" value="Formato do arquivo inválido para fazer upload. Formatos válidos: {0}" type="Error"></Context>
   <Context key="200" value="Sessão não pode ser atualizada porque não existe ou já foi encerrada" type="Error"></Context>
   <Context key="201" value="Acesso não autorizado. A sessão já está em uso. Favor tentar novamente mais tarde." type="Error"></Context>
   <Context key="202" value="Acesso negado. Suas credenciais não estão autorizadas para executar essa operação." type="Error"></Context>

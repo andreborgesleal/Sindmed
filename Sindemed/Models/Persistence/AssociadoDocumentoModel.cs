@@ -18,7 +18,7 @@ namespace Sindemed.Models.Persistence
         private void CreateTextFile(AssociadoDocumentoViewModel value)
         {
             System.Web.HttpContext web = System.Web.HttpContext.Current;
-            if (!String.IsNullOrWhiteSpace(value.documento))
+            if (value.documento != null && !String.IsNullOrWhiteSpace(value.documento))
             {
                 var fileName = Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), value.fileId);
                 using (StreamWriter sw = File.CreateText(fileName))
@@ -137,7 +137,8 @@ namespace Sindemed.Models.Persistence
                     {
                         associadoId = int.Parse(Request["associadoId"]),
                         nome = db.Associados.Find(int.Parse(Request["associadoId"])).nome,
-                        fileId = String.Format("{0}.htm", Guid.NewGuid().ToString())
+                        fileId = String.Format("{0}.htm", Guid.NewGuid().ToString()),
+                        mensagem = new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString()}
                     };
                     return doc;
                 }
@@ -148,7 +149,6 @@ namespace Sindemed.Models.Persistence
 
         #endregion
     }
-
 
     public class ListViewAssociadoDocumento : ListViewRepository<AssociadoDocumentoViewModel, ApplicationContext>
     {
@@ -162,7 +162,7 @@ namespace Sindemed.Models.Persistence
                     join ass in db.Associados on ad.associadoId equals ass.associadoId
                     where ad.associadoId == _associadoId &&
                           (_descricao == null || String.IsNullOrEmpty(_descricao) || ad.nomeArquivoOriginal.StartsWith(_descricao.Trim()))
-                    orderby ad.nomeArquivoOriginal
+                    orderby ad.dt_arquivo descending
                     select new AssociadoDocumentoViewModel
                     {
                         associadoId = ad.associadoId,
