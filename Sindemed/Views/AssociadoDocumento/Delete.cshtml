@@ -46,15 +46,18 @@
                             @Html.TextBoxFor(m => m.nomeArquivoOriginal, new { @class = "form-control input-sm", @disabled = "disable" })
                         </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.documento, new { @class = "col-md-2 control-label", @disabled = "disable" })
-                        <div class="col-md-9">
-                            <textarea name="documento">@Model.documento</textarea>
-                            <script>
-                                CKEDITOR.replace('documento');
-                            </script>
+                    @if (Model.documento != null)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.documento, new { @class = "col-md-2 control-label", @disabled = "disable" })
+                            <div class="col-md-9">
+                                <textarea name="documento">@Model.documento</textarea>
+                                <script>
+                                    CKEDITOR.replace('documento');
+                                </script>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
