@@ -243,6 +243,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\logs\log-01012014.xml" />
     <Content Include="App_Data\MensagemPadrao.xml" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -576,7 +577,6 @@
     <Content Include="Views\AssociadoDocumento\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\logs\" />
     <Folder Include="Users_Data\" />
   </ItemGroup>
   <ItemGroup>
