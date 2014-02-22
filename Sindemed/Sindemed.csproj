@@ -287,15 +287,12 @@
     <Content Include="App_Code\Lookup.cshtml" />
     <Content Include="App_Code\TextBoxDatePicker.cshtml" />
     <Content Include="App_Code\Typeahead.cshtml" />
-    <None Include="Properties\PublishProfiles\Sindmed - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\Sindmed - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Sindmed.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <None Include="Properties\PublishProfiles\sindmepa - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\sindmepa - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\sindmepa-h - Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Sindmepa.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
