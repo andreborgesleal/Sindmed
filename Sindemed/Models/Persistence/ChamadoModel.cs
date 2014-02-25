@@ -127,6 +127,13 @@ namespace Sindemed.Models.Persistence
         {
             value.mensagem = new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
 
+            if (value.associadoId == 0)
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "ID do Associado").ToString();
+                value.mensagem.MessageBase = "Usuário precisa estar vinculado ao cadastro de associado para solicitar um chamado.";
+            }
+
             return value.mensagem;
         }
         #endregion
