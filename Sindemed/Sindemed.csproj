@@ -291,7 +291,6 @@
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <None Include="Properties\PublishProfiles\sindmepa - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sindmepa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\sindmepa-h - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
