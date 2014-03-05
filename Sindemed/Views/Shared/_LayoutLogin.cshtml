@@ -53,6 +53,11 @@
     </div>
     <div class="container body-content">
         @Html.Partial("_alerts")
+        <div class="alert alert-dismissable alert-warning" id="alerta" style="visibility: hidden">
+            <a class="close" href="#" aria-hidden="true" onclick="$('#alerta').hide()">x</a>
+            <h4 class="alert-heading" id="alerta-heading">Atenção!</h4>
+            <div id="MsgAlert"></div>
+        </div>
         @RenderBody()
         <hr />
         <footer>
@@ -69,6 +74,9 @@
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">
+        $("#alerta").hide();
+        $("#alerta").css("visibility", "visible");
+
         $('#carregando').css("visibility", "hidden");
         $('#carregando').css("height", "0px");
         $('#carregando').css("margin-top", "0%");
