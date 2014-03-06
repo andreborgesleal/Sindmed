@@ -41,6 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\MicosoftReportViewerWebForms_v11.1.0.1\lib\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -202,6 +206,9 @@
     <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NaoLocalizadoCorreioController.cs" />
+    <Compile Include="Controllers\Report01Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,6 +251,7 @@
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
     <Compile Include="Models\Persistence\MedicoModel.cs" />
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
+    <Compile Include="Models\Report\RelacaoGeralReport.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
     <Compile Include="Models\Repositories\AssociadoDocumentoViewModel.cs" />
@@ -261,6 +269,7 @@
     <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
     <Compile Include="Models\Repositories\MedicoViewModel.cs" />
     <Compile Include="Models\Repositories\NaoLocalizadoCorreioViewModel.cs" />
+    <Compile Include="Models\Repositories\RelacaoGeralViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -313,6 +322,7 @@
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Content\images\menu-id-40.png" />
     <None Include="Properties\PublishProfiles\sindmepa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\sindmepa-h - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -596,6 +606,8 @@
     <Content Include="Views\AssociadoDocumento\Delete.cshtml" />
     <Content Include="Views\AssociadoDocumento\Upload.cshtml" />
     <Content Include="Views\EsqueciMinhaSenha\Forgot.cshtml" />
+    <Content Include="Views\Report01\ListParam.cshtml" />
+    <Content Include="Views\Report01\Browse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Users_Data\" />

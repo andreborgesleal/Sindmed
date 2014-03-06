@@ -1,0 +1,57 @@
+﻿@using Sindemed.Models.Repositories
+@model System.Web.Mvc.PagedList<RelacaoGeralViewModel>
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <div class="row Scroll">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                <caption></caption>
+                <thead style="background-color: #fff1a5">
+                    <tr>
+                        <th>Nome</th>
+                        <th>CRM<</th>
+                        <th>CPF</th>
+                        <th>Especialidade</th>
+                        <th>Endereço</th>
+                        <th>Sindicalizado</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                @foreach (RelacaoGeralViewModel rep in Model)
+                {
+                    <tr>
+                        <td style="width: 25%">
+                            @rep.nome
+                        </td>
+                        <td style="width: 15%; text-align: center">
+                            @rep.crm
+                        </td>
+                        <td style="width: 5%; text-align: center">
+                            @rep.cpf
+                        </td>
+                        <td style="width: 40%">
+                            @rep.nome_especialidade
+                        </td>
+                        <td style="width: 15%; text-align: center">
+                            @rep.endereco
+                        </td>
+                        <td style="width: 15%; text-align: center">
+                            @(rep.isSindicalizado == "S" ? "Sim" : "Não")
+                        </td>
+                        <td style="width: 15%; text-align: center">
+                            @rep.telParticular1
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    @Html.Partial("Paginacao", Model)
+}
+else
+{
+    @Html.Partial("_AcessoNegadoModal")
+}
