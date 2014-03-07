@@ -62,5 +62,63 @@ namespace Sindemed.Models.Enumeracoes
 
             
         }
+
+        public IEnumerable<SelectListItem> Especialidade(params object[] param)
+        {
+            // params[0] -> cabeçalho (Selecione..., Todos...)
+            // params[1] -> SelectedValue
+            string cabecalho = param[0].ToString();
+            string selectedValue = param[1].ToString();
+
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                IList<SelectListItem> q = new List<SelectListItem>();
+
+                if (cabecalho != "")
+                    q.Add(new SelectListItem() { Value = "", Text = cabecalho });
+
+                q = q.Union(from e in db.EspecialidadeMedicas.AsEnumerable()
+                            orderby e.descricao
+                            select new SelectListItem()
+                            {
+                                Value = e.especialidadeId.ToString(),
+                                Text = e.descricao,
+                                Selected = (selectedValue != "" ? e.descricao.Equals(selectedValue) : false)
+                            }).ToList();
+
+                return q;
+            }
+
+
+        }
+
+        public IEnumerable<SelectListItem> GruposAssociados(params object[] param)
+        {
+            // params[0] -> cabeçalho (Selecione..., Todos...)
+            // params[1] -> SelectedValue
+            string cabecalho = param[0].ToString();
+            string selectedValue = param[1].ToString();
+
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                IList<SelectListItem> q = new List<SelectListItem>();
+
+                if (cabecalho != "")
+                    q.Add(new SelectListItem() { Value = "", Text = cabecalho });
+
+                q = q.Union(from g in db.GrupoAssociados.AsEnumerable()
+                            orderby g.descricao
+                            select new SelectListItem()
+                            {
+                                Value = g.grupoAssociadoId.ToString(),
+                                Text = g.descricao,
+                                Selected = (selectedValue != "" ? g.descricao.Equals(selectedValue) : false)
+                            }).ToList();
+
+                return q;
+            }
+
+
+        }
     }
 }

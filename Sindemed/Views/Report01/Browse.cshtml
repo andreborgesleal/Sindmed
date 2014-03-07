@@ -18,53 +18,24 @@
             <div class="row ">
                 <div class="col-md-6">
                     <div class="form-group col-md-12">
-                        @Html.Label("ID", new { @class = "col-md-2 control-label" })
-                        <div class="input-group col-md-2">
-                            @Html.TextBox("chamadoId", "", new { @class = "form-control input-sm" })
+                        @Html.Label("Sindicalizado", new { @class = "col-md-3 control-label" })
+                        <div class="input-group col-md-3">
+                            @Html.DropDownList("ind_sindicalizado", DropDownListEnum.SimNao("", "Todos..."), new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group col-md-12">
-                        @Html.Editor("_associadoId", "TYPEAHEAD", new
-                                                               {
-                                                                   typeahead = new TypeaheadRepository()
-                                                                       {
-                                                                           label = "Associado",
-                                                                           id = "associadoId",
-                                                                           text = "nome_associado",
-                                                                           lovModal = "LovMedicoModal",
-                                                                           controller = "Associado",
-                                                                           descricao = "nome_associado",
-                                                                           values = new SelectListItem()
-                                                                           {
-                                                                               Value = "",
-                                                                               Text = ""
-                                                                           },
-                                                                           disableButtons = false,
-                                                                           nextField = ""
-                                                                       }
-                                                               })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group col-md-12">
-                        @Html.Label("Início", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-6">
-                            <div class="input-group">
-                                @Html.Editor("data1", "DATE", new { identificador = "data1", readOnly = "false", value = DateTime.Parse(DateTime.Today.ToString("yyyy-MM") + "-01") })
+                        @Html.Label("Faixa CRM", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-6" style="padding-left: 0px">
+                            <div class="input-group col-md-4">
+                                @Html.TextBox("crm_inicial", "1", new { @class = "form-control input-sm" })
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group col-md-12">
-                        @Html.Label("Fim", new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
-                            <div class="input-group">
-                                @Html.Editor("data2", "DATE", new { identificador = "data2", readOnly = "false", value = DateTime.Today })
+                            <div class="input-group col-md-1" style="padding-left: 0px">
+                                à
+                            </div>
+                            <div class="input-group col-md-4" style="padding-left: 0px">
+                                @Html.TextBox("crm_final", "99999", new { @class = "form-control input-sm" })
                             </div>
                         </div>
                     </div>
@@ -73,43 +44,74 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group col-md-12">
-                        @Html.Label("Área", new { @class = "col-md-2 control-label" })
+                        @Html.Label("Especialidade", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                @Html.DropDownList("especialidadeId", new BindDropDownList().Especialidade("Todas...", ""), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Label("Grupos", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                @Html.DropDownList("grupoAssociadoIdId", new BindDropDownList().GruposAssociados("Todas...", ""), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        @Html.Label("E-mail", new { @class = "col-md-3 control-label" })
                         <div>
-                            <div class="input-group col-md-6">
-                                @Html.DropDownList("areaAtendimentoId", new BindDropDownList().AreaAtendimento("Todas...", "", ""), new { @class = "form-control input-sm" })
+                            <div class="input-group col-md-3">
+                                @Html.DropDownList("ind_email", DropDownListEnum.SimNao("", "Todos..."), new { @class = "form-control input-sm" })
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group col-md-12">
-                        @Html.Label("Situação", new { @class = "col-md-3 control-label" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                @Html.DropDownList("situacao", DropDownListEnum.AbertoFechado("", "Todas..."), new { @class = "form-control input-sm" })
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="div-list">
+                    <div id="div-list-static">
                         @*@Html.Partial("List", Model)*@
                     </div>
                 </div>
             </div>
         </div>
         <div class="panel-footer">
-            <div class="col-lg-offset-11">
-                <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), 'ListChamados', 'div-list')">Buscar</button>
+            <div class="col-lg-offset-10">
+                <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), 'ListParam', 'div-list-static')">Buscar</button>
+                <div class="btn-group dropup">
+                    <button class="btn" style="padding-right: 0px">Imprimir</button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="selecionaPdf('pdf', 'Report01', 'PDF')"><i class="cus-sprite-page_white_acrobat"></i> Exportar Pdf</a></li>
+                        <li><a href="#" onclick="selecionaPdf('word', 'Report01', 'PDF')"><i class="cus-sprite-page_word"></i> Exportar Word</a></li>
+                        <li><a href="#" onclick="selecionaPdf('excel', 'Report01', 'PDF')"><i class="cus-sprite-page_excel"></i> Exportar Excel</a></li>
+                        <li><a href="#" onclick="selecionaPdf('png', 'Report01', 'PDF')"><i class="cus-sprite-folder_page_white"></i> Exportar Imagem</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" onclick="selecionaPdf('view', 'Report01', 'PDF')"><i class="cus-sprite-application_form_magnify"></i> Imprimir</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 }
 
 <script type="text/javascript">
-    $("#chamadoId").mask("?9999999");
+    $("#crm_inicial").mask("?99999");
+    $("#crm_final").mask("?99999");
 </script>
 
 

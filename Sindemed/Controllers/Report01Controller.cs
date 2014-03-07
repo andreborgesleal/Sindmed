@@ -13,6 +13,13 @@ namespace Sindemed.Controllers
 {
     public class Report01Controller : ReportController<RelacaoGeralViewModel>
     {
+        public override bool mustListOnLoad()
+        {
+            return false;
+        }
+
+        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
+
         public override string getListName()
         {
             return "Relação geral de associados";
@@ -40,7 +47,7 @@ namespace Sindemed.Controllers
                 return View();            
         }
 
-        [AuthorizeFilter]
+        //[AuthorizeFilter]
         public FileResult PDF(string export, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string descricao_especialidade = "", string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
         {
             RelacaoGeralReport rep = new RelacaoGeralReport();
