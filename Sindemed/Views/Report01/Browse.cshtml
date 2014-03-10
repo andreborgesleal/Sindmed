@@ -6,8 +6,10 @@
     ViewBag.Title = "Sindmepa";
     ViewBag.Header = "Relação geral de associados";
 }
-@using (Ajax.BeginForm(null, null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search" }))
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search", target = "_blank" }))
 {
+    @Html.Hidden("descricao_especialidade","")
+    @Html.Hidden("descricao_grupo","")
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -57,7 +59,7 @@
                         @Html.Label("Grupos", new { @class = "col-md-3 control-label" })
                         <div class="col-md-6">
                             <div class="input-group">
-                                @Html.DropDownList("grupoAssociadoIdId", new BindDropDownList().GruposAssociados("Todas...", ""), new { @class = "form-control input-sm" })
+                                @Html.DropDownList("grupoAssociadoId", new BindDropDownList().GruposAssociados("Todos...", ""), new { @class = "form-control input-sm" })
                             </div>
                         </div>
                     </div>
@@ -90,7 +92,8 @@
         <div class="panel-footer">
             <div class="col-lg-offset-10">
                 <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), 'ListParam', 'div-list-static')">Buscar</button>
-                <div class="btn-group dropup">
+                <button type="submit" class="btn btn-primary" onclick="return valida()">Imprimir</button>
+                @*<div class="btn-group dropup">
                     <button class="btn" style="padding-right: 0px">Imprimir</button>
                     <button class="btn dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
@@ -103,7 +106,7 @@
                         <li class="divider"></li>
                         <li><a href="#" onclick="selecionaPdf('view', 'Report01', 'PDF')"><i class="cus-sprite-application_form_magnify"></i> Imprimir</a></li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -112,6 +115,24 @@
 <script type="text/javascript">
     $("#crm_inicial").mask("?99999");
     $("#crm_final").mask("?99999");
+
+    function valida() {
+        if ($("#crm_inicial").val().trim() == "")
+        {
+            ShowMessageAlert("CRM Inicial deve ser informado", "warning");
+            return false;
+        }
+        else if ($("#crm_final").val().trim() == "")
+        {
+            ShowMessageAlert("CRM final deve ser informado", "warning");
+            return false;
+        }
+
+        $("#descricao_especialidade").val($("#especialidadeId option:selected").text());
+        $("#descricao_grupo").val($("#grupoAssociadoId option:selected").text());
+
+        return true;
+    }
 </script>
 
 

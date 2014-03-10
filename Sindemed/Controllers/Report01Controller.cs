@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Reporting.WebForms;
+using App_Dominio.Entidades;
+using App_Dominio.Contratos;
 
 namespace Sindemed.Controllers
 {
@@ -47,6 +49,50 @@ namespace Sindemed.Controllers
                 return View();            
         }
 
+        [AuthorizeFilter]
+        [HttpPost]
+        public ActionResult Browse(FormCollection collection)
+        {
+            if (ViewBag.ValidateRequest)
+                return RedirectToAction("Print", new 
+                {
+                    ind_sindicalizado = collection ["ind_sindicalizado"] ,
+                    crm_inicial = collection ["crm_inicial"],
+                    crm_final = collection["crm_final"],
+                    especialidadeId = collection ["especialidadeId"],
+                    descricao_especialidade = collection ["descricao_especialidade"],
+                    grupoAssociadoId = collection ["grupoAssociadoId"],
+                    descricao_grupo =  collection["descricao_grupo"],
+                    ind_email = collection["ind_email"]
+                });
+            else
+                return View();            
+        }
+
+        [AuthorizeFilter]
+        public ActionResult Print(string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", 
+                                    string especialidadeId = "", string descricao_especialidade = "", 
+                                    string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
+        {
+            if (ViewBag.ValidateRequest)
+            {
+                IDictionary<string, string> header = new Dictionary<string, string>()
+                    {
+                       { "empresa", new EmpresaSecurity<App_DominioContext>().getEmpresa().nome },
+                       { "sindicalizado", ind_sindicalizado == "" ? "Sindicalizados e Não Sindicalizados" : ind_sindicalizado == "S" ? "Sindicalizados" : "Não Sindicalizados" },
+                       { "especialidade", "Especialidade: " + descricao_especialidade },
+                       { "grupo", "Grupo: " + descricao_grupo}
+                    };
+
+                ViewBag.Header = header;
+                RelacaoGeralReport model = new RelacaoGeralReport();
+                IEnumerable<RelacaoGeralViewModel> r = model.ListReportRepository(ind_sindicalizado, crm_inicial, crm_final, especialidadeId, grupoAssociadoId, ind_email);
+                return View(r);
+            }
+            else
+                return View();            
+        }
+
         //[AuthorizeFilter]
         public FileResult PDF(string export, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string descricao_especialidade = "", string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
         {
@@ -57,8 +103,7 @@ namespace Sindemed.Controllers
             p[2] = new ReportParameter("especialidade", "Especialidade: " + descricao_especialidade, false);
             p[3] = new ReportParameter("grupo", "Grupo: " + descricao_grupo, false);
 
-            return _PDF(export, "RelacaoGeralAssociados", rep, 
-                        p, null, null, ind_sindicalizado, crm_inicial, crm_final, 
+            return _PDF(export, "RelacaoGeralAssociados", rep, p, null, null, ind_sindicalizado, crm_inicial, crm_final, 
                         especialidadeId, grupoAssociadoId, ind_email);
         }
         #endregion

@@ -115,3 +115,17 @@ fundoModal
     margin-left: 25%;
     margin-right: auto;
 }
+
+.modalPopupReport
+{
+    background-color: #FFFFFF;
+    border-width: 2px;
+    border-style: none;
+    border-color: #fff;
+    padding: 2px;
+    width: auto%;
+    height: 100%;
+    overflow: auto;
+    position: absolute; left: 0%; top: 0%; right: 0%; 
+    text-align: center;
+}

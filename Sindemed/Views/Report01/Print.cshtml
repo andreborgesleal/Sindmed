@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sindmepa</title>
+    <link rel="SHORTCUT ICON" href="/favicon.png" />
+    <link href="@Styles.Url("~/content/css")" rel="stylesheet" />
+    <link href="@Styles.Url("~/scripts/css")" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+</head>
+<body>
+    @using Sindemed.Models.Repositories
+    @model IEnumerable<RelacaoGeralViewModel>
+    @{
+        Layout = null;
+        IDictionary<string, string> header = ViewBag.Header;
+        int contador = 0;
+        int index = 0;
+        int pageSize = 19;
+    }
+    @if (Model != null)
+{
+
+    <div class="modalPopupReport" id="imprimir" >
+        @while (index <= Model.Count()-1)
+        {
+            contador = 0;
+            <div style="page-break-after: always">
+                <table style="width: 100%; border: none; font-family: tahoma; font-size: 9px; padding: 1px 1px 1px 1px; margin: 0 0 0 0; " cellspacing="0">
+                    <tr style="border-bottom: 1px solid gray">
+                        <td style="font-size: 10px; font-weight: bold; border-color: White; padding: 1px 1px 1px 1px; margin: 0 0 0 0; width: 100%; text-align: center; vertical-align: middle" colspan="7">
+                            @header["empresa"]<br />
+                            @header["especialidade"]<br />
+                            @header["grupo"]<br />
+                            @header["sindicalizado"]<br />
+                            <p></p>
+                        </td>
+                    </tr>
+                    <tr style="height: 25px">
+                        <td style="border-bottom: 1px solid #000; text-align: left; font-weight: bold; width: 25%; border-right-color: White; padding: 1px; margin: 1px">Nome</td>
+                        <td style="border-bottom: 1px solid #000; text-align: center; font-weight: bold; width: 5%; border-right-color: White; padding: 1px; margin: 1px">CRM</td>
+                        <td style="border-bottom: 1px solid #000; text-align: left; font-weight: bold; width: 15%; border-right-color: White; padding: 1px; margin: 1px">CPF</td>
+                        <td style="border-bottom: 1px solid #000; text-align: left; font-weight: bold; width: 15%; border-right-color: White; padding: 1px; margin: 1px">Especialidade</td>
+                        <td style="border-bottom: 1px solid #000; text-align: left; font-weight: bold; width: 25%; border-right-color: White; padding: 1px; margin: 1px">Endereço</td>
+                        <td style="border-bottom: 1px solid #000; text-align: center; font-weight: bold; width: 5%; border-right-color: White; padding: 1px; margin: 1px">Sindicalizado</td>
+                        <td style="border-bottom: 1px solid #000; text-align: left; font-weight: bold; width: 10%; border-right-color: White; padding: 1px; margin: 1px">Telefone</td>
+                    </tr>
+                    @while (contador++ <= pageSize && index <= Model.Count() - 1)
+                    {
+                        RelacaoGeralViewModel rep = Model.ElementAt(index);
+                        <tr>
+                            <td style="width: 25%; font-size: x-small">
+                                @rep.nome
+                            </td>
+                            <td style="width: 5%; text-align: center; font-size: x-small">
+                                @rep.crm
+                            </td>
+                            <td style="width: 15%; font-size: x-small">
+                                @rep.cpf
+                            </td>
+                            <td style="width: 15%; font-size: x-small">
+                                @rep.nome_especialidade
+                            </td>
+                            <td style="width: 25%; font-size: x-small">
+                                @rep.endereco <br />E-mail: @rep.email
+                            </td>
+                            <td style="width: 5%; text-align: center; font-size: x-small">
+                                @(rep.isSindicalizado == "S" ? "Sim" : "Não")
+                            </td>
+                            <td style="width: 10%; font-size: x-small">
+                                @rep.telParticular1
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                </table>
+            </div>
+        }
+
+    </div>
+    <br />
+    <div style="width: 100%; text-align: left">
+        <input type="button" value="Imprimir" class="DWMEstiloButton" onclick="printDiv();" />
+        <input type="button" value="Fechar" class="DWMEstiloButton" onclick="closeDetail(this)" />
+    </div>
+}
+    else
+    {
+        @Html.Partial("_AcessoNegadoModal")
+    }
+
+    <script type="text/javascript">
+
+        function closeDetail(obj) {
+            window.close();
+        }
+
+        function printDiv() {
+            var cabec = "<head><meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\" >" +
+                            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=8\" >" +
+                            "<title></title>" +
+                            "<style type=\"text/css\" media=\"print\">  " +
+                            "</style>" +
+                            "<div>";
+            var texto = cabec + $("#imprimir").html() + "</div>";
+            var w = window.open('');
+            w.document.write(texto);
+            w.document.close();
+            w.focus();
+            w.print();
+            w.close();
+        }
+    </script>
+</body>
+</html>
