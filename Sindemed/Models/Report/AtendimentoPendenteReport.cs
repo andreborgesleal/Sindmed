@@ -67,7 +67,7 @@ namespace Sindemed.Models.Report
                                            select cha1.associadoId).Count()
 
                          }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList()) 
-                         select new AtendimentoPendenteViewModel()
+                         select new AtendimentoPendenteViewModel() 
                          {
                              associadoId = zapata.associadoId,
                              nome = zapata.nome,
