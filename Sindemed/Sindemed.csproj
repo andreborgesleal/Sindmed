@@ -227,6 +227,9 @@
     <Compile Include="Controllers\Report01Controller.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Report02Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,6 +272,7 @@
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
     <Compile Include="Models\Persistence\MedicoModel.cs" />
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
+    <Compile Include="Models\Report\AtendimentoPendenteReport.cs" />
     <Compile Include="Models\Report\RelacaoGeralReport.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
@@ -277,6 +281,7 @@
     <Compile Include="Models\Repositories\AssociadoViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Repositories\AtendimentoPendenteViewModel.cs" />
     <Compile Include="Models\Repositories\AtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\ChamadoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
@@ -630,6 +635,8 @@
     <Content Include="Views\AssociadoDocumento\Upload.cshtml" />
     <Content Include="Views\EsqueciMinhaSenha\Forgot.cshtml" />
     <Content Include="Views\Report01\ListParam.cshtml" />
+    <Content Include="Views\Report02\Browse.cshtml" />
+    <Content Include="Views\Report02\ListParam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Users_Data\" />
