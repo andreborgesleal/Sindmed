@@ -15,22 +15,27 @@
                         <th>Nome</th>
                         <th>Assunto</th>
                         <th>Atendente</th>
-                        <th>Área Atendimento</th>
+                        <th>Área</th>
                         <th style="text-align: center">Dt.Atendimento</th>
-                        <th style="text-align: center">Duração (hs)</th>
+                        <th style="text-align: center">Duração</th>
                     </tr>
                 </thead>
-                @foreach (AtendimentoPendenteViewModel rep in Model)
+                @foreach (AtendimentoPendenteViewModel rep in Model.Where(m => m.assunto != null))
                 {
+                    string _dt_atendimento = "";
+                    if (@rep.dt_atendimento.HasValue)
+                    {
+                        _dt_atendimento = @rep.dt_atendimento.Value.ToString("dd/MM/yyyy HH:mm");                        
+                    }
                     <tr>
-                        <td style="width: 15%; font-size: x-small">
-                            @rep.dt_chamado.ToString("dd/MM/yyy HH:mm")
+                        <td style="width: 10%; font-size: x-small">
+                            @rep.dt_chamado.ToString("dd/MM/yyyy HH:mm")
                         </td>
                         <td style="width: 20%; font-size: x-small">
                             @rep.nome
                         </td>
-                        <td style="width: 20%; text-align: center; font-size: x-small">
-                            @rep.assunto
+                        <td style="width: 25%; font-size: x-small">
+                            @(rep.chamadoId.ToString() + "-" + rep.assunto)
                         </td>
                         <td style="width: 10%; font-size: x-small">
                             @rep.usuario_nome
@@ -38,11 +43,11 @@
                         <td style="width: 15%; font-size: x-small">
                             @rep.descricao_areaAtendimento
                         </td>
-                        <td style="width: 15%; font-size: x-small">
-                            (@rep.dt_atendimento.HasValue ? @rep.dt_atendimento.Value.ToString("dd/MM/yyyy HH:mm") : "")
+                        <td style="width: 10%; text-align: center; font-size: x-small">
+                            @_dt_atendimento
                         </td>
                         <td style="width: 5%; text-align: center; font-size: x-small">
-                            @rep.atraso
+                            @rep.atraso (dias)
                         </td>
                     </tr>
                 }

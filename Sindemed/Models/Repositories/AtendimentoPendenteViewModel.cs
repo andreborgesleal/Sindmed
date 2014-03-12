@@ -17,7 +17,7 @@ namespace Sindemed.Models.Repositories
         public string isSindicalizado { get; set; }
         public DateTime dt_chamado { get; set; }
         public string dt_chamado2 { get; set; }
-        public DateTime? dt_atendimento { get; set; }
+        public System.Nullable<DateTime> dt_atendimento { get; set; }
         public int chamadoId { get; set; }
         public int atraso { get; set; }
         public int areaAtendimentoId { get; set; }

@@ -238,6 +238,7 @@
     <Compile Include="Models\Entidades\ApplicationContext.cs" />
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
+    <Compile Include="Models\Entidades\AreaComum.cs" />
     <Compile Include="Models\Entidades\Associado.cs" />
     <Compile Include="Models\Entidades\AssociadoDocumento.cs" />
     <Compile Include="Models\Entidades\AssociadoGrupo.cs" />
@@ -250,6 +251,8 @@
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
     <Compile Include="Models\Entidades\Medico.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
+    <Compile Include="Models\Entidades\Torre.cs" />
+    <Compile Include="Models\Entidades\Unidade.cs" />
     <Compile Include="Models\Enumeracoes\BindDropDownList.cs" />
     <Compile Include="Models\Enumeracoes\SindmedEnum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -637,6 +640,7 @@
     <Content Include="Views\Report01\ListParam.cshtml" />
     <Content Include="Views\Report02\Browse.cshtml" />
     <Content Include="Views\Report02\ListParam.cshtml" />
+    <Content Include="Views\Report02\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Users_Data\" />
