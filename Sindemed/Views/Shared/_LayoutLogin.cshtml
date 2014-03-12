@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sindmepa</title>
+    <title>PARC PARADISO</title>
     <link rel="SHORTCUT ICON" href="/favicon.png" />
     @*@Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")*@
@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 @*@Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })*@
-                <a class="navbar-brand" href="/Home/index">SINDMEPA</a>
+                <a class="navbar-brand" href="/Home/index">PARC PARADISO</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -61,7 +61,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - André Borges Leal - andreborgesleal@live.com</p>
+            <p>&copy; @DateTime.Now.Year - André Borges Leal, Oásis 1304 - Antônio José, Gênesis 1203 - version: <i>@System.Configuration.ConfigurationManager.AppSettings["version"]</i></p>
         </footer>
     </div>
 

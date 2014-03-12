@@ -2,7 +2,7 @@
 @using App_Dominio.Repositories
 @model Sindemed.Models.Repositories.MedicoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = "PARC PARADISO";
 }
 @using (Html.BeginForm("Edit", "Associado", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -11,7 +11,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Associados <small>Acesso administrativo</small>
+                Moradores <small>Acesso administrativo</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -19,8 +19,8 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Edição de Associados
-                        </p> <small>Alteração de associados do sindicato. Preencher os campos nas abas abaixo e depois clicar no botão "Salvar"</small>
+                            Edição de Moradores
+                        </p> <small>Alteração de moradores do Parc Paradiso. Preencher os campos nas abas abaixo e depois clicar no botão "Salvar"</small>
                     </blockquote>
                 </div>
                 <div class="col-md-12">
@@ -32,9 +32,12 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-pills">
                         <li><a href="#identificacao" data-toggle="tab" id="_identificacao">Identificação</a></li>
-                        <li><a href="#end_res" data-toggle="tab">Endereço Residencial</a></li>
+                        <li><a href="#end_res" data-toggle="tab">Telefones</a></li>
                         <li><a href="#end_com" data-toggle="tab">Endereço Comercial</a></li>
                         <li><a href="#dados_prof" data-toggle="tab">Dados Profissionais</a></li>
+                        <li><a href="#depend" data-toggle="tab">Dependentes</a></li>
+                        <li><a href="#veic" data-toggle="tab">Veículos</a></li>
+                        <li><a href="#finan" data-toggle="tab">Financeiro</a></li>
                         <li><a href="#obs" data-toggle="tab">Observação</a></li>
                     </ul>
                     <!-- Tab panes -->
@@ -65,42 +68,20 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.CRM, "CRM *", new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.torre, "Torre *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.CRM, new { @class = "form-control input-sm", @maxlength = "5" })
+                                                @Html.TextBox("torre", "OA", new { @class = "form-control input-sm", @maxlength = "2" })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.ufCRM, "UF *", new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.unidade, "Unidade *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.ufCRM, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.CRM_Seg, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.CRM_Seg, new { @class = "form-control input-sm", @maxlength = "5" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.ufCRM_Seg, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.ufCRM_Seg, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
+                                                @Html.TextBox("unidade", "1304", new { @class = "form-control input-sm", @maxlength = "4" })
                                             </div>
                                         </div>
                                     </div>
@@ -151,26 +132,6 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.isSindicalizado, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.DropDownListFor(m => m.isSindicalizado, App_Dominio.Enumeracoes.DropDownListEnum.SimNao(), new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.dt_admin_sindicato, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            @Html.EditorFor(info => info.dt_admin_sindicato, "DATE", new { identificador = "dt_admin_sindicato", readOnly = "false" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         @Html.LabelFor(m => m.email1, "E-mail *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
@@ -182,20 +143,20 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-group">
-                                            @Html.Editor("_correioId", "TYPEAHEAD", new
+                                            @Html.Editor("_usuarioID", "TYPEAHEAD", new
                                                {
                                                    typeahead = new TypeaheadRepository()
                                                        {
-                                                           label = "Motivo Correio",
-                                                           id = "correioId",
-                                                           text = "descricao_correio",
-                                                           lovModal = "LovNaoLocalizadoCorreioModal",
-                                                           controller = "NaoLocalizadoCorreio",
-                                                           descricao = "descricao",
+                                                           label = "Usuário",
+                                                           id = "usuarioId",
+                                                           text = "nome_usuario",
+                                                           lovModal = "LovUsuarioMedicoModal",
+                                                           controller = "usuario",
+                                                           descricao = "nome",
                                                            values = new SelectListItem()
                                                            {
-                                                               Value = Model.correioId.ToString(),
-                                                               Text = Model.nome_correio
+                                                               Value = Model.usuarioId != null ? Model.usuarioId.ToString() : "",
+                                                               Text = Model.nome_usuario != null ? Model.nome_usuario.ToString() : ""
                                                            },
                                                            disableButtons = false,
                                                            nextField = "endereco"
@@ -218,110 +179,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.Editor("_usuarioID", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Usuário",
-                                                           id = "usuarioId",
-                                                           text = "nome_usuario",
-                                                           lovModal = "LovUsuarioMedicoModal",
-                                                           controller = "usuario",
-                                                           descricao = "nome",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.usuarioId != null ? Model.usuarioId.ToString() : "",
-                                                               Text = Model.nome_usuario != null ? Model.nome_usuario.ToString() : ""
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "endereco"
-                                                       }
-                                               })
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="end_res">
                             <div class="row" style="margin-top: 35px">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.endereco, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.endereco, new { @class = "form-control input-sm", @placeholder = "Endereço residencial", @Style = "width: 180%", @maxlength = "50" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.complementoEnd, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.complementoEnd, new { @class = "form-control input-sm", @style = "width: 180%", @maxlength = "40" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_cidadeId", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Cidade",
-                                                           id = "cidadeId",
-                                                           text = "nome_cidade",
-                                                           lovModal = "LovCidadeModal",
-                                                           controller = "cidade",
-                                                           descricao = "nome",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.cidadeId.ToString(),
-                                                               Text = Model.nome_cidade
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "uf"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.uf, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.uf, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.cep, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.cep, new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.bairro, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.bairro, new { @class = "form-control input-sm", @maxlength = "25" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.telParticular1, new { @class = "col-md-3 control-label" })
@@ -651,6 +514,282 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="tab-pane fade" id="depend">
+                            <div class="row" style="margin-top: 35px">
+                                <div class="col-md-12">
+                                    <div class="row Scroll">
+                                        <div class="col-md-12 column">
+                                            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                                                <caption></caption>
+                                                <thead style="background-color: #fff1a5">
+                                                    <tr>
+                                                        <th style="text-align: center">Ação</th>
+                                                        <th>Nome</th>
+                                                        <th style="text-align: center">Sexo</th>
+                                                        <th style="text-align: center">Grau Relação</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td style="width: 25%">
+                                                        <div class="row-clearfix">
+                                                            <div class="col-md-12">
+                                                                <div class="btn-group btn-group-xs">
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        Maristela Gonçaçves Serruya
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        Feminino
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        Filho(a)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 25%">
+                                                        <div class="row-clearfix">
+                                                            <div class="col-md-12">
+                                                                <div class="btn-group btn-group-xs">
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        Marcelo Gonçaçves Serruya
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        Masculino
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        Filho(a)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 25%">
+                                                        <div class="row-clearfix">
+                                                            <div class="col-md-12">
+                                                                <div class="btn-group btn-group-xs">
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        Graciele Gonçaçves Serruya
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        Feminino
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        Cunhado(a)
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="veic">
+                            <div class="row" style="margin-top: 35px">
+                                <div class="col-md-12">
+                                    <div class="row Scroll">
+                                        <div class="col-md-12 column">
+                                            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                                                <caption></caption>
+                                                <thead style="background-color: #fff1a5">
+                                                    <tr>
+                                                        <th style="text-align: center">Ação</th>
+                                                        <th>Placa</th>
+                                                        <th style="text-align: left">Cor</th>
+                                                        <th style="text-align: left">Marca</th>
+                                                        <th style="text-align: left">Descrição</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td style="width: 25%">
+                                                        <div class="row-clearfix">
+                                                            <div class="col-md-12">
+                                                                <div class="btn-group btn-group-xs">
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        JTU-2301
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Preto
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Chevrolett
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Prisma, 4 portas 
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 25%">
+                                                        <div class="row-clearfix">
+                                                            <div class="col-md-12">
+                                                                <div class="btn-group btn-group-xs">
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        RET-0190
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Prata
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Honda
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        FIT, 4 portas
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 25%">
+                                                        <div class="row-clearfix">
+                                                            <div class="col-md-12">
+                                                                <div class="btn-group btn-group-xs">
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                    <button class="btn btn-sm" type="button">
+                                                                        <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = 1 }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        XVZ-7890
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Preto
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Chevrolett
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        Celta, 2 portas
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="finan">
+                            <div class="row" style="margin-top: 35px">
+                                <div class="col-md-12">
+                                    <div class="row Scroll">
+                                        <div class="col-md-12 column">
+                                            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                                                <caption></caption>
+                                                <thead style="background-color: #fff1a5">
+                                                    <tr>
+                                                        <th>Mensalidade</th>
+                                                        <th style="text-align: left">Vencimento</th>
+                                                        <th style="text-align: left">Pagamento</th>
+                                                        <th style="text-align: center">Atraso</th>
+                                                        <th style="text-align: right ">Valor</th>
+                                                        <th style="text-align: right">Valor Pago</th>
+                                                        <th style="text-align: right">Em aberto</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td>
+                                                        Janeiro/2014
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        05/01/2014
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        05/01/2014
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        
+                                                    </td>
+                                                    <td style="text-align: right">R$ 586,00</td>
+                                                    <td style="text-align: right">R$ 586,00</td>
+                                                    <td style="text-align: right"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Fevereiro/2014
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        05/02/2014
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                    </td>
+                                                    <td style="text-align: center">35 dias</td>
+                                                    <td style="text-align: right">R$ 586,00</td>
+                                                    <td style="text-align: right"></td>
+                                                    <td style="text-align: right">R$ 586,00</td>
+                                                </tr>
+                                                <tr style="font-weight: bold">
+                                                    <td>
+                                                        <b>Total</b>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        
+                                                    </td>
+                                                    <td style="text-align: left"></td>
+                                                    <td style="text-align: center"></td>
+                                                    <td style="text-align: right">R$ 1.172,00</td>
+                                                    <td style="text-align: right">R$ 586,00</td>
+                                                    <td style="text-align: right">R$ 586,00</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                         <div class="tab-pane fade" id="obs">
                             <div class="row" style="margin-top: 35px">
                                 <div class="col-md-12">

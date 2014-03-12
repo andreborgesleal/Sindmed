@@ -22,5 +22,12 @@ namespace Sindemed.Models.Entidades
         public Nullable<int> especialidade2Id { get; set; }
         [DisplayName("ID_Especialidade_3")]
         public Nullable<int> especialidade3Id { get; set; }
+
+        [DisplayName("Torre")]
+        public string torre { get; set; }
+
+        [DisplayName("Unidade")]
+        public int? unidade { get; set; }
+
     }
 }

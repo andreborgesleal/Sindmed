@@ -267,6 +267,8 @@ namespace Sindemed.Models.Persistence
                         especialidade1Id = socio.especialidade1Id,
                         especialidade2Id = socio.especialidade2Id,
                         especialidade3Id = socio.especialidade3Id,
+                        torre = socio.torre,
+                        unidade = socio.unidade,
                         PageSize = pageSize,
                         TotalCount = (from socio1 in db.Medicos
                                       where (_descricao == null || String.IsNullOrEmpty(_descricao) || socio1.nome.StartsWith(_descricao.Trim()) || socio1.CRM == _descricao || socio1.CRM_Seg == _descricao)
