@@ -120,5 +120,34 @@ namespace Sindemed.Models.Enumeracoes
 
 
         }
+
+        public IEnumerable<SelectListItem> NaoLocalizadoCorreios(params object[] param)
+        {
+            // params[0] -> cabeçalho (Selecione..., Todos...)
+            // params[1] -> SelectedValue
+            string cabecalho = param[0].ToString();
+            string selectedValue = param[1].ToString();
+
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                IList<SelectListItem> q = new List<SelectListItem>();
+
+                if (cabecalho != "")
+                    q.Add(new SelectListItem() { Value = "", Text = cabecalho });
+
+                q = q.Union(from g in db.NaoLocalizadoCorreios.AsEnumerable()
+                            orderby g.descricao
+                            select new SelectListItem()
+                            {
+                                Value = g.correioId.ToString(),
+                                Text = g.descricao,
+                                Selected = (selectedValue != "" ? g.descricao.Equals(selectedValue) : false)
+                            }).ToList();
+
+                return q;
+            }
+
+
+        }
     }
 }
