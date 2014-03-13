@@ -238,7 +238,6 @@
     <Compile Include="Models\Entidades\ApplicationContext.cs" />
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
-    <Compile Include="Models\Entidades\AreaComum.cs" />
     <Compile Include="Models\Entidades\Associado.cs" />
     <Compile Include="Models\Entidades\AssociadoDocumento.cs" />
     <Compile Include="Models\Entidades\AssociadoGrupo.cs" />
@@ -251,8 +250,6 @@
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
     <Compile Include="Models\Entidades\Medico.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
-    <Compile Include="Models\Entidades\Torre.cs" />
-    <Compile Include="Models\Entidades\Unidade.cs" />
     <Compile Include="Models\Enumeracoes\BindDropDownList.cs" />
     <Compile Include="Models\Enumeracoes\SindmedEnum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -317,6 +314,7 @@
     <Content Include="Content\images\menu-id-2.png" />
     <Content Include="Content\images\menu-id-3.png" />
     <Content Include="Content\images\menu-id-4.png" />
+    <Content Include="Content\images\menu-id-41.png" />
     <Content Include="Content\images\menu-id-5.png" />
     <Content Include="Content\images\menu-id-6.png" />
     <Content Include="Content\images\menu-id-7.png" />

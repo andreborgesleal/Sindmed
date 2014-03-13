@@ -12,8 +12,8 @@
                     <tr>
                         <th style="text-align: center">Ação</th>
                         <th>Nome</th>
-                        <th style="text-align: center">Torre</th>
-                        <th style="text-align: center">Unidade</th>
+                        <th style="text-align: center">UF CRM</th>
+                        <th style="text-align: center">CRM</th>
                     </tr>
                 </thead>
                 @foreach (Sindemed.Models.Repositories.MedicoViewModel med in Model)
@@ -40,10 +40,10 @@
                             @med.nome
                         </td>
                         <td style="text-align: center">
-                            @med.torre
+                            @med.ufCRM
                         </td>
                         <td style="text-align: center">
-                            @med.unidade
+                            @med.CRM
                         </td>
                     </tr>
                 }

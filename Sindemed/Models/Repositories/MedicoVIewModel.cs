@@ -48,9 +48,5 @@ namespace Sindemed.Models.Repositories
 
         public string nome_correio { get; set; }
 
-        public string torre { get; set; }
-
-        public int? unidade { get; set; }
-
     }
 }

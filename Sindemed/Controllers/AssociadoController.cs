@@ -13,7 +13,7 @@ namespace Sindemed.Controllers
         public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
         public override string getListName()
         {
-            return "Listagem de Moradores";
+            return "Listagem de Associados";
         }
 
         #region List
