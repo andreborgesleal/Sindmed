@@ -27,6 +27,9 @@ namespace Sindemed.Models.Report
             string ind_email = null;
             if (param[5].ToString() != "")
                 ind_email = param[5].ToString();
+            int? correioId = null;
+            if (param[6].ToString() != "")
+                correioId = int.Parse(param[6].ToString());
 
             var q = (from a in db.Associados
                      join m in db.Medicos on a.associadoId equals m.associadoId
@@ -35,6 +38,7 @@ namespace Sindemed.Models.Report
                      where (ind_sindicalizado == "" || a.isSindicalizado == ind_sindicalizado) &&
                          //Convert.ToInt32(m.CRM) >= 1 && Convert.ToInt32(m.CRM) <= 100 && 
                            (especialidadeId == null || m.especialidade1Id == especialidadeId) &&
+                           (correioId == null || a.correioId == correioId) &&
                            (grupoAssociadoId == null || (from agr in db.AssociadoGrupos
                                                          where agr.grupoAssociadoId == grupoAssociadoId &&
                                                                agr.associadoId == a.associadoId
@@ -125,6 +129,9 @@ namespace Sindemed.Models.Report
             string ind_email = null;
             if (param[5].ToString() != "")
                 ind_email = param[5].ToString();
+            int? correioId = null;
+            if (param[6].ToString() != "")
+                correioId = int.Parse(param[6].ToString());
 
             var q = (from a in db.Associados
                      join m in db.Medicos on a.associadoId equals m.associadoId
@@ -132,6 +139,7 @@ namespace Sindemed.Models.Report
                      join c in db.Cidades on a.cidadeId equals c.cidadeId
                      where (ind_sindicalizado == "" || a.isSindicalizado == ind_sindicalizado) &&
                            (especialidadeId == null || m.especialidade1Id == especialidadeId) &&
+                           (correioId == null || a.correioId == correioId) &&
                            (grupoAssociadoId == null || (from agr in db.AssociadoGrupos
                                                          where agr.grupoAssociadoId == grupoAssociadoId &&
                                                                agr.associadoId == a.associadoId

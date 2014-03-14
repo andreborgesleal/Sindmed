@@ -10,6 +10,7 @@
 {
     @Html.Hidden("descricao_especialidade","")
     @Html.Hidden("descricao_grupo","")
+    @Html.Hidden("descricao_correio","")
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -78,6 +79,12 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group col-md-12">
+                        @Html.Label("Localização Correios", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                @Html.DropDownList("correioId", new BindDropDownList().NaoLocalizadoCorreios("Todos...", ""), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,6 +137,7 @@
 
         $("#descricao_especialidade").val($("#especialidadeId option:selected").text());
         $("#descricao_grupo").val($("#grupoAssociadoId option:selected").text());
+        $("#descricao_correio").val($("#correioId option:selected").text());
 
         return true;
     }

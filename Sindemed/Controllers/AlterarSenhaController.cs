@@ -61,15 +61,16 @@ namespace Sindemed.Controllers
 
                 if (ret.mensagem.Code == 0)
                 {
-                    BreadCrumb b = (BreadCrumb)ViewBag.BreadCrumb;
-                    if (b.items.Count > 1)
-                    {
-                        string[] split = b.items[b.items.Count - 2].queryString.Split('&');
-                        string _index = split[0].Replace("?index=", "");
-                        return RedirectToAction(b.items[b.items.Count - 2].actionName, b.items[b.items.Count - 2].controllerName, new { index = _index });
-                    }
-                    else
-                        return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
+                    //BreadCrumb b = (BreadCrumb)ViewBag.BreadCrumb;
+                    //if (b.items.Count > 1)
+                    //{
+                    //    string[] split = b.items[b.items.Count - 2].queryString.Split('&');
+                    //    string _index = split[0].Replace("?index=", "");
+                    //    return RedirectToAction(b.items[b.items.Count - 2].actionName, b.items[b.items.Count - 2].controllerName, new { index = _index });
+                    //}
+                    //else
+                    //    return RedirectToAction("Index", "Home");
                 }
                 else
                     return View(ret);

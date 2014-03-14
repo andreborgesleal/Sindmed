@@ -38,12 +38,12 @@ namespace Sindemed.Controllers
         }
 
         [AuthorizeFilter]
-        public ActionResult ListParam(int? index, int? pageSize = 50, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string grupoAssociadoId = "", string ind_email = "")
+        public ActionResult ListParam(int? index, int? pageSize = 50, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string grupoAssociadoId = "", string ind_email = "", string correioId = "")
         {
             if (ViewBag.ValidateRequest)
             {
                 RelacaoGeralReport rep = new RelacaoGeralReport();
-                return _List(index, pageSize, "Browse", rep, ind_sindicalizado, crm_inicial, crm_final, especialidadeId, grupoAssociadoId, ind_email);
+                return _List(index, pageSize, "Browse", rep, ind_sindicalizado, crm_inicial, crm_final, especialidadeId, grupoAssociadoId, ind_email, correioId);
             }
             else
                 return View();            
@@ -63,7 +63,9 @@ namespace Sindemed.Controllers
                     descricao_especialidade = collection ["descricao_especialidade"],
                     grupoAssociadoId = collection ["grupoAssociadoId"],
                     descricao_grupo =  collection["descricao_grupo"],
-                    ind_email = collection["ind_email"]
+                    ind_email = collection["ind_email"],
+                    correioId = collection["correioId"],
+                    descricao_correio = collection["descricao_correio"]
                 });
             else
                 return View();            
@@ -72,7 +74,8 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public ActionResult Print(string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", 
                                     string especialidadeId = "", string descricao_especialidade = "", 
-                                    string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
+                                    string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "",
+                                    string correioId = "", string descricao_correio = "")
         {
             if (ViewBag.ValidateRequest)
             {
@@ -81,12 +84,13 @@ namespace Sindemed.Controllers
                        { "empresa", new EmpresaSecurity<App_DominioContext>().getEmpresa().nome },
                        { "sindicalizado", ind_sindicalizado == "" ? "Sindicalizados e Não Sindicalizados" : ind_sindicalizado == "S" ? "Sindicalizados" : "Não Sindicalizados" },
                        { "especialidade", "Especialidade: " + descricao_especialidade },
+                       { "correio", "Localização Correio: " + descricao_correio },
                        { "grupo", "Grupo: " + descricao_grupo}
                     };
 
                 ViewBag.Header = header;
                 RelacaoGeralReport model = new RelacaoGeralReport();
-                IEnumerable<RelacaoGeralViewModel> r = model.ListReportRepository(ind_sindicalizado, crm_inicial, crm_final, especialidadeId, grupoAssociadoId, ind_email);
+                IEnumerable<RelacaoGeralViewModel> r = model.ListReportRepository(ind_sindicalizado, crm_inicial, crm_final, especialidadeId, grupoAssociadoId, ind_email, correioId);
                 return View(r);
             }
             else
