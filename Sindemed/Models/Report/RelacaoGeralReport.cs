@@ -69,7 +69,7 @@ namespace Sindemed.Models.Report
                      }).ToList();
 
             q = (from xpto in q
-                 where Convert.ToInt16(xpto.crm) >= 1 && Convert.ToInt16(xpto.crm) <= crm_final
+                 where Convert.ToInt16(xpto.crm) >= crm_inicial && Convert.ToInt16(xpto.crm) <= crm_final
                  select new RelacaoGeralViewModel()
                      {
                          associadoId = xpto.associadoId,
@@ -92,7 +92,7 @@ namespace Sindemed.Models.Report
                          isSindicalizado = xpto.isSindicalizado,
                          PageSize = pageSize,
                          TotalCount = (from xpto1 in q
-                                       where Convert.ToInt16(xpto1.crm) >= 1 && Convert.ToInt16(xpto1.crm) <= crm_final
+                                       where Convert.ToInt16(xpto1.crm) >= crm_inicial && Convert.ToInt16(xpto1.crm) <= crm_final
                                        select xpto1.associadoId).Count()
                      }
                  ).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
@@ -169,7 +169,7 @@ namespace Sindemed.Models.Report
                      }).ToList();
 
             q = (from xpto in q
-                 where Convert.ToInt16(xpto.crm) >= 1 && Convert.ToInt16(xpto.crm) <= crm_final
+                 where Convert.ToInt16(xpto.crm) >= crm_inicial && Convert.ToInt16(xpto.crm) <= crm_final
                  select new RelacaoGeralViewModel()
                  {
                      associadoId = xpto.associadoId,

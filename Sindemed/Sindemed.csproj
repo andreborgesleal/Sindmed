@@ -217,6 +217,9 @@
     <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\ComunicacaoGrupoController.cs" />
     <Compile Include="Controllers\ComunicadoGeralController.cs" />
+    <Compile Include="Controllers\EnviarEmailController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\EspecialidadeController.cs" />
     <Compile Include="Controllers\EsqueciMinhaSenhaController.cs">
       <SubType>Code</SubType>
@@ -268,6 +271,7 @@
     <Compile Include="Models\Persistence\CidadeModel.cs" />
     <Compile Include="Models\Persistence\ComunicacaoGrupoModel.cs" />
     <Compile Include="Models\Persistence\ComunicacaoModel.cs" />
+    <Compile Include="Models\Persistence\EnviarEmailModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
     <Compile Include="Models\Persistence\MedicoModel.cs" />
@@ -288,6 +292,7 @@
     <Compile Include="Models\Repositories\ComunicacaoGlobalViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoGrupoViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
+    <Compile Include="Models\Repositories\EnviarEmailViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
     <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
     <Compile Include="Models\Repositories\MedicoViewModel.cs" />
@@ -315,6 +320,7 @@
     <Content Include="Content\images\menu-id-3.png" />
     <Content Include="Content\images\menu-id-4.png" />
     <Content Include="Content\images\menu-id-41.png" />
+    <Content Include="Content\images\menu-id-42.png" />
     <Content Include="Content\images\menu-id-5.png" />
     <Content Include="Content\images\menu-id-6.png" />
     <Content Include="Content\images\menu-id-7.png" />
@@ -639,6 +645,8 @@
     <Content Include="Views\Report02\Browse.cshtml" />
     <Content Include="Views\Report02\ListParam.cshtml" />
     <Content Include="Views\Report02\Print.cshtml" />
+    <Content Include="Views\EnviarEmail\ListParam.cshtml" />
+    <Content Include="Views\EnviarEmail\Browse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Users_Data\" />

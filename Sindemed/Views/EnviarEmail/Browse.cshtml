@@ -1,0 +1,193 @@
+﻿@using Sindemed.Models.Repositories
+@using App_Dominio.Repositories
+@using Sindemed.Models.Enumeracoes
+@using App_Dominio.Enumeracoes
+@model Sindemed.Models.Repositories.EnviarEmailViewModel
+@{
+    ViewBag.Title = "Sindmepa";
+}
+@using (Ajax.BeginForm("Browse", "EnviarEmail", null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search" }))
+{
+    @Html.Hidden("contador", "0")
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Enviar e-mail <small>Envio de email aos associados. </small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills">
+                <li><a href="#mensagem" data-toggle="tab" id="_identificacao">Mensagem</a></li>
+                <li><a href="#dest" data-toggle="tab">Destinatários</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="mensagem">
+                    <div class="panel panel-info" style="margin-top: 20px">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                Dados da mensagem 
+                            </h2><h6>Preencha os dados abaixo e depois selecione a aba "Destinatários". Será permitido enviar o e-mail para um limite máximo de 200 associados por vez.</h6>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-9">
+                                        @Html.Label("Assunto *", new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-12">
+                                            <div class="input-group col-md-10">
+                                                @Html.TextBoxFor(m => m.assunto, new { @class = "form-control input-sm" })<br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-9">
+                                        @Html.LabelFor(m => m.mensagemEmail, "Mensagem *", new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-12">
+                                            <div class="input-group col-md-10">
+                                                <textarea name="mensagemEmail"></textarea>
+                                                <script>
+                                                    CKEDITOR.replace('mensagemEmail');
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="dest">
+                    <div class="panel panel-info" style="margin-top: 20px">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                Filtro de busca 
+                            </h2><h6>Preencha os campos abaixo e clique no botão "Buscar" para montar a lista de destinatários do e-mail. Em seguida clique no botão "Enviar" para enviar o e-mail aos destinatários da lista.</h6>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        @Html.Label("Grupos", new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                @Html.DropDownList("grupoAssociadoId", new BindDropDownList().GruposAssociados("Todos...", ""), new { @class = "form-control input-sm" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        @Html.Label("Especialidade", new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                @Html.DropDownList("especialidadeId", new BindDropDownList().Especialidade("Todas...", ""), new { @class = "form-control input-sm" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        @Html.Editor("_cidadeId", "TYPEAHEAD", new
+                                               {
+                                                   typeahead = new TypeaheadRepository()
+                                                       {
+                                                           label = "Cidade",
+                                                           id = "cidadeId",
+                                                           text = "nome_cidade",
+                                                           lovModal = "LovCidadeModal",
+                                                           controller = "cidade",
+                                                           descricao = "nome",
+                                                           values = new SelectListItem()
+                                                           {
+                                                               Value = "",
+                                                               Text = ""
+                                                           },
+                                                           disableButtons = false,
+                                                           nextField = "uf"
+                                                       }
+                                               })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        @Html.Label("Aniversariantes", new { @class = "col-md-3 control-label" })
+                                        <div class="input-group col-md-3">
+                                            @Html.DropDownList("aniversariante", DropDownListEnum.SimNao("N"), new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        @Html.Label("Faixa CRM", new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-6" style="padding-left: 0px">
+                                            <div class="input-group col-md-5">
+                                                @Html.TextBox("crm_inicial", "1", new { @class = "form-control input-sm" })
+                                            </div>
+                                            <div class="input-group col-md-1" style="padding-left: 0px">
+                                                à
+                                            </div>
+                                            <div class="input-group col-md-5" style="padding-left: 0px">
+                                                @Html.TextBox("crm_final", "99999", new { @class = "form-control input-sm" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="div-list">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="col-lg-offset-10">
+                                <button type="button" class="btn btn-default" onclick="Refresh(0, getPageSize(), 'ListParam', 'div-list')">Buscar</button>
+                                <button type="submit" class="btn btn-primary" onclick="return valida()">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tab panes -->
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $("#crm_inicial").mask("?99999");
+    $("#crm_final").mask("?99999");
+    document.getElementById("_identificacao").click();
+
+    function valida() {
+        if ($("#crm_inicial").val().trim() == "") {
+            ShowMessageAlert("CRM Inicial deve ser informado", "warning");
+            return false;
+        }
+        else if ($("#crm_final").val().trim() == "") {
+            ShowMessageAlert("CRM final deve ser informado", "warning");
+            return false;
+        }
+
+        if ($("#contador").val() == "0") {
+            ShowMessageAlert("Informe pelo menos um destinatário para enviar o e-mail", "warning");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+
+
+
