@@ -59,10 +59,19 @@ namespace Sindemed.Controllers
             {
                 GetCreate();
                 value = getModel().Create(value);
-                if (value.chamado.situacao != "F")
-                    return View(value);
+                if (value.mensagem.Code != 0)
+                {
+                    Error(value.mensagem.Message);
+                    Response.Redirect("/Home/_Error");
+                    return null;
+                }
                 else
-                    return RedirectToAction("Detail", new AtendimentoViewModel() { chamadoId = value.chamadoId, fluxo = value.fluxo });
+                {
+                    if (value.chamado.situacao != "F")
+                        return View(value);
+                    else
+                        return RedirectToAction("Detail", new AtendimentoViewModel() { chamadoId = value.chamadoId, fluxo = value.fluxo });
+                }
             }
             else
                 return null;
@@ -136,7 +145,14 @@ namespace Sindemed.Controllers
             {
                 GetCreate();
                 value = getModel().Create(value);
-                return View(value);
+                if (value.mensagem.Code != 0)
+                {
+                    Error(value.mensagem.Message);
+                    Response.Redirect("/Home/_Error");
+                    return null;
+                }
+                else
+                    return View(value);
             }
             else
                 return null;

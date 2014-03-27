@@ -171,6 +171,7 @@ namespace Sindemed.Models.Persistence
         #region Métodos customizados
         public AtendimentoViewModel Create(AtendimentoViewModel value)
         {
+
             Atendimento entity = new Atendimento()
             {
                 chamadoId = value.chamadoId,
@@ -179,7 +180,34 @@ namespace Sindemed.Models.Persistence
             };
 
             using (db = getContextInstance())
-                return MapToRepository(entity);
+            {
+                #region verifica se o chamado existe
+                if (db.Chamados.Find(value.chamadoId) == null)
+                {
+                    value.mensagem = new Validate() { Code = 20, Message = MensagemPadrao.Message(20).ToString() };
+                    return value;
+                }
+                #endregion
+
+                value = MapToRepository(entity);
+                
+                #region Valida se o usuário corrente é o usuário do chamado
+                EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
+                Usuario usuario = security.getUsuario();
+                Associado ass = db.Associados.Find(value.chamado.associadoId);
+                if (ass.usuarioId == null || usuario.usuarioId != ass.usuarioId)
+                    if (value.chamado.usuarioId != null && value.chamado.usuarioId != usuario.usuarioId)
+                        value.mensagem = new Validate() { Code = -1, Message = "Acesso negado" };
+                    else if (value.chamado.usuarioId == null)
+                    {
+                        AreaAtendimento ar = db.AreaAtendimentos.Find(value.chamado.areaAtendimentoId);
+                        if (ar.usuario1Id != null && ar.usuario1Id != usuario.usuarioId && ar.usuario2Id != usuario.usuarioId)
+                            value.mensagem = new Validate() { Code = -1, Message = "Acesso negado" };
+                    }
+
+                #endregion
+            }
+            return value;
         }
         #endregion
     }
