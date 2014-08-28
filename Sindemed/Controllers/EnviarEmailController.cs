@@ -2,14 +2,14 @@
 using App_Dominio.Controllers;
 using App_Dominio.Entidades;
 using App_Dominio.Security;
-using Sindemed.Models.Entidades;
-using Sindemed.Models.Persistence;
-using Sindemed.Models.Repositories;
+using DWM.Models.Entidades;
+using DWM.Models.Persistence;
+using DWM.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class EnviarEmailController : ExecController<EnviarEmailViewModel, EnviarEmailModel>
     {
@@ -71,9 +71,9 @@ namespace Sindemed.Controllers
             if (value.Destinatarios == null)
             {
                 ListViewEnviarEmail list = new ListViewEnviarEmail();
-                value.Destinatarios = (IEnumerable<MedicoViewModel>)list.ListRepository(0, 999999, collection["grupoAssociadoId"],
-                                                                                        collection["especialidadeId"], collection["cidadeId"], collection["aniversariante"],
-                                                                                        collection["crm_inicial"], collection["crm_final"]);
+                value.Destinatarios = (IEnumerable<AssociadoViewModel>)list.ListRepository(0, 999999, collection["grupoAssociadoId"],
+                                                                                           collection["especialidadeId"], collection["cidadeId"], collection["aniversariante"],
+                                                                                           collection["crm_inicial"], collection["crm_final"]);
             }
         }
 	}

@@ -1,9 +1,9 @@
 ﻿using App_Dominio.Component;
 using App_Dominio.Controllers;
 using App_Dominio.Security;
-using Sindemed.Models.Enumeracoes;
-using Sindemed.Models.Persistence;
-using Sindemed.Models.Repositories;
+using DWM.Models.Enumeracoes;
+using DWM.Models.Persistence;
+using DWM.Models.Repositories;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
@@ -11,12 +11,13 @@ using System.Web.Mvc;
 using System.Linq;
 using App_Dominio.Enumeracoes;
 using App_Dominio.Contratos;
+using App_Dominio.Entidades;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class AssociadoDocumentoController : ProcessController<AssociadoDocumentoViewModel, AssociadoDocumentoModel>
     {
-        public override int _sistema_id() { return (int)Sistema.SINDMED; }
+        public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
 
         public override string getListName()
         {
@@ -27,17 +28,35 @@ namespace Sindemed.Controllers
         [AuthorizeFilter]
         public override ActionResult List(int? index, int? pageSize = 50, string descricao = null)
         {
-            if (ViewBag.ValidateRequest && Request["associadoId"] != null)
-                return ListAssociadoDocumento(index, PageSize, int.Parse(Request["associadoId"]), descricao);
+            TempData.Remove("associadoId");
+            App_Dominio.Security.EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
+            Sessao sessaoCorrente = security.getSessaoCorrente();
+
+            string _associadoId = null;
+
+            if (sessaoCorrente.value1 == "0" && Request["associadoId"] != null)
+            {
+                _associadoId = Request["associadoId"];
+                TempData.Add("associadoId", Request["associadoId"]);
+            }
+            else if (sessaoCorrente.value1 != "0")
+            {
+                _associadoId = sessaoCorrente.value1;
+                TempData.Add("associadoId", sessaoCorrente.value1);
+            }
+
+            if (ViewBag.ValidateRequest && _associadoId != null)
+                return ListAssociadoDocumento(index, PageSize, descricao);
             else
                 return View();
         }
 
         [AuthorizeFilter]
-        public ActionResult ListAssociadoDocumento(int? index, int? pageSize = 50, int? associadoId = null, string descricao = null)
+        public ActionResult ListAssociadoDocumento(int? index, int? pageSize = 50, string descricao = null)
         {
             if (ViewBag.ValidateRequest)
             {
+                int associadoId = int.Parse(TempData.Peek("associadoId").ToString());
                 ListViewAssociadoDocumento l = new ListViewAssociadoDocumento();
                 return _List(index, pageSize, "Browse", l, associadoId, descricao);
             }
@@ -48,9 +67,9 @@ namespace Sindemed.Controllers
 
         #region edit
         [AuthorizeFilter]
-        public ActionResult Edit(int associadoId, string fileId)
+        public ActionResult Edit(string fileId)
         {
-            return _Edit(new AssociadoDocumentoViewModel() { associadoId = associadoId, fileId = fileId });
+            return _Edit(new AssociadoDocumentoViewModel() { fileId = fileId });
         }
 
         [ValidateInput(false)]
@@ -74,9 +93,9 @@ namespace Sindemed.Controllers
 
         #region Delete
         [AuthorizeFilter]
-        public ActionResult Delete(int associadoId, string fileId)
+        public ActionResult Delete(string fileId)
         {
-            return Edit(associadoId, fileId);
+            return Edit(fileId);
         }
 
         [ValidateInput(false)]

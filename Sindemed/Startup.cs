@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Sindemed.Startup))]
-namespace Sindemed
+[assembly: OwinStartupAttribute(typeof(DWM.Startup))]
+namespace DWM
 {
     public partial class Startup
     {

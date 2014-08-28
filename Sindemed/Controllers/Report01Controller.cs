@@ -1,17 +1,13 @@
 ﻿using App_Dominio.Controllers;
 using App_Dominio.Security;
-using Sindemed.Models.Report;
-using Sindemed.Models.Repositories;
-using System;
+using DWM.Models.Report;
+using DWM.Models.Repositories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Reporting.WebForms;
 using App_Dominio.Entidades;
-using App_Dominio.Contratos;
+using Microsoft.Reporting.WebForms;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class Report01Controller : ReportController<RelacaoGeralViewModel>
     {
@@ -20,11 +16,11 @@ namespace Sindemed.Controllers
             return false;
         }
 
-        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
+        public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
 
         public override string getListName()
         {
-            return "Relação geral de associados";
+            return "Relação geral de condôminos";
         }
 
         #region List
@@ -98,18 +94,18 @@ namespace Sindemed.Controllers
         }
 
         //[AuthorizeFilter]
-        public FileResult PDF(string export, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string descricao_especialidade = "", string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
-        {
-            RelacaoGeralReport rep = new RelacaoGeralReport();
-            ReportParameter[] p = new ReportParameter[4];
-            // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
-            p[1] = new ReportParameter("sindicalizado", ind_sindicalizado == "" ? "Sindicalizados e Não Sindicalizados" : ind_sindicalizado == "S" ? "Sindicalizados" : "Não Sindicalizados" , false);
-            p[2] = new ReportParameter("especialidade", "Especialidade: " + descricao_especialidade, false);
-            p[3] = new ReportParameter("grupo", "Grupo: " + descricao_grupo, false);
+        //public FileResult PDF(string export, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string descricao_especialidade = "", string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
+        //{
+        //    RelacaoGeralReport rep = new RelacaoGeralReport();
+        //    ReportParameter[] p = new ReportParameter[4];
+        //    // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
+        //    p[1] = new ReportParameter("sindicalizado", ind_sindicalizado == "" ? "Sindicalizados e Não Sindicalizados" : ind_sindicalizado == "S" ? "Sindicalizados" : "Não Sindicalizados" , false);
+        //    p[2] = new ReportParameter("especialidade", "Especialidade: " + descricao_especialidade, false);
+        //    p[3] = new ReportParameter("grupo", "Grupo: " + descricao_grupo, false);
 
-            return _PDF(export, "RelacaoGeralAssociados", rep, p, null, null, ind_sindicalizado, crm_inicial, crm_final, 
-                        especialidadeId, grupoAssociadoId, ind_email);
-        }
+        //    return _PDF(export, "RelacaoGeralAssociados", rep, p, null, null, ind_sindicalizado, crm_inicial, crm_final, 
+        //                especialidadeId, grupoAssociadoId, ind_email);
+        //}
         #endregion
 	}
 }

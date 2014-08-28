@@ -1,0 +1,30 @@
+﻿@using DWM.Models.Repositories
+@using App_Dominio.Entidades
+@using App_Dominio.Repositories
+
+@model System.Web.Mvc.PagedList<DWM.Models.Repositories.ProprietarioViewModel>
+@{
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<SecurityContext>().getEmpresa().nome;
+    ViewBag.Header = "Proprietários";
+}
+
+<div class="row" style="margin-top: 10px">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="padding: -2px">
+            <div class="panel-heading" style="padding: 0px; height: 50px">
+                @Html.Partial("_Filter", Model)
+            </div>
+            <div class="panel-body">
+                <div id="div-list">
+                    @Html.Partial("List", Model)
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="col-lg-offset-11">
+                    @Html.Partial("_defaultListButtons", new List<ButtonRepository> { new ButtonRepository() { linkText = "Incluir", actionName = "Create", controllerName = "Proprietario", buttonType = "link" } })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

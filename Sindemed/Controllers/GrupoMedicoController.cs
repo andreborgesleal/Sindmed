@@ -1,18 +1,18 @@
 ﻿using App_Dominio.Controllers;
 using App_Dominio.Security;
-using Sindemed.Models.Enumeracoes;
-using Sindemed.Models.Persistence;
-using Sindemed.Models.Repositories;
+using DWM.Models.Enumeracoes;
+using DWM.Models.Persistence;
+using DWM.Models.Repositories;
 using System.Web.Mvc;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class GrupoMedicoController : RootController<GrupoAssociadoViewModel, GrupoAssociadoModel>
     {
         public override int _sistema_id() { return (int)Sistema.SINDMED ; }
         public override string getListName()
         {
-            return "Listar Grupos de Associados";
+            return "Listar Grupos de Condôminos";
         }
 
         #region List
@@ -31,7 +31,7 @@ namespace Sindemed.Controllers
         public ActionResult ListGrupoAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
         {
             LookupGrupoAssociadoModel l = new LookupGrupoAssociadoModel();
-            return this.ListModal(index, pageSize, l, "Grupos de Associados", descricao);
+            return this.ListModal(index, pageSize, l, "Grupos de Condôminos", descricao);
         }
         [AuthorizeFilter]
         public ActionResult _ListGrupoAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
@@ -39,7 +39,7 @@ namespace Sindemed.Controllers
             if (ViewBag.ValidateRequest)
             {
                 LookupGrupoAssociadoFiltroModel l = new LookupGrupoAssociadoFiltroModel();
-                return this.ListModal(index, pageSize, l, "Grupos de Associados", descricao);
+                return this.ListModal(index, pageSize, l, "Grupos de Condôminos", descricao);
             }
             else
                 return View();

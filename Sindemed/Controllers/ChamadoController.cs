@@ -2,21 +2,21 @@
 using App_Dominio.Controllers;
 using App_Dominio.Entidades;
 using App_Dominio.Security;
-using Sindemed.Models.Entidades;
-using Sindemed.Models.Persistence;
-using Sindemed.Models.Repositories;
+using DWM.Models.Entidades;
+using DWM.Models.Persistence;
+using DWM.Models.Repositories;
 using System;
 using System.Web.Mvc;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class ChamadoController : ProcessController<ChamadoViewModel, ChamadoModel>
     {
 
-        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
+        public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
         public override string getListName()
         {
-            return "Listagem de Chamados do Associado";
+            return "Listagem de Chamados do Condômino";
         }
 
         #region List
@@ -37,6 +37,7 @@ namespace Sindemed.Controllers
         {
             ChamadoViewModel repository = new ChamadoModel().Create();
 
+            value.chamadoStatusId = repository.chamadoStatusId;
             value.situacao = repository.situacao;
             value.associadoId = repository.associadoId;
             value.dt_chamado = repository.dt_chamado;

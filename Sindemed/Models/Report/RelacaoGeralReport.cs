@@ -1,44 +1,39 @@
-﻿using Sindemed.Models.Repositories;
+﻿using DWM.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using App_Dominio.Component;
 using App_Dominio.Entidades;
-using Sindemed.Models.Entidades;
+using DWM.Models.Entidades;
 using System.Data.Entity.SqlServer;
 
-namespace Sindemed.Models.Report
+namespace DWM.Models.Report
 {
     public class RelacaoGeralReport : ReportRepository<RelacaoGeralViewModel, ApplicationContext>
     {
         #region Métodos da classe ReportRepository
         public override IEnumerable<RelacaoGeralViewModel> Bind(int? index, int pageSize = 50, params object[] param)
         {
-            string ind_sindicalizado = param[0].ToString();
-            int crm_inicial = int.Parse(param[1].ToString());
-            int crm_final = int.Parse(param[2].ToString());
-            int? especialidadeId = null ;
-            if (param[3].ToString() != "")
-                especialidadeId = int.Parse(param[3].ToString());
+            string ind_proprietario = param[0].ToString();
+            string torreId = null;
+            if (param[1].ToString() != "")
+                torreId = param[1].ToString();
+            int? unidadeId = null;
+            if (param[2].ToString() != "")
+                unidadeId = int.Parse(param[2].ToString());
             int? grupoAssociadoId = null;
-            if (param[4].ToString() != "")
-                grupoAssociadoId = int.Parse(param[4].ToString());
+            if (param[3].ToString() != "")
+                grupoAssociadoId = int.Parse(param[3].ToString());
             string ind_email = null;
-            if (param[5].ToString() != "")
-                ind_email = param[5].ToString();
-            int? correioId = null;
-            if (param[6].ToString() != "")
-                correioId = int.Parse(param[6].ToString());
+            if (param[4].ToString() != "")
+                ind_email = param[4].ToString();
 
             var q = (from a in db.Associados
-                     join m in db.Medicos on a.associadoId equals m.associadoId
-                     join e in db.EspecialidadeMedicas on m.especialidade1Id equals e.especialidadeId
-                     join c in db.Cidades on a.cidadeId equals c.cidadeId
-                     where (ind_sindicalizado == "" || a.isSindicalizado == ind_sindicalizado) &&
-                         //Convert.ToInt32(m.CRM) >= 1 && Convert.ToInt32(m.CRM) <= 100 && 
-                           (especialidadeId == null || m.especialidade1Id == especialidadeId) &&
-                           (correioId == null || a.correioId == correioId) &&
+                     join c in db.Cidades on a.cidadeComId equals c.cidadeId
+                     where (ind_proprietario == "" || a.ind_proprietario == ind_proprietario) &&
+                           (torreId == null || a.torreId == torreId) &&
+                           (unidadeId == null || a.unidadeId == unidadeId) &&
                            (grupoAssociadoId == null || (from agr in db.AssociadoGrupos
                                                          where agr.grupoAssociadoId == grupoAssociadoId &&
                                                                agr.associadoId == a.associadoId
@@ -49,53 +44,34 @@ namespace Sindemed.Models.Report
                      {
                          associadoId = a.associadoId,
                          nome = a.nome,
-                         cpf = a.cpf,
-                         crm = m.CRM,
+                         cpf = a.cpf_cnpj,
                          email = a.email1,
-                         nome_especialidade = e.descricao,
                          dt_nascimento = a.dt_nascimento,
                          sexo = a.sexo,
-                         endereco = a.endereco,
-                         complementoEnd = a.complementoEnd,
-                         cep = a.cep,
-                         uf = a.uf,
-                         bairro = a.bairro,
+                         endereco = a.enderecoCom,
+                         complementoEnd = a.complementoEndCom,
+                         cep = a.cepCom,
+                         uf = a.ufCom,
+                         bairro = a.bairroCom,
                          cidade = c.nome,
                          telParticular1 = a.telParticular1,
                          telParticular2 = a.telParticular2,
-                         telCom1 = a.telCom1,
-                         isSindicalizado = a.isSindicalizado,
-                         PageSize = pageSize
-                     }).ToList();
-
-            q = (from xpto in q
-                 where Convert.ToInt16(xpto.crm) >= crm_inicial && Convert.ToInt16(xpto.crm) <= crm_final
-                 select new RelacaoGeralViewModel()
-                     {
-                         associadoId = xpto.associadoId,
-                         nome = xpto.nome,
-                         cpf = xpto.cpf,
-                         crm = xpto.crm,
-                         email = xpto.email,
-                         nome_especialidade = xpto.nome_especialidade,
-                         dt_nascimento = xpto.dt_nascimento,
-                         sexo = xpto.sexo,
-                         endereco = xpto.endereco,
-                         complementoEnd = xpto.complementoEnd,
-                         cep = xpto.cep,
-                         uf = xpto.uf,
-                         bairro = xpto.bairro,
-                         cidade = xpto.nome,
-                         telParticular1 = xpto.telParticular1,
-                         telParticular2 = xpto.telParticular2,
-                         telCom1 = xpto.telCom1,
-                         isSindicalizado = xpto.isSindicalizado,
+                         telCom1 = a.telParticular3,
+                         ind_proprietario = a.ind_proprietario,
                          PageSize = pageSize,
-                         TotalCount = (from xpto1 in q
-                                       where Convert.ToInt16(xpto1.crm) >= crm_inicial && Convert.ToInt16(xpto1.crm) <= crm_final
-                                       select xpto1.associadoId).Count()
-                     }
-                 ).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
+                         TotalCount = (from a1 in db.Associados
+                                       join c1 in db.Cidades on a1.cidadeComId equals c1.cidadeId
+                                       where (ind_proprietario == "" || a1.ind_proprietario == ind_proprietario) &&
+                                             (torreId == null || a1.torreId == torreId) &&
+                                             (unidadeId == null || a1.unidadeId == unidadeId) &&
+                                             (grupoAssociadoId == null || (from agr1 in db.AssociadoGrupos
+                                                                           where agr1.grupoAssociadoId == grupoAssociadoId &&
+                                                                               agr1.associadoId == a1.associadoId
+                                                                           select agr1.associadoId).Count() > 0) &&
+                                             (ind_email == null || ind_email == "S" && a1.email1 != "" || ind_email == "N" && a1.email1 == "")
+                                       orderby a1.nome
+                                       select a1).Count()
+                     }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
 
             return q.ToList();
         }
@@ -117,29 +93,25 @@ namespace Sindemed.Models.Report
 
         public override IEnumerable<RelacaoGeralViewModel> BindReport(params object[] param)
         {
-            string ind_sindicalizado = param[0].ToString();
-            int crm_inicial = int.Parse(param[1].ToString());
-            int crm_final = int.Parse(param[2].ToString());
-            int? especialidadeId = null;
-            if (param[3].ToString() != "")
-                especialidadeId = int.Parse(param[3].ToString());
+            string ind_proprietario = param[0].ToString();
+            string torreId = null;
+            if (param[1].ToString() != "")
+                torreId = param[1].ToString();
+            int? unidadeId = null ;
+            if (param[2].ToString() != "")
+                unidadeId = int.Parse(param[2].ToString());
             int? grupoAssociadoId = null;
-            if (param[4].ToString() != "")
-                grupoAssociadoId = int.Parse(param[4].ToString());
+            if (param[3].ToString() != "")
+                grupoAssociadoId = int.Parse(param[3].ToString());
             string ind_email = null;
-            if (param[5].ToString() != "")
-                ind_email = param[5].ToString();
-            int? correioId = null;
-            if (param[6].ToString() != "")
-                correioId = int.Parse(param[6].ToString());
+            if (param[4].ToString() != "")
+                ind_email = param[4].ToString();
 
             var q = (from a in db.Associados
-                     join m in db.Medicos on a.associadoId equals m.associadoId
-                     join e in db.EspecialidadeMedicas on m.especialidade1Id equals e.especialidadeId
-                     join c in db.Cidades on a.cidadeId equals c.cidadeId
-                     where (ind_sindicalizado == "" || a.isSindicalizado == ind_sindicalizado) &&
-                           (especialidadeId == null || m.especialidade1Id == especialidadeId) &&
-                           (correioId == null || a.correioId == correioId) &&
+                     join c in db.Cidades on a.cidadeComId equals c.cidadeId
+                     where (ind_proprietario == "" || a.ind_proprietario == ind_proprietario) &&
+                           (torreId == null || a.torreId == torreId) &&
+                           (unidadeId == null || a.unidadeId == unidadeId) &&
                            (grupoAssociadoId == null || (from agr in db.AssociadoGrupos
                                                          where agr.grupoAssociadoId == grupoAssociadoId &&
                                                                agr.associadoId == a.associadoId
@@ -150,47 +122,21 @@ namespace Sindemed.Models.Report
                      {
                          associadoId = a.associadoId,
                          nome = a.nome,
-                         cpf = a.cpf,
-                         crm = m.CRM,
+                         cpf = a.cpf_cnpj,
                          email = a.email1,
-                         nome_especialidade = e.descricao,
                          dt_nascimento = a.dt_nascimento,
                          sexo = a.sexo,
-                         endereco = a.endereco,
-                         complementoEnd = a.complementoEnd,
-                         cep = a.cep,
-                         uf = a.uf,
-                         bairro = a.bairro,
+                         endereco = a.enderecoCom,
+                         complementoEnd = a.complementoEndCom,
+                         cep = a.cepCom,
+                         uf = a.ufCom,
+                         bairro = a.bairroCom,
                          cidade = c.nome,
                          telParticular1 = a.telParticular1,
                          telParticular2 = a.telParticular2,
-                         telCom1 = a.telCom1,
-                         isSindicalizado = a.isSindicalizado
+                         telCom1 = a.telParticular3,
+                         ind_proprietario = a.ind_proprietario
                      }).ToList();
-
-            q = (from xpto in q
-                 where Convert.ToInt16(xpto.crm) >= crm_inicial && Convert.ToInt16(xpto.crm) <= crm_final
-                 select new RelacaoGeralViewModel()
-                 {
-                     associadoId = xpto.associadoId,
-                     nome = xpto.nome,
-                     cpf = xpto.cpf,
-                     crm = xpto.crm,
-                     email = xpto.email,
-                     nome_especialidade = xpto.nome_especialidade,
-                     dt_nascimento = xpto.dt_nascimento,
-                     sexo = xpto.sexo,
-                     endereco = xpto.endereco,
-                     complementoEnd = xpto.complementoEnd,
-                     cep = xpto.cep,
-                     uf = xpto.uf,
-                     bairro = xpto.bairro,
-                     cidade = xpto.nome,
-                     telParticular1 = xpto.telParticular1,
-                     telParticular2 = xpto.telParticular2,
-                     telCom1 = xpto.telCom1,
-                     isSindicalizado = xpto.isSindicalizado
-                 }).ToList();
 
             return q.ToList();
         }

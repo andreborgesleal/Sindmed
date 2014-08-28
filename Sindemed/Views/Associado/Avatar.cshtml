@@ -1,0 +1,96 @@
+﻿@*@Scripts.Render("~/bundles/jqueryform")
+@Scripts.Render("~/bundles/jcrop")
+@Styles.Render("~/Content/jcrop")
+@Scripts.Render("~/bundles/avatar")
+@Styles.Render("~/Content/avatar")*@
+<script type="text/javascript" src="~/scripts/jquery.form.js"></script>
+<script type="text/javascript" src="~/scripts/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="~/scripts/site.avatar.js"></script>
+
+<link href="@Styles.Url("~/Content/jquery.Jcrop.css")" rel="stylesheet" />
+<link href="@Styles.Url("~/Content/site.avatar.css")" rel="stylesheet" />
+
+
+@using DWM.Models.Repositories
+@using App_Dominio.Repositories
+@model DWM.Models.Repositories.AssociadoViewModel
+@{
+    App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
+    ViewBag.Title = security.getEmpresa().nome;
+}
+
+<div id="avatar-upload-box">
+    @using (Ajax.BeginForm("Avatar", "Associado", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "avatar-upload-form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(info => info.associadoId)
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>@Model.nome</h4><small>@Model.torreId-@Model.unidadeId</small>
+            </div>
+            <div class="panel-body">
+                <p class="text-info">Selecione o arquivo desejado para alterar a foto do perfil e depois clique no botão Salvar</p>
+                <div class="row">
+                    <div class="col-md-2">
+                        @{ var filePath = "http://api.ning.com/files/XDvieCk-6Hj1PFXyHT13r7Et-ybLOKWFR9fYd15dBrqFQHv6gCVuGdr4GYjaO0u*h2E0p*c5ZVHE-H41wNz4uAGNfcH8LLZS/top_8_silhouette_male_120.jpg?width=100"; 
+                           if (Model.avatar != null && Model.avatar != "")  
+                           {
+                               filePath = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["Avatar"].Replace("~", ".."), Model.avatar);
+                           }
+                        }      
+                        <a href="#" class="thumbnail">
+                            <img id="foto" src="@filePath" alt="300x200">
+                        </a>
+                    </div>
+                    <div class="col-md-9">
+
+
+                    </div>
+                </div>
+                <div>
+                    <input type="file" name="files" /><br>
+                    <div class="upload-file-notice">Tamanho máximo: <span id="avatar-max-size"></span> MB</div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="upload-progress col-md-6 hidden">
+        <div class="upload-percent-value pull-left">0%</div>
+        <div class="upload-percent-bar pull-left"></div>
+    </div>
+    <div id="upload-status"></div>
+</div>
+<div id="avatar-crop-box" class="panel panel-info hidden">
+    <div class="panel-heading">
+        <h4>@Model.nome</h4><small>@Model.torreId-@Model.unidadeId</small>
+    </div>
+    <div class="panel-body">
+        <p class="text-info">Ajuste a foto e depois clique no botão Salvar</p>
+        <div class="jc-demo-box">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <img src="" id="crop-avatar-target" alt="Uploaded image" />
+                    <div id="preview-pane">
+                        <div class="preview-container">
+                            <img src="" class="jcrop-preview" alt="Preview" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+            <div class="row clearfix">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button class="btn btn-default" onclick="saveAvatar('@Model.associadoId')">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="avatar-result" class="hidden">
+    <img src="" alt="Final Image" />
+</div>
+
+

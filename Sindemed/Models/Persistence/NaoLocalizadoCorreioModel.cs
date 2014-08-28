@@ -4,11 +4,11 @@ using System.Linq;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
 using App_Dominio.Component;
-using Sindemed.Models.Repositories;
-using Sindemed.Models.Entidades;
+using DWM.Models.Repositories;
+using DWM.Models.Entidades;
 using App_Dominio.Enumeracoes;
 
-namespace Sindemed.Models.Persistence
+namespace DWM.Models.Persistence
 {
     public class NaoLocalizadoCorreioModel : CrudContext<NaoLocalizadoCorreio, NaoLocalizadoCorreioViewModel, ApplicationContext>
     {

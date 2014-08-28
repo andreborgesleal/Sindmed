@@ -1,10 +1,10 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@using Sindemed.Models.Enumeracoes
+@using DWM.Models.Enumeracoes
 @using App_Dominio.Enumeracoes
-@*@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ChamadoViewModel>*@
+@*@model System.Web.Mvc.PagedList<DWM.Models.Repositories.ChamadoViewModel>*@
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
     ViewBag.Header = "Atendimento";
 }
 @using (Ajax.BeginForm(null,null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search" }))
@@ -27,25 +27,12 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group col-md-12">
-                        @Html.Editor("_associadoId", "TYPEAHEAD", new
-                                                               {
-                                                                   typeahead = new TypeaheadRepository()
-                                                                       {
-                                                                           label = "Associado",
-                                                                           id = "associadoId",
-                                                                           text = "nome_associado",
-                                                                           lovModal = "LovMedicoModal",
-                                                                           controller = "Associado",
-                                                                           descricao = "nome_associado",
-                                                                           values = new SelectListItem()
-                                                                           {
-                                                                               Value = "",
-                                                                               Text = ""
-                                                                           },
-                                                                           disableButtons = false,
-                                                                           nextField = ""
-                                                                       }
-                                                               })
+                        @Html.Label("Apto", new { @class = "col-md-3 control-label" })
+                        <div>
+                            <div class="input-group col-md-4">
+                                @Html.DropDownList("apto", new BindDropDownList().Apto("Todos...", ""), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,6 +76,24 @@
                             <div class="input-group">
                                 @Html.DropDownList("situacao", DropDownListEnum.AbertoFechado("", "Todas..."), new { @class = "form-control input-sm" })
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Status", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("chamadoStatusId", new DWM.Models.Enumeracoes.BindDropDownList().ChamadoStatus("Todos...", ""), new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Motivo", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("chamadoMotivoId", new DWM.Models.Enumeracoes.BindDropDownList().ChamadoMotivo("Todos...", ""), new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>

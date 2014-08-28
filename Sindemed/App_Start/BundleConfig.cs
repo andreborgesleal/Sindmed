@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Sindemed
+namespace DWM
 {
     public class BundleConfig
     {

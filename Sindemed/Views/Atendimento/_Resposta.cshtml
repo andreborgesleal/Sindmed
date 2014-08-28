@@ -1,4 +1,4 @@
-﻿@model Sindemed.Models.Repositories.AtendimentoViewModel
+﻿@model DWM.Models.Repositories.AtendimentoViewModel
 <div class="list-group-item">
     <div class="row">
         <div class="col-md-12">
@@ -10,7 +10,44 @@
                         <script>
                             CKEDITOR.replace('mensagemResposta');
                         </script>
+                        @if (Model.fluxo == "2")
+                        {
+                            @Html.CheckBox("situacao", false)<span> Fechar chamado</span> 
+                        }
                     </div>
+                </div>
+            </div>
+            @if (Model.fluxo == "2")
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.chamado.chamadoStatusId, "Status *", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(info => info.chamado.chamadoStatusId, new DWM.Models.Enumeracoes.BindDropDownList().ChamadoStatus("Selecione...", (Model != null ? Model.chamado.chamadoStatusId.ToString() : "")), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(info => info.chamado.chamadoStatusId)
+            }
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.anexo.tipoDocumentoId, "Tipo do Anexo", new { @class = "col-md-4 control-label" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(info => info.anexo.tipoDocumentoId, new DWM.Models.Enumeracoes.BindDropDownList().TipoDocumento("Selecione...", (Model != null ? Model.anexo.tipoDocumentoId.ToString() : "")), new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.anexo.nomeArquivoOriginal, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    <input type="file" name="nomeArquivoOriginal" />
                 </div>
             </div>
         </div>

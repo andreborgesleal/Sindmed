@@ -1,7 +1,9 @@
-﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.AssociadoDocumentoViewModel>
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.AssociadoDocumentoViewModel>
 @{
     Layout = null;
     System.Web.HttpContext web = System.Web.HttpContext.Current;
+    App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
+    App_Dominio.Entidades.Sessao sessaoCorrente = security.getSessaoCorrente();
 }
 @if (Model != null)
 {
@@ -16,20 +18,20 @@
                         <th>Documento</th>                        
                     </tr>
                 </thead>
-                @foreach (Sindemed.Models.Repositories.AssociadoDocumentoViewModel doc in Model)
+                @foreach (DWM.Models.Repositories.AssociadoDocumentoViewModel doc in Model)
                 {
                     var path = System.Configuration.ConfigurationManager.AppSettings["Users_Data"].Replace("~", "");
                     var fileName =  "../" + path+ "/" + doc.fileId;
                     
                     <tr>
-                        <td style="width: 30%">
+                        <td>
                             <div class="row-clearfix">
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="text-align: center">
                                     <div class="btn-group btn-group-xs">
                                         @if (".htm|.txt|.html".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension))
                                         {
                                             <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = doc.associadoId, fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                             </button>
                                         }
                                         else
@@ -38,9 +40,12 @@
                                                 <em class="glyphicon glyphicon-edit"></em> <span style="text-decoration: none; color: #646464; cursor: text">Editar</span>
                                             </button>
                                         }
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = doc.associadoId, fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                        </button>
+                                        @if (sessaoCorrente.value1 == "0")
+                                        {
+                                            <button class="btn btn-sm" type="button">
+                                                <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            </button>
+                                        }
                                         @if (".htm|.txt|.html|.pdf|.png|.jpg|.bmp|.gif".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension.ToLower()))
                                         {
                                             <button class="btn btn-sm" type="button">
@@ -61,10 +66,11 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td style="width: 15%">
                             @doc.dt_arquivo.ToString("dd/MM/yyyy HH:mm")
                         </td>
-                        <td>
+                        <td style="width: 55%">
+                            <span class="label label-warning">@doc.tag</span>
                             @doc.nomeArquivoOriginal
                         </td>
                     </tr>

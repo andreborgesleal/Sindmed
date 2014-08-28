@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.AssociadoGrupoViewModel>
+@model System.Web.Mvc.PagedList<DWM.Models.Repositories.AssociadoGrupoViewModel>
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
     ViewBag.Header = "Associado/Grupo";
 }
 

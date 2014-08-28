@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Sindemed.Models.Entidades
+namespace DWM.Models.Entidades
 {
     [Table("NaoLocalizadoCorreio")]
     public class NaoLocalizadoCorreio

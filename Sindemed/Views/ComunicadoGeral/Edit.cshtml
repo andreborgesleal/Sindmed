@@ -1,12 +1,15 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.ComunicacaoViewModel
+@model DWM.Models.Repositories.ComunicacaoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
-@using (Html.BeginForm("Edit", "ComunicadoGeral", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Edit", "ComunicadoGeral", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(info => info.comunicacaoId)
+    @Html.HiddenFor(info => info.arq_imagem_300x200)
+    @Html.HiddenFor(info => info.arq_imagem_100x100)
+    @Html.HiddenFor(info => info.arq_imagem_400x300)
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -19,7 +22,7 @@
                     <blockquote>
                         <p>
                             Alteração de Comunicados Gerais
-                        </p> <small>Os comunicados são informativos que serão exibidos na tela inicial de todos os usuários, inclusive os da administração. <br /> Observação: Serão exibidos os 3 últimos comunicados cadastrados até a data corrente.</small>
+                        </p> <small>Os comunicados são informativos que serão exibidos na tela inicial de todos os usuários, inclusive os da administração.</small>
                     </blockquote>
                     <div class="col-md-12">
                         <div class="form-group" style="margin-top: 20px">
@@ -27,9 +30,15 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        @Html.LabelFor(m => m.dt_comunicacao, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.dt_publicacao, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.EditorFor(info => info.dt_comunicacao, "DATE", new { identificador = "dt_comunicacao", readOnly = "false" })
+                            @Html.EditorFor(info => info.dt_publicacao, "DATE", new { identificador = "dt_publicacao", readOnly = "false" })
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.dt_expiracao, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(info => info.dt_expiracao, "DATE", new { identificador = "dt_expiracao", readOnly = "false" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -41,12 +50,89 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.resumo, new { @class = "col-md-2 control-label" })
                         <div class="col-md-8">
-                            @Html.TextAreaFor(m => m.resumo, 4, 1, new { @class = "form-control input-sm" })
+                            @Html.TextAreaFor(m => m.resumo, 4, 1, new { @class = "form-control input-sm", @maxlength="160", @onchange = "contaChar();", onkeyup = "contaChar();" })
+                            <small class="text-left">Mínimo de 130 caracteres</small>
+                            <span id="contadorResumo" class="badge pull-right alert-success">@Model.resumo.Length / 160</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_300x200, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    @{ var filePath300x200 = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", ".."), Model.arq_imagem_300x200); }
+                                    <a href="#" class="thumbnail">
+                                        <img id="300x200" src="@filePath300x200" alt="300x200">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="file" class="btn btn-default" name="_arq_imagem_300x200" />
+                                </div>
+                                @if (Model.arq_imagem_300x200 != "default_300x200.png")
+                                {
+                                    <div class="col-md-4">
+                                        <a href="#" class="text-info" id="link300x200" onclick="Delete('300x200')">Excluir</a>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_100x100, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @{ var filePath100x100 = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", ".."), Model.arq_imagem_100x100); }
+                                    <a href="#" class="thumbnail">
+                                        <img id="100x100" src="@filePath100x100" alt="100x100" onclick="Delete('100x100')">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="file" class="btn btn-default" name="_arq_imagem_100x100" />
+                                </div>
+                                @if (Model.arq_imagem_100x100 != "default_100x100.jpg")
+                                {
+                                    <div class="col-md-4">
+                                        <a href="#" id="link100x100" class="text-info">Excluir</a>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_400x300, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    @{ var filePath400x300 = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", ".."), Model.arq_imagem_400x300); }
+                                    <a href="#" class="thumbnail">
+                                        <img id="400x300" src="@filePath400x300" alt="400x300" onclick="Delete('400x300')">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="file" class="btn btn-default" name="_arq_imagem_400x300" />
+                                </div>
+                                @if (Model.arq_imagem_400x300 != "default_400x300.jpg")
+                                {
+                                    <div class="col-md-4">
+                                        <a href="#" id="link400x300" class="text-info">Excluir</a>
+                                    </div>
+                                }
+                            </div>
+                            <hr />
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.mensagemDetalhada, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             @*@Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes : new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado" })*@
                             <textarea name="mensagemDetalhada">@Model.mensagemDetalhada</textarea>
                             <script>
@@ -54,7 +140,6 @@
                             </script>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -84,4 +169,43 @@
     </div>
 }
 
+<script type="text/javascript">
 
+    function Delete(id) {
+
+        var link = "DelFile";
+        var _Id = $("#comunicacaoId").val();
+        var arq = $("#arq_imagem_" + id).val();
+
+        link = encodeURI(link + '?comunicacaoId=' + _Id + "&arq=" + arq + "&arqType=" + id);
+
+        CarregandoIn();
+
+        link = encodeURI(link + '&noCahce=' + new Date());
+
+        $.ajax({
+            type: "get",
+            url: link,
+            contentType: "application/json; charset=utf-8",
+            global: false,
+            async: false,
+            dataType: "json",
+            success: function (jsonObj) {
+                ShowMessageAlert("Imagem excluída com sucesso", "success");
+                $("#" + id).attr("src", jsonObj.Value);
+                $("#link" + id).hide();
+                $('#carregando').css("visibility", "hidden");
+                $('#carregando').css("height", "0px");
+                $('#carregando').css("margin-top", "0%");
+                $('#carregando').css("margin-left", "0%");
+            }
+        });
+    }
+
+    function contaChar() {
+        var text = $("#resumo").val();
+        var count = text.length;
+        $("#contadorResumo").text(count + ' / 160');
+    }
+
+</script>

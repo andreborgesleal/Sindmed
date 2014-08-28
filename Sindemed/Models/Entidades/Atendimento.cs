@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System;
 using System.ComponentModel;
 
-namespace Sindemed.Models.Entidades
+namespace DWM.Models.Entidades
 {
     [Table("Atendimento")]
     public class Atendimento
@@ -21,6 +21,10 @@ namespace Sindemed.Models.Entidades
 
         [DisplayName("xml")]
         public string mensagem { get; set; }
+
+        public string fileId { get; set; }
+
+        public virtual AssociadoDocumento AssociadoDocumento { get; set; }
 
         //public virtual Chamado Chamado { get; set; }
     }

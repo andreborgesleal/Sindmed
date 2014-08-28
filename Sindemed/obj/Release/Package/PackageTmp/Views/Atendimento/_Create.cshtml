@@ -1,0 +1,121 @@
+﻿@using TimMaia.Models.Repositories
+@using TimMaia.Models.Entidades
+@using TimMaia.Models.Enumeracoes
+@model TimMaia.Models.Repositories.AtendimentoViewModel
+@{
+    App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
+    App_Dominio.Entidades.Sessao sessaoCorrente = security.getSessaoCorrente();
+    ViewBag.Title = security.getEmpresa().nome;
+}
+@Html.HiddenFor(info => info.fluxo)
+@Html.HiddenFor(info => info.chamadoId)
+ <div class="list-group">
+    <a href="#" class="list-group-item active">
+        <div class="row">
+            <div class="col-md-3">
+                @Model.chamado.dt_chamado.ToString("dd/MM/yyyy HH:mm") h.  <span class="badge">@(Model.atendimentos.Count() + 1)</span>
+            </div>
+            <div class="col-md-9">
+                <span class="label label-danger pull-right">ID: @Model.chamadoId</span>
+            </div>
+        </div>
+    </a>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.chamado.nome_associado, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        <div class="input-group col-md-10" style="margin-top: 7px">
+                            @if (sessaoCorrente.value1 == "0")
+                            {
+                                @Html.ActionLink(Model.chamado.nome_associado, "Edit", "Associado", routeValues: new { associadoId = Model.chamado.associadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #fff; font-weight: bold", @class="label label-info" })    
+                            }
+                            else
+                            {
+                                @Html.ActionLink(Model.chamado.nome_associado, "Edit", "Associado", routeValues: null, htmlAttributes: new { @style = "text-decoration: none; color: #fff; font-weight: bold", @class="label label-info" })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.chamado.assunto, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        <div class="input-group col-md-10">
+                            @Html.TextBoxFor(m => m.chamado.assunto, new { @class = "form-control input-sm", @disabled = "disable" })<br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.chamado.areaAtendimentoId, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        <div class="input-group col-md-4">
+                            @Html.DropDownListFor(m => m.chamado.areaAtendimentoId, new BindDropDownList().AreaAtendimento("Selecione...", Model.chamado.areaAtendimentoId.ToString()), new { @class = "form-control input-sm", @disabled = "disable" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.chamado.mensagemOriginal, "Mensagem Original", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        <div class="input-group col-md-12">
+                            @Html.DisplayTextFor(m => m.chamado.mensagemOriginal)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     @if(ViewBag.ind_resposta == "S")
+     {
+         @Html.Partial("_Resposta", Model)
+     }
+</div>
+<div class="panel-group" id="panel-265457">
+    @{
+        int contador = 1;
+    }
+    @foreach (AtendimentoViewModel value in Model.atendimentos.OrderByDescending(info => info.dt_atendimento))
+    {
+        string _class = "";
+        string _cabec = "";
+        if (value.fluxo == "2")
+        {
+            _class = "label label-primary";
+            _cabec = "Administração";
+        }
+        else
+        {
+            _class = "label label-default";
+            _cabec = "Condômino: " + Model.chamado.nome_associado;
+        }
+        _cabec += "&nbsp;&nbsp;-&nbsp;&nbsp;" + value.dt_atendimento.ToString("dd/MM/yyyy HH:mm") + " h.";
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="panel-title" data-toggle="collapse" data-parent="#panel-265457" href="#panel-element-@contador" style="cursor: pointer; text-decoration: none"><span class="@_class">@Html.DisplayTextFor(m => _cabec)</span></a>
+            </div>
+            <div id="panel-element-@contador" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.DisplayTextFor(m => value.mensagemResposta)
+                </div>
+            </div>
+        </div>
+        contador++;
+    }
+</div>
+
+
+
+
+

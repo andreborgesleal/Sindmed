@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.MedicoViewModel
+@model DWM.Models.Repositories.AssociadoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
 @using (Html.BeginForm("Edit", "Associado", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -23,7 +23,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Associados <small>Acesso administrativo</small>
+                Condôminos <small>Acesso administrativo</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -31,8 +31,8 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Edição de Associados
-                        </p> <small>Alteração de associados do sindicato. Preencher os campos nas abas abaixo e depois clicar no botão "Salvar"</small>
+                            Edição de Condôminos
+                        </p> <small>Alteração de condôminos do sindicato. Preencher os campos nas abas abaixo e depois clicar no botão "Salvar"</small>
                     </blockquote>
                 </div>
                 <div class="col-md-12">

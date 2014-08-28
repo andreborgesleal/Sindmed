@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.AssociadoGrupoViewModel
+@model DWM.Models.Repositories.AssociadoGrupoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
 @using (Html.BeginForm("Create", "AssociadoGrupo", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -10,7 +10,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Associados dos grupos <small>Vincular associado a um grupo.</small>
+                Condôminos dos grupos <small>Vincular condômino a um grupo.</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -19,10 +19,10 @@
                     <blockquote>
                         <p>
                             Vincular
-                        </p> <small>Para vincular o associado ao grupo, localize o respectivo associado e depois informe o grupo no qual este associado vai pertencer.
+                        </p> <small>Para vincular o condômino ao grupo, localize o respectivo condômino e depois informe o grupo no qual este condômino vai pertencer.
                         </small>
-                        <small>A partir do momento que o associado for vinculado a um grupo ele passa a visualizar na tela principal todos os comunicados que são exibidos para o respectivo grupo.</small>
-                        <small>O mesmo associado pode pertencer a vários grupos e visualizar as mensagens de vários grupos.</small>
+                        <small>A partir do momento que o condômino for vinculado a um grupo ele passa a visualizar na tela principal todos os comunicados que são exibidos para o respectivo grupo.</small>
+                        <small>O mesmo condômino pode pertencer a vários grupos e visualizar as mensagens de vários grupos.</small>
                     </blockquote>
                 </div>
                 <div class="col-md-12">
@@ -33,51 +33,21 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div class="form-group">
-                                @Html.Editor("_associadoId", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Associado",
-                                                           id = "associadoId",
-                                                           text = "nome_associado",
-                                                           lovModal = "LovMedicoModal",
-                                                           controller = "Associado",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.associadoId.ToString(),
-                                                               Text = Model.nome
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "_grupoAssociadoId"
-                                                       }
-                                               })
+                            @Html.LabelFor(m => m.associadoId, "Condômino *", new { @class = "col-md-3 control-label" })
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    @Html.DropDownList("associadoId", new DWM.Models.Enumeracoes.BindDropDownList().Condomino("Selecione...", Model.associadoId), new { @class = "form-control input-sm" })
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div class="form-group">
-                                @Html.Editor("_grupoAssociadoId", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Grupo",
-                                                           id = "grupoAssociadoId",
-                                                           text = "nome_grupoAssociado",
-                                                           lovModal = "LovGrupoAssociadoModal",
-                                                           controller = "GrupoAssociado",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.grupoAssociadoId.ToString(),
-                                                               Text = Model.descricao
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = ""
-                                                       }
-                                               })
+                            @Html.LabelFor(m => m.grupoAssociadoId, "Grupo *", new { @class = "col-md-3 control-label" })
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    @Html.DropDownList("grupoAssociadoId", new DWM.Models.Enumeracoes.BindDropDownList().GruposAssociados("Selecione...", Model.grupoAssociadoId), new { @class = "form-control input-sm" })
+                                </div>
                             </div>
                         </div>
                     </div>

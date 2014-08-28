@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.MedicoViewModel
+@model DWM.Models.Repositories.AssociadoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
     
 }
 @using (Html.BeginForm("Create", "Associado", FormMethod.Post, new { @class = "form-horizontal" }))
@@ -11,7 +11,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Associados <small>Acesso administrativo</small>
+                Condôminos <small>Acesso administrativo</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -19,8 +19,11 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Inclusão de Associados
-                        </p> <small>Cadastro de associados do sindicato. Preencher os campos nas abas abaixo e depois clicar no botão "Salvar"</small>
+                            Inclusão de Condôminos
+                        </p> 
+                        <small>Cadastro de condôminos do @ViewBag.Title. Preencher os campos nas abas abaixo e depois clicar no botão "Salvar"</small>
+                        <small>Observação 1: Informar o nome completo do condômino e de seus dependentes sem abreviações</small>
+                        <small>Observação 2: O e-mail do condômino deve ser único e deve ser igual ao e-mail cadastrado no Sistema de Segurança</small>
                     </blockquote>
                 </div>
                 <div class="col-md-12">
@@ -32,9 +35,10 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-pills">
                         <li><a href="#identificacao" data-toggle="tab" id="_identificacao">Identificação</a></li>
-                        <li><a href="#end_res" data-toggle="tab">Endereço Residencial</a></li>
+                        <li><a href="#dados_dep" data-toggle="tab">Dependentes</a></li>
+                        <li><a href="#dados_func" data-toggle="tab">Funcionários</a></li>
+                        <li><a href="#dados_veic" data-toggle="tab">Veículos</a></li>
                         <li><a href="#end_com" data-toggle="tab">Endereço Comercial</a></li>
-                        <li><a href="#dados_prof" data-toggle="tab">Dados Profissionais</a></li>
                         <li><a href="#obs" data-toggle="tab">Observação</a></li>
                     </ul>
                     <!-- Tab panes -->
@@ -46,124 +50,18 @@
                                         @Html.LabelFor(m => m.nome, "Nome *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-8">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @Style = "width: 180%; text-transform: uppercase;", @maxlength = "40" })
+                                                @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm", @Style = "width: 180%; text-transform: uppercase;", @maxlength = "60" })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.cpf, new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.apto, "Unidade *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.cpf, new { @class = "form-control input-sm" })
+                                                @Html.DropDownList("apto", new DWM.Models.Enumeracoes.BindDropDownList().Apto("Selecione...", Model.apto), new { @class = "form-control input-sm" })
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.CRM, "CRM *", new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.CRM, new { @class = "form-control input-sm", @maxlength = "5" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.ufCRM, "UF *", new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.ufCRM, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.CRM_Seg, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.CRM_Seg, new { @class = "form-control input-sm", @maxlength = "5" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.ufCRM_Seg, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.ufCRM_Seg, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.dt_nascimento, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            @Html.EditorFor(info => info.dt_nascimento, "DATE", new { identificador = "dt_nascimento", readOnly = "false" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.rg, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.rg, new { @class = "form-control input-sm", @maxlength = "10" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.orgaoEmissor, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.orgaoEmissor, new { @class = "form-control input-sm", @maxlength = "15" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.sexo, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.DropDownListFor(m => m.sexo, App_Dominio.Enumeracoes.DropDownListEnum.Sexo(), new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.isSindicalizado, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.DropDownListFor(m => m.isSindicalizado, App_Dominio.Enumeracoes.DropDownListEnum.SimNao(), new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.dt_admin_sindicato, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            @Html.EditorFor(info => info.dt_admin_sindicato, "DATE", new { identificador = "dt_admin_sindicato", readOnly = "false" })
                                         </div>
                                     </div>
                                 </div>
@@ -181,120 +79,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="form-group">
-                                            @Html.Editor("_correioId", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Motivo Correio",
-                                                           id = "correioId",
-                                                           text = "nome_correio",
-                                                           lovModal = "LovNaoLocalizadoCorreioModal",
-                                                           controller = "NaoLocalizadoCorreio",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.correioId.ToString(),
-                                                               Text = Model.nome_correio
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "endereco"
-                                                       }
-                                               })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.situacao, new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.cpf_cnpj, "CPF *", new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.DropDownListFor(m => m.situacao, App_Dominio.Enumeracoes.DropDownListEnum.Situacao(), new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="end_res">
-                            <div class="row" style="margin-top: 35px">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.endereco, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.endereco, new { @class = "form-control input-sm", @placeholder = "Endereço residencial", @Style = "width: 180%", @maxlength = "50" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.complementoEnd, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.complementoEnd, new { @class = "form-control input-sm", @style = "width: 180%", @maxlength = "40" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_cidadeId", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Cidade",
-                                                           id = "cidadeId",
-                                                           text = "nome_cidade",
-                                                           lovModal = "LovCidadeModal",
-                                                           controller = "cidade",
-                                                           descricao = "nome",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.cidadeId.ToString(),
-                                                               Text = Model.nome_cidade
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "uf"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.uf, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.uf, new { @class = "form-control input-sm", @style = "text-transform: uppercase", @maxlength = "2" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.cep, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.cep, new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.bairro, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.bairro, new { @class = "form-control input-sm", @maxlength = "25" })
+                                                @Html.TextBoxFor(m => m.cpf_cnpj, new { @class = "form-control input-sm" })
                                             </div>
                                         </div>
                                     </div>
@@ -306,7 +94,7 @@
                                         @Html.LabelFor(m => m.telParticular1, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telParticular1, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telParticular1, "Telefone *", new { @class = "form-control input-sm" })
                                             </div>
                                         </div>
                                     </div>
@@ -325,28 +113,342 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.telParticular3, new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.rg, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telParticular3, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.rg, new { @class = "form-control input-sm", @maxlength = "10" })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.telParticular4, new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.orgaoEmissor, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telParticular4, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.orgaoEmissor, new { @class = "form-control input-sm", @style = "text-transform: uppercase;", @maxlength = "15" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.dt_nascimento, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(info => info.dt_nascimento, "DATE", new { identificador = "dt_nascimento", readOnly = "false" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.sexo, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                @Html.DropDownListFor(m => m.sexo, App_Dominio.Enumeracoes.DropDownListEnum.Sexo(), new { @class = "form-control input-sm" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ind_est_civil, "Est. Civil *", new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-6">
+                                            @Html.DropDownList("ind_est_civil", App_Dominio.Enumeracoes.DropDownListEnum.EstadoCivil(Model.ind_est_civil, "Selecione..."), new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.areaAtuacaoId, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-6">
+                                            @Html.DropDownList("areaAtuacaoId", new DWM.Models.Enumeracoes.BindDropDownList().AreaAtuacao("Selecione...", Model.areaAtuacaoId.ToString()), new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.dt_inicio, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-8">
+                                            @{ Model.dt_inicio = DateTime.Today; }
+                                            @Html.EditorFor(info => info.dt_inicio, "DATE", new { identificador = "dt_inicio", readOnly = "false" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.dt_fim, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(info => info.dt_fim, "DATE", new { identificador = "dt_fim", readOnly = "false" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ind_proprietario, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                @Html.DropDownListFor(m => m.ind_proprietario, App_Dominio.Enumeracoes.DropDownListEnum.SimNao(), new { @class = "form-control input-sm" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ind_proprietario_confirmacao, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                @Html.DropDownListFor(m => m.ind_proprietario_confirmacao, App_Dominio.Enumeracoes.DropDownListEnum.SimNao("N"), new { @class = "form-control input-sm" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ind_animal, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                @Html.DropDownListFor(m => m.ind_animal, App_Dominio.Enumeracoes.DropDownListEnum.SimNao("N"), new { @class = "form-control input-sm" })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @* ******************** *@
+                        @* Dependentes          *@
+                        @* ******************** *@
+                        <div class="tab-pane fade" id="dados_dep">
+                            <div class="row" style="margin-top: 35px">
+                                <div class="col-md-12 column">
+                                    <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                                        <caption></caption>
+                                        <thead style="background-color: #fff1a5">
+                                            <tr>
+                                                <th style="text-align: left">Nome do dependente</th>
+                                                <th style="text-align: left">E-mail</th>
+                                                <th style="text-align: left">Grau de relação</th>
+                                                <th style="text-align: center">Sexo</th> 
+                                            </tr>
+                                        </thead>
+                                        @for (int i=1; i <= 8; i++)
+                                        {
+                                            string nome_dep = "";
+                                            string tx_relacao = "";
+                                            string sexo = "";
+                                            string email = "";
+                                            if (Model.Dependentes != null && Model.Dependentes.Count() >= i)
+                                            {
+                                                nome_dep = Model.Dependentes.ElementAt(i-1).nome;
+                                                tx_relacao = Model.Dependentes.ElementAt(i-1).tx_relacao_associado;
+                                                sexo = Model.Dependentes.ElementAt(i-1).sexo;
+                                                email = Model.Dependentes.ElementAt(i - 1).email;
+                                            }
+                                            <tr>
+                                                <td style="width: 30%">
+                                                    @Html.TextBox("nome_dependente" + i.ToString(), nome_dep, new { @class = "form-control input-sm", @Style = "text-transform: uppercase;", @maxlength = "50" })
+                                                </td>
+                                                <td style="width: 30%">
+                                                    @Html.TextBox("e_mail" + i.ToString(), email, new { @class = "form-control input-sm", @Style = "text-transform: lowercase;", @maxlength = "100" })
+                                                </td>
+                                                <td style="text-align: left; width: 20%">
+                                                    @Html.DropDownList("tx_relacao_associado" + i.ToString(), DWM.Models.Enumeracoes.BindDropDownList.Relacao_Morador(tx_relacao,"Selecione..."), new { @class = "form-control input-sm" })
+                                                </td>
+                                                <td style="text-align: center; width: 20%">
+                                                    @Html.DropDownList("sexo" + i.ToString(), App_Dominio.Enumeracoes.DropDownListEnum.Sexo(sexo), new { @class = "form-control input-sm" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        @* ******************** *@
+                        @* Funcionários         *@
+                        @* ******************** *@
+                        <div class="tab-pane fade" id="dados_func">
+                            <div class="row" style="margin-top: 35px">
+                                <div class="col-md-12 column">
+                                    <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                                        <caption></caption>
+                                        <thead style="background-color: #fff1a5">
+                                            <tr>
+                                                <th style="text-align: left">Nome do funcionário</th>
+                                                <th style="text-align: left">Função</th>
+                                                <th style="text-align: left">RG</th>
+                                                <th style="text-align: center">Sexo</th>
+                                                <th style="text-align: center">Dom</th>
+                                                <th style="text-align: center">Seg</th>
+                                                <th style="text-align: center">Ter</th>
+                                                <th style="text-align: center">Qua</th>
+                                                <th style="text-align: center">Qui</th>
+                                                <th style="text-align: center">Sex</th>
+                                                <th style="text-align: center">Sáb</th>
+                                                <th style="text-align: center">Entrada</th>
+                                                <th style="text-align: center">Saída</th>
+                                            </tr>
+                                        </thead>
+                                        @for (int i = 1; i <= 6; i++)
+                                        {
+                                            string nome_func = "";
+                                            string funcao = "";
+                                            string rg = "";
+                                            string sexo_func = "F";
+                                            string dom = "N";
+                                            string seg = "S";
+                                            string ter = "S";
+                                            string qua = "S";
+                                            string qui = "S";
+                                            string sex = "S";
+                                            string sab = "S";
+                                            string horario_ini = "08:00";
+                                            string horario_fim = "18:00";
+                                            if (Model.Funcionarios != null && Model.Funcionarios.Count() >= i)
+                                            {
+                                                nome_func = Model.Funcionarios.ElementAt(i - 1).nome;
+                                                funcao = Model.Funcionarios.ElementAt(i - 1).funcao;
+                                                rg = Model.Funcionarios.ElementAt(i - 1).rg;
+                                                sexo_func = Model.Funcionarios.ElementAt(i - 1).sexo;
+                                                dom = Model.Funcionarios.ElementAt(i - 1).dia_semana.Substring(0, 1);
+                                                seg = Model.Funcionarios.ElementAt(i - 1).dia_semana.Substring(1, 1);
+                                                ter = Model.Funcionarios.ElementAt(i - 1).dia_semana.Substring(2, 1);
+                                                qua = Model.Funcionarios.ElementAt(i - 1).dia_semana.Substring(3, 1);
+                                                qui = Model.Funcionarios.ElementAt(i - 1).dia_semana.Substring(4, 1);
+                                                sex = Model.Funcionarios.ElementAt(i - 1).dia_semana.Substring(5, 1);
+                                                sab = Model.Funcionarios.ElementAt(i - 1).dia_semana.Substring(6, 1);
+                                                horario_ini = Model.Funcionarios.ElementAt(i - 1).horario_ini;
+                                                horario_fim = Model.Funcionarios.ElementAt(i - 1).horario_fim;
+                                            }
+                                            <tr>
+                                                <td style="width: 18%">
+                                                    @Html.TextBox("nome_func" + i.ToString(), nome_func, new { @class = "form-control input-sm", @Style = "text-transform: uppercase;", @maxlength = "40" })
+                                                </td>
+                                                <td style="width: 11%">
+                                                    @Html.DropDownList("funcao" + i.ToString(), DWM.Models.Enumeracoes.BindDropDownList.Funcao_Funcionario(funcao, "Selecione..."), new { @class = "form-control input-sm" })
+                                                </td>
+                                                <td style="width: 8%">
+                                                    @Html.TextBox("rg" + i.ToString(), rg, new { @class = "form-control input-sm", @Style = "text-transform: uppercase;", @maxlength = "10" })
+                                                </td>
+                                                <td style="text-align: center; width: 11%">
+                                                    @Html.DropDownList("sexo_func" + i.ToString(), App_Dominio.Enumeracoes.DropDownListEnum.Sexo(sexo_func), new { @class = "form-control input-sm" })
+                                                </td>
+                                                <td style="text-align: center; width: 5%">
+                                                    @Html.CheckBox("dom" + i.ToString(), dom == "S")
+                                                </td>
+                                                <td style="text-align: center; width: 5%">
+                                                    @Html.CheckBox("seg" + i.ToString(), seg == "S")
+                                                </td>
+                                                <td style="text-align: center; width: 5%">
+                                                    @Html.CheckBox("ter" + i.ToString(), ter == "S")
+                                                </td>
+                                                <td style="text-align: center; width: 5%">
+                                                    @Html.CheckBox("qua" + i.ToString(), qua == "S")
+                                                </td>
+                                                <td style="text-align: center; width: 5%">
+                                                    @Html.CheckBox("qui" + i.ToString(), qui == "S")
+                                                </td>
+                                                <td style="text-align: center; width: 5%">
+                                                    @Html.CheckBox("sex" + i.ToString(), sex == "S")
+                                                </td>
+                                                <td style="text-align: center; width: 5%">
+                                                    @Html.CheckBox("sab" + i.ToString(), sab == "S")
+                                                </td>
+                                                <td style="text-align: left; width: 8%">
+                                                    @Html.DropDownList("horario_ini" + i.ToString(), DWM.Models.Enumeracoes.BindDropDownList.Horario(horario_ini, ""), new { @class = "form-control input-sm" })
+                                                </td>
+                                                <td style="text-align: left; width: 9%">
+                                                    @Html.DropDownList("horario_fim" + i.ToString(), DWM.Models.Enumeracoes.BindDropDownList.Horario(horario_fim, ""), new { @class = "form-control input-sm" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        @* ******************** *@
+                        @* Veículos             *@
+                        @* ******************** *@
+                        <div class="tab-pane fade" id="dados_veic">
+                            <div class="row" style="margin-top: 35px">
+                                <div class="col-md-12 column">
+                                    <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                                        <caption></caption>
+                                        <thead style="background-color: #fff1a5">
+                                            <tr>
+                                                <th style="text-align: left">Condutor Responsável</th>
+                                                <th style="text-align: left">Placa</th>
+                                                <th style="text-align: left">Cor</th>
+                                                <th style="text-align: center">Marca</th>
+                                                <th style="text-align: center">Modelo</th>
+                                                <th style="text-align: center">Nº Série</th>
+                                            </tr>
+                                        </thead>
+                                        @for (int i = 1; i <= 6; i++)
+                                        {
+                                            string placa = "";
+                                            string cor = "";
+                                            string marca = "";
+                                            string desc = "";
+                                            string condutor = "";
+                                            string num_serie = "";
+                                            if (Model.Veiculos != null && Model.Veiculos.Count() >= i)
+                                            {
+                                                placa = Model.Veiculos.ElementAt(i - 1).placa;
+                                                cor = Model.Veiculos.ElementAt(i - 1).cor;
+                                                marca = Model.Veiculos.ElementAt(i - 1).marca;
+                                                desc = Model.Veiculos.ElementAt(i - 1).descricao;
+                                                condutor = Model.Veiculos.ElementAt(i - 1).condutor;
+                                                num_serie = Model.Veiculos.ElementAt(i - 1).num_serie;
+                                            }
+                                            <tr>
+                                                <td style="width: 30%">
+                                                    @Html.TextBox("condutor" + i.ToString(), condutor, new { @class = "form-control input-sm", @Style = "text-transform: uppercase;", @maxlength = "40" })
+                                                </td>
+                                                <td style="width: 15%">
+                                                    @Html.TextBox("placa" + i.ToString(), placa, new { @class = "form-control input-sm", @Style = "text-transform: uppercase;", @maxlength = "7" })
+                                                </td>
+                                                <td style="text-align: left; width: 15%">
+                                                    @Html.TextBox("cor" + i.ToString(), cor, new { @class = "form-control input-sm", @Style = "text-transform: uppercase;", @maxlength = "15" })
+                                                </td>
+                                                <td style="text-align: center; width: 15%">
+                                                    @Html.TextBox("marca" + i.ToString(), marca, new { @class = "form-control input-sm", @maxlength = "20" })
+                                                </td>
+                                                <td style="text-align: center; width: 15%">
+                                                    @Html.TextBox("descricao" + i.ToString(), desc, new { @class = "form-control input-sm", @maxlength = "20" })
+                                                </td>
+                                                <td style="text-align: center; width: 10%">
+                                                    @Html.TextBox("num_serie" + i.ToString(), num_serie, new { @class = "form-control input-sm", @maxlength = "10" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        @* ****************** *@
+                        @* Endereco Comercial *@
+                        @* ****************** *@
                         <div class="tab-pane fade" id="end_com">
                             <div class="row" style="margin-top: 35px">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.empresa, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(m => m.empresa, new { @class = "form-control input-sm", @Style = "width: 180%", @maxlength = "50" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.enderecoCom, new { @class = "col-md-3 control-label" })
@@ -357,6 +459,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.complementoEndCom, new { @class = "col-md-3 control-label" })
@@ -367,31 +471,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.Editor("_cidadeComId", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Cidade",
-                                                           id = "cidadeComId",
-                                                           text = "nome_cidadeCom",
-                                                           lovModal = "LovCidadeComModal",
-                                                           controller = "cidade",
-                                                           descricao = "nome",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.cidadeComId.ToString(),
-                                                               Text = Model.nome_cidadeCom
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "ufCom"
-                                                       }
-                                               })
+                                        @Html.LabelFor(m => m.cidadeComId, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-6">
+                                            @Html.DropDownList("cidadeComId", new DWM.Models.Enumeracoes.BindDropDownList().Cidade("Selecione...", Model.cidadeComId.ToString()), new { @class = "form-control input-sm" })
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.ufCom, new { @class = "col-md-3 control-label" })
@@ -402,8 +491,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.cepCom, new { @class = "col-md-3 control-label" })
@@ -414,6 +501,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.bairroCom, new { @class = "col-md-3 control-label" })
@@ -424,24 +513,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.telCom1, new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.telParticular3, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telCom1, new { @class = "form-control input-sm" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.telCom2, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.telCom2, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telParticular3, new { @class = "form-control input-sm" })
                                             </div>
                                         </div>
                                     </div>
@@ -450,10 +527,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.fax, new { @class = "col-md-3 control-label" })
+                                        @Html.LabelFor(m => m.telParticular4, new { @class = "col-md-3 control-label" })
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                @Html.TextBoxFor(m => m.fax, new { @class = "form-control input-sm" })
+                                                @Html.TextBoxFor(m => m.telParticular4, new { @class = "form-control input-sm" })
                                             </div>
                                         </div>
                                     </div>
@@ -462,174 +539,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="dados_prof">
-                            <div class="row" style="margin-top: 35px">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_areaAtuacao1Id", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Atuação",
-                                                           id = "areaAtuacao1Id",
-                                                           text = "descricao_areaAtuacao1",
-                                                           lovModal = "LovAreaAtuacao1Modal",
-                                                           controller = "AreaAtuacao",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.areaAtuacao1Id.ToString(),
-                                                               Text = Model.descricao_areaAtuacao1
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "areaAtuacao2Id"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_areaAtuacao2Id", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Atuação",
-                                                           id = "areaAtuacao2Id",
-                                                           text = "descricao_areaAtuacao2",
-                                                           lovModal = "LovAreaAtuacao2Modal",
-                                                           controller = "AreaAtuacao",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.areaAtuacao2Id.ToString(),
-                                                               Text = Model.descricao_areaAtuacao2
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "areaAtuacao3Id"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_areaAtuacao3Id", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Atuação",
-                                                           id = "areaAtuacao3Id",
-                                                           text = "descricao_areaAtuacao3",
-                                                           lovModal = "LovAreaAtuacao3Modal",
-                                                           controller = "AreaAtuacao",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.areaAtuacao3Id.ToString(),
-                                                               Text = Model.descricao_areaAtuacao3
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "especialidade1Id"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_especialidade1Id", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Especialidade *",
-                                                           id = "especialidade1Id",
-                                                           text = "descricao_especialidade1",
-                                                           lovModal = "LovEspecialidadeMedica1Modal",
-                                                           controller = "Especialidade",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.especialidade1Id.ToString(),
-                                                               Text = Model.nome_especialidade1
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "especialidade2Id"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                            </div>                        
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_especialidade2Id", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Especialidade",
-                                                           id = "especialidade2Id",
-                                                           text = "descricao_especialidade2",
-                                                           lovModal = "LovEspecialidadeMedica2Modal",
-                                                           controller = "Especialidade",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.especialidade2Id.ToString(),
-                                                               Text = Model.nome_especialidade2
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "especialidade3Id"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.Editor("_especialidade3Id", "TYPEAHEAD", new
-                                               {
-                                                   typeahead = new TypeaheadRepository()
-                                                       {
-                                                           label = "Especialidade",
-                                                           id = "especialidade3Id",
-                                                           text = "descricao_especialidade3",
-                                                           lovModal = "LovEspecialidadeMedica3Modal",
-                                                           controller = "Especialidade",
-                                                           descricao = "descricao",
-                                                           values = new SelectListItem()
-                                                           {
-                                                               Value = Model.especialidade3Id.ToString(),
-                                                               Text = Model.nome_especialidade3
-                                                           },
-                                                           disableButtons = false,
-                                                           nextField = "email2"
-                                                       }
-                                               })
-                                    </div>
-                                </div>
-                            </div>     
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.email2, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.email2, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.email3, new { @class = "col-md-3 control-label" })
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                @Html.TextBoxFor(m => m.email3, new { @class = "form-control input-sm", @style = "width: 180%; text-transform: lowercase;", @maxlength = "100" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                   
-                        </div>
+                        @* ******************** *@
+                        @* Observações          *@
+                        @* ******************** *@                        
                         <div class="tab-pane fade" id="obs">
                             <div class="row" style="margin-top: 35px">
                                 <div class="col-md-12">
@@ -689,17 +601,17 @@
 <script type="text/javascript">
     document.getElementById("_identificacao").click();
 
-    $("#CRM_Seg").mask("?99999");
-    $("#CRM").mask("?99999");
-    $("#cpf").mask("999.999.999-99");
-    $("#cep").mask("99999-999");
+    $('#ufCom').mask('aa');
+    $("#cpf_cnpj").mask("999.999.999-99");
     $("#cepCom").mask("99999-999");
     $("#telParticular1").mask("99 9999-9999");
     $("#telParticular2").mask("99 9999-9999");
     $("#telParticular3").mask("99 9999-9999");
     $("#telParticular4").mask("99 9999-9999");
-    $("#telCom1").mask("99 9999-9999");
-    $("#telCom2").mask("99 9999-9999");
-    $("#fax").mask("99 9999-9999");
-
+    $("#placa1").mask("aaa9999");
+    $("#placa2").mask("aaa9999");
+    $("#placa3").mask("aaa9999");
+    $("#placa4").mask("aaa9999");
+    $("#placa5").mask("aaa9999");
+    $("#placa6").mask("aaa9999");
 </script>

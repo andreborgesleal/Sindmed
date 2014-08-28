@@ -3,24 +3,35 @@ using System.ComponentModel.DataAnnotations;
 using App_Dominio.Component;
 using System;
 
-namespace Sindemed.Models.Repositories
+namespace DWM.Models.Repositories
 {
     public class ChamadoViewModel : Repository
     {
         [DisplayName("ID")]
         public int chamadoId { get; set; }
 
-        [DisplayName("Associado ID")]
+        [DisplayName("Condômino ID")]
         public int associadoId { get; set; }
 
-        [DisplayName("Associado")]
+        [DisplayName("Condômino")]
         public string nome_associado { get; set; }
+
+        [DisplayName("Unidade")]
+        public string apto { get; set; }
 
         [DisplayName("Área Atendimento")]
         [Required(ErrorMessage = "Por favor, informe a área de atendimento")]
         public int areaAtendimentoId { get; set; }
 
         public string descricao_areaAtendimento { get; set; }
+
+        [DisplayName("Status")]
+        public int chamadoStatusId { get; set; }
+        public string descricao_status { get; set; }
+
+        [DisplayName("Motivo")]
+        public int chamadoMotivoId { get; set; }
+        public string descricao_motivo { get; set; }
 
         [DisplayName("Data")]
         public DateTime dt_chamado { get; set; }

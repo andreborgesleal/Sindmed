@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.CidadeViewModel
+@model DWM.Models.Repositories.CidadeViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
 @using (Html.BeginForm("Edit", "Cidade", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -19,7 +19,7 @@
                     <blockquote>
                         <p>
                             Alteração de Cidades
-                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do associado.</small>
+                        </p> <small>Tabela das cidades que serão utilizadas para identificar o endereço residencial e comercial do condômino.</small>
                     </blockquote>
                 </div>
                 <div class="col-md-12">
@@ -73,3 +73,6 @@
     </div>
 }
 
+<script type="text/javascript">
+    $('#uf').mask('aa');
+</script>

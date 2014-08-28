@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Sindemed.Models.Entidades
+namespace DWM.Models.Entidades
 {
     [Table("Associado")]
     public class Associado
@@ -12,32 +12,30 @@ namespace Sindemed.Models.Entidades
         [Key]
         [DisplayName("ID")]
         public int associadoId { get; set; }
+        [DisplayName("Torre")]
+        public string torreId { get; set; }
+        [DisplayName("Unidade")]
+        public int unidadeId { get; set; }
         [DisplayName("Nome")]
         public string nome { get; set; }
+        [DisplayName("Ind_Proprietário")]
+        public string ind_proprietario { get; set; }
+        [DisplayName("Ind_Proprietario_Confirmacao")]
+        public string ind_proprietario_confirmacao { get; set; }
         [DisplayName("Nascimento")]
         public Nullable<DateTime> dt_nascimento { get; set; }
         [DisplayName("CPF")]
-        public string cpf { get; set; }
+        public string cpf_cnpj { get; set; }
         [DisplayName("RG")]
         public string rg { get; set; }
         [DisplayName("O_Emissor")]
         public string orgaoEmissor { get; set; }
         [DisplayName("Sexo")]
         public string sexo { get; set; }
-        [DisplayName("Situação")]
-        public string situacao { get; set; }
-        [DisplayName("Endereço_Residencial")]
-        public string endereco { get; set; }
-        [DisplayName("Complemento_Res")]
-        public string complementoEnd { get; set; }
-        [DisplayName("CEP")]
-        public string cep { get; set; }
-        [DisplayName("ID_Cidade_Res")]
-        public Nullable<int> cidadeId { get; set; }
-        [DisplayName("UF_Res")]
-        public string uf { get; set; }
-        [DisplayName("Bairro_Res")]
-        public string bairro { get; set; }
+        [DisplayName("Est.Civil")]
+        public string ind_est_civil { get; set; }
+        [DisplayName("Empresa")]
+        public string empresa { get; set; }
         [DisplayName("Endereco_Com")]
         public string enderecoCom { get; set; }
         [DisplayName("Complemento_Com")]
@@ -58,34 +56,28 @@ namespace Sindemed.Models.Entidades
         public string telParticular3 { get; set; }
         [DisplayName("Tel_Particular_4")]
         public string telParticular4 { get; set; }
-        [DisplayName("Tel_Com_1")]
-        public string telCom1 { get; set; }
-        [DisplayName("Tel_Com_2")]
-        public string telCom2 { get; set; }
-        [DisplayName("Fax")]
-        public string fax { get; set; }
-        [DisplayName("Sindicalizado")]
-        public string isSindicalizado { get; set; }
-        [DisplayName("Admissão")]
-        public Nullable<DateTime> dt_admin_sindicato { get; set; }
-        [DisplayName("ID_Correio")]
-        public Nullable<int> correioId { get; set; }
-        [DisplayName("ID_Área_Atuação_1")]
-        public Nullable<int> areaAtuacao1Id { get; set; }
-        [DisplayName("ID_Área_Atuação_2")]
-        public Nullable<int> areaAtuacao2Id { get; set; }
-        [DisplayName("ID_Área_Atuação_3")]
-        public Nullable<int> areaAtuacao3Id { get; set; }
-        [DisplayName("E-mail_1")]
+        [DisplayName("ID_Area_Atuacao")]
+        public Nullable<int> areaAtuacaoId { get; set; }
+        [DisplayName("E-mail")]
         public string email1 { get; set; }
-        [DisplayName("E-mail_2")]
-        public string email2 { get; set; }
-        [DisplayName("E-mail_3")]
-        public string email3 { get; set; }
-        [DisplayName("ID_Usuário")]
+        [DisplayName("ID_Usuario")]
         public Nullable<int> usuarioId { get; set; }
         [DisplayName("xml")]
         public string observacao { get; set; }
+        [DisplayName("Nome_Contato")]
+        public string nome_contato { get; set; }
+        [DisplayName("Dt_Cadastro")]
+        public DateTime dt_inicio { get; set; }
+        [DisplayName("Dt_Desativacao")]
+        public Nullable<DateTime> dt_fim { get; set; }
+        [DisplayName("Animal_Estimacao")]
+        public string ind_animal { get; set; }
+        [DisplayName("Dt_Cadastro")]
+        public System.Nullable<DateTime> dt_cadastro { get; set; }
+        public string avatar { get; set; }
+        public virtual ICollection<Dependente> Dependentes { get; set; }
+        public virtual ICollection<Veiculo> Veiculos { get; set; }
+        public virtual ICollection<Funcionario> Funcionarios { get; set; }
     }
 
 }

@@ -1,0 +1,111 @@
+﻿@model DWM.Models.Repositories.AtendimentoViewModel
+@{
+    System.Web.HttpContext web = System.Web.HttpContext.Current;
+}
+<div class="list-group-item">
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.atendimentos.Where(info => info.anexo != null).Count() > 0)
+            {
+                <div class="row" style="height: 200px; overflow-y: auto">
+                    <div class="col-md-12 column">
+                        <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+                            <caption></caption>
+                            <thead style="background-color: #fff1a5">
+                                <tr>
+                                    <th style="text-align: center">Ação</th>
+                                    <th style="text-align: center">Arquivo</th>
+                                    <th style="text-align: center">Data</th>
+                                </tr>
+                            </thead>
+                            @foreach (DWM.Models.Repositories.AtendimentoViewModel doc in Model.atendimentos.Where(info => info.anexo != null))
+                            {
+                                var path = System.Configuration.ConfigurationManager.AppSettings["Users_Data"].Replace("~", "");
+                                var fileName = "../" + path + "/" + doc.anexo.fileId;
+
+                                <tr>
+                                    <td>
+                                        <div class="row-clearfix">
+                                            <div class="col-md-12" style="text-align: center">
+                                                <div class="btn-group btn-group-xs">
+                                                    @if (".htm|.txt|.html|.pdf|.png|.jpg|.bmp|.gif".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.anexo.fileId)).Extension.ToLower()))
+                                                    {
+                                                        <button class="btn btn-sm" type="button">
+                                                            <em class="glyphicon glyphicon-file"></em> <a style="text-decoration: none; color: #646464;" href="#"><span style="text-decoration: none; color: #646464; cursor: pointer" onclick="Show('@fileName', '@doc.anexo.nomeArquivoOriginal')">Visualizar</span></a>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="btn btn-sm" type="button">
+                                                            <em class="glyphicon glyphicon-file"></em> <span style="text-decoration: none; color: #646464; cursor: text">Visualizar</span>
+                                                        </button>
+                                                    }
+                                                    <button class="btn btn-sm" type="button">
+                                                        <em class="glyphicon glyphicon-download-alt"></em> <a style="text-decoration: none; color: #646464;" href="@fileName" download="@doc.anexo.nomeArquivoOriginal"><span style="text-decoration: none; color: #646464; cursor: pointer">Download</span></a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 15%">
+                                        @doc.anexo.dt_arquivo.ToString("dd/MM/yyyy HH:mm")
+                                    </td>
+                                    <td style="width: 65%">
+                                        <span class="label label-warning">@doc.anexo.tag</span>
+                                        @doc.anexo.nomeArquivoOriginal
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-container-964987a" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body Scroll" style="height: 700px">
+                <div id="catarina" style="width: 100%; height: 100%">
+                    <embed id="fdp">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<a id="linkModal" href="#modal-container-964987a" data-toggle="modal"></a>
+
+
+<script type="text/javascript">
+
+    function Show(fileName, documento) {
+        $("#myModalLabel").text(documento);
+        $("#catarina embed").attr("src", fileName + "?ts=" + new Date().getTime());
+
+        if (fileName.toLowerCase().indexOf("pdf") >= 0 || fileName.toLowerCase().indexOf("htm") >= 0 || fileName.toLowerCase().indexOf("txt") >= 0) {
+            $("#catarina embed").css("width", "100%");
+            $("#catarina embed").css("height", "100%");
+            $("#catarina embed").css("position", "relative");
+            $("#catarina embed").css("top", "0%");
+            $("#catarina embed").css("left", "0%");
+            $("#catarina embed").css("margin-top", "10px");
+            $("#catarina embed").css("margin-left", "10px");
+        }
+        else {
+            $("#catarina embed").css("width", "auto");
+            $("#catarina embed").css("height", "auto");
+        }
+        $("#linkModal").click();
+
+    }
+
+</script>

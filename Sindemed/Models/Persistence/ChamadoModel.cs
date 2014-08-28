@@ -4,14 +4,14 @@ using System.Linq;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
 using App_Dominio.Component;
-using Sindemed.Models.Repositories;
-using Sindemed.Models.Entidades;
+using DWM.Models.Repositories;
+using DWM.Models.Entidades;
 using App_Dominio.Enumeracoes;
 using App_Dominio.Security;
 using App_Dominio.Repositories;
 using System.Data.Entity.Infrastructure;
 
-namespace Sindemed.Models.Persistence
+namespace DWM.Models.Persistence
 {
     public class ChamadoModel : ProcessContext<Chamado, ChamadoViewModel, ApplicationContext>
     {
@@ -36,13 +36,15 @@ namespace Sindemed.Models.Persistence
         {
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
             sessaoCorrente = empresaSecurity.getSessaoCorrente();
+            int _fuso_horario = int.Parse(db.Parametros.Find((int)DWM.Models.Enumeracoes.Enumeradores.Param.FUSO_HORARIO).valor);
 
             #region Alerta 1
             AlertaRepository alerta = new AlertaRepository()
             {
+                empresaId = sessaoCorrente.empresaId,
                 usuarioId = (from al in db.AreaAtendimentos where al.areaAtendimentoId == value.areaAtendimentoId select al.usuario1Id).First(),
                 sistemaId = sessaoCorrente.sistemaId,
-                dt_emissao = DateTime.Now,
+                dt_emissao = DateTime.Now.AddHours(_fuso_horario),
                 linkText = "<span class=\"label label-warning\">Atendimento</span>",
                 url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
                 mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
@@ -62,9 +64,10 @@ namespace Sindemed.Models.Persistence
             {
                 AlertaRepository alerta2 = new AlertaRepository()
                 {
+                    empresaId = sessaoCorrente.empresaId,
                     usuarioId = usuario2Id.Value,
                     sistemaId = sessaoCorrente.sistemaId,
-                    dt_emissao = DateTime.Now,
+                    dt_emissao = DateTime.Now.AddHours(_fuso_horario),
                     linkText = "<span class=\"label label-warning\">Atendimento</span>",
                     url = "../Atendimento/Create?chamadoId=" + value.chamadoId.ToString() + "&fluxo=2",
                     mensagemAlerta = "<b>" + DateTime.Now.ToString("dd/MM/yyyy HH:mm") + "h</b><p>" + value.assunto + "</p>"
@@ -88,6 +91,8 @@ namespace Sindemed.Models.Persistence
                 chamadoId = value.chamadoId,
                 associadoId = value.associadoId,
                 areaAtendimentoId = value.areaAtendimentoId,
+                chamadoMotivoId = value.chamadoMotivoId,
+                chamadoStatusId = value.chamadoStatusId,
                 dt_chamado = value.dt_chamado,
                 assunto = value.assunto,
                 situacao = value.situacao,
@@ -106,8 +111,13 @@ namespace Sindemed.Models.Persistence
                     chamadoId = entity.chamadoId,
                     associadoId = entity.associadoId,
                     nome_associado = db.Associados.Find(entity.associadoId).nome,
+                    apto = db.Associados.Find(entity.associadoId).torreId + db.Associados.Find(entity.associadoId).unidadeId.ToString(),
                     areaAtendimentoId = entity.areaAtendimentoId,
                     descricao_areaAtendimento = db.AreaAtendimentos.Find(entity.areaAtendimentoId).descricao,
+                    chamadoMotivoId = entity.chamadoMotivoId,
+                    descricao_motivo = db.ChamadoMotivos.Find(entity.chamadoMotivoId).descricao,
+                    chamadoStatusId = entity.chamadoStatusId,
+                    descricao_status = db.ChamadoStatuss.Find(entity.chamadoStatusId).descricao,
                     dt_chamado = entity.dt_chamado,
                     assunto = entity.assunto,
                     situacao = entity.situacao,
@@ -130,8 +140,22 @@ namespace Sindemed.Models.Persistence
             if (value.associadoId == 0)
             {
                 value.mensagem.Code = 5;
-                value.mensagem.Message = MensagemPadrao.Message(5, "ID do Associado").ToString();
-                value.mensagem.MessageBase = "Usuário precisa estar vinculado ao cadastro de associado para solicitar um chamado.";
+                value.mensagem.Message = MensagemPadrao.Message(5, "ID do Condômino").ToString();
+                value.mensagem.MessageBase = "Usuário precisa estar vinculado ao cadastro de condôminos para solicitar um chamado.";
+            }
+
+            if (value.chamadoMotivoId == 0)
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "Motivo").ToString();
+                value.mensagem.MessageBase = "Motivo do chamado deve ser informado.";
+            }
+
+            if (value.chamadoStatusId == 0)
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "Status").ToString();
+                value.mensagem.MessageBase = "Status do chamado deve ser informado.";
             }
 
             return value.mensagem;
@@ -146,12 +170,16 @@ namespace Sindemed.Models.Persistence
 
             using (db = new ApplicationContext())
             {
+                int _fuso_horario = int.Parse(db.Parametros.Find((int)DWM.Models.Enumeracoes.Enumeradores.Param.FUSO_HORARIO).valor);
                 return new ChamadoViewModel()
                 {
+                    chamadoStatusId = 1,
+                    chamadoMotivoId = 1,
                     situacao = "A",
-                    dt_chamado = DateTime.Now,
+                    dt_chamado = DateTime.Now.AddHours(_fuso_horario),
                     associadoId = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.associadoId).FirstOrDefault(),
-                    nome_associado = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.nome).FirstOrDefault()
+                    nome_associado = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.nome).FirstOrDefault(),
+                    apto = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.torreId).FirstOrDefault() + (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.unidadeId).FirstOrDefault().ToString()
                 };
             }
         }
@@ -170,6 +198,8 @@ namespace Sindemed.Models.Persistence
             return (from cham in db.Chamados
                     join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
                     join ass in db.Associados on cham.Associado equals ass
+                    join chm in db.ChamadoMotivos on cham.chamadoMotivoId equals chm.chamadoMotivoId
+                    join chs in db.ChamadoStatuss on cham.chamadoStatusId equals chs.chamadoStatusId
                     where ass.usuarioId == sessaoCorrente.usuarioId &&
                           (_chamadoId == null || cham.chamadoId == _chamadoId)
                     orderby cham.dt_chamado descending
@@ -182,6 +212,11 @@ namespace Sindemed.Models.Persistence
                         descricao_areaAtendimento = are.descricao,
                         associadoId = cham.associadoId,
                         nome_associado = ass.nome,
+                        apto = ass.torreId + ass.unidadeId.ToString(),
+                        chamadoStatusId = cham.chamadoStatusId,
+                        descricao_status = chs.descricao,
+                        chamadoMotivoId = cham.chamadoMotivoId,
+                        descricao_motivo = chm.descricao,
                         situacao = cham.situacao,                        
                         PageSize = pageSize,
                         TotalCount = (from cham1 in db.Chamados
@@ -207,18 +242,27 @@ namespace Sindemed.Models.Persistence
         {
             #region Parâmetros
             int? _chamadoId = null;
-            int? _associadoId = null;
+            int? _unidadeId = null;
+            string _torreId = "";
             int? _areaAtendimentoId = null;
+            int? _chamadoMotivoId = null;
+            int? _chamadoStatusId = null;
             string _situacao = "";
 
             _chamadoId = param[0] != null ? (int)param[0] : _chamadoId;
-            _associadoId = param[1] != null ? (int)param[1] : _associadoId;
+            if (param[1] != null && param [1] != "")
+            {
+                _torreId = param[1].ToString().Substring(0, 2);
+                _unidadeId = int.Parse(param[1].ToString().Substring(2));
+            }
             
             DateTime _data1 = (DateTime)param[2];
             DateTime _data2 = (DateTime)param[3];
 
             _areaAtendimentoId = param[4] != null ? (int)param[4] : _areaAtendimentoId;
             _situacao = param[5] != null ? (string)param[5] : _situacao; //""-Todos, "A"-Chamados abertos ou "F"-Chamados fechados
+            _chamadoMotivoId = param[6] != null ? (int)param[6] : _chamadoMotivoId;
+            _chamadoStatusId = param[7] != null ? (int)param[7] : _chamadoStatusId;
             #endregion
 
             EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
@@ -230,6 +274,8 @@ namespace Sindemed.Models.Persistence
                 q = (from cham in db.Chamados
                      join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
                      join ass in db.Associados on cham.Associado equals ass
+                     join chm in db.ChamadoMotivos on cham.chamadoMotivoId equals chm.chamadoMotivoId
+                     join chs in db.ChamadoStatuss on cham.chamadoStatusId equals chs.chamadoStatusId
                      where cham.chamadoId == _chamadoId &&
                             ((cham.usuarioId == sessaoCorrente.usuarioId) || (cham.usuarioId == null && (are.usuario1Id == sessaoCorrente.usuarioId || are.usuario2Id == sessaoCorrente.usuarioId)))
                      orderby cham.dt_chamado descending
@@ -240,8 +286,13 @@ namespace Sindemed.Models.Persistence
                          assunto = cham.assunto,
                          areaAtendimentoId = cham.areaAtendimentoId,
                          descricao_areaAtendimento = are.descricao,
+                         chamadoStatusId = cham.chamadoStatusId,
+                         descricao_status = chs.descricao,
+                         chamadoMotivoId = cham.chamadoMotivoId,
+                         descricao_motivo = chm.descricao,
                          associadoId = cham.associadoId,
                          nome_associado = ass.nome,
+                         apto = ass.torreId + ass.unidadeId.ToString(),
                          situacao = cham.situacao,
                          PageSize = pageSize,
                          TotalCount = 1
@@ -250,10 +301,14 @@ namespace Sindemed.Models.Persistence
                 q = (from cham in db.Chamados
                      join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
                      join ass in db.Associados on cham.Associado equals ass
+                     join chm in db.ChamadoMotivos on cham.chamadoMotivoId equals chm.chamadoMotivoId
+                     join chs in db.ChamadoStatuss on cham.chamadoStatusId equals chs.chamadoStatusId
                      where ((cham.usuarioId == sessaoCorrente.usuarioId) || (cham.usuarioId == null && (are.usuario1Id == sessaoCorrente.usuarioId || are.usuario2Id == sessaoCorrente.usuarioId))) &&
-                            (_associadoId == null || cham.associadoId == _associadoId) &&
+                            (_unidadeId == null || ass.torreId == _torreId && ass.unidadeId == _unidadeId) &&
                             (cham.dt_chamado >= _data1 && cham.dt_chamado <= _data2) &&
                             (_areaAtendimentoId == null || cham.areaAtendimentoId == _areaAtendimentoId) &&
+                            (_chamadoMotivoId == null || chm.chamadoMotivoId == _chamadoMotivoId) &&
+                            (_chamadoStatusId == null || chs.chamadoStatusId == _chamadoStatusId) &&
                             (_situacao == "" || cham.situacao == _situacao)
                      orderby cham.dt_chamado descending
                      select new ChamadoViewModel
@@ -263,17 +318,26 @@ namespace Sindemed.Models.Persistence
                          assunto = cham.assunto,
                          areaAtendimentoId = cham.areaAtendimentoId,
                          descricao_areaAtendimento = are.descricao,
+                         chamadoStatusId = cham.chamadoStatusId,
+                         descricao_status = chs.descricao,
+                         chamadoMotivoId = cham.chamadoMotivoId,
+                         descricao_motivo = chm.descricao,
                          associadoId = cham.associadoId,
                          nome_associado = ass.nome,
+                         apto = ass.torreId + ass.unidadeId.ToString(),
                          situacao = cham.situacao,
                          PageSize = pageSize,
                          TotalCount = (from cham1 in db.Chamados
                                        join are1 in db.AreaAtendimentos on cham1.AreaAtendimento equals are1
                                        join ass1 in db.Associados on cham1.Associado equals ass1
+                                       join chm1 in db.ChamadoMotivos on cham1.chamadoMotivoId equals chm1.chamadoMotivoId
+                                       join chs1 in db.ChamadoStatuss on cham1.chamadoStatusId equals chs1.chamadoStatusId
                                        where ((cham1.usuarioId == sessaoCorrente.usuarioId) || (cham1.usuarioId == null && (are1.usuario1Id == sessaoCorrente.usuarioId || are1.usuario2Id == sessaoCorrente.usuarioId))) &&
-                                              (_associadoId == null || cham1.associadoId == _associadoId) &&
+                                              (_unidadeId == null || ass1.torreId == _torreId && ass1.unidadeId == _unidadeId) &&
                                               (cham1.dt_chamado >= _data1 && cham1.dt_chamado <= _data2) &&
                                               (_areaAtendimentoId == null || cham1.areaAtendimentoId == _areaAtendimentoId) &&
+                                              (_chamadoMotivoId == null || chm1.chamadoMotivoId == _chamadoMotivoId) &&
+                                              (_chamadoStatusId == null || chs1.chamadoStatusId == _chamadoStatusId) &&
                                               (_situacao == "" || cham1.situacao == _situacao)
                                        select cham1).Count()
                      }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();

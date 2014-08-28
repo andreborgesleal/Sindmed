@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.ComunicacaoViewModel
+@model DWM.Models.Repositories.ComunicacaoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
 @using (Html.BeginForm("Delete", "ComunicadoGeral", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -11,6 +11,10 @@
     @Html.HiddenFor(info => info.cabecalho)
     @Html.HiddenFor(info => info.resumo)
     @Html.HiddenFor(info => info.mensagemDetalhada)
+    @Html.HiddenFor(info => info.arq_imagem_300x200)
+    @Html.HiddenFor(info => info.arq_imagem_100x100)
+    @Html.HiddenFor(info => info.arq_imagem_400x300)
+
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -23,7 +27,7 @@
                     <blockquote>
                         <p>
                             Exclusão de Comunicados Gerais
-                        </p> <small>Os comunicados são informativos que serão exibidos na tela inicial de todos os usuários, inclusive os da administração. <br /> Observação: Serão exibidos os 3 últimos comunicados cadastrados até a data corrente.</small>
+                        </p> <small>Esta seção irá excluir o comunicado e o mesmo não será mais exibido na página inicial do sistema.</small>
                     </blockquote>
                     <div class="col-md-12">
                         <div class="form-group" style="margin-top: 20px">
@@ -31,9 +35,15 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        @Html.LabelFor(m => m.dt_comunicacao, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.dt_publicacao, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.EditorFor(info => info.dt_comunicacao, "DATE", new { identificador = "dt_comunicacao", readOnly = "true" })
+                            @Html.EditorFor(info => info.dt_publicacao, "DATE", new { identificador = "dt_publicacao", readOnly = "true" })
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.dt_expiracao, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(info => info.dt_expiracao, "DATE", new { identificador = "dt_expiracao", readOnly = "true" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -49,14 +59,53 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.mensagemDetalhada, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.arq_imagem_300x200, new { @class = "col-md-2 control-label" })
                         <div class="col-md-9">
-                            <div class="well">
-                                @Html.DisplayTextFor(m => m.mensagemDetalhada)
+                            <div class="row">
+                                <div class="col-md-7">
+                                    @{ var filePath300x200 = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", ".."), Model.arq_imagem_300x200); }
+                                    <a href="#" class="thumbnail">
+                                        <img id="300x200" src="@filePath300x200" alt="300x200">
+                                    </a>
+                                </div>
                             </div>
+                            <hr />
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_100x100, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    @{ var filePath100x100 = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", ".."), Model.arq_imagem_100x100); }
+                                    <a href="#" class="thumbnail">
+                                        <img id="100x100" src="@filePath100x100" alt="100x100" onclick="Delete('100x100')">
+                                    </a>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_400x300, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    @{ var filePath400x300 = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", ".."), Model.arq_imagem_400x300); }
+                                    <a href="#" class="thumbnail">
+                                        <img id="400x300" src="@filePath400x300" alt="400x300" onclick="Delete('400x300')">
+                                    </a>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.mensagemDetalhada, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-9">
+                            @Html.DisplayTextFor(m => m.mensagemDetalhada)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

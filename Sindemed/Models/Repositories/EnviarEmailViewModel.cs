@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using App_Dominio.Component;
 using System.Collections.Generic;
-namespace Sindemed.Models.Repositories
+namespace DWM.Models.Repositories
 {
     public class EnviarEmailViewModel : Repository
     {
-        public IEnumerable<MedicoViewModel> Destinatarios { get; set; }
+        public IEnumerable<AssociadoViewModel> Destinatarios { get; set; }
 
         [DisplayName("Asunto")]
         [Required(ErrorMessage="Assunto deve ser informado")]

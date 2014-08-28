@@ -1,27 +1,20 @@
 ﻿@using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.AtendimentoViewModel
+@model DWM.Models.Repositories.AtendimentoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
     ViewBag.ind_resposta = "S";
 }
-@using (Html.BeginForm("Create", "Atendimento", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Create", "Atendimento", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(info => info.anexo.fileId)
+        
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Atendimento <small>Responder chamado ao associado</small>
+                Resposta de Chamado <small>Esse recurso deve ser utilizado para responder uma dúvida, complementar uma informação ou questionar um dado ou documento para que o chamado possa ser atendido.</small>
             </h2>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <blockquote>
-                        <p>
-                            Resposta de Chamado
-                        </p> <small>Resposta de chamado para o associado. Esse recurso deve ser utilizado pela administração para responder uma dúvida, complementar uma informação ou até mesmo questionar um dado ou documento do associado para que o chamado possa ser atendido. Preencher os campos abaixo e depois clicar no botão "Salvar"</small>
-                    </blockquote>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">

@@ -1,0 +1,64 @@
+﻿@using DWM.Models.Repositories
+@using App_Dominio.Repositories
+@using DWM.Models.Enumeracoes
+@using App_Dominio.Enumeracoes
+@model System.Web.Mvc.PagedList<DWM.Models.Repositories.DocInternoViewModel>
+@{
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
+    App_Dominio.Entidades.Sessao sessaoCorrente = (App_Dominio.Entidades.Sessao)TempData.Peek("SessaoCorrente");
+    var col = "col-lg-offset-10";
+    if (sessaoCorrente.value1 != "0")
+    {
+        col = "col-lg-offset-11";
+    }
+       
+}
+@using (Ajax.BeginForm("Browse", "Documentos", null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Documentos <small>Documentos disponibilizados pela administração. </small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4 col-xs-12 col-sm-12">
+                    <div class="form-group col-md-11">
+                        <label>Descrição</label>
+                        @Html.TextBox("descricao", "", new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-12">
+                    <div class="form-group col-md-11">
+                        <label>Pasta</label>
+                        @Html.DropDownList("docFolderId", new BindDropDownList().Folder("Todas...", ""), new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-12">
+                    <div class="form-group col-md-11">
+                        <label>Período</label>
+                        @Html.DropDownList("dt_inicio", BindDropDownList.Periodo("3", "Todos..."), new { @class = "form-control input-sm" })
+                    </div>
+                </div>
+            </div>
+            <div id="div-list-doc">
+                @if (Model != null)
+                {
+                    @Html.Partial("ListParam", @Model)
+                }
+            </div>
+            
+        </div>
+        <div class="panel-footer">
+            <div class="@col">
+                @if (sessaoCorrente.value1 == "0") // Usuário da administração (value1 = associadoId). Se for igual a "0" é porque o usuário logado não é um associado
+                {
+                    @Html.Partial("_defaultListButtons", new List<ButtonRepository> { new ButtonRepository() { linkText = "Incluir", actionName = "Create", controllerName = "Documentos", buttonType = "link" } })
+                }
+                <button type="button" class="btn btn-warning" onclick="Refresh(0, getPageSize(), 'ListParam', 'div-list-doc')">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+

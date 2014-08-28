@@ -1,0 +1,62 @@
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.DocInternoViewModel>
+
+@{
+    Layout = null;
+    App_Dominio.Entidades.Sessao sessaoCorrente = (App_Dominio.Entidades.Sessao)TempData.Peek("SessaoCorrente");
+}
+@if (Model != null)
+{
+    <div class="row Scroll">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer">
+                <caption></caption>
+                <thead style="background-color: #fff1a5">
+                    <tr>
+                        <th class="text-center">Ação</th>
+                        <th>Documento</th>
+                    </tr>
+                </thead>
+                @foreach (DWM.Models.Repositories.DocInternoViewModel doc in Model)
+                {
+                    var col1 = "col-md-3";
+                    var col2 = "col-md-9";
+                    
+                    if (sessaoCorrente.value1 != "0")
+                    {
+                        col1 = "col-md-1";
+                        col2 = "col-md-11";
+                    }
+                    
+                    var path = System.Configuration.ConfigurationManager.AppSettings["Admin_Data"].Replace("~", "");
+                    var fileName = "../" + path + "/" + doc.arquivo;
+                    var len = doc.arquivo.Length;
+                    var arquivo_original = doc.nome + doc.arquivo.Substring(len - 4);
+                    <tr>
+                        <td class="@col1 col-xs-2 col-sm-2 text-center">
+                            <div class="col-md-4 col-xs-12 col-sm-12"><a style="text-decoration: none" class="btn btn-success btn-xs" href="@fileName" download="@arquivo_original">Download</a></div>
+                            @if (sessaoCorrente.value1 == "0") // Usuário da administração (value1 = associadoId). Se for igual a "0" é porque o usuário logado não é um associado
+                            {
+                                <div class="col-md-3"><button type="button" class="btn btn-info btn-xs hidden-sm hidden-xs" onclick="window.location='Edit?docId=@doc.docId.ToString()'">Editar</button></div>
+                                <div class="col-md-2"><button type="button" class="btn btn-danger btn-xs hidden-sm hidden-xs" onclick="window.location='Delete?docId=@doc.docId.ToString()'">Excluir</button></div>
+                            }
+                        </td>
+                        <td class="@col2 col-xs-10 col-sm-10 text-left">
+                            <strong>@doc.nome - @doc.dt_arquivo.ToString("dd/MM/yyyy")</strong>
+                            <small class="text-primary hidden-sm hidden-xs">@doc.descricao</small>
+                            <small class="text-success">@doc.nome_pasta</small>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    @Html.Partial("Paginacao", Model)
+}
+else
+{
+    @Html.Partial("_AcessoNegadoModal")
+}
+
+
+
+

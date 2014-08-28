@@ -21,6 +21,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +44,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="App_Dominio">
+      <HintPath>..\..\App_Dominio\App_Dominio\App_Dominio\bin\Debug\App_Dominio.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -202,6 +207,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AlterarSenhaController.cs" />
+    <Compile Include="Controllers\AssociadoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\AssociadoDocumentoController.cs" />
     <Compile Include="Controllers\AssociadoGrupoController.cs" />
     <Compile Include="Controllers\AtendimentoController.cs">
@@ -211,12 +219,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AreaAtendimentoController.cs" />
     <Compile Include="Controllers\AreaAtuacaoController.cs" />
-    <Compile Include="Controllers\AssociadoController.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\ComunicacaoGrupoController.cs" />
-    <Compile Include="Controllers\ComunicadoGeralController.cs" />
+    <Compile Include="Controllers\ComunicadoGeralController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\DocumentosController.cs" />
     <Compile Include="Controllers\EnviarEmailController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -224,9 +232,13 @@
     <Compile Include="Controllers\EsqueciMinhaSenhaController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NaoLocalizadoCorreioController.cs" />
+    <Compile Include="Controllers\ProprietarioController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\Report01Controller.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -238,6 +250,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entidades\AcessoExterno.cs" />
+    <Compile Include="Models\Entidades\AcessoInterno.cs" />
     <Compile Include="Models\Entidades\ApplicationContext.cs" />
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
@@ -246,15 +260,32 @@
     <Compile Include="Models\Entidades\AssociadoGrupo.cs" />
     <Compile Include="Models\Entidades\Atendimento.cs" />
     <Compile Include="Models\Entidades\Chamado.cs" />
+    <Compile Include="Models\Entidades\ChamadoMotivo.cs" />
+    <Compile Include="Models\Entidades\ChamadoStatus.cs" />
     <Compile Include="Models\Entidades\Cidade.cs" />
+    <Compile Include="Models\Entidades\Comentario.cs" />
     <Compile Include="Models\Entidades\Comunicacao.cs" />
+    <Compile Include="Models\Entidades\ComunicacaoClick.cs" />
     <Compile Include="Models\Entidades\ComunicacaoGrupo.cs" />
+    <Compile Include="Models\Entidades\Dependente.cs" />
+    <Compile Include="Models\Entidades\DocClick.cs" />
+    <Compile Include="Models\Entidades\DocFolder.cs" />
+    <Compile Include="Models\Entidades\DocInterno.cs" />
     <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
+    <Compile Include="Models\Entidades\Funcionario.cs" />
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
-    <Compile Include="Models\Entidades\Medico.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
+    <Compile Include="Models\Entidades\Parametro.cs" />
+    <Compile Include="Models\Entidades\Pessoa.cs" />
+    <Compile Include="Models\Entidades\Proprietario.cs" />
+    <Compile Include="Models\Entidades\TipoDocumento.cs" />
+    <Compile Include="Models\Entidades\Torre.cs" />
+    <Compile Include="Models\Entidades\Unidade.cs" />
+    <Compile Include="Models\Entidades\Veiculo.cs" />
     <Compile Include="Models\Enumeracoes\BindDropDownList.cs" />
+    <Compile Include="Models\Enumeracoes\Enumeradores.cs" />
     <Compile Include="Models\Enumeracoes\SindmedEnum.cs" />
+    <Compile Include="Models\GravatarHtmlHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LookupUsuarioModel.cs">
       <SubType>Code</SubType>
@@ -264,20 +295,27 @@
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
     <Compile Include="Models\Persistence\AssociadoDocumentoModel.cs" />
     <Compile Include="Models\Persistence\AssociadoGrupoModel.cs" />
+    <Compile Include="Models\Persistence\AssociadoModel.cs" />
     <Compile Include="Models\Persistence\AtendimentoModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Persistence\ChamadoModel.cs" />
     <Compile Include="Models\Persistence\CidadeModel.cs" />
+    <Compile Include="Models\Persistence\ComentarioModel.cs" />
     <Compile Include="Models\Persistence\ComunicacaoGrupoModel.cs" />
     <Compile Include="Models\Persistence\ComunicacaoModel.cs" />
+    <Compile Include="Models\Persistence\DocFolderModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Persistence\DocInternoModel.cs" />
     <Compile Include="Models\Persistence\EnviarEmailModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
-    <Compile Include="Models\Persistence\MedicoModel.cs" />
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
+    <Compile Include="Models\Persistence\ProprietarioModel.cs" />
     <Compile Include="Models\Report\AtendimentoPendenteReport.cs" />
     <Compile Include="Models\Report\RelacaoGeralReport.cs" />
+    <Compile Include="Models\Repositories\AcessoInternoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
     <Compile Include="Models\Repositories\AssociadoDocumentoViewModel.cs" />
@@ -287,30 +325,93 @@
     </Compile>
     <Compile Include="Models\Repositories\AtendimentoPendenteViewModel.cs" />
     <Compile Include="Models\Repositories\AtendimentoViewModel.cs" />
+    <Compile Include="Models\Repositories\ChamadoMotivoViewModel.cs" />
+    <Compile Include="Models\Repositories\ChamadoStatusViewModel.cs" />
     <Compile Include="Models\Repositories\ChamadoViewModel.cs" />
     <Compile Include="Models\Repositories\CidadeViewModel.cs" />
+    <Compile Include="Models\Repositories\ComentarioViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoGlobalViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoGrupoViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
+    <Compile Include="Models\Repositories\DependenteViewModel.cs" />
+    <Compile Include="Models\Repositories\DocFolderViewModel.cs" />
+    <Compile Include="Models\Repositories\DocInternoViewModel.cs" />
     <Compile Include="Models\Repositories\EnviarEmailViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
+    <Compile Include="Models\Repositories\FuncionarioViewModel.cs" />
     <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
-    <Compile Include="Models\Repositories\MedicoViewModel.cs" />
     <Compile Include="Models\Repositories\NaoLocalizadoCorreioViewModel.cs" />
+    <Compile Include="Models\Repositories\ProprietarioViewModel.cs" />
     <Compile Include="Models\Repositories\RelacaoGeralViewModel.cs" />
     <Compile Include="Models\Repositories\ReportViewModel.cs" />
+    <Compile Include="Models\Repositories\TipoDocumentoViewModel.cs" />
+    <Compile Include="Models\Repositories\VeiculoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="Startup.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\logs\log-01012014.xml" />
+    <Content Include="App_Data\logs\log-01012014.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\MensagemPadrao.xml" />
+    <Content Include="Content\Avatars\a3161747-f9ea-422e-abdd-9362be5cfdd4.jpg" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\15022012calendario006.jpg" />
+    <Content Include="Content\images\1980x500-1.png" />
+    <Content Include="Content\images\1980x500-2.png" />
+    <Content Include="Content\images\1980x500-3.jpg" />
+    <Content Include="Content\images\1980x500-3.png" />
+    <Content Include="Content\images\31126.JPEG" />
+    <Content Include="Content\images\9467110095717176-t100.png" />
+    <Content Include="Content\images\andre_borges_leal.png" />
+    <Content Include="Content\images\calendario_img.jpg" />
     <Content Include="Content\images\carregando.gif" />
+    <Content Include="Content\images\carrossel1_1980x500.jpg" />
+    <Content Include="Content\images\cartao-de-arbitragem-futebol-tp_7371214782295467278.jpg" />
+    <Content Include="Content\images\classificados.png" />
+    <Content Include="Content\images\Comunicados\13395410102013.jpg" />
+    <Content Include="Content\images\Comunicados\16d460e5-4180-457f-b96b-a7a3713f5bf7.jpg" />
+    <Content Include="Content\images\Comunicados\19d99e89-f49b-4f53-b7a2-69f9a820729d.jpg" />
+    <Content Include="Content\images\Comunicados\40766288-35ba-4433-a3c8-b2409dff2d53.jpg" />
+    <Content Include="Content\images\Comunicados\51cfdc5b-3e85-4606-90b4-28308dbb2009.jpg" />
+    <Content Include="Content\images\Comunicados\7330cb7f-dd67-4f31-b08a-dd9a119eeb6f.jpg" />
+    <Content Include="Content\images\Comunicados\7e07bcf3-f727-4566-b128-7c2ca45fd42c.jpg" />
+    <Content Include="Content\images\Comunicados\83174f66-f757-484f-a063-bd855cca30bd - Copia.PNG" />
+    <Content Include="Content\images\Comunicados\8deec889-789b-48c0-a745-939eed7354cc.png" />
+    <Content Include="Content\images\Comunicados\b563a1fa-f347-4b6d-8dcc-5caf0bc88210.jpg" />
+    <Content Include="Content\images\Comunicados\c5b768f7-2ab8-414c-b907-3e7828e1ab82.jpg" />
+    <Content Include="Content\images\Comunicados\casas-venda-enseada-guaruja.jpg" />
+    <Content Include="Content\images\Comunicados\cond_novo_leblon_vista_area_lazer.jpg" />
+    <Content Include="Content\images\Comunicados\default_100x100.jpg" />
+    <Content Include="Content\images\Comunicados\default_300x200.png" />
+    <Content Include="Content\images\Comunicados\default_400x300.jpg" />
+    <Content Include="Content\images\Comunicados\desvendar-o-misterio-do-elevador.jpg" />
+    <Content Include="Content\images\Comunicados\e545502f-3f4a-4faf-b7e3-51b97778b123.png" />
+    <Content Include="Content\images\Comunicados\garagem6.jpg" />
+    <Content Include="Content\images\Comunicados\icone-twitter.gif" />
+    <Content Include="Content\images\Comunicados\instalacao-de-interfones_188716.jpg" />
+    <Content Include="Content\images\Comunicados\interfone.jpg" />
+    <Content Include="Content\images\Comunicados\lobby -4.jpg" />
+    <Content Include="Content\images\Comunicados\twitter-100x100.png" />
+    <Content Include="Content\images\documentos.png" />
+    <Content Include="Content\images\download_button.jpg" />
+    <Content Include="Content\images\economia_agua.png" />
+    <Content Include="Content\images\enquete.jpg" />
+    <Content Include="Content\images\fale_conosco-300x200.jpg" />
+    <Content Include="Content\images\fe6ff5ad8d1d0c1607086ba1ccea3f04.jpg" />
+    <Content Include="Content\images\festajunina-100x100.jpg" />
+    <Content Include="Content\images\FixBoost-Menu-Image-Help-Desk-Solutions.png" />
+    <Content Include="Content\images\img_servico_portaria_01.jpg" />
+    <Content Include="Content\images\instrutor-icone.png" />
+    <Content Include="Content\images\lluon-a1.jpg" />
     <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\Login.png" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\menu-id-1.png" />
     <Content Include="Content\images\menu-id-10.png" />
     <Content Include="Content\images\menu-id-11.png" />
@@ -326,14 +427,23 @@
     <Content Include="Content\images\menu-id-7.png" />
     <Content Include="Content\images\menu-id-8.png" />
     <Content Include="Content\images\menu-id-9.png" />
+    <Content Include="Content\images\morador.png" />
     <Content Include="Content\images\perfil.png" />
     <Content Include="Content\images\perfil2.png" />
     <Content Include="Content\images\saude1.jpg" />
     <Content Include="Content\images\saude2.jpg" />
     <Content Include="Content\images\saude3.jpg" />
     <Content Include="Content\images\saude4.jpg" />
+    <Content Include="Content\images\saude_financeira.jpg" />
+    <Content Include="Content\images\screenActionManagerFeature4-300x200.jpg" />
+    <Content Include="Content\images\setor-financeiro.jpg" />
+    <Content Include="Content\images\simjpg.jpg" />
+    <Content Include="Content\images\teclado07-ap.jpg" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Content\logs\HtmlPage1.html" />
     <Content Include="Content\Site-Full-Hd.css" />
+    <Content Include="Content\site.avatar.css" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -412,6 +522,10 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.Jcrop.js" />
+    <Content Include="Scripts\jquery.Jcrop.min.js" />
     <Content Include="Scripts\jquery.maskedinput.js" />
     <Content Include="Scripts\jquery.validate-fix.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -420,6 +534,51 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\bootstrap-datepicker.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\.gitignore" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\angularjs.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\basic-plus.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\basic.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\cors\postmessage.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\cors\result.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\css\demo-ie8.css" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\css\demo.css" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\css\jquery.fileupload-noscript.css" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\css\jquery.fileupload-ui.css" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\css\jquery.fileupload.css" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\css\style.css" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\Gruntfile.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\img\loading.gif" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\img\progressbar.gif" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\index.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\jquery-ui.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\app.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\cors\jquery.postmessage-transport.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\cors\jquery.xdr-transport.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-angular.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-audio.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-image.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-jquery-ui.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-process.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-ui.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-validate.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload-video.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.fileupload.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\jquery.iframe-transport.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\main.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\js\vendor\jquery.ui.widget.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-go\static\favicon.ico" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-go\static\robots.txt" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-python\static\favicon.ico" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-python\static\robots.txt" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\node\.gitignore" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\node\public\files\.gitignore" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\node\public\files\thumbnail\.gitignore" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\node\server.js" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\node\tmp\.gitignore" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\php\files\.gitignore" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\test\index.html" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\test\test.js" />
     <Content Include="Scripts\js\locales\bootstrap-datepicker.bg.js" />
     <Content Include="Scripts\js\locales\bootstrap-datepicker.ca.js" />
     <Content Include="Scripts\js\locales\bootstrap-datepicker.cs.js" />
@@ -460,12 +619,14 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.avatar.js" />
     <Content Include="Scripts\sql\sindmed.sql" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\AreaAtendimento\List.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Associado\Avatar.cshtml" />
     <Content Include="Views\Associado\Browse.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -476,12 +637,16 @@
     <Content Include="Views\Associado\List.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Associado\ListAssociadoModal.cshtml" />
+    <Content Include="Views\Associado\_Avatar.cshtml" />
     <Content Include="Views\Atendimento\Detail.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Atendimento\_Anexo.cshtml" />
     <Content Include="Views\Atendimento\_Create.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Atendimento\_Resposta.cshtml" />
     <Content Include="Views\Chamado\Browse.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -493,6 +658,7 @@
     </Content>
     <Content Include="Views\Cidade\Delete.cshtml" />
     <Content Include="Views\Cidade\Edit.cshtml" />
+    <Content Include="Views\ComunicadoGeral\Edit.cshtml" />
     <Content Include="Views\Home\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -580,7 +746,6 @@
     <Content Include="Views\ComunicadoGeral\Browse.cshtml" />
     <Content Include="Views\ComunicadoGeral\Create.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DATE.cshtml" />
-    <Content Include="Views\ComunicadoGeral\Edit.cshtml" />
     <Content Include="Views\ComunicadoGeral\Delete.cshtml" />
     <Content Include="Views\Home\LovCidadeModal.cshtml" />
     <Content Include="Views\Home\LovCidadeComModal.cshtml" />
@@ -626,7 +791,6 @@
     <Content Include="Views\Atendimento\ListChamados.cshtml" />
     <Content Include="Views\Atendimento\Create.cshtml" />
     <Content Include="Views\Atendimento\Fechar.cshtml" />
-    <Content Include="Views\Atendimento\_Resposta.cshtml" />
     <Content Include="Views\Usuario\_ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Usuario\ListUsuarioMedicoModal.cshtml" />
     <Content Include="Views\Home\LovUsuarioMedicoModal.cshtml" />
@@ -647,8 +811,49 @@
     <Content Include="Views\Report02\Print.cshtml" />
     <Content Include="Views\EnviarEmail\ListParam.cshtml" />
     <Content Include="Views\EnviarEmail\Browse.cshtml" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\.jshintrc" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\blueimp-file-upload.jquery.json" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\bower.json" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\CONTRIBUTING.md" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\package.json" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\README.md" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-go\app.yaml" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-go\app\main.go" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-python\app.yaml" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\gae-python\main.py" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\node\package.json" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\php\files\.htaccess" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\php\index.php" />
+    <Content Include="Scripts\js\jQuery-File-Upload-master\server\php\UploadHandler.php" />
+    <Content Include="Views\Atendimento\List.cshtml" />
+    <Content Include="Views\Documentos\Browse.cshtml" />
+    <Content Include="Views\Documentos\Create.cshtml" />
+    <Content Include="Views\Documentos\Delete.cshtml" />
+    <Content Include="Views\Documentos\Edit.cshtml" />
+    <Content Include="Views\Documentos\ListParam.cshtml" />
+    <Content Include="Views\Folder\Browse.cshtml" />
+    <Content Include="Views\Folder\Create.cshtml" />
+    <Content Include="Views\Folder\Delete.cshtml" />
+    <Content Include="Views\Folder\Edit.cshtml" />
+    <Content Include="Views\Folder\List.cshtml" />
+    <Content Include="Views\Home\_detail.cshtml" />
+    <Content Include="Views\Home\Blog01.cshtml" />
+    <Content Include="Views\Home\Blog02.cshtml" />
+    <Content Include="Views\Home\Default.cshtml" />
+    <Content Include="Views\Home\detail.cshtml" />
+    <Content Include="Views\Home\DicaJuridica01.cshtml" />
+    <Content Include="Views\Home\DicaJuridica02.cshtml" />
+    <Content Include="Views\Proprietario\Browse.cshtml" />
+    <Content Include="Views\Proprietario\Create.cshtml" />
+    <Content Include="Views\Proprietario\List.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_LayoutBanner.cshtml" />
+    <Content Include="Views\Shared\_LayoutFixed.cshtml" />
+    <Content Include="Views\Shared\_LayoutFloat.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Admin_Data\" />
+    <Folder Include="Temp\" />
     <Folder Include="Users_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -657,12 +862,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\App_Dominio\App_Dominio\App_Dominio\App_Dominio.csproj">
-      <Project>{3ffaf7b0-e293-489c-80de-0c0ac24cf8e2}</Project>
-      <Name>App_Dominio</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\rdlc\RelacaoGeralAssociados.rdlc" />
@@ -699,6 +898,18 @@
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

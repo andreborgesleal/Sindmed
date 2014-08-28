@@ -1,0 +1,112 @@
+﻿@using DWM.Models.Repositories
+@using App_Dominio.Repositories
+@model DWM.Models.Repositories.DocInternoViewModel
+@{
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
+}
+@using (Html.BeginForm("Create", "Documentos", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(info => info.arquivo)
+    @Html.HiddenFor(info => info.nome_pasta)
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Documentos <small>Upload de arquivo para ser visualizado pelos associados.</small>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <blockquote class="hidden-sm hidden-xs">
+                        <p class="hidden-sm hidden-xs">
+                            Inclusão de Documentos
+                        </p> <small class="hidden-sm hidden-xs">Arquivos que serão disponibilizados na página inicial para download. </small>
+                    </blockquote>
+                    <div class="col-md-12">
+                        <div class="form-group" style="margin-top: 20px">
+                            @Html.ValidationSummary(false)
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.docFolderId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("docFolderId", new DWM.Models.Enumeracoes.BindDropDownList().Folder("Selecione...", ""), new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.dt_arquivo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(info => info.dt_arquivo, "DATE", new { identificador = "dt_arquivo", readOnly = "false" })
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.dt_novo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(info => info.dt_novo, "DATE", new { identificador = "dt_novo", readOnly = "false" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.nome, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(m => m.nome, new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.descricao, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(m => m.descricao, 4, 1, new { @class = "form-control input-sm", @maxlength="255", @onchange = "contaChar();", onkeyup = "contaChar();" })
+                            <small class="text-left">Máximo de 255 caracteres</small>
+                            <span id="contadorResumo" class="badge pull-right alert-success">@Model.descricao.Length / 255</span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.ind_enfatizar, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-2 col-xs-4 col-sm-4">
+                            @Html.DropDownList("ind_enfatizar", App_Dominio.Enumeracoes.DropDownListEnum.SimNao("N"), new { @class = "form-control input-sm" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arquivo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            <input type="file" name="arquivo" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    @Html.Partial("_defaultListButtons",
+                        new List<ButtonRepository>
+                        {
+                            new ButtonRepository() {    linkText = "Salvar",
+                                                        actionName = "",
+                                                        controllerName = "",
+                                                        buttonType = "submit"
+                                                    } ,
+                            new ButtonRepository() {    linkText = "Cancelar",
+                                                        actionName = "Browse",
+                                                        controllerName = "Documentos",
+                                                        buttonType = "link"
+                                                    }
+                        })
+                </div>
+                <div class="col-md-offset-4 hidden-sm hidden-xs">
+                    ( * ) - Campo de preenchimento obrigatório
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    function contaChar() {
+        var text = $("#descricao").val();
+        var count = text.length;
+        $("#contadorResumo").text(count + ' / 255');
+    }
+
+</script>

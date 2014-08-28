@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sindemed.Models
+namespace DWM.Models
 {
     public class LookupUsuarioModel : ListViewUsuario
     {

@@ -4,14 +4,14 @@ using System.Linq;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
 using App_Dominio.Component;
-using Sindemed.Models.Repositories;
-using Sindemed.Models.Entidades;
+using DWM.Models.Repositories;
+using DWM.Models.Entidades;
 using App_Dominio.Enumeracoes;
 using System.Data.Entity.SqlServer;
 using App_Dominio.Models;
 using App_Dominio.Security;
 
-namespace Sindemed.Models.Persistence
+namespace DWM.Models.Persistence
 {
     public class ComunicacaoGrupoModel : CrudContext<ComunicacaoGrupo, ComunicacaoGrupoViewModel, ApplicationContext>
     {

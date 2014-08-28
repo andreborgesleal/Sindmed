@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sindemed.Models.Repositories
+namespace DWM.Models.Repositories
 {
     public class AtendimentoPendenteViewModel : Repository, IReportRepository<AtendimentoPendenteViewModel>
     {
@@ -14,7 +14,7 @@ namespace Sindemed.Models.Repositories
         public string cpf { get; set; }
         public string crm { get; set; }
         public string email { get; set; }
-        public string isSindicalizado { get; set; }
+        public string ind_proprietario { get; set; }
         public DateTime dt_chamado { get; set; }
         public string dt_chamado2 { get; set; }
         public System.Nullable<DateTime> dt_atendimento { get; set; }

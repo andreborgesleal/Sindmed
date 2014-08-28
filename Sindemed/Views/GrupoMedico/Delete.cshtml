@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.GrupoAssociadoViewModel
+@model DWM.Models.Repositories.GrupoAssociadoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
 @using (Html.BeginForm("Delete", "GrupoMedico", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -11,7 +11,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Grupos de Associados  <small>Utilizado no envio de comunicados espefícios para associados que pertençam ao respectivo grupo</small>
+                Grupos de Condôminos  <small>Utilizado no envio de comunicados espefícios para condôminos que pertençam ao respectivo grupo</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -19,8 +19,8 @@
                 <div class="col-md-12">
                     <blockquote>
                         <p>
-                            Exclusão de Grupos de Associados
-                        </p> <small>Atenção ! Não será permitido excluir um grupo se houver associados vinculados nele.</small>
+                            Exclusão de Grupos de Condôminos
+                        </p> <small>Atenção ! Não será permitido excluir um grupo se houver condôminos vinculados nele.</small>
                     </blockquote>
                 </div>
             </div>

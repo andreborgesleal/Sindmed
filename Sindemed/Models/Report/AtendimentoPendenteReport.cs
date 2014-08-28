@@ -1,15 +1,15 @@
-﻿using Sindemed.Models.Repositories;
+﻿using DWM.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using App_Dominio.Component;
 using App_Dominio.Entidades;
-using Sindemed.Models.Entidades;
+using DWM.Models.Entidades;
 using System.Data.Entity.SqlServer;
 using System.Data.Linq.SqlClient;
 
-namespace Sindemed.Models.Report
+namespace DWM.Models.Report
 {
     public class AtendimentoPendenteReport : ReportRepository<AtendimentoPendenteViewModel, ApplicationContext>
     {
@@ -27,7 +27,6 @@ namespace Sindemed.Models.Report
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId into ATE
                               from ate in ATE.DefaultIfEmpty()
                               join a in db.Associados on cha.associadoId equals a.associadoId
-                              join m in db.Medicos on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     cha.situacao == "A" &&
@@ -36,10 +35,9 @@ namespace Sindemed.Models.Report
                               {
                                   associadoId = a.associadoId,
                                   nome = a.nome,
-                                  cpf = a.cpf,
-                                  crm = m.CRM,
+                                  cpf = a.cpf_cnpj,
                                   email = a.email1,
-                                  isSindicalizado = a.isSindicalizado,
+                                  ind_proprietario = a.ind_proprietario,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -51,7 +49,6 @@ namespace Sindemed.Models.Report
                                   PageSize = pageSize,
                                   TotalCount = (from cha1 in db.Chamados
                                                 join a1 in db.Associados on cha1.associadoId equals a1.associadoId
-                                                join m1 in db.Medicos on a1.associadoId equals m1.associadoId
                                                 join are1 in db.AreaAtendimentos on cha1.areaAtendimentoId equals are1.areaAtendimentoId
                                                 where (cha1.areaAtendimentoId == null || cha1.areaAtendimentoId == areaAtendimentoId) &&
                                                       cha1.situacao == "A"
@@ -66,7 +63,7 @@ namespace Sindemed.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
-                            isSindicalizado = zapata.isSindicalizado,
+                            ind_proprietario = zapata.ind_proprietario,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,
@@ -86,7 +83,6 @@ namespace Sindemed.Models.Report
                             ((from cha in db.Chamados.AsEnumerable()
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId
                               join a in db.Associados on cha.associadoId equals a.associadoId
-                              join m in db.Medicos on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     ate.dt_atendimento == (from ate1 in db.Atendimentos
@@ -97,10 +93,9 @@ namespace Sindemed.Models.Report
                               {
                                   associadoId = a.associadoId,
                                   nome = a.nome,
-                                  cpf = a.cpf,
-                                  crm = m.CRM,
+                                  cpf = a.cpf_cnpj,
                                   email = a.email1,
-                                  isSindicalizado = a.isSindicalizado,
+                                  ind_proprietario = a.ind_proprietario,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -113,7 +108,6 @@ namespace Sindemed.Models.Report
                                   PageSize = pageSize,
                                   TotalCount = (from cha1 in db.Chamados
                                                 join a1 in db.Associados on cha1.associadoId equals a1.associadoId
-                                                join m1 in db.Medicos on a1.associadoId equals m1.associadoId
                                                 join are1 in db.AreaAtendimentos on cha1.areaAtendimentoId equals are1.areaAtendimentoId
                                                 where (cha1.areaAtendimentoId == null || cha1.areaAtendimentoId == areaAtendimentoId) &&
                                                       cha1.situacao == "A"
@@ -128,7 +122,7 @@ namespace Sindemed.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
-                            isSindicalizado = zapata.isSindicalizado,
+                            ind_proprietario = zapata.ind_proprietario,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,
@@ -177,7 +171,6 @@ namespace Sindemed.Models.Report
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId into ATE
                               from ate in ATE.DefaultIfEmpty()
                               join a in db.Associados on cha.associadoId equals a.associadoId
-                              join m in db.Medicos on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     cha.situacao == "A" &&
@@ -186,10 +179,9 @@ namespace Sindemed.Models.Report
                               {
                                   associadoId = a.associadoId,
                                   nome = a.nome,
-                                  cpf = a.cpf,
-                                  crm = m.CRM,
+                                  cpf = a.cpf_cnpj,
                                   email = a.email1,
-                                  isSindicalizado = a.isSindicalizado,
+                                  ind_proprietario = a.ind_proprietario,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -206,7 +198,7 @@ namespace Sindemed.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
-                            isSindicalizado = zapata.isSindicalizado,
+                            ind_proprietario = zapata.ind_proprietario,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,
@@ -224,7 +216,7 @@ namespace Sindemed.Models.Report
                             ((from cha in db.Chamados.AsEnumerable()
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId
                               join a in db.Associados on cha.associadoId equals a.associadoId
-                              join m in db.Medicos on a.associadoId equals m.associadoId
+                              join m in db.Associados on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     ate.dt_atendimento == (from ate1 in db.Atendimentos
@@ -235,10 +227,9 @@ namespace Sindemed.Models.Report
                               {
                                   associadoId = a.associadoId,
                                   nome = a.nome,
-                                  cpf = a.cpf,
-                                  crm = m.CRM,
+                                  cpf = a.cpf_cnpj,
                                   email = a.email1,
-                                  isSindicalizado = a.isSindicalizado,
+                                  ind_proprietario = a.ind_proprietario,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -256,7 +247,7 @@ namespace Sindemed.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
-                            isSindicalizado = zapata.isSindicalizado,
+                            ind_proprietario = zapata.ind_proprietario,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,

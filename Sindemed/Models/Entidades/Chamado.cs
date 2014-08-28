@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System;
 using System.ComponentModel;
 
-namespace Sindemed.Models.Entidades
+namespace DWM.Models.Entidades
 {
     [Table("Chamado")]
     public class Chamado
@@ -17,6 +17,12 @@ namespace Sindemed.Models.Entidades
 
         [DisplayName("ID_Área_Atendimento")]
         public int areaAtendimentoId { get; set; }
+
+        [DisplayName("Motivo")]
+        public int chamadoMotivoId { get; set; }
+
+        [DisplayName("Status")]
+        public int chamadoStatusId { get; set; }
 
         [DisplayName("Dt_Chamado")]
         public DateTime dt_chamado { get; set; }
@@ -33,7 +39,7 @@ namespace Sindemed.Models.Entidades
         [DisplayName("xml")]
         public string mensagemOriginal { get; set; }
 
-        [DisplayName("Associado")]
+        [DisplayName("Condômino")]
         public virtual Associado Associado { get; set; }
 
         [DisplayName("Área_Atendimento")]

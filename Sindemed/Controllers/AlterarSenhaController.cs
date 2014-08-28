@@ -4,20 +4,20 @@ using App_Dominio.Entidades;
 using App_Dominio.Negocio;
 using App_Dominio.Repositories;
 using App_Dominio.Security;
-using Sindemed.Models;
-using Sindemed.Models.Enumeracoes;
-using Sindemed.Models.Persistence;
+using DWM.Models;
+using DWM.Models.Enumeracoes;
+using DWM.Models.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class AlterarSenhaController : RootController<UsuarioRepository, AlterarSenhaModel>
     {
-        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
+        public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
         public override string getListName()
         {
             return "Alterar Senha";

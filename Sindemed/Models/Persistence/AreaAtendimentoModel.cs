@@ -4,13 +4,13 @@ using System.Linq;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
 using App_Dominio.Component;
-using Sindemed.Models.Repositories;
-using Sindemed.Models.Entidades;
+using DWM.Models.Repositories;
+using DWM.Models.Entidades;
 using App_Dominio.Enumeracoes;
 using App_Dominio.Security;
 using App_Dominio.Repositories;
 
-namespace Sindemed.Models.Persistence
+namespace DWM.Models.Persistence
 {
     public class AreaAtendimentoModel : CrudContext<AreaAtendimento, AreaAtendimentoViewModel, ApplicationContext>
     {
@@ -91,7 +91,7 @@ namespace Sindemed.Models.Persistence
         {
             EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
 
-            IEnumerable<UsuarioRepository> q = security.getUsuarios((int)Sindemed.Models.Enumeracoes.Sistema.SINDMED, security.getSessaoCorrente().empresaId);
+            IEnumerable<UsuarioRepository> q = security.getUsuarios((int)DWM.Models.Enumeracoes.Sistema.SINDMED, security.getSessaoCorrente().empresaId);
 
             string _descricao = param != null && param.Count() > 0 && param[0] != null ? param[0].ToString() : null;
 

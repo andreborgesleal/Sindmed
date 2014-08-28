@@ -1,8 +1,17 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.AssociadoDocumentoViewModel>
+@model System.Web.Mvc.PagedList<DWM.Models.Repositories.AssociadoDocumentoViewModel>
 @{
-    ViewBag.Title = "Sindmepa";
+    App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
+    App_Dominio.Entidades.Sessao sessaoCorrente = security.getSessaoCorrente();
+
+    string _associadoId = Request["associadoId"];
+    if (sessaoCorrente.value1 != "0")
+    {
+        _associadoId = sessaoCorrente.value1;
+    }
+    
+    ViewBag.Title = security.getEmpresa().nome;
     ViewBag.Header = "Vincular documentos";
 }
 <div class="row" style="margin-top: 10px">
@@ -18,8 +27,16 @@
             </div>
             <div class="panel-footer">
                 <div class="col-lg-offset-10">
-                    @Html.ActionLink("Incluir", "Create", "AssociadoDocumento", routeValues: new { associadoId = Request["associadoId"] }, htmlAttributes: new { @class = "btn btn-default" })<span>&nbsp;</span>
-                    @Html.ActionLink("Upload", "Upload", "AssociadoDocumento", routeValues: new { associadoId = Request["associadoId"] }, htmlAttributes: new { @class = "btn btn-primary" })<span>&nbsp;</span>
+                    @if (sessaoCorrente.value1 != "0")
+                    {
+                        @Html.ActionLink("Incluir", "Create", "AssociadoDocumento", null, htmlAttributes: new { @class = "btn btn-default" })<span>&nbsp;</span>
+                        @Html.ActionLink("Upload", "Upload", "AssociadoDocumento", null, htmlAttributes: new { @class = "btn btn-primary" })<span>&nbsp;</span>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Incluir", "Create", "AssociadoDocumento", routeValues: new { associadoId = _associadoId }, htmlAttributes: new { @class = "btn btn-default" })<span>&nbsp;</span>
+                        @Html.ActionLink("Upload", "Upload", "AssociadoDocumento", routeValues: new { associadoId = _associadoId }, htmlAttributes: new { @class = "btn btn-primary" })<span>&nbsp;</span>
+                    }
                 </div>
             </div>
         </div>

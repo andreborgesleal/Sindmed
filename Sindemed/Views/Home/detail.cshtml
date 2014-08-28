@@ -1,0 +1,26 @@
+﻿@model DWM.Models.Repositories.ComentarioViewModel
+@{
+    ViewBag.Title = "Tim Maia";
+    var path = System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", "");
+    string msgDetail = Model.comunicacaoViewModel.mensagemDetalhada.Replace("-15px", "0px").Replace("width: 1160px", "");
+}
+<div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="thumbnail">
+            <img src="@(path + "/" + Model.comunicacaoViewModel.arq_imagem_400x300)" alt="">
+            <div class="caption" style="overflow: auto">
+                <h1 class="text-center">@Model.comunicacaoViewModel.cabecalho</h1>
+                <h4 class="text-center text-info"><strong>@Model.comunicacaoViewModel.dt_publicacao.ToString("dd/MM/yyyy")</strong></h4>
+                <p>@Html.DisplayTextFor(info => msgDetail)</p>
+                <div class="alert alert-info">
+                    <h3 class="text-primary">COMENTÁRIOS</h3>
+                </div>
+                <div id="comentarios-old">
+                    @Html.Partial("_detail", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

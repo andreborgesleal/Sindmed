@@ -1,10 +1,10 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@using Sindemed.Models.Enumeracoes
+@using DWM.Models.Enumeracoes
 @using App_Dominio.Enumeracoes
 @{
-    ViewBag.Title = "Sindmepa";
-    ViewBag.Header = "Relação geral de associados";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
+    ViewBag.Header = "Relação geral de condôminos";
 }
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search", target = "_blank" }))
 {
@@ -14,7 +14,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Relação geral de associados <small>Listagem dos associados</small>
+                Relação geral de condôminos <small>Listagem dos condôminos</small>
             </h2>
         </div>
         <div class="panel-body">

@@ -1,8 +1,8 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.EspecialidadeMedicaViewModel
+@model DWM.Models.Repositories.EspecialidadeMedicaViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
 @using (Html.BeginForm("Delete", "Especialidade", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -11,7 +11,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Especialidades médicas  <small>Utilizada no cadastro do associado</small>
+                Especialidades médicas  <small>Utilizada no cadastro do condômino</small>
             </h2>
         </div>
         <div class="panel-body">

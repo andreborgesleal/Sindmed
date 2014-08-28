@@ -1,17 +1,35 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html,
+body {
+    padding-top: 26px;
+    padding-bottom: 0px;
+    /*height: 100%;*/
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto 0px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    height: 300px; 
+}
+#footer {
+    background-color: #506E84;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-
-
 @media (max-width: 1980px) {
     input,
     select,
@@ -21,7 +39,7 @@
 
     .Scroll {
         overflow-y: scroll;
-        height: 528px;
+        height: 500px;
     }
 
     .Listagem {
@@ -30,9 +48,16 @@
         max-height: 570px;
         overflow-y: auto;
     }
+
+    #footer {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     input,
     select,
     textarea {
@@ -49,6 +74,13 @@
         margin-top: 10px;
         max-height: 400px;
         overflow-y: auto;
+    }
+
+    #footer {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 }
 
@@ -128,4 +160,110 @@ fundoModal
     overflow: auto;
     position: absolute; left: 0%; top: 0%; right: 0%; 
     text-align: center;
+}
+
+/* Classes definida pelo usuário DWM Sistemas */
+.gelo{
+    background-color: #dedede;
+    padding: 20px;
+}
+
+.gelo-no-padding{
+    background-color: #dedede;
+    padding: 0px;
+}
+
+.clean
+{
+    background-color: #dbe4ed;
+    padding: 20px;
+}
+
+.omo{
+    background-color: #d0d0d0;
+    padding: 20px;
+}
+
+
+.info
+{
+    background-color: #3399F3;
+    padding: 20px;
+}
+
+.areia
+{
+    background-color: #e0d8d8;
+    padding: 20px;
+}
+
+.destaque
+{
+    background-color: #aab8ce;
+    padding: 0px;
+}
+
+.enfase
+{
+    background-color: #aab8ce !important; 
+    padding: 20px;
+}
+
+.neve
+{
+    background-color: #fff;
+    padding: 20px;
+}
+
+.urubu
+{
+    background-color: #464646;
+    padding: 20px;
+}
+
+.corvo{
+    background-color: #969696;
+    padding: 20px;
+}
+
+.leao
+{
+    background-color: #7a889d;
+    padding: 20px;
+}
+
+.leao-top
+{
+    background-color: #7a889d;
+    padding: 20px 0px 0px 0px;
+}
+
+.text-white{
+    color: #fff;
+}
+
+.text-dark{
+    color: #353535;
+}
+
+.text-mama-africa{
+    color: Black !important;
+}
+
+.text-enfatico{
+    color: #98B0C1;
+}
+
+.no-padding {
+    padding: 0px !important;
+}
+
+.list-group-item-success {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #dbe4ed;
+  border: 1px solid #dddddd;
+  text-decoration: none !important;
 }

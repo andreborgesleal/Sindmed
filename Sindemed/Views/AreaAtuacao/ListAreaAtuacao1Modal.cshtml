@@ -1,4 +1,4 @@
-﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.AreaAtuacaoViewModel>
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.AreaAtuacaoViewModel>
 @{
     Layout = null;
     Model.action = "../AreaAtuacao/_ListAreaAtuacaoModal";
@@ -17,9 +17,9 @@
 <script type="text/javascript">
 
     function Move(id, descricao) {
-        $("#areaAtuacao1Id").val(id);
+        $("#areaAtuacaoId").val(id);
+        $("#descricao_areaAtuacao").val(descricao);
         $("#descricao_areaAtuacao1").val(descricao);
-        $("#descricao_areaAtuacao11").val(descricao);
         $("#btnModal").click();
     }
 

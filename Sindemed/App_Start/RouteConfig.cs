@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Sindemed
+namespace DWM
 {
     public class RouteConfig
     {
@@ -16,7 +16,7 @@ namespace Sindemed
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Default", id = UrlParameter.Optional }
             );
         }
     }

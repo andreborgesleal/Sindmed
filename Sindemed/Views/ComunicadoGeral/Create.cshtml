@@ -1,11 +1,15 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.ComunicacaoViewModel
+@model DWM.Models.Repositories.ComunicacaoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
-@using (Html.BeginForm("Create", "ComunicadoGeral", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Create", "ComunicadoGeral", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(info => info.dt_comunicacao)
+    @Html.HiddenFor(info => info.arq_imagem_300x200)
+    @Html.HiddenFor(info => info.arq_imagem_100x100)
+    @Html.HiddenFor(info => info.arq_imagem_400x300)
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -14,11 +18,11 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <blockquote>
                         <p>
                             Inclusão de Comunicados Gerais
-                        </p> <small>Os comunicados são informativos que serão exibidos na tela inicial de todos os usuários, inclusive os da administração. <br /> Observação: Serão exibidos os 3 últimos comunicados cadastrados até a data corrente.</small>
+                        </p> <small>Os comunicados são informativos que serão exibidos na tela inicial de todos os usuários, inclusive os da administração. </small>
                     </blockquote>
                     <div class="col-md-12">
                         <div class="form-group" style="margin-top: 20px">
@@ -26,9 +30,15 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px">
-                        @Html.LabelFor(m => m.dt_comunicacao, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.dt_publicacao, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.EditorFor(info => info.dt_comunicacao, "DATE", new { identificador = "dt_comunicacao", readOnly = "false" })
+                            @Html.EditorFor(info => info.dt_publicacao, "DATE", new { identificador = "dt_publicacao", readOnly = "false" })
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px">
+                        @Html.LabelFor(m => m.dt_expiracao, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(info => info.dt_expiracao, "DATE", new { identificador = "dt_expiracao", readOnly = "false" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,19 +53,34 @@
                             @Html.TextAreaFor(m => m.resumo, 4, 1, new { @class = "form-control input-sm" })
                         </div>
                     </div>
-                    
-
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_300x200, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            <input type="file" name="arq_imagem_300x200" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_100x100, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            <input type="file" name="arq_imagem_100x100" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.arq_imagem_400x300, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            <input type="file" name="arq_imagem_400x300" />
+                        </div>
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.mensagemDetalhada, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-9">
-                                @*@Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes : new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado" })*@
-                                <textarea name="mensagemDetalhada"></textarea>
-                                <script>
-                                    CKEDITOR.replace('mensagemDetalhada');
-                                </script>
-                            </div>
+                        <div class="col-md-9">
+                            @*@Html.TextAreaFor(m => m.observacao, 8, 1, htmlAttributes : new { @class = "form-control input-sm", @placehoder = "Digite aqui as observações sobre o associado" })*@
+                            <textarea name="mensagemDetalhada"></textarea>
+                            <script>
+                                CKEDITOR.replace('mensagemDetalhada');
+                            </script>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>

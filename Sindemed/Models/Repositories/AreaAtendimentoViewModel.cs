@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using App_Dominio.Component;
 using System;
 
-namespace Sindemed.Models.Repositories
+namespace DWM.Models.Repositories
 {
     public class AreaAtendimentoViewModel : Repository
     {

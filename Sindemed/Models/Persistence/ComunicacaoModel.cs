@@ -4,12 +4,12 @@ using System.Linq;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
 using App_Dominio.Component;
-using Sindemed.Models.Repositories;
-using Sindemed.Models.Entidades;
+using DWM.Models.Repositories;
+using DWM.Models.Entidades;
 using App_Dominio.Enumeracoes;
 using App_Dominio.Security;
 
-namespace Sindemed.Models.Persistence
+namespace DWM.Models.Persistence
 {
     public class ComunicacaoModel : CrudContext<Comunicacao, ComunicacaoViewModel, ApplicationContext>
     {
@@ -20,9 +20,14 @@ namespace Sindemed.Models.Persistence
             {
                 comunicacaoId = value.comunicacaoId,
                 dt_comunicacao = value.dt_comunicacao,
+                dt_publicacao = value.dt_publicacao,
+                dt_expiracao = value.dt_expiracao,
                 cabecalho = value.cabecalho,
                 resumo = value.resumo,
-                mensagemDetalhada = value.mensagemDetalhada
+                mensagemDetalhada = value.mensagemDetalhada,
+                arq_imagem_100x100 = value.arq_imagem_100x100,
+                arq_imagem_300x200 = value.arq_imagem_300x200,
+                arq_imagem_400x300 = value.arq_imagem_400x300
             };
         }
 
@@ -32,9 +37,14 @@ namespace Sindemed.Models.Persistence
             {
                 comunicacaoId = entity.comunicacaoId,
                 dt_comunicacao = entity.dt_comunicacao,
+                dt_publicacao = entity.dt_publicacao,
+                dt_expiracao = entity.dt_expiracao,
                 cabecalho = entity.cabecalho,
                 resumo = entity.resumo,
                 mensagemDetalhada = entity.mensagemDetalhada,
+                arq_imagem_300x200 = entity.arq_imagem_300x200,
+                arq_imagem_100x100 = entity.arq_imagem_100x100,
+                arq_imagem_400x300 = entity.arq_imagem_400x300,
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
         }
@@ -46,14 +56,32 @@ namespace Sindemed.Models.Persistence
 
         public override Validate Validate(ComunicacaoViewModel value, Crud operation)
         {
+            if (value.mensagem != null && value.mensagem.Code.HasValue && value.mensagem.Code > 0)
+                return value.mensagem;
+
             value.mensagem = new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
+
+            if (value.dt_publicacao >= value.dt_expiracao)
+            {
+                value.mensagem.Code = 11;
+                value.mensagem.Message = MensagemPadrao.Message(11, "Dt.Expiração", "Dt.Publicação").ToString();
+                value.mensagem.MessageBase = "Data de publicação inválida.";
+                value.mensagem.MessageType = MsgType.WARNING;
+                return value.mensagem;
+            }
 
             return value.mensagem;
         }
 
         public override ComunicacaoViewModel CreateRepository(System.Web.HttpRequestBase Request)
         {
-            return new ComunicacaoViewModel() { dt_comunicacao = DateTime.Today };
+            return new ComunicacaoViewModel() { 
+                dt_comunicacao = DateTime.Now, 
+                dt_publicacao = DateTime.Today,
+                arq_imagem_300x200 = "default_300x200.png",
+                arq_imagem_100x100 = "default_100x100.jpg",
+                arq_imagem_400x300 = "default_400x300.jpg"
+            };
         }
         #endregion
     }
@@ -63,22 +91,31 @@ namespace Sindemed.Models.Persistence
         #region Métodos da classe ListViewRepository
         public override IEnumerable<ComunicacaoViewModel> Bind(int? index, int pageSize = 50, params object[] param)
         {
+            string path = System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", "..") + "/";
+
             string _descricao = param != null && param.Count() > 0 && param[0] != null ? param[0].ToString() : null;
             return (from com in db.Comunicacaos 
                     join comGrupo in db.ComunicacaoGrupos on com.comunicacaoId equals comGrupo.comunicacaoId into COM
                     from comGrupo in COM.DefaultIfEmpty()
                     where (_descricao == null || String.IsNullOrEmpty(_descricao) || com.cabecalho.StartsWith(_descricao.Trim()) || com.resumo.StartsWith(_descricao.Trim()) || com.mensagemDetalhada.StartsWith(_descricao.Trim()))
-                    orderby com.dt_comunicacao descending
+                    orderby com.dt_publicacao descending
                     select new ComunicacaoViewModel
                     {
                         comunicacaoId = com.comunicacaoId,
                         dt_comunicacao = com.dt_comunicacao,
+                        dt_publicacao = com.dt_publicacao,
+                        dt_expiracao = com.dt_expiracao,
                         cabecalho = com.cabecalho,
                         resumo = com.resumo,
                         mensagemDetalhada = com.mensagemDetalhada,
+                        arq_imagem_300x200 = path + com.arq_imagem_300x200,
+                        arq_imagem_100x100 = path + com.arq_imagem_100x100,
+                        arq_imagem_400x300 = path + com.arq_imagem_400x300,
                         grupoAssociadoId = comGrupo.grupoAssociadoId,
                         PageSize = pageSize,
                         TotalCount = (from com1 in db.Comunicacaos
+                                      join comGrupo1 in db.ComunicacaoGrupos on com1.comunicacaoId equals comGrupo1.comunicacaoId into COM1
+                                      from comGrupo1 in COM1.DefaultIfEmpty()
                                       where (_descricao == null || String.IsNullOrEmpty(_descricao) || com1.cabecalho.StartsWith(_descricao.Trim()) || com1.resumo.StartsWith(_descricao.Trim()) || com1.mensagemDetalhada.StartsWith(_descricao.Trim()))
                                       select com1).Count()
                     }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
@@ -105,14 +142,19 @@ namespace Sindemed.Models.Persistence
                     join cog in db.ComunicacaoGrupos on gas.grupoAssociadoId equals cog.grupoAssociadoId
                     join com in db.Comunicacaos on cog.comunicacaoId equals com.comunicacaoId
                     where ass.usuarioId == _usuarioId
-                    orderby com.dt_comunicacao descending
+                    orderby com.dt_publicacao descending
                     select new ComunicacaoViewModel
                     {
                         comunicacaoId = com.comunicacaoId,
                         dt_comunicacao = com.dt_comunicacao,
+                        dt_publicacao = com.dt_publicacao,
+                        dt_expiracao = com.dt_expiracao,
                         cabecalho = com.cabecalho,
                         resumo = com.resumo,
                         mensagemDetalhada = com.mensagemDetalhada,
+                        arq_imagem_300x200 = com.arq_imagem_300x200,
+                        arq_imagem_100x100 = com.arq_imagem_100x100,
+                        arq_imagem_400x300 = com.arq_imagem_400x300,
                         PageSize = pageSize,
                         TotalCount = (from ass1 in db.Associados
                                       join asg1 in db.AssociadoGrupos on ass1.associadoId equals asg1.associadoId

@@ -1,7 +1,7 @@
 ﻿@using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.AtendimentoViewModel
+@model DWM.Models.Repositories.AtendimentoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
     ViewBag.ind_resposta = "S";
 }
 @using (Html.BeginForm("Fechar", "Atendimento", FormMethod.Post, new { @class = "form-horizontal" }))
@@ -9,7 +9,7 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Encerramento <small>Fechar chamado do associado</small>
+                Encerramento <small>Fechar chamado do condômino</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -18,7 +18,7 @@
                     <blockquote>
                         <p>
                             Fechar Chamado
-                        </p> <small>Encerrar o chamado do associado. Esse recurso deve ser utilizado pela administração para dar a resposta final com a descrição do atendinebto que foi concluído. Uma vez encerrado o atendimento, não será possível adicionar novas mensagens a ele. Preencher os campos abaixo e depois clicar no botão "Encerrar"</small>
+                        </p> <small>Encerrar o chamado do condômino. Esse recurso deve ser utilizado pela administração para dar a resposta final com a descrição do atendinebto que foi concluído. Uma vez encerrado o atendimento, não será possível adicionar novas mensagens a ele. Preencher os campos abaixo e depois clicar no botão "Encerrar"</small>
                     </blockquote>
                 </div>
             </div>

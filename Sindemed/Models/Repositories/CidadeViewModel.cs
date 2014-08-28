@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using App_Dominio.Component;
 
-namespace Sindemed.Models.Repositories
+namespace DWM.Models.Repositories
 {
     public class CidadeViewModel : Repository
     {

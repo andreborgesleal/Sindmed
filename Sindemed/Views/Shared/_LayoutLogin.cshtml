@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sindmepa</title>
+    <title>Parc Paradiso</title>
     <link rel="SHORTCUT ICON" href="/favicon.png" />
     @*@Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")*@
@@ -40,18 +40,18 @@
                     <span class="icon-bar"></span>
                 </button>
                 @*@Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })*@
-                <a class="navbar-brand" href="/Home/index">SINDMEPA</a>
+                <a class="navbar-brand" href="../">PARC PARADISO</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div id="wrap" class="container body-content">
         @Html.Partial("_alerts")
         <div class="alert alert-dismissable alert-warning" id="alerta" style="visibility: hidden">
             <a class="close" href="#" aria-hidden="true" onclick="$('#alerta').hide()">x</a>
@@ -60,10 +60,9 @@
         </div>
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - André Borges Leal - andreborgesleal@live.com</p>
-        </footer>
     </div>
+
+    @Html.Partial("_Footer")
 
     @*@Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -85,4 +84,5 @@
 
 </body>
 </html>
+
 

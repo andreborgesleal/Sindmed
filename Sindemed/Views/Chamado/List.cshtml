@@ -1,10 +1,10 @@
-﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.ChamadoViewModel>
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.ChamadoViewModel>
 @{
     Layout = null;
 }
 @if (Model != null)
 {
-    <div class="row Scroll">
+    <div class="row" style="height: 400px; overflow-y: auto">
         <div class="col-md-12 column">
             <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
                 <caption></caption>
@@ -14,21 +14,21 @@
                         <th style="text-align: center">Data</th>
                         <th style="text-align: center">ID</th>
                         <th>Assunto</th>
-                        <th style="text-align: center">Área</th>
-                        <th style="text-align: center">Situação</th>
+                        <th style="text-align: left">Motivo</th>
+                        <th style="text-align: left">Status</th>
                     </tr>
                 </thead>
-                @foreach (Sindemed.Models.Repositories.ChamadoViewModel cham in Model)
+                @foreach (DWM.Models.Repositories.ChamadoViewModel cham in Model)
                 {
                     <tr>
-                        <td style="width: 20%">
+                        <td style="width: 17%">
                             <div class="row" style="padding: 0px">
                                 <div class="col-md-12">
                                     <div class="btn-group btn-group-xs">
                                         <button class="btn btn-sm" type="button">
                                             @if (cham.situacao == "A")
                                             {
-                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Create", "Atendimento", routeValues: new Sindemed.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "1" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Create", "Atendimento", routeValues: new DWM.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "1" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                             }
                                             else
                                             {
@@ -38,24 +38,24 @@
                                         <button class="btn btn-sm" type="button">
                                             <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Detalhar", "Detail", "Atendimento", routeValues: new { chamadoId = cham.chamadoId, fluxo = "1" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
                                         </button>
-                                    </div>
+                                    </div>                                
                                 </div>
                             </div>
                         </td>
-                        <td style="width: 15%; text-align: center">
+                        <td style="width: 12%; text-align: center">
                             @cham.dt_chamado.ToString("dd/MM/yyyy HH:mm")
                         </td>
                         <td style="width: 5%; text-align: center">
                             @cham.chamadoId
                         </td>
                         <td style="width: 40%">
-                            @cham.assunto
+                            @cham.assunto <br />
                         </td>
-                        <td style="width: 15%; text-align: center">
-                            @cham.descricao_areaAtendimento
+                        <td style="width: 13%; text-align: left">
+                            @cham.descricao_motivo
                         </td>
-                        <td style="width: 5%; text-align: center">
-                            @(cham.situacao == "A" ? "Aberto" : "Fechado")
+                        <td style="width: 18%; text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="@cham.nome_associado">
+                            @cham.descricao_status
                         </td>
                     </tr>
                 }

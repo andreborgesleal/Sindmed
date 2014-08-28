@@ -2,15 +2,15 @@
 using App_Dominio.Negocio;
 using App_Dominio.Repositories;
 using App_Dominio.Security;
-using Sindemed.Models;
-using Sindemed.Models.Enumeracoes;
+using DWM.Models;
+using DWM.Models.Enumeracoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class UsuarioController : RootController<UsuarioRepository, UsuarioModel>
     {

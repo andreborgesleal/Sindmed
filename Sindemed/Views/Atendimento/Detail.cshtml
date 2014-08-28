@@ -1,7 +1,7 @@
 ﻿@using App_Dominio.Repositories
-@model Sindemed.Models.Repositories.AtendimentoViewModel
+@model DWM.Models.Repositories.AtendimentoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
     ViewBag.ind_resposta = "N";
 }
 @using (Html.BeginForm("Fechar", "Atendimento", FormMethod.Post, new { @class = "form-horizontal" }))
@@ -9,19 +9,10 @@
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Detalhamento <small>Histórico do chamado do associado</small>
+                Detalhar Chamado <small>Exibe o histórico com todas as mensagens de resposta do atendimento.</small>
             </h2>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <blockquote>
-                        <p>
-                            Detalhar Chamado
-                        </p> <small>Exibe o histórico com todas as mensagens de resposta do atendimento.</small>
-                    </blockquote>
-                </div>
-            </div>
             @Html.Partial("_Create", Model)
         </div>
         <div class="panel-footer">

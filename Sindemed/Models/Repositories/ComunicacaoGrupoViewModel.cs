@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using App_Dominio.Component;
 using System;
 
-namespace Sindemed.Models.Repositories
+namespace DWM.Models.Repositories
 {
     public class ComunicacaoGrupoViewModel : Repository
     {
-        [DisplayName("Grupo Associado")]
-        [Required(ErrorMessage = "Por favor, preencha o campo grupo associado")]
+        [DisplayName("Grupo Condômino")]
+        [Required(ErrorMessage = "Por favor, preencha o campo grupo condômino")]
         public Nullable<int> grupoAssociadoId { get; set; }
 
         [DisplayName("Comunicacao")]

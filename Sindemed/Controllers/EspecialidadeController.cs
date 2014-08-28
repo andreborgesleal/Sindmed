@@ -1,11 +1,11 @@
 ﻿using App_Dominio.Controllers;
 using App_Dominio.Security;
-using Sindemed.Models.Enumeracoes;
-using Sindemed.Models.Persistence;
-using Sindemed.Models.Repositories;
+using DWM.Models.Enumeracoes;
+using DWM.Models.Persistence;
+using DWM.Models.Repositories;
 using System.Web.Mvc;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class EspecialidadeController : RootController<EspecialidadeMedicaViewModel, EspecialidadeMedicaModel>
     {

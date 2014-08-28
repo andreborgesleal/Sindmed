@@ -1,9 +1,9 @@
-﻿@using Sindemed.Models.Repositories
+﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@using Sindemed.Models.Enumeracoes
+@using DWM.Models.Enumeracoes
 @using App_Dominio.Enumeracoes
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
     ViewBag.Header = "Atendimentos Pendentes";
 }
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search", target = "_blank" }))
@@ -12,7 +12,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Atendimentos pendentes <small>Listagem dos atendimentos Em Aberto dos associados</small>
+                Atendimentos pendentes <small>Listagem dos atendimentos Em Aberto dos condôminos</small>
             </h2>
         </div>
         <div class="panel-body">

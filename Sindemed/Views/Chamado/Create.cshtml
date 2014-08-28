@@ -1,10 +1,10 @@
-﻿@using Sindemed.Models.Repositories
-@using Sindemed.Models.Entidades
+﻿@using DWM.Models.Repositories
+@using DWM.Models.Entidades
 @using App_Dominio.Repositories
-@using Sindemed.Models.Enumeracoes
-@model Sindemed.Models.Repositories.ChamadoViewModel
+@using DWM.Models.Enumeracoes
+@model DWM.Models.Repositories.ChamadoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 
 }
 @using (Html.BeginForm("Create", "Chamado", FormMethod.Post, new { @class = "form-horizontal" }))
@@ -25,7 +25,7 @@
                     <blockquote>
                         <p>
                             Inclusão de Chamado
-                        </p> <small>Abertura de chamado pelo associado. Ao abrir um chamado, sua solicitação será encaminhada para atendimento. Preencher os campos abaixo e depois clicar no botão "Salvar"</small>
+                        </p> <small>Abertura de chamado pelo condômino. Ao abrir um chamado, sua solicitação será encaminhada para atendimento. Preencher os campos abaixo e depois clicar no botão "Salvar"</small>
                     </blockquote>
                 </div>
             </div>
@@ -55,6 +55,18 @@
                         <div class="col-md-8">
                             <div class="input-group col-md-4">
                                 @Html.DropDownListFor(m => m.areaAtendimentoId, new BindDropDownList().AreaAtendimento("Selecione...",""), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.chamadoMotivoId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-8">
+                            <div class="input-group col-md-4">
+                                @Html.DropDownListFor(m => m.chamadoMotivoId, new BindDropDownList().ChamadoMotivo("Selecione...", Model.chamadoMotivoId.ToString()), new { @class = "form-control input-sm" })
                             </div>
                         </div>
                     </div>

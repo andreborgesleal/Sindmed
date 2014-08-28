@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Sindemed.Models.Entidades
+namespace DWM.Models.Entidades
 {
     [Table("ComunicacaoGrupo")]
     public class ComunicacaoGrupo

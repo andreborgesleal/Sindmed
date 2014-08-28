@@ -1,0 +1,96 @@
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.ProprietarioViewModel>
+
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <div class="row Scroll">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer">
+                <caption></caption>
+                <thead style="background-color: #fff1a5">
+                    <tr>
+                        <th></th>
+                        <th>Unidade</th>
+                        <th>Proprietário</th>
+                        <th>E-Mail</th>
+                        <th>Telefone</th>
+                        <th>Dt.Cadastro</th>
+                        <th>Dt.Desativação</th>
+                    </tr>
+                </thead>
+                @foreach (DWM.Models.Repositories.ProprietarioViewModel obj in Model)
+                {
+                    <tr>
+                        <td style="width: 20%">
+                            <div class="row-clearfix">
+                                <div class="col-md-12">
+                                    <div class="btn-group btn-group-xs">
+                                        <button class="btn btn-sm" type="button">
+                                            @if (obj.dt_fim == null)
+                                            {
+                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { proprietarioId = obj.proprietarioId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            }
+                                            else
+                                            {
+                                                <em class="glyphicon glyphicon-edit"></em> <span style="text-decoration: none; color: #646464; cursor: text">Editar</span>    
+                                            }
+                                        </button>
+                                        <button class="btn btn-sm" type="button">
+                                            @if (obj.dt_fim == null)
+                                            {
+                                                <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { proprietarioId = obj.proprietarioId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
+                                            }
+                                            else
+                                            {
+                                                <em class="glyphicon glyphicon-edit"></em> <span style="text-decoration: none; color: #646464; cursor: text">Excluir</span>
+                                            }                                            
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @(obj.torreId + "-" + obj.unidadeId.ToString())
+                        </td>
+                        <td>
+                            @obj.nome
+                        </td>
+                        <td>
+                            @obj.email
+                        </td>
+                        <td>
+                            @if (obj.tel_contato1 != null && obj.tel_contato1 != "" && obj.tel_contato2 != null && obj.tel_contato2 != "")
+                            {
+                                @(App_Dominio.Models.Funcoes.FormataTelefone(obj.tel_contato1) + "/" + App_Dominio.Models.Funcoes.FormataTelefone(obj.tel_contato2))
+                            }
+                            else if (obj.tel_contato1 != null && obj.tel_contato1 != "")
+                            {
+                                @App_Dominio.Models.Funcoes.FormataTelefone(obj.tel_contato1)
+                            }
+                            else if (obj.tel_contato2 != null && obj.tel_contato2 != "")
+                            {
+                                @App_Dominio.Models.Funcoes.FormataTelefone(obj.tel_contato2)
+                            }                            
+                        </td>
+                        <td>
+                            @obj.dt_inicio.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @if (obj.dt_fim.HasValue)
+                            {
+                                @obj.dt_fim.value.ToString("dd/MM/yyyy")    
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    @Html.Partial("Paginacao", Model)
+}
+else
+{
+    @Html.Partial("_AcessoNegadoModal")
+}

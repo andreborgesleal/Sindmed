@@ -1,7 +1,7 @@
 ﻿using App_Dominio.Controllers;
 using App_Dominio.Security;
-using Sindemed.Models.Report;
-using Sindemed.Models.Repositories;
+using DWM.Models.Report;
+using DWM.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using Microsoft.Reporting.WebForms;
 using App_Dominio.Entidades;
 using App_Dominio.Contratos;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class Report02Controller : ReportController<AtendimentoPendenteViewModel>
     {
@@ -20,7 +20,7 @@ namespace Sindemed.Controllers
             return false;
         }
 
-        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
+        public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
 
         public override string getListName()
         {
@@ -84,15 +84,15 @@ namespace Sindemed.Controllers
         }
 
         //[AuthorizeFilter]
-        public FileResult PDF(string export, string areaAtendimentoId = "", string descricao_areaAtendimento = "")
-        {
-            AtendimentoPendenteReport rep= new AtendimentoPendenteReport();
-            ReportParameter[] p = new ReportParameter[4];
-            // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
-            p[2] = new ReportParameter("areaAtendimento", "Área de Atendimento: " + descricao_areaAtendimento, false);
+        //public FileResult PDF(string export, string areaAtendimentoId = "", string descricao_areaAtendimento = "")
+        //{
+        //    AtendimentoPendenteReport rep= new AtendimentoPendenteReport();
+        //    ReportParameter[] p = new ReportParameter[4];
+        //    // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
+        //    p[2] = new ReportParameter("areaAtendimento", "Área de Atendimento: " + descricao_areaAtendimento, false);
 
-            return _PDF(export, "AtendimentoPendente", rep, p, null, null, areaAtendimentoId);
-        }
+        //    return _PDF(export, "AtendimentoPendente", rep, p, null, null, areaAtendimentoId);
+        //}
         #endregion
 
 	}

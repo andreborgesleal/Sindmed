@@ -4,7 +4,7 @@ using App_Dominio.Component;
 using System;
 using System.Collections.Generic;
 
-namespace Sindemed.Models.Repositories
+namespace DWM.Models.Repositories
 {
     public class AtendimentoViewModel : Repository
     {
@@ -22,6 +22,7 @@ namespace Sindemed.Models.Repositories
 
         [DisplayName("Mensagem")]
         public string mensagemResposta { get; set; }
+        public AssociadoDocumentoViewModel anexo { get; set; }
 
         [DisplayName("Chamado")]
         public ChamadoViewModel chamado { get; set; }

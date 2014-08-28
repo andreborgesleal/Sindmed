@@ -5,19 +5,19 @@ using App_Dominio.Enumeracoes;
 using App_Dominio.Negocio;
 using App_Dominio.Repositories;
 using App_Dominio.Security;
-using Sindemed.Models.Entidades;
-using Sindemed.Models.Persistence;
-using Sindemed.Models.Repositories;
+using DWM.Models.Entidades;
+using DWM.Models.Persistence;
+using DWM.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Linq;
 
-namespace Sindemed.Controllers
+namespace DWM.Controllers
 {
     public class EsqueciMinhaSenhaController : ProcessController<UsuarioRepository, EsqueciMinhaSenhaModel>
     {
-        public override int _sistema_id() { return (int)Sindemed.Models.Enumeracoes.Sistema.SINDMED; }
+        public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
         public override string getListName()
         {
             return "Esqueci minha senha";

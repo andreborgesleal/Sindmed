@@ -1,4 +1,4 @@
-﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.MedicoViewModel>
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.AssociadoViewModel>
 @{
     Layout = null;
 }
@@ -6,44 +6,53 @@
 {
     <div class="row Scroll">
         <div class="col-md-12 column">
-            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
+            <table class="table table-hover table-bordered table-condensed" style="cursor: pointer;">
                 <caption></caption>
                 <thead style="background-color: #fff1a5">
                     <tr>
-                        <th style="text-align: center">Ação</th>
+                        <th class="text-center">Ação</th>
+                        <th class="text-center">Unidade</th>
                         <th>Nome</th>
-                        <th style="text-align: center">UF CRM</th>
-                        <th style="text-align: center">CRM</th>
+                        <th class="hidden-sm hidden-xs">E-mail</th>
+                        <th class="hidden-sm hidden-xs">Telefone</th>
                     </tr>
                 </thead>
-                @foreach (Sindemed.Models.Repositories.MedicoViewModel med in Model)
+                @foreach (DWM.Models.Repositories.AssociadoViewModel obj in Model)
                 {
                     <tr>
-                        <td style="width: 25%">
-                            <div class="row-clearfix">
-                                <div class="col-md-12">
-                                    <div class="btn-group btn-group-xs">
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Documentos", "Browse", "AssociadoDocumento", routeValues: new { associadoId = med.associadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                        </button>
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { associadoId = med.associadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                        </button>
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { associadoId = med.associadoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                        </button>
-                                    </div>
+                        <td class="col-md-3 col-xs-2 col-sm-2">
+                            <div class="row clearfix">
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <div class="col-md-5"><button type="button" class="btn btn-info btn-xs" onclick="window.location='../AssociadoDocumento/Browse?associadoId=@obj.associadoId.ToString()'">Documentos</button></div>
+                                    <div class="col-md-3"><button type="button" class="btn btn-danger btn-xs hidden-sm hidden-xs" onclick="window.location='Edit?associadoId=@obj.associadoId.ToString()'">Editar</button></div>
+                                    <div class="col-md-4"><button type="button" class="btn btn-success btn-xs hidden-sm hidden-xs" onclick="window.location='Avatar?associadoId=@obj.associadoId.ToString()'">Avatar</button></div>
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            @med.nome
+                        <td class="col-md-1 col-xs-2 col-sm-2 text-center">
+                            @obj.torreId-@obj.unidadeId
                         </td>
-                        <td style="text-align: center">
-                            @med.ufCRM
+                        <td class="col-md-4 col-xs-6 col-sm-6 text-left">
+                            <small>@obj.nome</small>
                         </td>
-                        <td style="text-align: center">
-                            @med.CRM
+                        <td class="col-md-2 col-xs-2 col-sm-2 text-left hidden-sm hidden-xs">
+                            <small>@obj.email1</small>
+                        </td>
+                        <td class="col-md-2 col-xs-2 col-sm-2 text-left hidden-sm hidden-xs">
+                            <small>
+                                @if (obj.telParticular1 != null && obj.telParticular1 != "" && obj.telParticular2 != null && obj.telParticular2 != "")
+                                {
+                                    @(App_Dominio.Models.Funcoes.FormataTelefone(obj.telParticular1) + "/" + App_Dominio.Models.Funcoes.FormataTelefone(obj.telParticular2))
+                                }
+                                else if (obj.telParticular1 != null && obj.telParticular1 != "")
+                                {
+                                    @App_Dominio.Models.Funcoes.FormataTelefone(obj.telParticular1)
+                                }
+                                else if (obj.telParticular2 != null && obj.telParticular2 != "")
+                                {
+                                    @App_Dominio.Models.Funcoes.FormataTelefone(obj.telParticular2)
+                                }
+                            </small>
                         </td>
                     </tr>
                 }
