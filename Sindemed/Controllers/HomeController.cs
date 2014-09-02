@@ -197,14 +197,14 @@ namespace DWM.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Sistema de Administração de Condomínios.";
+            ViewBag.Message = "Sistema de Cadastro de Associados";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Analista de Negócios.";
+            ViewBag.Message = "Sindicato dos Médicos do Estado do Pará.";
 
             return View();
         }
