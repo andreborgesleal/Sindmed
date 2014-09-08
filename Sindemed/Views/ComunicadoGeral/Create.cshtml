@@ -50,7 +50,9 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.resumo, new { @class = "col-md-2 control-label" })
                         <div class="col-md-8">
-                            @Html.TextAreaFor(m => m.resumo, 4, 1, new { @class = "form-control input-sm" })
+                            @Html.TextAreaFor(m => m.resumo, 4, 1, new { @class = "form-control input-sm", @maxlength = "160", @onchange = "contaChar();", onkeyup = "contaChar();" })
+                            <small class="text-left">Mínimo de 130 caracteres</small>
+                            <span id="contadorResumo" class="badge pull-right alert-success">0 / 160</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -110,3 +112,12 @@
     </div>
 }
 
+<script type="text/javascript">
+
+    function contaChar() {
+        var text = $("#resumo").val();
+        var count = text.length;
+        $("#contadorResumo").text(count + ' / 160');
+    }
+
+</script>

@@ -6,17 +6,17 @@
     Sessao sessaoCorrente = (Sessao)TempData.Peek("SessaoCorrente");
 }
 @Html.HiddenFor(info => info.comunicacaoId)
-@if (Model.Comentarios.Count() == 0)
+@if (Model.Comentarios.Count() == 0 && sessaoCorrente.value1 != "0")
 {
     <div class="page-header">
         <h4 class="text-primary">Seja o primeiro a comentar</h4>
     </div>
 
 }
-else
+@*else
 {
     <h4><strong>@Model.Comentarios.Count()</strong> COMENTÁRIO(S)</h4>
-}
+}*@
 <ul class="media-list">
     @{foreach (ComentarioViewModel item in Model.Comentarios.Take(3))
         {
@@ -24,7 +24,7 @@ else
             <li class="media">
                 <a class="pull-left" href="#">
                     <img class="media-object" src="@avatar" style="width: 54px; height: 54px" alt="...">
-                    <p><small class="text-info">@item.torreId-@item.unidadeId.ToString()</small></p>
+                    <p><small class="text-info">@item.CRM</small></p>
                 </a>
                 <div class="media-body">
                     <p class="media-heading">
@@ -40,56 +40,57 @@ else
                 <hr />
             </li>
         }
-    }
 
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        Carregar mais comentários
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body">
-                    @{foreach (ComentarioViewModel item in Model.Comentarios.Skip(4))
-                    {
-                        string avatar = item.avatar ?? "http://www.itsni.co.nz/assets/images/profile.png";
-                        <li class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="@avatar" style="width: 54px; height: 54px" alt="...">
-                                <p><small class="text-info">@item.torreId-@item.unidadeId.ToString()</small></p>
-                            </a>
-                            <div class="media-body">
-                                <p class="media-heading">
-                                    <strong>@item.nome</strong>
-                                </p>
-                                <p class="text-info">@item.dt_comentario.ToString("dd/MM/yyyy HH:mm")h</p>
-                                <p class="text-enfatico">@Html.DisplayTextFor(info => item.descricao)</p>
-                                @if (item.associadoId.ToString() == sessaoCorrente.value1)
-                                {
-                                    <small class="text-warning glyphicon glyphicon-remove" style="cursor: pointer" onclick="DelComment('@item.comentarioId.ToString()')">&nbsp;Excluir</small>
-                                }
-                            </div>
-                            <hr />
-                        </li>
-                    }
-                    }
+      if (Model.Comentarios.Count() > 0)
+      {
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            Carregar mais comentários
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @{foreach (ComentarioViewModel item in Model.Comentarios.Skip(4))
+                        {
+                            string avatar = item.avatar ?? "http://www.itsni.co.nz/assets/images/profile.png";
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="@avatar" style="width: 54px; height: 54px" alt="...">
+                                    <p><small class="text-info">@item.CRM</small></p>
+                                </a>
+                                <div class="media-body">
+                                    <p class="media-heading">
+                                        <strong>@item.nome</strong>
+                                    </p>
+                                    <p class="text-info">@item.dt_comentario.ToString("dd/MM/yyyy HH:mm")h</p>
+                                    <p class="text-enfatico">@Html.DisplayTextFor(info => item.descricao)</p>
+                                    @if (item.associadoId.ToString() == sessaoCorrente.value1)
+                                    {
+                                        <small class="text-warning glyphicon glyphicon-remove" style="cursor: pointer" onclick="DelComment('@item.comentarioId.ToString()')">&nbsp;Excluir</small>
+                                    }
+                                </div>
+                                <hr />
+                            </li>
+                        }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
+      }
+    }
     <hr />
-
     @if (sessaoCorrente.value1 != "0")
     {
         string me = Model.avatar == null || Model.avatar == "" ? "http://www.itsni.co.nz/assets/images/profile.png" : Model.avatar; 
         <li class="media">
             <a class="pull-left" href="#">
                 <img class="media-object" src="@me" style="width: 54px; height: 54px" alt="...">
-                <p><small class="text-info">@Model.torreId-@Model.unidadeId.ToString()</small></p>
+                <p><small class="text-info">@Model.CRM</small></p>
             </a>
             <div class="media-body">
                 <p class="media-heading"><strong>@Model.nome</strong> </p>

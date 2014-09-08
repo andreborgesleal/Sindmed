@@ -344,23 +344,23 @@ namespace DWM.Controllers
         }
         #endregion
 
-        #region Formulário Modal Condômino
+        #region Formulário Modal Associado
         [AuthorizeFilter]
         public ActionResult LovMedicoModal(int? index, int? pageSize = 50)
         {
             if (ViewBag.ValidateRequest)
-                return this.ListModal(index, pageSize, new LookupAssociadoModel(), "Condômino", null, DWM.Models.Enumeracoes.Sistema.SINDMED);
+                return this.ListModal(index, pageSize, new LookupMedicoModel(), "Associado", null, DWM.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
         }
         #endregion
 
-        #region Formulário Modal Grupo Condômino
+        #region Formulário Modal Grupo Associado
         [AuthorizeFilter]        
         public ActionResult LovGrupoAssociadoModal(int? index, int? pageSize = 50)
         {
             if (ViewBag.ValidateRequest)
-                return this.ListModal(index, pageSize, new LookupGrupoAssociadoModel(), "Grupo Condômino", null, DWM.Models.Enumeracoes.Sistema.SINDMED);
+                return this.ListModal(index, pageSize, new LookupGrupoAssociadoModel(), "Grupo Associado", null, DWM.Models.Enumeracoes.Sistema.SINDMED);
             else
                 return View();
         }

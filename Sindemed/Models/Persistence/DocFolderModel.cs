@@ -25,13 +25,19 @@ namespace DWM.Models.Persistence
 
         public override DocFolderViewModel MapToRepository(DocFolder entity)
         {
-            return new DocFolderViewModel()
-            {
-                docFolderId = entity.docFolderId,
-                descricao = entity.descricao,
-                ind_fixo = entity.ind_fixo,
-                mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
-            };
+            if (entity != null)
+                return new DocFolderViewModel()
+                {
+                    docFolderId = entity.docFolderId,
+                    descricao = entity.descricao,
+                    ind_fixo = entity.ind_fixo,
+                    mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
+                };
+            else
+                return new DocFolderViewModel()
+                {
+                    mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
+                };
         }
 
         public override DocFolder Find(DocFolderViewModel key)

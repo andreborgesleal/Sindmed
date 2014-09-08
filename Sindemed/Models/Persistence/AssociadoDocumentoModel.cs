@@ -127,8 +127,8 @@ namespace DWM.Models.Persistence
             if (value.associadoId == 0)
             {
                 value.mensagem.Code = 5;
-                value.mensagem.Message = MensagemPadrao.Message(5, "Condômino").ToString();
-                value.mensagem.MessageBase = "Campo Condômino deve ser informado.";
+                value.mensagem.Message = MensagemPadrao.Message(5, "Associado").ToString();
+                value.mensagem.MessageBase = "Campo Associado deve ser informado.";
                 value.mensagem.MessageType = MsgType.WARNING;
                 return value.mensagem;
             }

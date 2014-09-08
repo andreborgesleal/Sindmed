@@ -20,7 +20,7 @@ namespace DWM.Controllers
 
         public override string getListName()
         {
-            return "Relação geral de condôminos";
+            return "Relação geral de associados";
         }
 
         #region List

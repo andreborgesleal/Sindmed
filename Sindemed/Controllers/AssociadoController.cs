@@ -13,10 +13,9 @@ using System.Web.Helpers;
 using System.Web;
 using App_Dominio.Component;
 
-
-namespace DWM.Controllers
+namespace Sindemed.Controllers
 {
-    public class AssociadoController : RootController<AssociadoViewModel, AssociadoModel>
+    public class AssociadoController : RootController<MedicoViewModel, MedicoModel>
     {
         private int _avatarWidth = 100; // ToDo - Change the size of the stored avatar image
         private int _avatarHeight = 100; // ToDo - Change the size of the stored avatar image
@@ -24,7 +23,7 @@ namespace DWM.Controllers
         public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
         public override string getListName()
         {
-            return "Listagem de Condôminos";
+            return "Listagem de Associados";
         }
 
         #region List
@@ -33,25 +32,25 @@ namespace DWM.Controllers
         {
             if (ViewBag.ValidateRequest)
             {
-                ListViewAssociado l = new ListViewAssociado();
+                ListViewMedico l = new ListViewMedico();
                 return this._List(index, pageSize, "Browse", l, descricao);
             }
             else
                 return View();
         }
         [AuthorizeFilter]
-        public ActionResult ListAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
+        public ActionResult ListMedicoModal(int? index, int? pageSize = 50, string descricao = null)
         {
-            LookupAssociadoModel l = new LookupAssociadoModel();
-            return this.ListModal(index, pageSize, l, "Condôminos", descricao);
+            LookupMedicoModel l = new LookupMedicoModel();
+            return this.ListModal(index, pageSize, l, "Médicos", descricao);
         }
         [AuthorizeFilter]
-        public ActionResult _ListAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
+        public ActionResult _ListMedicoModal(int? index, int? pageSize = 50, string descricao = null)
         {
             if (ViewBag.ValidateRequest)
             {
-                LookupAssociadoFiltroModel l = new LookupAssociadoFiltroModel();
-                return this.ListModal(index, pageSize, l, "Condôminos", descricao);
+                LookupMedicoFiltroModel l = new LookupMedicoFiltroModel();
+                return this.ListModal(index, pageSize, l, "Médicos", descricao);
             }
             else
                 return View();
@@ -59,146 +58,53 @@ namespace DWM.Controllers
         #endregion
 
         #region CreateError
-        public override void OnCreateError(ref AssociadoViewModel value, ICrudContext<AssociadoViewModel> model, FormCollection collection)
+        public override void OnCreateError(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
         {
+            value.nome_correio = collection["nome_correio1"] ?? "";
+            value.nome_cidade = collection["nome_cidade1"] ?? "";
             value.nome_cidadeCom = collection["nome_cidadeCom1"] ?? "";
-            value.descricao_areaAtuacao = collection["descricao_areaAtuacao1"] ?? "";
+            value.descricao_areaAtuacao1 = collection["descricao_areaAtuacao11"] ?? "";
+            value.descricao_areaAtuacao2 = collection["descricao_areaAtuacao21"] ?? "";
+            value.descricao_areaAtuacao3 = collection["descricao_areaAtuacao31"] ?? "";
+            value.nome_especialidade1 = collection["descricao_especialidade11"] ?? "";
+            value.nome_especialidade2 = collection["descricao_especialidade21"] ?? "";
+            value.nome_especialidade3 = collection["descricao_especialidade31"] ?? "";
         }
         #endregion
 
         #region BeforeCreate
-        public override void BeforeCreate(ref AssociadoViewModel value, ICrudContext<AssociadoViewModel> model, FormCollection collection)
+        public override void BeforeCreate(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
         {
-            EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
-            Sessao sessaoCorrente = empresaSecurity.getSessaoCorrente();
-            value.empresaId = sessaoCorrente.empresaId;
-
-            if (collection["dt_nascimento"] != "" && collection["dt_nascimento"].Length == 10)
+            if (collection["dt_nascimento"] != "")
                 value.dt_nascimento = DateTime.Parse(collection["dt_nascimento"].Substring(6, 4) + "-" + collection["dt_nascimento"].Substring(3, 2) + "-" + collection["dt_nascimento"].Substring(0, 2));
 
-            if (collection["dt_inicio"] != "" && collection["dt_inicio"].Length == 10)
-                value.dt_inicio = DateTime.Parse(collection["dt_inicio"].Substring(6, 4) + "-" + collection["dt_inicio"].Substring(3, 2) + "-" + collection["dt_inicio"].Substring(0, 2));
-            else
-                value.dt_inicio = DateTime.Today;
-
-            if (collection["dt_fim"] != "" && collection["dt_fim"].Length == 10)
-                value.dt_fim = DateTime.Parse(collection["dt_fim"].Substring(6, 4) + "-" + collection["dt_fim"].Substring(3, 2) + "-" + collection["dt_fim"].Substring(0, 2));
-
-            #region Dependentes
-            IList<DependenteViewModel> Dependentes = new List<DependenteViewModel>();
-
-            for (int i=1; i<=8; i++)
-            {
-                if (collection["nome_dependente" + i.ToString()] != "")
-                {
-                    DependenteViewModel d = new DependenteViewModel()
-                    {
-                        associadoId = value.associadoId,
-                        dependenteId = i,
-                        nome = collection ["nome_dependente" + i.ToString()],
-                        tx_relacao_associado = collection["tx_relacao_associado" + i.ToString()],
-                        email = collection["e_mail" + i.ToString()],
-                        sexo = collection["sexo" + i.ToString()]
-                    };
-
-                    Dependentes.Add(d);
-                }
-            }
-
-            value.Dependentes = Dependentes;
-            #endregion
-
-            #region Veículos
-
-            IList<VeiculoViewModel> Veiculos = new List<VeiculoViewModel>();
-
-            for (int i = 1; i <= 6; i++)
-            {
-                if (collection["placa" + i.ToString()] != "")
-                {
-                    VeiculoViewModel v = new VeiculoViewModel()
-                    {
-                        associadoId = value.associadoId,
-                        placa = collection["placa" + i.ToString()],
-                        cor = collection["cor" + i.ToString()],
-                        marca = collection["marca" + i.ToString()],
-                        descricao = collection["descricao" + i.ToString()],
-                        condutor = collection["condutor" + i.ToString()],
-                        num_serie = collection["num_serie" + i.ToString()]
-                    };
-
-                    Veiculos.Add(v);
-                }
-            }
-
-            value.Veiculos = Veiculos;
-            #endregion
-
-            #region Funcionarios
-            IList<FuncionarioViewModel> Funcionarios = new List<FuncionarioViewModel>();
-
-            for (int i = 1; i <= 6; i++ )
-            {
-                if (collection ["nome_func" + i.ToString()] != "")
-                {
-                    FuncionarioViewModel f = new FuncionarioViewModel()
-                    {
-                        associadoId = value.associadoId,
-                        funcionarioId = i,
-                        nome = collection["nome_func" + i.ToString()],
-                        rg = collection["rg" + i.ToString()],
-                        funcao = collection["funcao" + i.ToString()],
-                        sexo = collection["sexo_func" + i.ToString()],
-                        dia_semana = (collection["dom" + i.ToString()] == "true,false" ? "S" : "N") +
-                                     (collection["seg" + i.ToString()] == "true,false" ? "S" : "N") +
-                                     (collection["ter" + i.ToString()] == "true,false" ? "S" : "N") +
-                                     (collection["qua" + i.ToString()] == "true,false" ? "S" : "N") +
-                                     (collection["qui" + i.ToString()] == "true,false" ? "S" : "N") +
-                                     (collection["sex" + i.ToString()] == "true,false" ? "S" : "N") +
-                                     (collection["sab" + i.ToString()] == "true,false" ? "S" : "N"),
-                        horario_ini = collection["horario_ini" + i.ToString()],
-                        horario_fim = collection["horario_fim" + i.ToString()]
-                    };
-
-                    Funcionarios.Add(f);
-                }
-            }
-
-            value.Funcionarios = Funcionarios;
-            #endregion
-
-            value.torreId = collection["apto"].Substring(0, 2);
-            value.unidadeId = int.Parse(collection["apto"].Substring(2));
+            if (collection["dt_admin_sindicato"] != "")
+                value.dt_admin_sindicato = DateTime.Parse(collection["dt_admin_sindicato"].Substring(6, 4) + "-" + collection["dt_admin_sindicato"].Substring(3, 2) + "-" + collection["dt_admin_sindicato"].Substring(0, 2));
         }
         #endregion
 
         #region edit
-        public override void BeforeEdit(ref AssociadoViewModel value, ICrudContext<AssociadoViewModel> model, FormCollection collection)
+        public override void BeforeEdit(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
         {
             BeforeCreate(ref value, model, collection);
         }
 
         [AuthorizeFilter]
-        public ActionResult Edit(int? associadoId)
+        public ActionResult Edit(int associadoId)
         {
-            if (associadoId == null || associadoId == 0)
-            {
-                App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
-                Sessao sessaoCorrente = security.getSessaoCorrente();
-                if (sessaoCorrente.value1 != "0")
-                    associadoId = int.Parse(sessaoCorrente.value1);
-            }
-
-            return _Edit(new AssociadoViewModel() { associadoId = associadoId.Value });
+            return _Edit(new MedicoViewModel() { associadoId = associadoId });
         }
 
         #region Edit Error
-        public override void OnEditError(ref AssociadoViewModel value, ICrudContext<AssociadoViewModel> model, FormCollection collection)
+        public override void OnEditError(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
         {
             value.nome_usuario = collection["nome_usuario1"] ?? "";
             OnCreateError(ref value, model, collection);
+
         }
         #endregion
+
+
         #endregion
 
         #region Delete
@@ -209,9 +115,10 @@ namespace DWM.Controllers
         }
 
         #region Delete Error
-        public override void OnDeleteError(ref AssociadoViewModel value, ICrudContext<AssociadoViewModel> model, FormCollection collection)
+        public override void OnDeleteError(ref MedicoViewModel value, ICrudContext<MedicoViewModel> model, FormCollection collection)
         {
             OnEditError(ref value, model, collection);
+
         }
         #endregion
 
@@ -230,7 +137,7 @@ namespace DWM.Controllers
                     associadoId = int.Parse(sessaoCorrente.value1);
             }
 
-            return _Edit(new AssociadoViewModel() { associadoId = associadoId.Value },"Avatar");
+            return _Edit(new MedicoViewModel() { associadoId = associadoId.Value }, "Avatar");
         }
 
         [ValidateAntiForgeryToken]
@@ -284,10 +191,10 @@ namespace DWM.Controllers
                 // ... and save the new one.
 
                 string newName = String.Format("{0}" + new FileInfo(fn).Extension, Guid.NewGuid().ToString());
-                AssociadoViewModel value = (AssociadoViewModel)getModel().getObject(new AssociadoViewModel() { associadoId = int.Parse(key) });
+                MedicoViewModel value = (MedicoViewModel)getModel().getObject(new MedicoViewModel() { associadoId = int.Parse(key) });
                 if (value.avatar != null)
                     newName = value.avatar;
-                
+
                 string newFileName = System.Configuration.ConfigurationManager.AppSettings["Avatar"] + "/" + newName; // Path.GetFileName(fn);
                 string newFileLocation = HttpContext.Server.MapPath(newFileName);
                 if (Directory.Exists(Path.GetDirectoryName(newFileLocation)) == false)
@@ -297,11 +204,11 @@ namespace DWM.Controllers
 
                 img.FileName = newName;
                 img.Save(newFileLocation);
-               
+
                 #region Salvar foto na cadastro do associado
                 value.avatar = newName;
 
-                AssociadoViewModel ret = SetEdit(value, getModel(), null, "Save");
+                MedicoViewModel ret = SetEdit(value, getModel(), null, "Save");
 
                 if (ret.mensagem.Code == 0)
                 {
@@ -412,6 +319,5 @@ namespace DWM.Controllers
         }
 
         #endregion
-
     }
 }

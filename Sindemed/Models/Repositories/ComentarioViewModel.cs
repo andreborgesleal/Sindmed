@@ -18,12 +18,11 @@ namespace DWM.Models.Repositories
         [DisplayName("Nome")]
         public string nome { get; set; }
 
-        public string torreId { get; set; }
-
-        public System.Nullable<int> unidadeId { get; set; }
-
         [DisplayName("Avatar")]
         public string avatar { get; set; }
+
+        [DisplayName("CRM")]
+        public string CRM { get; set; }
 
         [DisplayName("Comunicado ID")]
         [Required(ErrorMessage="ID do comunicado deve ser informado")]

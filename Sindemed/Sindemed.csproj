@@ -236,9 +236,6 @@
     <Compile Include="Controllers\GrupoMedicoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NaoLocalizadoCorreioController.cs" />
-    <Compile Include="Controllers\ProprietarioController.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controllers\Report01Controller.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -250,8 +247,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Entidades\AcessoExterno.cs" />
-    <Compile Include="Models\Entidades\AcessoInterno.cs" />
     <Compile Include="Models\Entidades\ApplicationContext.cs" />
     <Compile Include="Models\Entidades\AreaAtendimento.cs" />
     <Compile Include="Models\Entidades\AreaAtuacao.cs" />
@@ -267,21 +262,15 @@
     <Compile Include="Models\Entidades\Comunicacao.cs" />
     <Compile Include="Models\Entidades\ComunicacaoClick.cs" />
     <Compile Include="Models\Entidades\ComunicacaoGrupo.cs" />
-    <Compile Include="Models\Entidades\Dependente.cs" />
     <Compile Include="Models\Entidades\DocClick.cs" />
     <Compile Include="Models\Entidades\DocFolder.cs" />
     <Compile Include="Models\Entidades\DocInterno.cs" />
     <Compile Include="Models\Entidades\EspecialidadeMedica.cs" />
-    <Compile Include="Models\Entidades\Funcionario.cs" />
     <Compile Include="Models\Entidades\GrupoAssociado.cs" />
+    <Compile Include="Models\Entidades\Medico.cs" />
     <Compile Include="Models\Entidades\NaoLocalizadoCorreio.cs" />
     <Compile Include="Models\Entidades\Parametro.cs" />
-    <Compile Include="Models\Entidades\Pessoa.cs" />
-    <Compile Include="Models\Entidades\Proprietario.cs" />
     <Compile Include="Models\Entidades\TipoDocumento.cs" />
-    <Compile Include="Models\Entidades\Torre.cs" />
-    <Compile Include="Models\Entidades\Unidade.cs" />
-    <Compile Include="Models\Entidades\Veiculo.cs" />
     <Compile Include="Models\Enumeracoes\BindDropDownList.cs" />
     <Compile Include="Models\Enumeracoes\Enumeradores.cs" />
     <Compile Include="Models\Enumeracoes\SindmedEnum.cs" />
@@ -295,7 +284,6 @@
     <Compile Include="Models\Persistence\AreaAtuacaoModel.cs" />
     <Compile Include="Models\Persistence\AssociadoDocumentoModel.cs" />
     <Compile Include="Models\Persistence\AssociadoGrupoModel.cs" />
-    <Compile Include="Models\Persistence\AssociadoModel.cs" />
     <Compile Include="Models\Persistence\AtendimentoModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -311,11 +299,10 @@
     <Compile Include="Models\Persistence\EnviarEmailModel.cs" />
     <Compile Include="Models\Persistence\EspecialidadeMedicaModel.cs" />
     <Compile Include="Models\Persistence\GrupoAssociadoModel.cs" />
+    <Compile Include="Models\Persistence\MedicoModel.cs" />
     <Compile Include="Models\Persistence\NaoLocalizadoCorreioModel.cs" />
-    <Compile Include="Models\Persistence\ProprietarioModel.cs" />
     <Compile Include="Models\Report\AtendimentoPendenteReport.cs" />
     <Compile Include="Models\Report\RelacaoGeralReport.cs" />
-    <Compile Include="Models\Repositories\AcessoInternoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtendimentoViewModel.cs" />
     <Compile Include="Models\Repositories\AreaAtuacaoViewModel.cs" />
     <Compile Include="Models\Repositories\AssociadoDocumentoViewModel.cs" />
@@ -333,19 +320,16 @@
     <Compile Include="Models\Repositories\ComunicacaoGlobalViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoGrupoViewModel.cs" />
     <Compile Include="Models\Repositories\ComunicacaoViewModel.cs" />
-    <Compile Include="Models\Repositories\DependenteViewModel.cs" />
     <Compile Include="Models\Repositories\DocFolderViewModel.cs" />
     <Compile Include="Models\Repositories\DocInternoViewModel.cs" />
     <Compile Include="Models\Repositories\EnviarEmailViewModel.cs" />
     <Compile Include="Models\Repositories\EspecialidadeMedicaViewModel.cs" />
-    <Compile Include="Models\Repositories\FuncionarioViewModel.cs" />
     <Compile Include="Models\Repositories\GrupoAssociadoViewModel.cs" />
+    <Compile Include="Models\Repositories\MedicoVIewModel.cs" />
     <Compile Include="Models\Repositories\NaoLocalizadoCorreioViewModel.cs" />
-    <Compile Include="Models\Repositories\ProprietarioViewModel.cs" />
     <Compile Include="Models\Repositories\RelacaoGeralViewModel.cs" />
     <Compile Include="Models\Repositories\ReportViewModel.cs" />
     <Compile Include="Models\Repositories\TipoDocumentoViewModel.cs" />
-    <Compile Include="Models\Repositories\VeiculoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs">
       <SubType>Code</SubType>
@@ -374,29 +358,9 @@
     <Content Include="Content\images\carrossel1_1980x500.jpg" />
     <Content Include="Content\images\cartao-de-arbitragem-futebol-tp_7371214782295467278.jpg" />
     <Content Include="Content\images\classificados.png" />
-    <Content Include="Content\images\Comunicados\13395410102013.jpg" />
-    <Content Include="Content\images\Comunicados\16d460e5-4180-457f-b96b-a7a3713f5bf7.jpg" />
-    <Content Include="Content\images\Comunicados\19d99e89-f49b-4f53-b7a2-69f9a820729d.jpg" />
-    <Content Include="Content\images\Comunicados\40766288-35ba-4433-a3c8-b2409dff2d53.jpg" />
-    <Content Include="Content\images\Comunicados\51cfdc5b-3e85-4606-90b4-28308dbb2009.jpg" />
-    <Content Include="Content\images\Comunicados\7330cb7f-dd67-4f31-b08a-dd9a119eeb6f.jpg" />
-    <Content Include="Content\images\Comunicados\7e07bcf3-f727-4566-b128-7c2ca45fd42c.jpg" />
-    <Content Include="Content\images\Comunicados\83174f66-f757-484f-a063-bd855cca30bd - Copia.PNG" />
-    <Content Include="Content\images\Comunicados\8deec889-789b-48c0-a745-939eed7354cc.png" />
-    <Content Include="Content\images\Comunicados\b563a1fa-f347-4b6d-8dcc-5caf0bc88210.jpg" />
-    <Content Include="Content\images\Comunicados\c5b768f7-2ab8-414c-b907-3e7828e1ab82.jpg" />
-    <Content Include="Content\images\Comunicados\casas-venda-enseada-guaruja.jpg" />
-    <Content Include="Content\images\Comunicados\cond_novo_leblon_vista_area_lazer.jpg" />
     <Content Include="Content\images\Comunicados\default_100x100.jpg" />
     <Content Include="Content\images\Comunicados\default_300x200.png" />
     <Content Include="Content\images\Comunicados\default_400x300.jpg" />
-    <Content Include="Content\images\Comunicados\desvendar-o-misterio-do-elevador.jpg" />
-    <Content Include="Content\images\Comunicados\e545502f-3f4a-4faf-b7e3-51b97778b123.png" />
-    <Content Include="Content\images\Comunicados\garagem6.jpg" />
-    <Content Include="Content\images\Comunicados\icone-twitter.gif" />
-    <Content Include="Content\images\Comunicados\instalacao-de-interfones_188716.jpg" />
-    <Content Include="Content\images\Comunicados\interfone.jpg" />
-    <Content Include="Content\images\Comunicados\lobby -4.jpg" />
     <Content Include="Content\images\Comunicados\twitter-100x100.png" />
     <Content Include="Content\images\documentos.png" />
     <Content Include="Content\images\download_button.jpg" />
@@ -662,6 +626,7 @@
     <Content Include="Views\Home\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\NaoLocalizadoCorreio\_ListNaoLocalizadoCorreioModal.cshtml" />
     <Content Include="Views\Report01\Browse.cshtml" />
     <Content Include="Views\Report01\Print.cshtml">
       <SubType>Code</SubType>
@@ -713,11 +678,6 @@
     <Content Include="Views\Cidade\List.cshtml" />
     <Content Include="Views\Cidade\Browse.cshtml" />
     <Content Include="Views\Cidade\Create.cshtml" />
-    <Content Include="Views\NaoLocalizadoCorreio\List.cshtml" />
-    <Content Include="Views\NaoLocalizadoCorreio\Browse.cshtml" />
-    <Content Include="Views\NaoLocalizadoCorreio\Create.cshtml" />
-    <Content Include="Views\NaoLocalizadoCorreio\Edit.cshtml" />
-    <Content Include="Views\NaoLocalizadoCorreio\Delete.cshtml" />
     <Content Include="Views\Especialidade\List.cshtml" />
     <Content Include="Views\Especialidade\Browse.cshtml" />
     <Content Include="Views\Especialidade\Create.cshtml" />
@@ -752,8 +712,6 @@
     <Content Include="Views\Cidade\ListCidadeModal.cshtml" />
     <Content Include="Views\Cidade\_ListCidadeModal.cshtml" />
     <Content Include="Views\Cidade\ListCidadeComModal.cshtml" />
-    <Content Include="Views\NaoLocalizadoCorreio\ListNaoLocalizadoCorreioModal.cshtml" />
-    <Content Include="Views\NaoLocalizadoCorreio\_ListNaoLocalizadoCorreioModal.cshtml" />
     <Content Include="Views\Home\LovNaoLocalizadoCorreioModal.cshtml" />
     <Content Include="Views\AreaAtuacao\_ListAreaAtuacaoModal.cshtml" />
     <Content Include="Views\AreaAtuacao\ListAreaAtuacao1Modal.cshtml" />
@@ -850,6 +808,12 @@
     <Content Include="Views\Shared\_LayoutBanner.cshtml" />
     <Content Include="Views\Shared\_LayoutFixed.cshtml" />
     <Content Include="Views\Shared\_LayoutFloat.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Browse.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Create.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Delete.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\Edit.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\List.cshtml" />
+    <Content Include="Views\NaoLocalizadoCorreio\ListNaoLocalizadoCorreioModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Admin_Data\" />

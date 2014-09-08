@@ -7,12 +7,12 @@ namespace DWM.Models.Repositories
 {
     public class AssociadoGrupoViewModel : Repository
     {
-        [DisplayName("Grupo Condômino")]
-        [Required(ErrorMessage = "Por favor, preencha o campo grupo condômino")]
+        [DisplayName("Grupo Associado")]
+        [Required(ErrorMessage = "Por favor, preencha o campo grupo associado")]
         public int grupoAssociadoId { get; set; }
 
-        [DisplayName("Condômino")]
-        [Required(ErrorMessage = "Por favor, preencha o campo condômino")]
+        [DisplayName("Associado")]
+        [Required(ErrorMessage = "Por favor, preencha o campo associado")]
         public int associadoId { get; set; }
 
         public string descricao { get; set; }

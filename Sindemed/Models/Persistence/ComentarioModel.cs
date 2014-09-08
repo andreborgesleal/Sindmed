@@ -34,6 +34,7 @@ namespace DWM.Models.Persistence
                 dt_comentario = entity.dt_comentario,
                 associadoId = entity.associadoId,
                 nome = db.Associados.Find(entity.associadoId).nome,
+                CRM = db.Medicos.Find(entity.associadoId).CRM,
                 comunicacaoId = entity.comunicacaoId,
                 descricao = entity.descricao,
                 comunicacaoViewModel = new ComunicacaoViewModel(),
@@ -100,8 +101,7 @@ namespace DWM.Models.Persistence
                         associadoId = int.Parse(sessaoCorrente.value1),
                         nome = db.Associados.Find(int.Parse(sessaoCorrente.value1)).nome,
                         avatar = db.Associados.Find(int.Parse(sessaoCorrente.value1)).avatar != null ? path + "/" + db.Associados.Find(int.Parse(sessaoCorrente.value1)).avatar : null,
-                        torreId = db.Associados.Find(int.Parse(sessaoCorrente.value1)).torreId,
-                        unidadeId = db.Associados.Find(int.Parse(sessaoCorrente.value1)).unidadeId,
+                        CRM = db.Medicos.Find(int.Parse(sessaoCorrente.value1)).CRM,
                         comunicacaoViewModel = (ComunicacaoViewModel)com.getObject(new ComunicacaoViewModel() { comunicacaoId = comunicacaoId }),
                         Comentarios = (List<ComentarioViewModel>)listCom.ListRepository(0, 50, comunicacaoId.ToString())
                     };
@@ -125,6 +125,7 @@ namespace DWM.Models.Persistence
             int _comunicacaoId = int.Parse(param[0].ToString());
             return (from com in db.Comentarios
                     join ass in db.Associados on com.associadoId equals ass.associadoId 
+                    join med in db.Medicos on ass.associadoId equals med.associadoId
                     where com.comunicacaoId == _comunicacaoId
                     orderby com.dt_comentario 
                     select new ComentarioViewModel
@@ -135,8 +136,7 @@ namespace DWM.Models.Persistence
                         associadoId = com.associadoId,
                         nome = ass.nome,
                         avatar = ass.avatar == null ? null : path + "/" + ass.avatar,
-                        torreId = ass.torreId,
-                        unidadeId = ass.unidadeId,
+                        CRM = med.CRM,
                         descricao = com.descricao,
                         PageSize = pageSize,
                         TotalCount = (from com1 in db.Comentarios

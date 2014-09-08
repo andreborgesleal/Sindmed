@@ -180,7 +180,7 @@ fundoModal
 }
 
 .omo{
-    background-color: #d0d0d0;
+    background-color: #d0d0d0 !important;
     padding: 20px;
 }
 
@@ -193,7 +193,7 @@ fundoModal
 
 .areia
 {
-    background-color: #e0d8d8;
+    background-color: #e0d8d8 !important;
     padding: 20px;
 }
 

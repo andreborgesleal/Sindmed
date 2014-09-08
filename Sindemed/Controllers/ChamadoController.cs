@@ -16,7 +16,7 @@ namespace DWM.Controllers
         public override int _sistema_id() { return (int)DWM.Models.Enumeracoes.Sistema.SINDMED; }
         public override string getListName()
         {
-            return "Listagem de Chamados do Condômino";
+            return "Listagem de Chamados do Associado";
         }
 
         #region List

@@ -12,7 +12,7 @@ namespace DWM.Controllers
         public override int _sistema_id() { return (int)Sistema.SINDMED ; }
         public override string getListName()
         {
-            return "Listar Grupos de Condôminos";
+            return "Listar Grupos de Associados";
         }
 
         #region List
@@ -31,7 +31,7 @@ namespace DWM.Controllers
         public ActionResult ListGrupoAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
         {
             LookupGrupoAssociadoModel l = new LookupGrupoAssociadoModel();
-            return this.ListModal(index, pageSize, l, "Grupos de Condôminos", descricao);
+            return this.ListModal(index, pageSize, l, "Grupos de Associados", descricao);
         }
         [AuthorizeFilter]
         public ActionResult _ListGrupoAssociadoModal(int? index, int? pageSize = 50, string descricao = null)
@@ -39,7 +39,7 @@ namespace DWM.Controllers
             if (ViewBag.ValidateRequest)
             {
                 LookupGrupoAssociadoFiltroModel l = new LookupGrupoAssociadoFiltroModel();
-                return this.ListModal(index, pageSize, l, "Grupos de Condôminos", descricao);
+                return this.ListModal(index, pageSize, l, "Grupos de Associados", descricao);
             }
             else
                 return View();

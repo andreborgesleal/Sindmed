@@ -7,8 +7,8 @@ namespace DWM.Models.Repositories
 {
     public class ComunicacaoGrupoViewModel : Repository
     {
-        [DisplayName("Grupo Condômino")]
-        [Required(ErrorMessage = "Por favor, preencha o campo grupo condômino")]
+        [DisplayName("Grupo Associado")]
+        [Required(ErrorMessage = "Por favor, preencha o campo grupo associado")]
         public Nullable<int> grupoAssociadoId { get; set; }
 
         [DisplayName("Comunicacao")]

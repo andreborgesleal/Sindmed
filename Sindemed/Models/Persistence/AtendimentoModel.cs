@@ -123,7 +123,7 @@ namespace DWM.Models.Persistence
             }
             #endregion
 
-            #region Enviar e-mail ao condômino
+            #region Enviar e-mail ao associado
             if (db.Parametros.Find((int)DWM.Models.Enumeracoes.Enumeradores.Param.HABILITA_EMAIL).valor == "S" && value.fluxo == "2")
             {
                 int _sistemaId = int.Parse(db.Parametros.Find((int)DWM.Models.Enumeracoes.Enumeradores.Param.SISTEMA).valor);
@@ -143,10 +143,6 @@ namespace DWM.Models.Persistence
                 string Text = "<p>Atendimento de chamado</p>";
                 string Html = "<p><span style=\"font-family: Verdana; font-size: larger; color: #656464\">" + sistema.descricao + "</span></p>" +
                               "<p><span style=\"font-family: Verdana; font-size: xx-large; color: #0094ff\">" + associado.nome.ToUpper() + "</span></p>" +
-                              "<p></p>" +
-                              "<p><span style=\"font-family: Verdana; font-size: small; color: #000\">Torre: <b>" + associado.torreId + "</b></span></p>" +
-                              "<p></p>" +
-                              "<p><span style=\"font-family: Verdana; font-size: small; color: #000\">Unidade: <b>" + associado.unidadeId.ToString() + "</b></span></p>" +
                               "<p></p>" +
                               "<p><span style=\"font-family: Verdana; font-size: small; color: #000\">Essa é uma mensagem de notificação de atendimento de chamado. Sua solicitação foi respondida. Acesse o sistema para ler o retorno da administração.</span></p>";
 
@@ -293,7 +289,7 @@ namespace DWM.Models.Persistence
                     else if (value.chamado.usuarioId == null)
                     {
                         AreaAtendimento ar = db.AreaAtendimentos.Find(value.chamado.areaAtendimentoId);
-                        if (ar.usuario1Id != null && ar.usuario1Id != usuario.usuarioId && ar.usuario2Id != usuario.usuarioId)
+                        if (ar.usuario1Id != 0 && ar.usuario1Id != usuario.usuarioId && ar.usuario2Id != usuario.usuarioId)
                             value.mensagem = new Validate() { Code = -1, Message = "Acesso negado" };
                     }
 

@@ -11,91 +11,98 @@
 <section class="neve">
     <div class="container">
         @{
-        int i = 0;
-        int j = 0;
-        int count = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).Count() - 1;
-        <div class="row">
-            @while (j++ <= 1 && i <= 2)
+            int i = 0;
+            int j = 0;
+            int k = Model.comGrupo != null && Model.comGrupo.Count() > 0 ? 1 : 2;
+            int count = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).Count() - 1;
+            if (Model.com != null && Model.com.Count() > 0)
             {
-                ComunicacaoViewModel c = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).ElementAt(i++);
-                <div class="col-sm-12 col-md-4 col-xs-12">
-                    <div class="thumbnail">
-                        <img alt="500x300" src="@c.arq_imagem_300x200" />
-                        <div class="caption">
-                            <h3>@c.cabecalho</h3>
-                            <p><small class="text-warning">@c.dt_publicacao.ToString("dd/MM/yyyy")</small></p>
-                            <p>@c.resumo</p>
-                            <button type="button" class="btn btn-default btn-xs" onclick="window.location = 'detail?comunicacaoId=' + @c.comunicacaoId.ToString()">Leia mais</button>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            <!-- Carroussel -->
-            <div class="col-sm-12 col-md-4 col-xs-12 ">
-                <div class="row clearfix">
-                    <div id="carousel-example-generic" class="carousel slide col-md-12" data-ride="carousel">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner thumbnail">
-                            <div class="item active">
-                                @{
-                                    i = 0;
-                                    ComunicacaoViewModel com = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).ElementAt(i++);
-                                }
-                                <img alt="500x300" src="@com.arq_imagem_300x200" />
-                                <div class="caption col-md-12">
-                                    <h3>@com.cabecalho</h3>
-                                    <p><small class="text-warning">@com.dt_publicacao.ToString("dd/MM/yyyy")</small></p>
-                                    <p>@com.resumo</p>
-                                    <button type="button" class="btn btn-default btn-xs" onclick="window.location = 'detail?comunicacaoId=' + @com.comunicacaoId.ToString()">Leia mais</button>
+                <div class="row">
+                    @while (j++ <= k && i <= 2)
+                    {
+                        ComunicacaoViewModel c = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).ElementAt(i++);
+                        <div class="col-sm-12 col-md-4 col-xs-12">
+                            <div class="thumbnail">
+                                <img alt="500x300" src="@c.arq_imagem_300x200" />
+                                <div class="caption">
+                                    <h3>@c.cabecalho</h3>
+                                    <p><small class="text-warning">@c.dt_publicacao.ToString("dd/MM/yyyy")</small></p>
+                                    <p>@c.resumo</p>
+                                    <button type="button" class="btn btn-default btn-xs" onclick="window.location = 'detail?comunicacaoId=' + @c.comunicacaoId.ToString()">Leia mais</button>
                                 </div>
                             </div>
-                            @while (i <= count)
-                            {
-                                <div class="item">
-                                    @{
-                                com = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).ElementAt(i);
-                                    }
-                                    <img alt="500x300" src="@com.arq_imagem_300x200" />
-                                    <div class="caption">
-                                        <h3>@com.cabecalho</h3>
-                                        <p><small class="text-warning">@com.dt_publicacao.ToString("dd/MM/yyyy")</small></p>
-                                        <p>@com.resumo</p>
-                                        <button type="button" class="btn btn-default btn-xs" onclick="window.location = 'detail?comunicacaoId=' + @com.comunicacaoId.ToString()">Leia mais</button>
-                                    </div>
-                                </div>
-                                i++;
-                            }
                         </div>
-                        <div class="row">
-                            <div class="col-md-10 col-xs-10 col-sm-10">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    @{
-                                        i = 1;
-                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                        while (i <= count)
+                    }
+
+                    <!-- Carroussel -->
+                    @if (Model.comGrupo != null && Model.comGrupo.Count() > 0)
+                    {
+                        <div class="col-sm-12 col-md-4 col-xs-12 ">
+                            <div class="row clearfix">
+                                <div id="carousel-example-generic" class="carousel slide col-md-12" data-ride="carousel">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner thumbnail omo">
+                                        <div class="item active">
+                                            @{
+                        i = 0;
+                        ComunicacaoViewModel com = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).ElementAt(i++);
+                                            }
+                                            <img alt="500x300" src="@com.arq_imagem_300x200" />
+                                            <div class="caption col-md-12">
+                                                <h3>@com.cabecalho</h3>
+                                                <p><small class="text-warning">@com.dt_publicacao.ToString("dd/MM/yyyy")</small></p>
+                                                <p>@com.resumo</p>
+                                                <button type="button" class="btn btn-default btn-xs" onclick="window.location = 'detail?comunicacaoId=' + @com.comunicacaoId.ToString()">Leia mais</button>
+                                            </div>
+                                        </div>
+                                        @while (i <= count)
                                         {
-                                            <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
+                                            <div class="item">
+                                                @{
+                                            com = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).ElementAt(i);
+                                                }
+                                                <img alt="500x300" src="@com.arq_imagem_300x200" />
+                                                <div class="caption">
+                                                    <h3>@com.cabecalho</h3>
+                                                    <p><small class="text-warning">@com.dt_publicacao.ToString("dd/MM/yyyy")</small></p>
+                                                    <p>@com.resumo</p>
+                                                    <button type="button" class="btn btn-default btn-xs" onclick="window.location = 'detail?comunicacaoId=' + @com.comunicacaoId.ToString()">Leia mais</button>
+                                                </div>
+                                            </div>
                                             i++;
                                         }
-                                    }
-                                </ol>
-                            </div>
-                            <div class="col-md-2 col-xs-2 col-sm-2">
-                                <!-- Controls -->
-                                <a class="left " href="#carousel-example-generic" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </a>
-                                <a class="right" href="#carousel-example-generic" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10 col-xs-10 col-sm-10">
+                                            <!-- Indicators -->
+                                            <ol class="carousel-indicators">
+                                                @{
+                        i = 1;
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        while (i <= count)
+                        {
+                            <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
+                            i++;
+                        }
+                                                }
+                                            </ol>
+                                        </div>
+                                        <div class="col-md-2 col-xs-2 col-sm-2">
+                                            <!-- Controls -->
+                                            <a class="left " href="#carousel-example-generic" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right" href="#carousel-example-generic" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
-            </div>
-        </div>
+            }
         }
     </div>
 </section>
@@ -103,7 +110,7 @@
 <section class="clean">
     <div class="container">
         @{
-            count = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(2).Count() - 1;
+            count = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(k+1).Count() - 1;
             i = 0;
             while (i <= count)
             {
@@ -111,7 +118,7 @@
                 <div class="row clearfix">
                     @while (j++ <= 1 && i <= count)
                     {
-                        ComunicacaoViewModel c = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(2).ElementAt(i++);
+                        ComunicacaoViewModel c = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(k+1).ElementAt(i++);
 
                         <div class="col-md-6 col-xs-12 col-sm-12 column">
                             <div class="media text-muted">
@@ -136,75 +143,85 @@
     </div>
 </section>
 <!-- Documentos da administração -->
-<section class="destaque">
-    <div class="container">
-        <div class="page-header" style="margin-top: 0px">
-            <h2 class="text-dark">Documentos</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                        <h4 class="list-group-item-heading">Favoritos</h4>
-                    </a>
-                    @foreach (DocInternoViewModel fav in Model.favoritos)
-                    {
-                        var fileName = "../" + path + "/" + fav.arquivo;
-
-                        var len = fav.arquivo.Length;
-                        var arquivo_original = fav.nome + fav.arquivo.Substring(len - 4);
-
-                        var enfatizar = fav.ind_enfatizar == "S" ? "list-group-item-success" : "list-group-item";
-
-                        <a href="@fileName" download="@arquivo_original" class="@enfatizar text-dark" target="_blank">
-                            <span class="page-header"><strong>@fav.nome</strong></span>
-                            <h5>@fav.descricao</h5>
-                            <strong class="text-muted">@(fav.dt_arquivo.ToString("dd/MM/yyyy"))</strong>
-                            @if (fav.dt_novo.HasValue && DateTime.Today <= fav.dt_novo)
-                            {
-                                <span class="label label-danger">Novo</span>
-                            }
-                        </a>
-                    }
-                </div>
+@if ((Model.docInterno != null && Model.docInterno.Count() > 0) || (Model.favoritos != null && Model.favoritos.Count() > 0))
+{
+    <section class="destaque">
+        <div class="container">
+            <div class="page-header" style="margin-top: 0px">
+                <h2 class="text-dark">Documentos</h2>
             </div>
-            <div class="col-md-6">
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                        <h4 class="list-group-item-heading">Últimos documentos</h4>
-                    </a>
-                    @foreach (DocInternoViewModel doc in Model.docInterno)
-                    {
-                        var fileName = "../" + path + "/" + doc.arquivo;
+            <div class="row">
+                @if (Model.favoritos != null && Model.favoritos.Count() > 0)
+                {
+                    <div class="col-md-6">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active">
+                                <h4 class="list-group-item-heading">Favoritos</h4>
+                            </a>
+                            @foreach (DocInternoViewModel fav in Model.favoritos)
+                            {
+                                var fileName = "../" + path + "/" + fav.arquivo;
 
-                        var len = doc.arquivo.Length;
-                        var arquivo_original = doc.nome + doc.arquivo.Substring(len - 4);
+                                var len = fav.arquivo.Length;
+                                var arquivo_original = fav.nome + fav.arquivo.Substring(len - 4);
 
-                        var enfatizar = doc.ind_enfatizar == "S" ? "list-group-item-success" : "list-group-item";
+                                var enfatizar = fav.ind_enfatizar == "S" ? "list-group-item-success" : "list-group-item";
 
-                        <a href="@fileName" download="@arquivo_original" class="@enfatizar text-dark" target="_blank">
-                            <h5 class="list-group-item-heading">
-                                <strong>@doc.nome</strong>&nbsp;&nbsp;<strong class="text-muted">@(doc.dt_arquivo.ToString("dd/MM/yyyy"))</strong>&nbsp;&nbsp;
-                                @if (doc.dt_novo.HasValue && DateTime.Today <= doc.dt_novo)
-                                {
-                                    <span class="label label-danger">Novo</span>
-                                }
-                            </h5>
-                            <h5 class="small text-primary">@doc.descricao</h5>
-                        </a>
-                    }
-                    <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-md-offset-9 col-sm-12 col-xs-12">
-                                <span class="btn btn-primary" onclick="window.location='../Documentos/Browse'">Ver mais</span>
+                                <a href="@fileName" download="@arquivo_original" class="@enfatizar text-dark" target="_blank">
+                                    <span class="page-header"><strong>@fav.nome</strong></span>
+                                    <h5>@fav.descricao</h5>
+                                    <strong class="text-muted">@(fav.dt_arquivo.ToString("dd/MM/yyyy"))</strong>
+                                    @if (fav.dt_novo.HasValue && DateTime.Today <= fav.dt_novo)
+                                    {
+                                        <span class="label label-danger">Novo</span>
+                                    }
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+                @if (Model.docInterno != null && Model.docInterno.Count() > 0)
+                {
+                    <div class="col-md-6">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active">
+                                <h4 class="list-group-item-heading">Últimos documentos</h4>
+                            </a>
+                            @foreach (DocInternoViewModel doc in Model.docInterno)
+                            {
+                                var fileName = "../" + path + "/" + doc.arquivo;
+
+                                var len = doc.arquivo.Length;
+                                var arquivo_original = doc.nome + doc.arquivo.Substring(len - 4);
+
+                                var enfatizar = doc.ind_enfatizar == "S" ? "list-group-item-success" : "list-group-item";
+
+                                <a href="@fileName" download="@arquivo_original" class="@enfatizar text-dark" target="_blank">
+                                    <h5 class="list-group-item-heading">
+                                        <strong>@doc.nome</strong>&nbsp;&nbsp;<strong class="text-muted">@(doc.dt_arquivo.ToString("dd/MM/yyyy"))</strong>&nbsp;&nbsp;
+                                        @if (doc.dt_novo.HasValue && DateTime.Today <= doc.dt_novo)
+                                        {
+                                            <span class="label label-danger">Novo</span>
+                                        }
+                                    </h5>
+                                    <h5 class="small text-primary">@doc.descricao</h5>
+                                </a>
+                            }
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-offset-9 col-sm-12 col-xs-12">
+                                        <span class="btn btn-primary" onclick="window.location='../Documentos/Browse'">Ver mais</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
+
 <section class="leao">
     <div class="container">
         @{

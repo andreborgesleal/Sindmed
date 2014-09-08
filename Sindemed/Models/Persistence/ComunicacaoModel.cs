@@ -78,6 +78,7 @@ namespace DWM.Models.Persistence
             return new ComunicacaoViewModel() { 
                 dt_comunicacao = DateTime.Now, 
                 dt_publicacao = DateTime.Today,
+                dt_expiracao = DateTime.Today.AddMonths(1),
                 arq_imagem_300x200 = "default_300x200.png",
                 arq_imagem_100x100 = "default_100x100.jpg",
                 arq_imagem_400x300 = "default_400x300.jpg"

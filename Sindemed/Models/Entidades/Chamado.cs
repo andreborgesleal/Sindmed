@@ -39,7 +39,7 @@ namespace DWM.Models.Entidades
         [DisplayName("xml")]
         public string mensagemOriginal { get; set; }
 
-        [DisplayName("Condômino")]
+        [DisplayName("Associado")]
         public virtual Associado Associado { get; set; }
 
         [DisplayName("Área_Atendimento")]

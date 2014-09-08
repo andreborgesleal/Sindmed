@@ -111,7 +111,6 @@ namespace DWM.Models.Persistence
                     chamadoId = entity.chamadoId,
                     associadoId = entity.associadoId,
                     nome_associado = db.Associados.Find(entity.associadoId).nome,
-                    apto = db.Associados.Find(entity.associadoId).torreId + db.Associados.Find(entity.associadoId).unidadeId.ToString(),
                     areaAtendimentoId = entity.areaAtendimentoId,
                     descricao_areaAtendimento = db.AreaAtendimentos.Find(entity.areaAtendimentoId).descricao,
                     chamadoMotivoId = entity.chamadoMotivoId,
@@ -140,8 +139,8 @@ namespace DWM.Models.Persistence
             if (value.associadoId == 0)
             {
                 value.mensagem.Code = 5;
-                value.mensagem.Message = MensagemPadrao.Message(5, "ID do Condômino").ToString();
-                value.mensagem.MessageBase = "Usuário precisa estar vinculado ao cadastro de condôminos para solicitar um chamado.";
+                value.mensagem.Message = MensagemPadrao.Message(5, "ID do Associado").ToString();
+                value.mensagem.MessageBase = "Usuário precisa estar vinculado ao cadastro de associados para solicitar um chamado.";
             }
 
             if (value.chamadoMotivoId == 0)
@@ -178,8 +177,7 @@ namespace DWM.Models.Persistence
                     situacao = "A",
                     dt_chamado = DateTime.Now.AddHours(_fuso_horario),
                     associadoId = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.associadoId).FirstOrDefault(),
-                    nome_associado = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.nome).FirstOrDefault(),
-                    apto = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.torreId).FirstOrDefault() + (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.unidadeId).FirstOrDefault().ToString()
+                    nome_associado = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.nome).FirstOrDefault()
                 };
             }
         }
@@ -212,7 +210,6 @@ namespace DWM.Models.Persistence
                         descricao_areaAtendimento = are.descricao,
                         associadoId = cham.associadoId,
                         nome_associado = ass.nome,
-                        apto = ass.torreId + ass.unidadeId.ToString(),
                         chamadoStatusId = cham.chamadoStatusId,
                         descricao_status = chs.descricao,
                         chamadoMotivoId = cham.chamadoMotivoId,
@@ -242,8 +239,7 @@ namespace DWM.Models.Persistence
         {
             #region Parâmetros
             int? _chamadoId = null;
-            int? _unidadeId = null;
-            string _torreId = "";
+            string _crm = null;
             int? _areaAtendimentoId = null;
             int? _chamadoMotivoId = null;
             int? _chamadoStatusId = null;
@@ -251,10 +247,7 @@ namespace DWM.Models.Persistence
 
             _chamadoId = param[0] != null ? (int)param[0] : _chamadoId;
             if (param[1] != null && param [1] != "")
-            {
-                _torreId = param[1].ToString().Substring(0, 2);
-                _unidadeId = int.Parse(param[1].ToString().Substring(2));
-            }
+                _crm = param[1].ToString();
             
             DateTime _data1 = (DateTime)param[2];
             DateTime _data2 = (DateTime)param[3];
@@ -292,7 +285,6 @@ namespace DWM.Models.Persistence
                          descricao_motivo = chm.descricao,
                          associadoId = cham.associadoId,
                          nome_associado = ass.nome,
-                         apto = ass.torreId + ass.unidadeId.ToString(),
                          situacao = cham.situacao,
                          PageSize = pageSize,
                          TotalCount = 1
@@ -301,10 +293,11 @@ namespace DWM.Models.Persistence
                 q = (from cham in db.Chamados
                      join are in db.AreaAtendimentos on cham.AreaAtendimento equals are
                      join ass in db.Associados on cham.Associado equals ass
+                     join med in db.Medicos on ass.associadoId equals med.associadoId 
                      join chm in db.ChamadoMotivos on cham.chamadoMotivoId equals chm.chamadoMotivoId
                      join chs in db.ChamadoStatuss on cham.chamadoStatusId equals chs.chamadoStatusId
                      where ((cham.usuarioId == sessaoCorrente.usuarioId) || (cham.usuarioId == null && (are.usuario1Id == sessaoCorrente.usuarioId || are.usuario2Id == sessaoCorrente.usuarioId))) &&
-                            (_unidadeId == null || ass.torreId == _torreId && ass.unidadeId == _unidadeId) &&
+                            (_crm == null || med.CRM == _crm) &&
                             (cham.dt_chamado >= _data1 && cham.dt_chamado <= _data2) &&
                             (_areaAtendimentoId == null || cham.areaAtendimentoId == _areaAtendimentoId) &&
                             (_chamadoMotivoId == null || chm.chamadoMotivoId == _chamadoMotivoId) &&
@@ -324,16 +317,16 @@ namespace DWM.Models.Persistence
                          descricao_motivo = chm.descricao,
                          associadoId = cham.associadoId,
                          nome_associado = ass.nome,
-                         apto = ass.torreId + ass.unidadeId.ToString(),
                          situacao = cham.situacao,
                          PageSize = pageSize,
                          TotalCount = (from cham1 in db.Chamados
                                        join are1 in db.AreaAtendimentos on cham1.AreaAtendimento equals are1
                                        join ass1 in db.Associados on cham1.Associado equals ass1
+                                       join med1 in db.Medicos on ass1.associadoId equals med1.associadoId
                                        join chm1 in db.ChamadoMotivos on cham1.chamadoMotivoId equals chm1.chamadoMotivoId
                                        join chs1 in db.ChamadoStatuss on cham1.chamadoStatusId equals chs1.chamadoStatusId
                                        where ((cham1.usuarioId == sessaoCorrente.usuarioId) || (cham1.usuarioId == null && (are1.usuario1Id == sessaoCorrente.usuarioId || are1.usuario2Id == sessaoCorrente.usuarioId))) &&
-                                              (_unidadeId == null || ass1.torreId == _torreId && ass1.unidadeId == _unidadeId) &&
+                                              (_crm == null || med.CRM == _crm) &&
                                               (cham1.dt_chamado >= _data1 && cham1.dt_chamado <= _data2) &&
                                               (_areaAtendimentoId == null || cham1.areaAtendimentoId == _areaAtendimentoId) &&
                                               (_chamadoMotivoId == null || chm1.chamadoMotivoId == _chamadoMotivoId) &&

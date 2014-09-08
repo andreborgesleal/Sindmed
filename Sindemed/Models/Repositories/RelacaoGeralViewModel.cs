@@ -12,7 +12,9 @@ namespace DWM.Models.Repositories
         public int associadoId { get; set; }
         public string nome { get; set; }
         public string cpf { get; set; }
+        public string crm { get; set; }
         public string email { get; set; }
+        public string nome_especialidade { get; set; }
         public Nullable<DateTime> dt_nascimento { get; set; }
         public string sexo { get; set; }
         public string endereco { get; set; }
@@ -24,7 +26,7 @@ namespace DWM.Models.Repositories
         public string telParticular1 { get; set; }
         public string telParticular2 { get; set; }
         public string telCom1 { get; set; }
-        public string ind_proprietario { get; set; }
+        public string isSindicalizado { get; set; }
 
         #region métodos da Interface
         public object getValueColumn1()
@@ -49,9 +51,9 @@ namespace DWM.Models.Repositories
 
         public RelacaoGeralViewModel getKey(object group = null, object subGroup = null)
         {
-            return new RelacaoGeralViewModel() 
-            { 
-                nome = (string)group ?? "", 
+            return new RelacaoGeralViewModel()
+            {
+                nome = (string)group ?? "",
                 cpf = (string)subGroup ?? ""
             };
         }

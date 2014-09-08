@@ -13,7 +13,7 @@ namespace DWM.Controllers
     
         public override string getListName()
         {
-            return "Listar Condômino x Grupo";
+            return "Listar Associados x Grupo";
         }
 
         #region List

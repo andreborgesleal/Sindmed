@@ -4,7 +4,7 @@
 @using App_Dominio.Enumeracoes
 @{
     ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
-    ViewBag.Header = "Relação geral de condôminos";
+    ViewBag.Header = "Relação geral de associados";
 }
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search", target = "_blank" }))
 {
@@ -14,7 +14,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Relação geral de condôminos <small>Listagem dos condôminos</small>
+                Relação geral de associados <small>Listagem dos associados</small>
             </h2>
         </div>
         <div class="panel-body">

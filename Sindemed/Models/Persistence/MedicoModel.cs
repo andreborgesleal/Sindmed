@@ -10,6 +10,7 @@ using App_Dominio.Enumeracoes;
 using System.Data.Entity.SqlServer;
 using App_Dominio.Models;
 using App_Dominio.Security;
+using App_Dominio.Repositories;
 
 namespace DWM.Models.Persistence
 {
@@ -68,7 +69,8 @@ namespace DWM.Models.Persistence
                 CRM_Seg = value.CRM_Seg,
                 especialidade1Id = value.especialidade1Id,
                 especialidade2Id = value.especialidade2Id,
-                especialidade3Id = value.especialidade3Id
+                especialidade3Id = value.especialidade3Id,
+                avatar = value.avatar
             };
 
             return medico;
@@ -76,6 +78,18 @@ namespace DWM.Models.Persistence
 
         public override MedicoViewModel MapToRepository(Medico entity)
         {
+            App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
+            Sessao sessaoCorrente = security.getSessaoCorrente();
+
+            if (sessaoCorrente != null && sessaoCorrente.value1 != "0")
+            {
+                if (entity.associadoId != int.Parse(sessaoCorrente.value1))
+                    return new MedicoViewModel()
+                    {
+                        mensagem = new Validate() { Code = 202 }
+                    };
+            }
+
             MedicoViewModel medicoViewModel = new MedicoViewModel()
             {
                 associadoId = entity.associadoId,
@@ -122,6 +136,7 @@ namespace DWM.Models.Persistence
                 email2 = entity.email3,
                 usuarioId = entity.usuarioId,
                 observacao = entity.observacao,
+                avatar = entity.avatar,
                 ufCRM = entity.ufCRM,
                 CRM = entity.CRM,
                 ufCRM_Seg = entity.ufCRM_Seg,
@@ -134,8 +149,9 @@ namespace DWM.Models.Persistence
                 nome_especialidade3 = (from e in db.EspecialidadeMedicas where e.especialidadeId == entity.especialidade3Id select e).Select(info => info.descricao).FirstOrDefault() ?? "",
                 mensagem = new Validate() { Code = 0, Message = "Registro incluído com sucesso", MessageBase = "Registro incluído com sucesso", MessageType = MsgType.SUCCESS }
             };
-            EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
-            sessaoCorrente = security.getSessaoCorrente();
+            
+            //EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
+            //sessaoCorrente = security.getSessaoCorrente();
             Medico m = (from med in db.Medicos.AsEnumerable() where med.usuarioId == sessaoCorrente.usuarioId select med).FirstOrDefault();
 
             if (m != null && m.associadoId != entity.associadoId)
@@ -155,15 +171,56 @@ namespace DWM.Models.Persistence
         {
             value.mensagem = new Validate() { Code = 0, Message = MensagemPadrao.Message(0).ToString(), MessageType = MsgType.SUCCESS };
 
-            if (value.cpf != null && value.cpf.Replace(".","").Replace("-","").Trim() != "")
-                if (!Funcoes.ValidaCpf(value.cpf))
+            if (value.associadoId == 0 && operation != Crud.INCLUIR)
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "ID do Associado").ToString();
+                value.mensagem.MessageBase = "ID do associado deve ser informado para realizar esta operação.";
+                return value.mensagem;
+            }
+            else if (operation == Crud.EXCLUIR)
+                return value.mensagem;
+
+            #region verifica se o nome do associado está abreviado
+            if (value.nome.Contains("."))
+            {
+                value.mensagem.Code = 4;
+                value.mensagem.Message = MensagemPadrao.Message(4, "Nome", "Informar o nome completo sem abreviações").ToString();
+                value.mensagem.MessageBase = "Nome do associado inválido.";
+                return value.mensagem;
+            }
+            #endregion
+
+            #region valida cpf/cnpj
+            if (!Funcoes.ValidaCpf(value.cpf.Replace(".", "").Replace("-", "")))
+            {
+                value.mensagem.Code = 29;
+                value.mensagem.Message = MensagemPadrao.Message(29).ToString();
+                value.mensagem.MessageBase = "Número de CPF incorreto.";
+                return value.mensagem;
+            }
+
+            if (operation == Crud.ALTERAR)
+            {
+                if (db.Associados.Where(info => info.cpf == value.cpf.Replace(".", "").Replace("-", "") && info.associadoId != value.associadoId).Count() > 0)
                 {
-                    value.mensagem.Code = 29;
-                    value.mensagem.Message = MensagemPadrao.Message(29).ToString();
-                    value.mensagem.MessageBase = "Nº de CPF inválido";
-                    value.mensagem.MessageType = MsgType.WARNING;
+                    value.mensagem.Code = 31;
+                    value.mensagem.Message = MensagemPadrao.Message(31).ToString();
+                    value.mensagem.MessageBase = "CPF informado para o associado já se encontra cadastrado para outro associado.";
                     return value.mensagem;
                 }
+            }
+            else
+            {
+                if (db.Associados.Where(info => info.cpf == value.cpf.Replace(".", "").Replace("-", "")).Count() > 0)
+                {
+                    value.mensagem.Code = 31;
+                    value.mensagem.Message = MensagemPadrao.Message(31).ToString();
+                    value.mensagem.MessageBase = "CPF informado para o associado já se encontra cadastrado para outro associado.";
+                    return value.mensagem;
+                }
+            }
+            #endregion
 
             if (value.isSindicalizado == "S" && !value.dt_admin_sindicato.HasValue)
             {
@@ -192,6 +249,29 @@ namespace DWM.Models.Persistence
                 return value.mensagem;
             }
 
+            #region Verifica se o e-mail do associado já foi atribuído para outro associado
+            if (operation == Crud.ALTERAR)
+            {
+                if (db.Associados.Where(info => info.email1 == value.email1 && info.associadoId != value.associadoId).Count() > 0)
+                {
+                    value.mensagem.Code = 41;
+                    value.mensagem.Message = MensagemPadrao.Message(41, "E-mail").ToString();
+                    value.mensagem.MessageBase = "E-mail informado para o associado já se encontra cadastrado para outro associado.";
+                    return value.mensagem;
+                }
+            }
+            else if (operation == Crud.INCLUIR)
+            {
+                if (db.Associados.Where(info => info.email1 == value.email1).Count() > 0)
+                {
+                    value.mensagem.Code = 41;
+                    value.mensagem.Message = MensagemPadrao.Message(41, "E-mail").ToString();
+                    value.mensagem.MessageBase = "E-mail informado para o associado já se encontra cadastrado para outro associado.";
+                    return value.mensagem;
+                }
+            }
+            #endregion
+
             return value.mensagem;
         }
         #endregion
@@ -209,6 +289,56 @@ namespace DWM.Models.Persistence
             }
         }
 
+        public int? getAssociadoIdByLogin(string login, EmpresaSecurity<App_DominioContext> security)
+        {
+            int? associadoId = null;
+
+            #region retorna o usuário para verificar se o mesmo é um associado
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                int empresaId = int.Parse(db.Parametros.Find((int)DWM.Models.Enumeracoes.Enumeradores.Param.EMPRESA).valor);
+                UsuarioRepository usuarioRepository = security.getUsuarioByLogin(login, empresaId);
+
+                if (usuarioRepository != null)
+                    if (db.Associados.Where(info => info.usuarioId == usuarioRepository.usuarioId).Count() > 0)
+                    {
+                        Associado a = db.Associados.Where(info => info.usuarioId == usuarioRepository.usuarioId).FirstOrDefault();
+                        if (a.situacao != "A")
+                            associadoId = -1; // associado está desativado
+                        else
+                            associadoId = db.Associados.Where(info => info.usuarioId == usuarioRepository.usuarioId).FirstOrDefault().associadoId;
+                    }
+            }
+            #endregion
+            return associadoId;
+        }
+
+        public MedicoViewModel getAssociadoByLogin(string login, EmpresaSecurity<App_DominioContext> security)
+        {
+            MedicoViewModel a = null;
+            #region retorna o usuário para verificar se o mesmo é um associado
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                int empresaId = int.Parse(db.Parametros.Find((int)DWM.Models.Enumeracoes.Enumeradores.Param.EMPRESA).valor);
+                UsuarioRepository usuarioRepository = security.getUsuarioByLogin(login, empresaId);
+
+                if (usuarioRepository != null)
+                    if (db.Associados.Where(info => info.usuarioId == usuarioRepository.usuarioId).Count() > 0)
+                    {
+                        Associado a1 = db.Associados.Where(info => info.usuarioId == usuarioRepository.usuarioId).FirstOrDefault();
+                        if (a1.situacao != "A")
+                            a = new MedicoViewModel() { associadoId = -1 }; // associado está desativado
+                        else
+                        {
+                            this.db = db;
+                            Medico a2 = db.Medicos.Find(a1.associadoId);
+                            a = MapToRepository(a2);
+                        }
+                    }
+            }
+            #endregion
+            return a;
+        }
         #endregion
     }
 

@@ -16,7 +16,7 @@ namespace DWM.Models.Repositories
         [DisplayName("ID")]
         public Nullable<int> associadoId { get; set; }
 
-        [DisplayName("Condômino")]
+        [DisplayName("Associado")]
         public string nome { get; set; }
 
         [DisplayName("Arquivo")]

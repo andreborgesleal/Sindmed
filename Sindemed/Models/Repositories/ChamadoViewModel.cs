@@ -10,14 +10,11 @@ namespace DWM.Models.Repositories
         [DisplayName("ID")]
         public int chamadoId { get; set; }
 
-        [DisplayName("Condômino ID")]
+        [DisplayName("Associado ID")]
         public int associadoId { get; set; }
 
-        [DisplayName("Condômino")]
+        [DisplayName("Associado")]
         public string nome_associado { get; set; }
-
-        [DisplayName("Unidade")]
-        public string apto { get; set; }
 
         [DisplayName("Área Atendimento")]
         [Required(ErrorMessage = "Por favor, informe a área de atendimento")]

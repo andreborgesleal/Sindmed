@@ -14,7 +14,6 @@ namespace DWM.Models.Repositories
         public string cpf { get; set; }
         public string crm { get; set; }
         public string email { get; set; }
-        public string ind_proprietario { get; set; }
         public DateTime dt_chamado { get; set; }
         public string dt_chamado2 { get; set; }
         public System.Nullable<DateTime> dt_atendimento { get; set; }

@@ -7,12 +7,10 @@ namespace DWM.Models.Repositories
 {
     public class MedicoViewModel : AssociadoViewModel
     {
-        [DisplayName("UF CRM")]
         [Required(ErrorMessage = "UF do CRM deve ser informada")]
         [StringLength(2, ErrorMessage = "A UF do CRM deve possuir 2 caracteres", MinimumLength = 2)]
         public string ufCRM { get; set; }
 
-        [Required(ErrorMessage = "CRM deve ser informado")]
         [DataType(DataType.Currency)]
         [StringLength(6, ErrorMessage = "O Número do CRM deve possuir no máximo 6 dígitos")]
         [DisplayName("CRM")]
@@ -47,6 +45,8 @@ namespace DWM.Models.Repositories
         public string nome_especialidade3 { get; set; }
 
         public string nome_correio { get; set; }
+
+        public string avatar { get; set; }
 
     }
 }

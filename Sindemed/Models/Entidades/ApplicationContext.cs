@@ -21,12 +21,6 @@ namespace DWM.Models.Entidades
         public DbSet<AssociadoGrupo> AssociadoGrupos { get; set; }
         public DbSet<ComunicacaoGrupo> ComunicacaoGrupos { get; set; }
         public DbSet<AssociadoDocumento> AssociadoDocumentos { get; set; }
-        public DbSet<Proprietario> Proprietarios { get; set; }
-        public DbSet<Torre> Torres { get; set; }
-        public DbSet<Unidade> Unidades { get; set; }
-        public DbSet<Veiculo> Veiculos{ get; set; }
-        public DbSet<Dependente> Dependentes { get; set; }
-        public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Parametro> Parametros { get; set; }
         public DbSet<TipoDocumento> TipoDocumentos { get; set; }
         public DbSet<ChamadoMotivo> ChamadoMotivos { get; set; }
@@ -37,6 +31,6 @@ namespace DWM.Models.Entidades
         public DbSet<DocClick> DocClicks { get; set; }
         public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<NaoLocalizadoCorreio> NaoLocalizadoCorreios { get; set; }
-        //public DbSet<Medico> Medicos { get; set; }
+        public DbSet<Medico> Medicos { get; set; }
     }
 }

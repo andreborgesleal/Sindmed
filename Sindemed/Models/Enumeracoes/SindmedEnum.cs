@@ -7,6 +7,8 @@ namespace DWM.Models.Enumeracoes
 {
     public enum Sistema
     {
-        SINDMED = 5
+        SINDMED = 2
     }
 }
+
+
