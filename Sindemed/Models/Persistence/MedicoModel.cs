@@ -349,7 +349,7 @@ namespace DWM.Models.Persistence
         {
             string _descricao = param != null && param.Count() > 0 && param[0] != null ? param[0].ToString() : null;
             return (from socio in db.Medicos // db.Associados join med in db.Medicos on socio.associadoId equals med.associadoId
-                    where (_descricao == null || String.IsNullOrEmpty(_descricao) || socio.nome.StartsWith(_descricao.Trim()) || socio.CRM == _descricao || socio.CRM_Seg == _descricao || socio.cpf == _descricao)
+                    where (_descricao == null || String.IsNullOrEmpty(_descricao) || socio.nome.Contains(_descricao.Trim()) || socio.CRM == _descricao || socio.CRM_Seg == _descricao || socio.cpf == _descricao)
                     orderby socio.nome
                     select new MedicoViewModel
                     {

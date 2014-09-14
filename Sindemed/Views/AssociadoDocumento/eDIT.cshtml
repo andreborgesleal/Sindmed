@@ -74,13 +74,9 @@
                                                         actionName = "",
                                                         controllerName = "",
                                                         buttonType = "submit"
-                                                    } ,
-                            new ButtonRepository() {    linkText = "Cancelar",
-                                                        actionName = "Browse",
-                                                        controllerName = "AssociadoDocumento",
-                                                        buttonType = "link"
-                                                    }
+                                                    } 
                         })
+                    <button type="button" class="btn btn-default" onclick="window.location='Browse?associadoId=@Model.associadoId.ToString()'">Cancelar</button>
                 </div>
                 <div class="col-md-offset-4">
                     ( * ) - Campo de preenchimento obrigatório

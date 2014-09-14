@@ -142,11 +142,20 @@ namespace DWM.Models.Persistence
                 return value.mensagem;
             }
 
-            if (value.nomeArquivoOriginal != "" && value.tipoDocumentoId == 0)
+            if (!value.tipoDocumentoId.HasValue)
             {
                 value.mensagem.Code = 5;
-                value.mensagem.Message = MensagemPadrao.Message(5, "Tipo do anexo").ToString();
-                value.mensagem.MessageBase = "Campo Tipo do Anexo deve ser informado.";
+                value.mensagem.Message = MensagemPadrao.Message(5, "Tag").ToString();
+                value.mensagem.MessageBase = "Campo Tag deve ser informado.";
+                value.mensagem.MessageType = MsgType.WARNING;
+                return value.mensagem;
+            }
+
+            if (value.nomeArquivoOriginal == null || value.nomeArquivoOriginal == "" || value.nomeArquivoOriginal == ".htm" || value.nomeArquivoOriginal == ".html")
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "Nome do documento").ToString();
+                value.mensagem.MessageBase = "Campo Nome do documento deve ser informado.";
                 value.mensagem.MessageType = MsgType.WARNING;
                 return value.mensagem;
             }

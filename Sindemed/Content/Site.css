@@ -267,3 +267,10 @@ fundoModal
   border: 1px solid #dddddd;
   text-decoration: none !important;
 }
+
+.link-default {
+    text-decoration: none; 
+    color: #fff;
+}
+
+

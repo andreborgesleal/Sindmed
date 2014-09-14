@@ -35,7 +35,7 @@ namespace DWM.Models.Repositories
         [Required(ErrorMessage = "Por favor, informe o detalhe do comunicado")]
         public string mensagemDetalhada { get; set; }
 
-        [DisplayName("Imagem 500x300")]
+        [DisplayName("Imagem 300x200")]
         public string arq_imagem_300x200 { get; set; }
 
         [DisplayName("Imagem 100x100")]

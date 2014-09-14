@@ -84,6 +84,36 @@ function GetSelectListOnCascade(thisId, nextId) {
     });
 }
 
+function BuscaCep(_cep, _logradouro, _bairro, _cidade, _uf) {
+    var cep = $("#" + _cep).val();
+    cep = cep.replace(/\D/g, "");
+    var link = encodeURI("http://cep.correiocontrol.com.br/" + cep + ".json");
+
+    $.getJSON(link, function (data) {
+        $("#" + _logradouro).val(data.logradouro);
+        $("#" + _bairro).val(data.bairro);
+
+        $('[name=' + _cidade + '] option').filter(function () {
+            return ($(this).text() == data.localidade); 
+        }).prop('selected', true);
+
+        $("#" + _uf).val(data.uf);
+    });
+}
+
+function BuscaCep2(_cep, _logradouro, _bairro, _cidade, _uf) {
+    var cep = $("#" + _cep).val();
+    cep = cep.replace(/\D/g, "");
+    var link = encodeURI("http://cep.correiocontrol.com.br/" + cep + ".json");
+
+    $.getJSON(link, function (data) {
+        $("#" + _logradouro).val(data.logradouro);
+        $("#" + _bairro).val(data.bairro);
+        $("#" + _cidade).val(data.localidade);
+        $("#" + _uf).val(data.uf);
+    });
+}
+
 function ReadAlert(id) {
     var link = "../Home/ReadAlert?alertaId=" + id;
     $('#read-alert').load(encodeURI(link));

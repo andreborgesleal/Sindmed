@@ -13,7 +13,7 @@
 
 @using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model DWM.Models.Repositories.AssociadoViewModel
+@model DWM.Models.Repositories.MedicoViewModel
 @{
     App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
     ViewBag.Title = security.getEmpresa().nome;
@@ -26,7 +26,7 @@
         @Html.HiddenFor(info => info.associadoId)
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h4>@Model.nome</h4><small>@Model.torreId-@Model.unidadeId</small>
+                <h4>@Model.nome</h4><small>CRM @Model.CRM</small>
             </div>
             <div class="panel-body">
                 <p class="text-info">Selecione o arquivo desejado para alterar a foto do perfil e depois clique no botão Salvar</p>
@@ -62,7 +62,7 @@
 </div>
 <div id="avatar-crop-box" class="panel panel-info hidden">
     <div class="panel-heading">
-        <h4>@Model.nome</h4><small>@Model.torreId-@Model.unidadeId</small>
+        <h4>@Model.nome</h4><small>CRM @Model.CRM</small>
     </div>
     <div class="panel-body">
         <p class="text-info">Ajuste a foto e depois clique no botão Salvar</p>
@@ -92,5 +92,3 @@
 <div id="avatar-result" class="hidden">
     <img src="" alt="Final Image" />
 </div>
-
-

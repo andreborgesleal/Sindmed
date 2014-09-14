@@ -17,7 +17,7 @@ namespace DWM.Models.Entidades
         [DisplayName("CRM_Seg")]
         public string CRM_Seg { get; set; }
         [DisplayName("ID_Especialidade_1")]
-        public int especialidade1Id { get; set; }
+        public Nullable<int> especialidade1Id { get; set; }
         [DisplayName("ID_Especialidade_2")]
         public Nullable<int> especialidade2Id { get; set; }
         [DisplayName("ID_Especialidade_3")]

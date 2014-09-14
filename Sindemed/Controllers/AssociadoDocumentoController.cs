@@ -12,6 +12,7 @@ using System.Linq;
 using App_Dominio.Enumeracoes;
 using App_Dominio.Contratos;
 using App_Dominio.Entidades;
+using System;
 
 namespace DWM.Controllers
 {
@@ -108,7 +109,9 @@ namespace DWM.Controllers
                 AssociadoDocumentoViewModel ret = SetDelete(value, getModel(), collection);
 
                 if (ret.mensagem.Code == 0)
+                {
                     return RedirectToAction("Browse", new { associadoId = ret.associadoId });
+                }
                 else
                     return View(ret);
             }
@@ -202,6 +205,11 @@ namespace DWM.Controllers
             {
                 value.nomeArquivoOriginal = value.nomeArquivoOriginal + ".htm";
             }
+        }
+
+        public override ActionResult AfterCreate(AssociadoDocumentoViewModel value, FormCollection collection)
+        {
+            return RedirectToAction("Browse", new { associadoId = value.associadoId });
         }
 
     }

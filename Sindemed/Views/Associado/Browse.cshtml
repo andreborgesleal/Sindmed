@@ -1,18 +1,17 @@
 ﻿@using DWM.Models.Repositories
 @using App_Dominio.Repositories
-@model System.Web.Mvc.PagedList<DWM.Models.Repositories.AssociadoViewModel>
+@model System.Web.Mvc.PagedList<DWM.Models.Repositories.MedicoViewModel>
 @{
-    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
-    ViewBag.Header = "Cadastro de Associados";
+    ViewBag.Title = "Sindmepa";
+    ViewBag.Header = "Associados";
 }
 <div class="row" style="margin-top: 10px">
     <div class="col-md-12">
-        <div class="panel panel-default" style="padding: -2px">
-            <div class="panel-heading" style="padding: 0px; height: 50px">
+        <div class="panel panel-primary">
+            <div class="panel-heading no-padding" style="height: 50px">
                 @Html.Partial("_Filter", Model)
             </div>
             <div class="panel-body">
-
                 <div id="div-list">
                     @Html.Partial("List", Model)
                 </div>

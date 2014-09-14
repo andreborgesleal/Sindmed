@@ -13,8 +13,8 @@
                 <caption></caption>
                 <thead style="background-color: #fff1a5">
                     <tr>
-                        <th style="text-align: center">Ação</th>
-                        <th>Data</th>
+                        <th class="text-center">Ação</th>
+                        <th class="hidden-xs">Data</th>
                         <th>Documento</th>                        
                     </tr>
                 </thead>
@@ -24,52 +24,51 @@
                     var fileName =  "../" + path+ "/" + doc.fileId;
                     
                     <tr>
-                        <td>
-                            <div class="row-clearfix">
-                                <div class="col-md-12" style="text-align: center">
-                                    <div class="btn-group btn-group-xs">
-                                        @if (".htm|.txt|.html".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension))
-                                        {
-                                            <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-edit"></em> <span style="text-decoration: none; color: #646464; cursor: text">Editar</span>
-                                            </button>
-                                        }
-                                        @if (sessaoCorrente.value1 == "0")
-                                        {
-                                            <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { fileId = doc.fileId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                            </button>
-                                        }
-                                        @if (".htm|.txt|.html|.pdf|.png|.jpg|.bmp|.gif".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension.ToLower()))
-                                        {
-                                            <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-file"></em> <a style="text-decoration: none; color: #646464;" href="#"><span style="text-decoration: none; color: #646464; cursor: pointer" onclick="Show('@fileName', '@doc.nomeArquivoOriginal')">Visualizar</span></a>
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <button class="btn btn-sm" type="button">
-                                                <em class="glyphicon glyphicon-file"></em> <span style="text-decoration: none; color: #646464; cursor: text">Visualizar</span>
-                                            </button>
-                                        }
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-download-alt"></em> <a style="text-decoration: none; color: #646464;" href="@fileName" download="@doc.nomeArquivoOriginal"><span style="text-decoration: none; color: #646464; cursor: pointer">Download</span></a>
-                                        </button>
-                                        
+                        <td class="col-md-3 col-xs-6 col-sm-6">
+                            <div class="row clearfix">
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                    @if (".htm|.txt|.html".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension))
+                                    {
+                                        <div class="col-md-2 hidden-xs">
+                                            <button type="button" class="btn btn-info btn-xs" onclick="window.location='Edit?fileId=@doc.fileId.ToString()'">Editar</button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-2 hidden-xs">
+                                            <button type="button" class="btn btn-info btn-xs hidden-sm hidden-xs disabled">Editar</button>
+                                        </div>
+                                    }
+
+                                    @if (sessaoCorrente.value1 == "0")
+                                    {
+                                        <div class="col-md-3 hidden-xs">
+                                            <button type="button" class="btn btn-danger btn-xs hidden-sm hidden-xs" onclick="window.location='Delete?fileId=@doc.fileId.ToString()'">Excluir</button>
+                                        </div>
+                                    }
+
+                                    @if (".htm|.txt|.html|.pdf|.png|.jpg|.bmp|.gif".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension.ToLower()))
+                                    {
+                                        <div class="col-md-3 col-xs-6">
+                                            <button type="button" class="btn btn-default btn-xs hidden-sm" onclick="Show('@fileName', '@doc.nomeArquivoOriginal')">Visualizar</button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-4 hidden-xs">
+                                            <button type="button" class="btn btn-default btn-xs hidden-sm disabled">Visualizar</button>
+                                        </div>
+                                    }
+                                    <div class="col-md-3 col-xs-6"><button type="button" class="btn btn-success btn-xs">
+                                        <a style="text-decoration: none; color: #ffffff;" href="@fileName" download="@doc.nomeArquivoOriginal"><span style="text-decoration: none; color: #fff; cursor: pointer">Download</span></a></button>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td style="width: 15%">
+                        <td class="col-md-2 hidden-xs">
                             @doc.dt_arquivo.ToString("dd/MM/yyyy HH:mm")
                         </td>
-                        <td style="width: 55%">
+                        <td class="col-md-6 col-xs-6 col-sm-4">
                             <span class="label label-warning">@doc.tag</span>
                             @doc.nomeArquivoOriginal
                         </td>
@@ -112,7 +111,6 @@ else
     function DownLoad(fileId) {
         var path = '@System.Configuration.ConfigurationManager.AppSettings["Users_Data"]';
         var fileName =  "../" + path+ "/" + fileId;
-        alert(fileName);
         $.fileDownload(fileName)
             .done(function () { alert('File download a success!'); })
             .fail(function () { alert('File download failed!'); });

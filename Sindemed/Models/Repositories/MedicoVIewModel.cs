@@ -7,7 +7,6 @@ namespace DWM.Models.Repositories
 {
     public class MedicoViewModel : AssociadoViewModel
     {
-        [Required(ErrorMessage = "UF do CRM deve ser informada")]
         [StringLength(2, ErrorMessage = "A UF do CRM deve possuir 2 caracteres", MinimumLength = 2)]
         public string ufCRM { get; set; }
 
@@ -26,7 +25,7 @@ namespace DWM.Models.Repositories
 
         [DisplayName("Especialidade")]
         [Required(ErrorMessage = "Informe a Especialidade médica na aba Dados Profissionais")]
-        public int especialidade1Id { get; set; }
+        public Nullable<int> especialidade1Id { get; set; }
 
 
         public string nome_usuario { get; set; }

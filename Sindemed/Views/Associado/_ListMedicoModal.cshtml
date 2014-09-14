@@ -1,4 +1,4 @@
-﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.MedicoViewModel>
+﻿@model System.Web.Mvc.PagedList<Sindemed.Models.Repositories.MedicoViewModel>
 @{
     Layout = null;
 }
@@ -14,7 +14,7 @@
                         <th>Nome</th>
                     </tr>
                 </thead>
-                @foreach (DWM.Models.Repositories.AssociadoViewModel ass in Model)
+                @foreach (Sindemed.Models.Repositories.AssociadoViewModel ass in Model)
                 {
                     <tr onclick="Move('@ass.associadoId', '@ass.nome')">
                         <td>

@@ -9,6 +9,8 @@
     @Html.HiddenFor(info => info.associadoId)
     @Html.HiddenFor(info => info.nome)
     @Html.HiddenFor(info => info.fileId)
+    @Html.HiddenFor(info => info.tipoDocumentoId)
+    @Html.HiddenFor(info => info.nomeArquivoOriginal)
     <div class="panel panel-default" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -50,14 +52,14 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.palavra_chave, new { @class = "col-md-3 control-label" })
                         <div class="col-md-8">
-                            @Html.TextBoxFor(m => m.palavra_chave, new { @class = "form-control input-sm" })
+                            @Html.TextBoxFor(m => m.palavra_chave, new { @class = "form-control input-sm", @disabled = "disable" })
                         </div>
                     </div>
                     @if (Model.documento != null)
                     {
                         <div class="form-group">
                             @Html.LabelFor(m => m.documento, new { @class = "col-md-3 control-label", @disabled = "disable" })
-                            <div class="col-md-9">
+                            <div class="col-md-9 disabled">
                                 <textarea name="documento">@Model.documento</textarea>
                                 <script>
                                     CKEDITOR.replace('documento');
@@ -78,13 +80,9 @@
                                                         actionName = "",
                                                         controllerName = "",
                                                         buttonType = "submit"
-                                                    } ,
-                            new ButtonRepository() {    linkText = "Cancelar",
-                                                        actionName = "Browse",
-                                                        controllerName = "AssociadoDocumento",
-                                                        buttonType = "link"
-                                                    }
+                                                    } 
                         })
+                    <button type="button" class="btn btn-default" onclick="window.location='Browse?associadoId=@Model.associadoId.ToString()'">Cancelar</button>
                 </div>
             </div>
         </div>

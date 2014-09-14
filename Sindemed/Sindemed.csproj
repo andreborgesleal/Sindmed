@@ -602,7 +602,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Associado\ListAssociadoModal.cshtml" />
-    <Content Include="Views\Associado\_Avatar.cshtml" />
     <Content Include="Views\Atendimento\Detail.cshtml">
       <SubType>Code</SubType>
     </Content>
