@@ -1,0 +1,34 @@
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.MedicoViewModel>
+@{
+    Layout = null;
+    Model.action = "../Associado/_ListMedicoModal";
+}
+
+<div class="panel panel-primary" style="padding: -2px">
+    <div class="panel-heading" style="padding: 0px; height: 50px">
+        @Html.Partial("_Filter", Model)
+    </div>
+    <div class="panel-body">
+        <div id="div-list">
+            @Html.Partial("../Associado/_ListMedicoModal", Model)
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function Move(id, descricao) {
+        $("#associadoId").val(id);
+        $("#nome_associado").val(descricao);
+        $("#nome_associado1").val(descricao);
+        $("#btnModal").click();
+    }
+
+</script>
+
+
+
+
+
+

@@ -601,7 +601,7 @@
     <Content Include="Views\Associado\List.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Associado\ListAssociadoModal.cshtml" />
+    <Content Include="Views\Associado\ListMedicoModal.cshtml" />
     <Content Include="Views\Atendimento\Detail.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -728,7 +728,6 @@
     <Content Include="Views\Especialidade\_ListEspecialidadeMedicaModal.cshtml" />
     <Content Include="Views\Associado\Edit.cshtml" />
     <Content Include="Views\Atendimento\Browse.cshtml" />
-    <Content Include="Views\Associado\ListMedicoModal.cshtml" />
     <Content Include="Views\Associado\_ListMedicoModal.cshtml" />
     <Content Include="Views\AssociadoGrupo\Browse.cshtml" />
     <Content Include="Views\AssociadoGrupo\Create.cshtml" />

@@ -152,7 +152,7 @@ namespace DWM.Models.Persistence
             
             //EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
             //sessaoCorrente = security.getSessaoCorrente();
-            Medico m = (from med in db.Medicos.AsEnumerable() where med.usuarioId == sessaoCorrente.usuarioId select med).FirstOrDefault();
+            Medico m = (from med in db.Medicos.AsEnumerable() where med.usuarioId == entity.usuarioId select med).FirstOrDefault();
 
             if (m != null && m.associadoId != entity.associadoId)
                 medicoViewModel = new MedicoViewModel() { mensagem = new Validate() { Code = 202, Message = MensagemPadrao.Message(202).text } };
@@ -268,6 +268,42 @@ namespace DWM.Models.Persistence
                     value.mensagem.Message = MensagemPadrao.Message(41, "E-mail").ToString();
                     value.mensagem.MessageBase = "E-mail informado para o associado já se encontra cadastrado para outro associado.";
                     return value.mensagem;
+                }
+            }
+            #endregion
+
+            #region verifica se informou a UF do CRM (caso o CRM tenha sido informado)
+            if (value.CRM != null && value.CRM != "" && (value.ufCRM == null || value.ufCRM == ""))
+            {
+                value.mensagem.Code = 5;
+                value.mensagem.Message = MensagemPadrao.Message(5, "UF CRM").ToString();
+                value.mensagem.MessageBase = "UF do CRM deve ser informado.";
+                return value.mensagem;
+            }
+            #endregion
+
+            #region Verifica se o CRM do associado já não foi atribuído para outro associado
+            if (value.CRM != null && value.CRM != "")
+            {
+                if (operation == Crud.ALTERAR)
+                {
+                    if (db.Medicos.Where(info => info.CRM == value.CRM && info.ufCRM == value.ufCRM && info.associadoId != value.associadoId).Count() > 0)
+                    {
+                        value.mensagem.Code = 41;
+                        value.mensagem.Message = MensagemPadrao.Message(41, "CRM").ToString();
+                        value.mensagem.MessageBase = "CRM informado para o médico já se encontra cadastrado para outro médico.";
+                        return value.mensagem;
+                    }
+                }
+                else if (operation == Crud.INCLUIR)
+                {
+                    if (db.Medicos.Where(info => info.CRM == value.CRM && info.ufCRM == value.ufCRM).Count() > 0)
+                    {
+                        value.mensagem.Code = 41;
+                        value.mensagem.Message = MensagemPadrao.Message(41, "E-mail").ToString();
+                        value.mensagem.MessageBase = "CRM informado para o médico já se encontra cadastrado para outro médico.";
+                        return value.mensagem;
+                    }
                 }
             }
             #endregion

@@ -9,73 +9,63 @@
 }
 @using (Ajax.BeginForm(null,null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search" }))
 {
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Atendimento <small>Listagem dos chamados</small>
+                Atendimento - <small class="text-white">Listagem dos chamados</small>
             </h2>
         </div>
         <div class="panel-body">
             <div class="row ">
                 <div class="col-md-6">
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         @Html.Label("ID", new { @class = "col-md-2 control-label" })
-                        <div class="input-group col-md-2">
+                        <div class="col-md-2">
                             @Html.TextBox("chamadoId", "", new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group col-md-12">
-                        @Html.Label("Apto", new { @class = "col-md-3 control-label" })
-                        <div>
-                            <div class="input-group col-md-4">
-                                @Html.DropDownList("apto", new BindDropDownList().Apto("Todos...", ""), new { @class = "form-control input-sm" })
-                            </div>
+                    <div class="form-group">
+                        @Html.Label("Especialidade", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("especialidadeId", new BindDropDownList().Especialidade("Todas...", ""), new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         @Html.Label("Início", new { @class = "col-md-2 control-label" })
                         <div class="col-md-6">
-                            <div class="input-group">
-                                @Html.Editor("data1", "DATE", new { identificador = "data1", readOnly = "false", value = DateTime.Parse(DateTime.Today.ToString("yyyy-MM") + "-01") })
-                            </div>
+                            @Html.Editor("data1", "DATE", new { identificador = "data1", readOnly = "false", value = DateTime.Parse(DateTime.Today.ToString("yyyy-MM") + "-01") })
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         @Html.Label("Fim", new { @class = "col-md-3 control-label" })
                         <div class="col-md-6">
-                            <div class="input-group">
-                                @Html.Editor("data2", "DATE", new { identificador = "data2", readOnly = "false", value = DateTime.Today })
-                            </div>
+                            @Html.Editor("data2", "DATE", new { identificador = "data2", readOnly = "false", value = DateTime.Today })
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row" >
                 <div class="col-md-6">
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         @Html.Label("Área", new { @class = "col-md-2 control-label" })
-                        <div>
-                            <div class="input-group col-md-6">
-                                @Html.DropDownList("areaAtendimentoId", new BindDropDownList().AreaAtendimento("Todas...", "", ""), new { @class = "form-control input-sm" })
-                            </div>
+                        <div class="col-md-6">
+                            @Html.DropDownList("areaAtendimentoId", new BindDropDownList().AreaAtendimento("Todas...", "", ""), new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         @Html.Label("Situação", new { @class = "col-md-3 control-label" })
                         <div class="col-md-8">
-                            <div class="input-group">
-                                @Html.DropDownList("situacao", DropDownListEnum.AbertoFechado("", "Todas..."), new { @class = "form-control input-sm" })
-                            </div>
+                            @Html.DropDownList("situacao", DropDownListEnum.AbertoFechado("", "Todas..."), new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,11 @@
 ﻿@using DWM.Models.Repositories
-@model System.Web.Mvc.PagedList<AssociadoViewModel>
+@model System.Web.Mvc.PagedList<MedicoViewModel>
 @{
     Layout = null;
 }
 @if (Model != null)
 {
-    
+
     <div class="row Scroll">
         <div class="col-md-12 column">
             <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
@@ -13,24 +13,18 @@
                 <thead style="background-color: #fff1a5">
                     <tr>
                         <th>ID</th>
-                        <th>Torre</th>
-                        <th>Unidade</th>
                         <th>Nome</th>
                         <th>Email 1</th>
+                        <th>Email 2</th>
+                        <th>Email 3</th>
                         <th style="text-align: center">Dt.Nascimento</th>
                     </tr>
                 </thead>
-                @foreach (AssociadoViewModel med in Model)
+                @foreach (MedicoViewModel med in Model)
                 {
                     <tr>
                         <td style="width: 5%; font-size: x-small">
                             @med.associadoId
-                        </td>
-                        <td style="width: 20%; font-size: x-small">
-                            @med.torreId
-                        </td>
-                        <td style="width: 20%; font-size: x-small">
-                            @med.unidadeId
                         </td>
                         <td style="width: 25%; font-size: x-small">
                             @med.nome
@@ -38,13 +32,19 @@
                         <td style="width: 20%; font-size: x-small">
                             @med.email1
                         </td>
+                        <td style="width: 20%; font-size: x-small">
+                            @med.email2
+                        </td>
+                        <td style="width: 20%; font-size: x-small">
+                            @med.email3
+                        </td>
                         <td style="width: 10%; font-size: x-small; text-align: center">
                             @*(@med.dt_nascimento != null ?  @med.dt_nascimento.Value.ToString("dd/MM/yyyy") : "")*@
                             @if (@med.dt_nascimento.HasValue)
                             {
-                                @med.dt_nascimento.Value.ToString("dd/MM/yyyy")    
+                                @med.dt_nascimento.Value.ToString("dd/MM/yyyy")
                             }
-                            
+
                         </td>
                     </tr>
                 }

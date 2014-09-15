@@ -3,7 +3,7 @@
 @using App_Dominio.Repositories
 @model DWM.Models.Repositories.MedicoViewModel
 @{
-    ViewBag.Title = "Sindmepa";
+    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
 }
 @using (Html.BeginForm("Edit", "Associado", FormMethod.Post, new { @class = "form-horizontal" }))
 {

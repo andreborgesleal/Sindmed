@@ -11,36 +11,27 @@
                 <caption></caption>
                 <thead style="background-color: #fff1a5">
                     <tr>
-                        <th></th>
-                        <th>Data</th>
+                        <th class="text-center">Ação</th>
                         <th>Cabeçalho</th>
-                        <th>Resumo</th>
+                        <th class="hidden-xs">Resumo</th>
                     </tr>
                 </thead>
                 @foreach (DWM.Models.Repositories.ComunicacaoViewModel com in Model)
                 {
                     <tr>
-                        <td style="width: 20%">
-                            <div class="row-clearfix">
-                                <div class="col-md-12">
-                                    <div class="btn-group btn-group-xs">
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Editar", "Edit", routeValues: new { comunicacaoId = com.comunicacaoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                        </button>
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-remove"></em> @Html.ActionLink("Excluir", "Delete", routeValues: new { comunicacaoId = com.comunicacaoId }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                        </button>
-                                    </div>
-                                </div>
+                        <td class="col-md-2 col-xs-5 col-sm-2 text-center">
+                            <div class="col-md-5 col-xs-6 col-sm-6 text-center">
+                                <button type="button" class="btn btn-info btn-xs" onclick="window.location='Edit?comunicacaoId=@com.comunicacaoId'">Editar</button>
+                            </div>
+                            <div class="col-md-5 col-xs-6 col-sm-6 text-center">
+                                <button type="button" class="btn btn-danger btn-xs" onclick="window.location='Delete?comunicacaoId=@com.comunicacaoId''">Excluir</button>
                             </div>
                         </td>
-                        <td style="width: 10%">
-                            @com.dt_comunicacao.ToString("dd/MM/yyyy")
+                        <td class="col-md-3 col-xs-7 col-sm-3">
+                            <p>@com.cabecalho</p>
+                            <small>@com.dt_comunicacao.ToString("dd/MM/yyyy")</small>
                         </td>
-                        <td style="width: 10%">
-                            @com.cabecalho
-                        </td>
-                        <td style="width: 70%">
+                        <td class="col-md-7 col-sm-7 hidden-xs">
                             @com.resumo
                         </td>
                     </tr>

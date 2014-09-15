@@ -7,15 +7,15 @@
 @using (Html.BeginForm("Create", "AssociadoGrupo", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div id="div-lov"></div>
-    <div class="panel panel-default" style="margin-top: 10px">
+    <div class="panel panel-primary" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Associados dos grupos <small>Vincular associado a um grupo.</small>
+                Associados dos grupos - <small class="text-white">Vincular associado a um grupo.</small>
             </h2>
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <blockquote>
                         <p>
                             Vincular
@@ -25,30 +25,41 @@
                         <small>O mesmo associado pode pertencer a vários grupos e visualizar as mensagens de vários grupos.</small>
                     </blockquote>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="form-group" style="margin-top: 20px">
                         @Html.ValidationSummary(false)
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.associadoId, "Associado *", new { @class = "col-md-3 control-label" })
-                            <div class="col-md-7">
-                                <div class="input-group">
-                                    @Html.DropDownList("associadoId", new DWM.Models.Enumeracoes.BindDropDownList().Condomino("Selecione...", Model.associadoId), new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.Editor("_associadoID", "TYPEAHEAD", new
+                                               {
+                                                   typeahead = new TypeaheadRepository()
+                                                       {
+                                                           label = "Associado *",
+                                                           id = "associadoId",
+                                                           text = "nome_associado",
+                                                           lovModal = "LovMedicoModal",
+                                                           controller = "Associado",
+                                                           descricao = "nome",
+                                                           values = new SelectListItem()
+                                                           {
+                                                               Value = Model.associadoId != null ? Model.associadoId.ToString() : "",
+                                                               Text = Model.nome != null ? Model.nome.ToString() : ""
+                                                           },
+                                                           disableButtons = false,
+                                                           nextField = "grupoAssociadoId"
+                                                       }
+                                               })
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.grupoAssociadoId, "Grupo *", new { @class = "col-md-3 control-label" })
-                            <div class="col-md-5">
-                                <div class="input-group">
-                                    @Html.DropDownList("grupoAssociadoId", new DWM.Models.Enumeracoes.BindDropDownList().GruposAssociados("Selecione...", Model.grupoAssociadoId), new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
+                </div>
+                <div class="col-md-6 col-xs-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.grupoAssociadoId, "Grupo *", new { @class = "col-md-3 col-xs-12 col-sm-3 control-label" })
+                        <div class="col-md-5 col-xs-8 col-sm-5">
+                            @Html.DropDownList("grupoAssociadoId", new DWM.Models.Enumeracoes.BindDropDownList().GruposAssociados("Selecione...", Model.grupoAssociadoId), new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
@@ -56,7 +67,7 @@
         </div>
         <div class="panel-footer">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8 col-xs-8 col-sm-8">
                     @Html.Partial("_defaultListButtons",
                         new List<ButtonRepository>
                         {
@@ -72,7 +83,7 @@
                                                     }
                         })
                 </div>
-                <div class="col-md-offset-4">
+                <div class="col-md-offset-4 hidden-xs">
                     ( * ) - Campo de preenchimento obrigatório
                 </div>
             </div>
