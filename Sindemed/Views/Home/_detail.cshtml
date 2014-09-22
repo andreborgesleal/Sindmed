@@ -24,7 +24,12 @@
             <li class="media">
                 <a class="pull-left" href="#">
                     <img class="media-object" src="@avatar" style="width: 54px; height: 54px" alt="...">
-                    <p><small class="text-info">@item.CRM</small></p>
+                    <p class="text-center">
+                        @if (item.CRM != null && item.CRM != "")
+                        {
+                            <small class="text-info">CMR @item.CRM</small>
+                        }
+                    </p>
                 </a>
                 <div class="media-body">
                     <p class="media-heading">
@@ -41,7 +46,7 @@
             </li>
         }
 
-      if (Model.Comentarios.Count() > 0)
+      if (Model.Comentarios.Count() > 3)
       {
         <div class="panel-group" id="accordion">
             <div class="panel panel-info">
@@ -60,7 +65,12 @@
                             <li class="media">
                                 <a class="pull-left" href="#">
                                     <img class="media-object" src="@avatar" style="width: 54px; height: 54px" alt="...">
-                                    <p><small class="text-info">@item.CRM</small></p>
+                                    <p class="text-center">
+                                        @if (item.CRM != null && item.CRM != "")
+                                        {
+                                            <small class="text-info">CMR @item.CRM</small>
+                                        }
+                                    </p>
                                 </a>
                                 <div class="media-body">
                                     <p class="media-heading">
@@ -90,7 +100,12 @@
         <li class="media">
             <a class="pull-left" href="#">
                 <img class="media-object" src="@me" style="width: 54px; height: 54px" alt="...">
-                <p><small class="text-info">@Model.CRM</small></p>
+                <p class="text-center">
+                    @if(Model.CRM != null && Model.CRM != "")
+                    {
+                        <small class="text-info">CMR @Model.CRM</small>
+                    }
+                </p>
             </a>
             <div class="media-body">
                 <p class="media-heading"><strong>@Model.nome</strong> </p>
@@ -112,10 +127,6 @@
         </li>
     }
 </ul>
-
-
-
-
 
 <script type="text/javascript">
     if (/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) { //chrome

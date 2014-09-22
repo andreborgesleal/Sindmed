@@ -105,12 +105,15 @@ namespace DWM.Models.Persistence
 
         public override ChamadoViewModel MapToRepository(Chamado entity)
         {
+            string path = System.Configuration.ConfigurationManager.AppSettings["Avatar"].Replace("~", "..") + "/";
+
             using (SecurityContext seg = new SecurityContext())
                 return new ChamadoViewModel()
                 {
                     chamadoId = entity.chamadoId,
                     associadoId = entity.associadoId,
                     nome_associado = db.Associados.Find(entity.associadoId).nome,
+                    avatar = path + db.Associados.Find(entity.associadoId).avatar,
                     areaAtendimentoId = entity.areaAtendimentoId,
                     descricao_areaAtendimento = db.AreaAtendimentos.Find(entity.areaAtendimentoId).descricao,
                     chamadoMotivoId = entity.chamadoMotivoId,
@@ -164,6 +167,7 @@ namespace DWM.Models.Persistence
         #region Métodos customizados
         public ChamadoViewModel Create()
         {
+            string path = System.Configuration.ConfigurationManager.AppSettings["Avatar"].Replace("~", "..") + "/";
             EmpresaSecurity<SecurityContext> empresaSecurity = new EmpresaSecurity<SecurityContext>();
             int usuarioId = empresaSecurity.getSessaoCorrente().usuarioId;
 
@@ -177,7 +181,8 @@ namespace DWM.Models.Persistence
                     situacao = "A",
                     dt_chamado = DateTime.Now.AddHours(_fuso_horario),
                     associadoId = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.associadoId).FirstOrDefault(),
-                    nome_associado = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.nome).FirstOrDefault()
+                    nome_associado = (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.nome).FirstOrDefault(),
+                    avatar = path + (from Ass in db.Associados where Ass.usuarioId == usuarioId select Ass.avatar).FirstOrDefault()
                 };
             }
         }

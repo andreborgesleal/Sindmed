@@ -33,7 +33,6 @@
                             </div>
                         </div>
                     }
-
                     <!-- Carroussel -->
                     @if (Model.comGrupo != null && Model.comGrupo.Count() > 0)
                     {
@@ -44,10 +43,10 @@
                                     <div class="carousel-inner thumbnail omo">
                                         <div class="item active">
                                             @{
-                        i = 0;
-                        ComunicacaoViewModel com = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).ElementAt(i++);
+                                                i = 0;
+                                                ComunicacaoViewModel com = Model.comGrupo.ElementAt(i++);
                                             }
-                                            <img alt="500x300" src="@com.arq_imagem_300x200" />
+                                            <img alt="300x200" src="@com.arq_imagem_300x200" />
                                             <div class="caption col-md-12">
                                                 <h3>@com.cabecalho</h3>
                                                 <p><small class="text-warning">@com.dt_publicacao.ToString("dd/MM/yyyy")</small></p>
@@ -59,7 +58,7 @@
                                         {
                                             <div class="item">
                                                 @{
-                                            com = Model.com.Where(info => info.dt_expiracao >= DateTime.Today).Skip(2).ElementAt(i);
+                                                    com = Model.comGrupo.ElementAt(i);
                                                 }
                                                 <img alt="500x300" src="@com.arq_imagem_300x200" />
                                                 <div class="caption">
@@ -77,13 +76,13 @@
                                             <!-- Indicators -->
                                             <ol class="carousel-indicators">
                                                 @{
-                        i = 1;
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        while (i <= count)
-                        {
-                            <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
-                            i++;
-                        }
+                                                    i = 1;
+                                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                    while (i <= count)
+                                                    {
+                                                        <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
+                                                        i++;
+                                                    }
                                                 }
                                             </ol>
                                         </div>
@@ -110,7 +109,7 @@
 <section class="clean">
     <div class="container">
         @{
-            count = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(k+1).Count() - 1;
+            count = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(k + 1).Count() - 1;
             i = 0;
             while (i <= count)
             {
@@ -118,7 +117,7 @@
                 <div class="row clearfix">
                     @while (j++ <= 1 && i <= count)
                     {
-                        ComunicacaoViewModel c = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(k+1).ElementAt(i++);
+                        ComunicacaoViewModel c = Model.com.Where(info => info.dt_expiracao >= DateTime.Today && info.dt_expiracao < DateTime.Today.AddYears(1)).Skip(k + 1).ElementAt(i++);
 
                         <div class="col-md-6 col-xs-12 col-sm-12 column">
                             <div class="media text-muted">

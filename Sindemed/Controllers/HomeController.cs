@@ -39,7 +39,7 @@ namespace DWM.Controllers
         [AuthorizeFilter]
         public ActionResult Index()
         {
-            var _com = new ListViewComunicacao();
+            var _com = new ListViewComunicacaoGrupoGeral();
             IEnumerable<ComunicacaoViewModel> _com1 = (IEnumerable<ComunicacaoViewModel>)_com.ListRepository(null);
 
             var _comGrupo = new ListViewComunicacaoGrupoEspecifico();

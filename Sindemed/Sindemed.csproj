@@ -663,7 +663,6 @@
     <Content Include="Views\Home\LOVModal.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DECIMAL.cshtml" />
     <Content Include="Views\Shared\MensagemModal.cshtml" />
-    <Content Include="Views\Shared\menu.cshtml" />
     <Content Include="Views\Shared\Paginacao.cshtml" />
     <Content Include="Views\Shared\Parametros.cshtml" />
     <Content Include="Views\Shared\_AddMiniCrud.cshtml" />

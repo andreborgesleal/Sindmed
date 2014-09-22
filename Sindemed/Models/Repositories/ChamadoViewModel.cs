@@ -16,6 +16,9 @@ namespace DWM.Models.Repositories
         [DisplayName("Associado")]
         public string nome_associado { get; set; }
 
+        public string avatar { get; set; }
+
+
         [DisplayName("Área Atendimento")]
         [Required(ErrorMessage = "Por favor, informe a área de atendimento")]
         public int areaAtendimentoId { get; set; }

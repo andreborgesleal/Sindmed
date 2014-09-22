@@ -95,7 +95,7 @@ namespace DWM.Models.Persistence
             string path = System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", "..") + "/";
 
             string _descricao = param != null && param.Count() > 0 && param[0] != null ? param[0].ToString() : null;
-            return (from com in db.Comunicacaos 
+            return (from com in db.Comunicacaos
                     join comGrupo in db.ComunicacaoGrupos on com.comunicacaoId equals comGrupo.comunicacaoId into COM
                     from comGrupo in COM.DefaultIfEmpty()
                     where (_descricao == null || String.IsNullOrEmpty(_descricao) || com.cabecalho.StartsWith(_descricao.Trim()) || com.resumo.StartsWith(_descricao.Trim()) || com.mensagemDetalhada.StartsWith(_descricao.Trim()))
@@ -129,11 +129,57 @@ namespace DWM.Models.Persistence
         #endregion
     }
 
+    public class ListViewComunicacaoGrupoGeral : ListViewRepository<ComunicacaoViewModel, ApplicationContext>
+    {
+        #region Métodos da classe ListViewRepository
+        public override IEnumerable<ComunicacaoViewModel> Bind(int? index, int pageSize = 50, params object[] param)
+        {
+            string path = System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", "..") + "/";
+
+            string _descricao = param != null && param.Count() > 0 && param[0] != null ? param[0].ToString() : null;
+            return (from com in db.Comunicacaos 
+                    join comGrupo in db.ComunicacaoGrupos on com.comunicacaoId equals comGrupo.comunicacaoId into COM
+                    from comGrupo in COM.DefaultIfEmpty()
+                    where (_descricao == null || String.IsNullOrEmpty(_descricao) || com.cabecalho.StartsWith(_descricao.Trim()) || com.resumo.StartsWith(_descricao.Trim()) || com.mensagemDetalhada.StartsWith(_descricao.Trim()))
+                            && comGrupo == null
+                    orderby com.dt_publicacao descending
+                    select new ComunicacaoViewModel
+                    {
+                        comunicacaoId = com.comunicacaoId,
+                        dt_comunicacao = com.dt_comunicacao,
+                        dt_publicacao = com.dt_publicacao,
+                        dt_expiracao = com.dt_expiracao,
+                        cabecalho = com.cabecalho,
+                        resumo = com.resumo,
+                        mensagemDetalhada = com.mensagemDetalhada,
+                        arq_imagem_300x200 = path + com.arq_imagem_300x200,
+                        arq_imagem_100x100 = path + com.arq_imagem_100x100,
+                        arq_imagem_400x300 = path + com.arq_imagem_400x300,
+                        grupoAssociadoId = comGrupo.grupoAssociadoId,
+                        PageSize = pageSize,
+                        TotalCount = (from com1 in db.Comunicacaos
+                                      join comGrupo1 in db.ComunicacaoGrupos on com1.comunicacaoId equals comGrupo1.comunicacaoId into COM1
+                                      from comGrupo1 in COM1.DefaultIfEmpty()
+                                      where (_descricao == null || String.IsNullOrEmpty(_descricao) || com1.cabecalho.StartsWith(_descricao.Trim()) || com1.resumo.StartsWith(_descricao.Trim()) || com1.mensagemDetalhada.StartsWith(_descricao.Trim()))
+                                            && comGrupo1 == null
+                                      select com1).Count()
+                    }).Skip((index ?? 0) * pageSize).Take(pageSize).ToList();
+        }
+
+        public override Repository getRepository(Object id)
+        {
+            return new ComunicacaoModel().getObject((ComunicacaoViewModel)id);
+        }
+        #endregion
+    }
+
     public class ListViewComunicacaoGrupoEspecifico : ListViewRepository<ComunicacaoViewModel, ApplicationContext>
     {
         #region Métodos da classe ListViewRepository
         public override IEnumerable<ComunicacaoViewModel> Bind(int? index, int pageSize = 50, params object[] param)
         {
+            string path = System.Configuration.ConfigurationManager.AppSettings["Comunicados"].Replace("~", "..") + "/";
+
             EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
             int _usuarioId = security.getUsuario().usuarioId;
 
@@ -153,9 +199,9 @@ namespace DWM.Models.Persistence
                         cabecalho = com.cabecalho,
                         resumo = com.resumo,
                         mensagemDetalhada = com.mensagemDetalhada,
-                        arq_imagem_300x200 = com.arq_imagem_300x200,
-                        arq_imagem_100x100 = com.arq_imagem_100x100,
-                        arq_imagem_400x300 = com.arq_imagem_400x300,
+                        arq_imagem_300x200 = path + com.arq_imagem_300x200,
+                        arq_imagem_100x100 = path + com.arq_imagem_100x100,
+                        arq_imagem_400x300 = path + com.arq_imagem_400x300,
                         PageSize = pageSize,
                         TotalCount = (from ass1 in db.Associados
                                       join asg1 in db.AssociadoGrupos on ass1.associadoId equals asg1.associadoId

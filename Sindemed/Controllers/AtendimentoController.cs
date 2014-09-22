@@ -29,7 +29,7 @@ namespace DWM.Controllers
         }
 
         [AuthorizeFilter]
-        public ActionResult ListChamados(int? index, int? pageSize = 50, int? chamadoId = null, string apto = null,
+        public ActionResult ListChamados(int? index, int? pageSize = 50, int? chamadoId = null, string crm = null,
                                         string data1 = null, string data2 = null, int? areaAtendimento = null, string situacao = null,
                                         int? chamadoMotivoId = null, int? chamadoStatusId = null)
         {
@@ -45,7 +45,7 @@ namespace DWM.Controllers
                     _data2 = DateTime.Parse(data2.Substring(6, 4) + "-" + data2.Substring(3, 2) + "-" + data2.Substring(0, 2)).AddDays(1);
 
                 ListViewChamadoAdministracao l = new ListViewChamadoAdministracao();
-                return _List(index, pageSize, "Browse", l, chamadoId, apto, _data1, _data2, areaAtendimento, situacao, chamadoMotivoId, chamadoStatusId);
+                return _List(index, pageSize, "Browse", l, chamadoId, crm, _data1, _data2, areaAtendimento, situacao, chamadoMotivoId, chamadoStatusId);
             }
             else
                 return View();

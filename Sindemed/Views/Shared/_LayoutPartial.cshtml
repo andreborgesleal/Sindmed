@@ -67,7 +67,7 @@
                 }
                 <li class="dropdown user-dropdown">
                     @*<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @Html.GravatarImage(usuario.login, size: 25) @usuario.nome <b class="caret"></b></a>*@
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <img src="@avatar" alt="" style="height: 30px; width: 30px" /> @usuario.nome <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <img src="@avatar" alt="" style="height: 30px; width: 30px" /> @usuario.nome.Substring(0, usuario.nome.IndexOf(" ")) <b class="caret"></b></a>
                     <ul class="dropdown-menu" style="width: 195px">
                         @if (sessaoCorrente.value1 != "0")
                         {
