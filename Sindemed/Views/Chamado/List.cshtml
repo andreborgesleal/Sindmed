@@ -4,58 +4,70 @@
 }
 @if (Model != null)
 {
-    <div class="row" style="height: 400px; overflow-y: auto">
+    <div class="row" style="height: 394px; overflow-y: auto">
         <div class="col-md-12 column">
             <table class="table table-hover table-bordered table-condensed" style="cursor: pointer; padding: 0px">
                 <caption></caption>
                 <thead style="background-color: #fff1a5">
                     <tr>
-                        <th style="text-align: center">Ação</th>
-                        <th style="text-align: center">Data</th>
-                        <th style="text-align: center">ID</th>
-                        <th>Assunto</th>
-                        <th style="text-align: left">Motivo</th>
-                        <th style="text-align: left">Status</th>
+                        <th class="text-center">Ação</th>
+                        <th class="text-center hidden-xs">Data</th>
+                        <th class="text-left hidden-xs">Chamado</th>
+                        <th class="text-left">Detalhe</th>
                     </tr>
                 </thead>
                 @foreach (DWM.Models.Repositories.ChamadoViewModel cham in Model)
                 {
                     <tr>
-                        <td style="width: 17%">
-                            <div class="row" style="padding: 0px">
-                                <div class="col-md-12">
-                                    <div class="btn-group btn-group-xs">
-                                        <button class="btn btn-sm" type="button">
-                                            @if (cham.situacao == "A")
-                                            {
-                                                <em class="glyphicon glyphicon-edit"></em> @Html.ActionLink("Responder", "Create", "Atendimento", routeValues: new DWM.Models.Repositories.AtendimentoViewModel() { chamadoId = cham.chamadoId, fluxo = "1" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                            }
-                                            else
-                                            {
-                                                <em class="glyphicon glyphicon-edit"></em> <span style="text-decoration: none; color: #646464; cursor: text">Responder</span>
-                                            }
-                                        </button>
-                                        <button class="btn btn-sm" type="button">
-                                            <em class="glyphicon glyphicon-list-alt"></em> @Html.ActionLink("Detalhar", "Detail", "Atendimento", routeValues: new { chamadoId = cham.chamadoId, fluxo = "1" }, htmlAttributes: new { @style = "text-decoration: none; color: #646464" })
-                                        </button>
-                                    </div>                                
-                                </div>
+                        <td class="col-md-2 hidden-xs col-sm-2">
+                            <div class="col-md-6 col-xs-12 col-sm-6 text-center">
+                                @if (cham.situacao == "A")
+                                {
+                                    <button type="button" class="btn btn-info btn-xs" onclick="window.location='../Atendimento/Create?chamadoId=@cham.chamadoId&fluxo=1'">Responder</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-info btn-xs disabled">Responder</button>
+                                }
+                            </div>
+                            <div class="col-md-6 col-xs-12 col-sm-6 text-center">
+                                <button type="button" class="btn btn-danger btn-xs" onclick="window.location='../Atendimento/Detail?chamadoId=@cham.chamadoId&fluxo=1'">Detalhar</button>
                             </div>
                         </td>
-                        <td style="width: 12%; text-align: center">
+                        <td class="col-xs-4 hidden-lg hidden-md hidden-sm">
+                            <div class="col-md-6 col-xs-12 col-sm-6 text-center">
+                                @if (cham.situacao == "A")
+                                {
+                                    <button type="button" class="btn btn-info btn-xs col-xs-11 col-md-12 col-sm-12 col-lg-12" onclick="window.location='../Atendimento/Create?chamadoId=@cham.chamadoId&fluxo=1'">Responder</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-info btn-xs col-xs-11 col-md-12 col-sm-12 col-lg-12 disabled">Responder</button>
+                                }
+                            </div>
+                            <div class="col-md-6 col-xs-12 col-sm-6 text-center">
+                                <button type="button" style="margin-top: 20px" class="btn btn-danger btn-xs col-xs-11 col-md-12 col-sm-12" onclick="window.location='../Atendimento/Detail?chamadoId=@cham.chamadoId&fluxo=1'">Detalhar</button>
+                            </div>
+                        </td>
+                        <td class="col-md-2 hidden-xs col-sm-2 text-center">
                             @cham.dt_chamado.ToString("dd/MM/yyyy HH:mm")
                         </td>
-                        <td style="width: 5%; text-align: center">
-                            @cham.chamadoId
+                        <td class="col-md-4 hidden-xs col-sm-4">
+                            <small>@cham.assunto</small><br />
+                            <small>@cham.nome_associado</small>
                         </td>
-                        <td style="width: 40%">
-                            @cham.assunto <br />
+                        <td class="col-md-4 hidden-xs col-sm-4">
+                            <strong class="text-enfatico">Nº Protocolo: @cham.chamadoId</strong><br />
+                            <small><strong>Motivo: </strong>@cham.descricao_motivo</small><br />
+                            <small>@cham.descricao_status</small><br />
                         </td>
-                        <td style="width: 13%; text-align: left">
-                            @cham.descricao_motivo
-                        </td>
-                        <td style="width: 18%; text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="@cham.nome_associado">
-                            @cham.descricao_status
+                        <td class="col-xs-8 hidden-md hidden-sm hidden-lg">
+                            <strong class="text-enfatico">Nº Protocolo: @cham.chamadoId</strong><br />
+                            <small class="text-danger">@cham.dt_chamado.ToString("dd/MM/yyyy HH:mm")</small><br />
+                            <small>@cham.nome_associado</small><br />
+                            <small>@cham.assunto</small><br />
+                            <small><strong>Motivo: </strong>@cham.descricao_motivo</small><br />
+                            <small>@cham.descricao_status</small>
                         </td>
                     </tr>
                 }
