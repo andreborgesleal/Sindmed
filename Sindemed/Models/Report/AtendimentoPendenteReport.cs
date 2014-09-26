@@ -27,6 +27,7 @@ namespace DWM.Models.Report
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId into ATE
                               from ate in ATE.DefaultIfEmpty()
                               join a in db.Associados on cha.associadoId equals a.associadoId
+                              join m in db.Medicos on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     cha.situacao == "A" &&
@@ -36,7 +37,9 @@ namespace DWM.Models.Report
                                   associadoId = a.associadoId,
                                   nome = a.nome,
                                   cpf = a.cpf,
+                                  crm = m.CRM,
                                   email = a.email1,
+                                  isSindicalizado = a.isSindicalizado,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -48,6 +51,7 @@ namespace DWM.Models.Report
                                   PageSize = pageSize,
                                   TotalCount = (from cha1 in db.Chamados
                                                 join a1 in db.Associados on cha1.associadoId equals a1.associadoId
+                                                join m1 in db.Medicos on a1.associadoId equals m1.associadoId
                                                 join are1 in db.AreaAtendimentos on cha1.areaAtendimentoId equals are1.areaAtendimentoId
                                                 where (cha1.areaAtendimentoId == null || cha1.areaAtendimentoId == areaAtendimentoId) &&
                                                       cha1.situacao == "A"
@@ -62,6 +66,7 @@ namespace DWM.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
+                            isSindicalizado = zapata.isSindicalizado,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,
@@ -81,6 +86,7 @@ namespace DWM.Models.Report
                             ((from cha in db.Chamados.AsEnumerable()
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId
                               join a in db.Associados on cha.associadoId equals a.associadoId
+                              join m in db.Medicos on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     ate.dt_atendimento == (from ate1 in db.Atendimentos
@@ -92,7 +98,9 @@ namespace DWM.Models.Report
                                   associadoId = a.associadoId,
                                   nome = a.nome,
                                   cpf = a.cpf,
+                                  crm = m.CRM,
                                   email = a.email1,
+                                  isSindicalizado = a.isSindicalizado,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -105,6 +113,7 @@ namespace DWM.Models.Report
                                   PageSize = pageSize,
                                   TotalCount = (from cha1 in db.Chamados
                                                 join a1 in db.Associados on cha1.associadoId equals a1.associadoId
+                                                join m1 in db.Medicos on a1.associadoId equals m1.associadoId
                                                 join are1 in db.AreaAtendimentos on cha1.areaAtendimentoId equals are1.areaAtendimentoId
                                                 where (cha1.areaAtendimentoId == null || cha1.areaAtendimentoId == areaAtendimentoId) &&
                                                       cha1.situacao == "A"
@@ -119,6 +128,7 @@ namespace DWM.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
+                            isSindicalizado = zapata.isSindicalizado,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,
@@ -167,6 +177,7 @@ namespace DWM.Models.Report
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId into ATE
                               from ate in ATE.DefaultIfEmpty()
                               join a in db.Associados on cha.associadoId equals a.associadoId
+                              join m in db.Medicos on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     cha.situacao == "A" &&
@@ -176,7 +187,9 @@ namespace DWM.Models.Report
                                   associadoId = a.associadoId,
                                   nome = a.nome,
                                   cpf = a.cpf,
+                                  crm = m.CRM,
                                   email = a.email1,
+                                  isSindicalizado = a.isSindicalizado,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -193,6 +206,7 @@ namespace DWM.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
+                            isSindicalizado = zapata.isSindicalizado,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,
@@ -210,7 +224,7 @@ namespace DWM.Models.Report
                             ((from cha in db.Chamados.AsEnumerable()
                               join ate in db.Atendimentos on cha.chamadoId equals ate.chamadoId
                               join a in db.Associados on cha.associadoId equals a.associadoId
-                              join m in db.Associados on a.associadoId equals m.associadoId
+                              join m in db.Medicos on a.associadoId equals m.associadoId
                               join are in db.AreaAtendimentos on cha.areaAtendimentoId equals are.areaAtendimentoId
                               where (areaAtendimentoId == null || cha.areaAtendimentoId == areaAtendimentoId) &&
                                     ate.dt_atendimento == (from ate1 in db.Atendimentos
@@ -222,7 +236,9 @@ namespace DWM.Models.Report
                                   associadoId = a.associadoId,
                                   nome = a.nome,
                                   cpf = a.cpf,
+                                  crm = m.CRM,
                                   email = a.email1,
+                                  isSindicalizado = a.isSindicalizado,
                                   chamadoId = cha.chamadoId,
                                   dt_chamado = cha.dt_chamado,
                                   dt_chamado2 = cha.dt_chamado.ToString("dd/Mm/yyyy HH:mm"),
@@ -240,6 +256,7 @@ namespace DWM.Models.Report
                             cpf = zapata.cpf,
                             crm = zapata.crm,
                             email = zapata.email,
+                            isSindicalizado = zapata.isSindicalizado,
                             chamadoId = zapata.chamadoId,
                             dt_chamado = zapata.dt_chamado,
                             dt_chamado2 = zapata.dt_chamado2,

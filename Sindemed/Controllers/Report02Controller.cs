@@ -84,16 +84,16 @@ namespace DWM.Controllers
         }
 
         //[AuthorizeFilter]
-        //public FileResult PDF(string export, string areaAtendimentoId = "", string descricao_areaAtendimento = "")
-        //{
-        //    AtendimentoPendenteReport rep= new AtendimentoPendenteReport();
-        //    ReportParameter[] p = new ReportParameter[4];
-        //    // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
-        //    p[2] = new ReportParameter("areaAtendimento", "Área de Atendimento: " + descricao_areaAtendimento, false);
+        public FileResult PDF(string export, string areaAtendimentoId = "", string descricao_areaAtendimento = "")
+        {
+            AtendimentoPendenteReport rep = new AtendimentoPendenteReport();
+            ReportParameter[] p = new ReportParameter[4];
+            // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
+            p[2] = new ReportParameter("areaAtendimento", "Área de Atendimento: " + descricao_areaAtendimento, false);
 
-        //    return _PDF(export, "AtendimentoPendente", rep, p, null, null, areaAtendimentoId);
-        //}
+            return _PDF(export, "AtendimentoPendente", rep, p, null, null, areaAtendimentoId);
+        }
         #endregion
 
-	}
+    }
 }

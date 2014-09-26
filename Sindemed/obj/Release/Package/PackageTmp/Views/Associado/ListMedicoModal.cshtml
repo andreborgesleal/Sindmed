@@ -1,13 +1,15 @@
-﻿@model System.Web.Mvc.PagedList<TimMaia.Models.Repositories.AssociadoViewModel>
+﻿@model System.Web.Mvc.PagedList<DWM.Models.Repositories.MedicoViewModel>
 @{
     Layout = null;
     Model.action = "../Associado/_ListMedicoModal";
 }
 
-<div class="row">
-    <div class="col-md-11" style="margin: 0px">
+<div class="panel panel-primary" style="padding: -2px">
+    <div class="panel-heading" style="padding: 0px; height: 50px">
         @Html.Partial("_Filter", Model)
-        <div id="div-list" style="padding-top: 0px">
+    </div>
+    <div class="panel-body">
+        <div id="div-list">
             @Html.Partial("../Associado/_ListMedicoModal", Model)
         </div>
     </div>

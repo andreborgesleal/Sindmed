@@ -2,10 +2,14 @@
 using App_Dominio.Security;
 using DWM.Models.Report;
 using DWM.Models.Repositories;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using App_Dominio.Entidades;
 using Microsoft.Reporting.WebForms;
+using App_Dominio.Entidades;
+using App_Dominio.Contratos;
 
 namespace DWM.Controllers
 {
@@ -42,7 +46,7 @@ namespace DWM.Controllers
                 return _List(index, pageSize, "Browse", rep, ind_sindicalizado, crm_inicial, crm_final, especialidadeId, grupoAssociadoId, ind_email, correioId);
             }
             else
-                return View();            
+                return View();
         }
 
         [AuthorizeFilter]
@@ -50,26 +54,26 @@ namespace DWM.Controllers
         public ActionResult Browse(FormCollection collection)
         {
             if (ViewBag.ValidateRequest)
-                return RedirectToAction("Print", new 
+                return RedirectToAction("Print", new
                 {
-                    ind_sindicalizado = collection ["ind_sindicalizado"] ,
-                    crm_inicial = collection ["crm_inicial"],
+                    ind_sindicalizado = collection["ind_sindicalizado"],
+                    crm_inicial = collection["crm_inicial"],
                     crm_final = collection["crm_final"],
-                    especialidadeId = collection ["especialidadeId"],
-                    descricao_especialidade = collection ["descricao_especialidade"],
-                    grupoAssociadoId = collection ["grupoAssociadoId"],
-                    descricao_grupo =  collection["descricao_grupo"],
+                    especialidadeId = collection["especialidadeId"],
+                    descricao_especialidade = collection["descricao_especialidade"],
+                    grupoAssociadoId = collection["grupoAssociadoId"],
+                    descricao_grupo = collection["descricao_grupo"],
                     ind_email = collection["ind_email"],
                     correioId = collection["correioId"],
                     descricao_correio = collection["descricao_correio"]
                 });
             else
-                return View();            
+                return View();
         }
 
         [AuthorizeFilter]
-        public ActionResult Print(string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", 
-                                    string especialidadeId = "", string descricao_especialidade = "", 
+        public ActionResult Print(string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "",
+                                    string especialidadeId = "", string descricao_especialidade = "",
                                     string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "",
                                     string correioId = "", string descricao_correio = "")
         {
@@ -90,22 +94,22 @@ namespace DWM.Controllers
                 return View(r);
             }
             else
-                return View();            
+                return View();
         }
 
         //[AuthorizeFilter]
-        //public FileResult PDF(string export, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string descricao_especialidade = "", string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
-        //{
-        //    RelacaoGeralReport rep = new RelacaoGeralReport();
-        //    ReportParameter[] p = new ReportParameter[4];
-        //    // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
-        //    p[1] = new ReportParameter("sindicalizado", ind_sindicalizado == "" ? "Sindicalizados e Não Sindicalizados" : ind_sindicalizado == "S" ? "Sindicalizados" : "Não Sindicalizados" , false);
-        //    p[2] = new ReportParameter("especialidade", "Especialidade: " + descricao_especialidade, false);
-        //    p[3] = new ReportParameter("grupo", "Grupo: " + descricao_grupo, false);
+        public FileResult PDF(string export, string ind_sindicalizado = "", string crm_inicial = "", string crm_final = "", string especialidadeId = "", string descricao_especialidade = "", string grupoAssociadoId = "", string descricao_grupo = "", string ind_email = "")
+        {
+            RelacaoGeralReport rep = new RelacaoGeralReport();
+            ReportParameter[] p = new ReportParameter[4];
+            // o parâmetro p[0] fica reservado para ser preenchido automaticamente com o nome da empresa
+            p[1] = new ReportParameter("sindicalizado", ind_sindicalizado == "" ? "Sindicalizados e Não Sindicalizados" : ind_sindicalizado == "S" ? "Sindicalizados" : "Não Sindicalizados", false);
+            p[2] = new ReportParameter("especialidade", "Especialidade: " + descricao_especialidade, false);
+            p[3] = new ReportParameter("grupo", "Grupo: " + descricao_grupo, false);
 
-        //    return _PDF(export, "RelacaoGeralAssociados", rep, p, null, null, ind_sindicalizado, crm_inicial, crm_final, 
-        //                especialidadeId, grupoAssociadoId, ind_email);
-        //}
+            return _PDF(export, "RelacaoGeralAssociados", rep, p, null, null, ind_sindicalizado, crm_inicial, crm_final,
+                        especialidadeId, grupoAssociadoId, ind_email);
+        }
         #endregion
-	}
+    }
 }

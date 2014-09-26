@@ -3,7 +3,7 @@
 @using DWM.Models.Enumeracoes
 @using App_Dominio.Enumeracoes
 @{
-    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
+    ViewBag.Title = "Sindmepa";
     ViewBag.Header = "Relação geral de associados";
 }
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search", target = "_blank" }))
@@ -82,7 +82,7 @@
                         @Html.Label("Localização Correios", new { @class = "col-md-3 control-label" })
                         <div class="col-md-6">
                             <div class="input-group">
-                                @Html.DropDownList("correioId", new BindDropDownList().NaoLocalizadoCorreios("Todos...", ""), new { @class = "form-control input-sm" })
+                                @Html.DropDownList("correioId", new BindDropDownList().Correio("Todos...", ""), new { @class = "form-control input-sm" })
                             </div>
                         </div>
                     </div>

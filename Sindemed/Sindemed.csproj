@@ -402,6 +402,7 @@
     <Content Include="Content\images\screenActionManagerFeature4-300x200.jpg" />
     <Content Include="Content\images\setor-financeiro.jpg" />
     <Content Include="Content\images\simjpg.jpg" />
+    <Content Include="Content\images\sindmepa_logo.png" />
     <Content Include="Content\images\teclado07-ap.jpg" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\jquery.Jcrop.min.css" />
@@ -428,6 +429,7 @@
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\images\menu-id-40.png" />
+    <None Include="Properties\PublishProfiles\sindmepa - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sindmepa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\sindmepa-h - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

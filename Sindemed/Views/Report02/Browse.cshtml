@@ -3,7 +3,7 @@
 @using DWM.Models.Enumeracoes
 @using App_Dominio.Enumeracoes
 @{
-    ViewBag.Title = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>().getEmpresa().nome;
+    ViewBag.Title = "Sindmepa";
     ViewBag.Header = "Atendimentos Pendentes";
 }
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions { HttpMethod = "get" }, new { @class = "form-horizontal", @role = "search", target = "_blank" }))

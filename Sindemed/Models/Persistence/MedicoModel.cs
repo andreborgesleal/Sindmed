@@ -152,7 +152,9 @@ namespace DWM.Models.Persistence
             
             //EmpresaSecurity<SecurityContext> security = new EmpresaSecurity<SecurityContext>();
             //sessaoCorrente = security.getSessaoCorrente();
-            Medico m = (from med in db.Medicos.AsEnumerable() where med.usuarioId == entity.usuarioId select med).FirstOrDefault();
+            Medico m = null;
+            if (entity.usuarioId.HasValue)
+                m = (from med in db.Medicos.AsEnumerable() where med.usuarioId == entity.usuarioId select med).FirstOrDefault();
 
             if (m != null && m.associadoId != entity.associadoId)
                 medicoViewModel = new MedicoViewModel() { mensagem = new Validate() { Code = 202, Message = MensagemPadrao.Message(202).text } };

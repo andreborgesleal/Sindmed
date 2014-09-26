@@ -85,6 +85,7 @@ function GetSelectListOnCascade(thisId, nextId) {
 }
 
 function BuscaCep(_cep, _logradouro, _bairro, _cidade, _uf) {
+    CarregandoIn();
     var cep = $("#" + _cep).val();
     cep = cep.replace(/\D/g, "");
     var link = encodeURI("http://cep.correiocontrol.com.br/" + cep + ".json");
@@ -98,6 +99,11 @@ function BuscaCep(_cep, _logradouro, _bairro, _cidade, _uf) {
         }).prop('selected', true);
 
         $("#" + _uf).val(data.uf);
+        $('#carregando').css("visibility", "hidden");
+        $('#carregando').css("height", "0px");
+        $('#carregando').css("margin-top", "0%");
+        $('#carregando').css("margin-left", "0%");
+
     });
 }
 

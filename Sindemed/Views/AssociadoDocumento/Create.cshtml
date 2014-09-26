@@ -9,10 +9,10 @@
     @Html.HiddenFor(info => info.associadoId)
     @Html.HiddenFor(info => info.nome)
     @Html.HiddenFor(info => info.fileId)
-    <div class="panel panel-default" style="margin-top: 10px">
+    <div class="panel panel-primary" style="margin-top: 10px">
         <div class="panel-heading">
             <h2 class="panel-title">
-                Documento <small>Incluir e vincular documento à ficha do associado</small>
+                Documento <small class="text-white">Incluir e vincular documento à ficha do associado</small>
             </h2>
         </div>
         <div class="panel-body">
@@ -78,7 +78,7 @@
                         })
                     <button type="button" class="btn btn-default" onclick="window.location='Browse?associadoId=@Model.associadoId.ToString()'">Cancelar</button>
                 </div>
-                <div class="col-md-offset-4">
+                <div class="col-md-offset-4 hidden-xs">
                     ( * ) - Campo de preenchimento obrigatório
                 </div>
             </div>

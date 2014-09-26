@@ -90,9 +90,17 @@ namespace Sindemed.Controllers
         }
 
         [AuthorizeFilter]
-        public ActionResult Edit(int associadoId)
+        public ActionResult Edit(int? associadoId)
         {
-            return _Edit(new MedicoViewModel() { associadoId = associadoId });
+            if (associadoId == null || associadoId == 0)
+            {
+                App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext> security = new App_Dominio.Security.EmpresaSecurity<App_Dominio.Entidades.SecurityContext>();
+                Sessao sessaoCorrente = security.getSessaoCorrente();
+                if (sessaoCorrente.value1 != "0")
+                    associadoId = int.Parse(sessaoCorrente.value1);
+            }
+
+            return _Edit(new MedicoViewModel() { associadoId = associadoId.Value });
         }
 
         #region Edit Error
