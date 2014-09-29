@@ -7,7 +7,6 @@
 @using (Html.BeginForm("Delete", "ComunicadoGeral", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.HiddenFor(info => info.comunicacaoId)
-    @Html.HiddenFor(info => info.dt_comunicacao)
     @Html.HiddenFor(info => info.cabecalho)
     @Html.HiddenFor(info => info.resumo)
     @Html.HiddenFor(info => info.mensagemDetalhada)

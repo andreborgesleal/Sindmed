@@ -11,20 +11,20 @@
     int previewsPage = 0;
     int nextPage = 0;
     
-    if (Model.PageIndex + 8 < Model.LastPage)
+    if (Model.PageIndex + 5 < Model.LastPage)
     {
         firstPage = Model.PageIndex;
-        lastPage = Model.PageIndex + 8;
+        lastPage = Model.PageIndex + 5;
     }
     else
     {
-        firstPage = Model.LastPage < 8 ? 0 : Model.LastPage - 8;
+        firstPage = Model.LastPage < 5 ? 0 : Model.LastPage - 5;
         lastPage = Model.LastPage+1;
     }
 
-    if (firstPage > 8)
+    if (firstPage > 5)
     {
-        previewsPage = firstPage - 8;
+        previewsPage = firstPage - 5;
     }
     
     nextPage = lastPage;

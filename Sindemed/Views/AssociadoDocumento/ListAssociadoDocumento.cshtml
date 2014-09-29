@@ -24,7 +24,7 @@
                     var fileName =  "../" + path+ "/" + doc.fileId;
                     
                     <tr>
-                        <td class="col-md-3 col-xs-6 col-sm-6">
+                        <td class="col-md-3 col-xs-5 col-sm-6">
                             <div class="row clearfix">
                                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                                     @if (".htm|.txt|.html".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension))
@@ -49,7 +49,7 @@
 
                                     @if (".htm|.txt|.html|.pdf|.png|.jpg|.bmp|.gif".Contains(new FileInfo(Path.Combine(web.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Users_Data"]), doc.fileId)).Extension.ToLower()))
                                     {
-                                        <div class="col-md-3 col-xs-6">
+                                        <div class="col-md-3 hidden-xs text-center">
                                             <button type="button" class="btn btn-default btn-xs hidden-sm" onclick="Show('@fileName', '@doc.nomeArquivoOriginal')">Visualizar</button>
                                         </div>
                                     }
@@ -59,8 +59,8 @@
                                             <button type="button" class="btn btn-default btn-xs hidden-sm disabled">Visualizar</button>
                                         </div>
                                     }
-                                    <div class="col-md-3 col-xs-6"><button type="button" class="btn btn-success btn-xs">
-                                        <a style="text-decoration: none; color: #ffffff;" href="@fileName" download="@doc.nomeArquivoOriginal"><span style="text-decoration: none; color: #fff; cursor: pointer">Download</span></a></button>
+                                    <div class="col-md-3 col-xs-12"><button type="button" class="btn btn-success btn-xs text-center">
+                                        <a style="text-decoration: none; color: #ffffff" href="@fileName" download="@doc.nomeArquivoOriginal"><span style="text-decoration: none; color: #fff; cursor: pointer">Download</span></a></button>
                                     </div>
                                 </div>
                             </div>
@@ -68,9 +68,10 @@
                         <td class="col-md-2 hidden-xs">
                             @doc.dt_arquivo.ToString("dd/MM/yyyy HH:mm")
                         </td>
-                        <td class="col-md-6 col-xs-6 col-sm-4">
-                            <span class="label label-warning">@doc.tag</span>
-                            @doc.nomeArquivoOriginal
+                        <td class="col-md-6 col-xs-7 col-sm-4">
+                            <p><span class="label label-warning">@doc.tag</span></p>
+                            <strong class="hidden-sm hidden-lg">@doc.dt_arquivo.ToString("dd/MM/yyyy HH:mm")</strong>
+                            <small>@doc.nomeArquivoOriginal</small>
                         </td>
                     </tr>
                 }

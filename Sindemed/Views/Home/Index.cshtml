@@ -54,7 +54,7 @@
                                                 <button type="button" class="btn btn-default btn-xs" onclick="window.location = 'detail?comunicacaoId=' + @com.comunicacaoId.ToString()">Leia mais</button>
                                             </div>
                                         </div>
-                                        @while (i <= count)
+                                        @while (i <= Model.comGrupo.Count()-1)
                                         {
                                             <div class="item">
                                                 @{
@@ -72,13 +72,13 @@
                                         }
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="col-md-10 col-xs-9 col-sm-10">
                                             <!-- Indicators -->
                                             <ol class="carousel-indicators">
                                                 @{
                                                     i = 1;
                                                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                                    while (i <= count)
+                                                    while (i <= Model.comGrupo.Count()-1)
                                                     {
                                                         <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
                                                         i++;
@@ -86,7 +86,7 @@
                                                 }
                                             </ol>
                                         </div>
-                                        <div class="col-md-2 col-xs-2 col-sm-2">
+                                        <div class="col-md-2 col-xs-3 col-sm-2">
                                             <!-- Controls -->
                                             <a class="left " href="#carousel-example-generic" role="button" data-slide="prev">
                                                 <span class="glyphicon glyphicon-chevron-left"></span>

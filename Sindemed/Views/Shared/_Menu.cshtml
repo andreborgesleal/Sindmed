@@ -19,18 +19,18 @@
                     {
                         if (t1.glyph != null)
                         {
-                            <li class="dropdown-header">@t1.nomeCurto</li>
+                            <li class="dropdown-header hidden-xs">@t1.nomeCurto</li>
                             <li class="message-preview">
                                 <a href="../@t1.url">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <span class="avatar"><img src="/content/images/@t1.glyph"></span>
+                                            <span class="avatar hidden-xs"><img src="/content/images/@t1.glyph"></span>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="row">
                                                 <div class="col-md-12"><span class="name">@t1.nome</span></div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row hidden-xs">
                                                 <div class="col-md-12"><span class="message">@t1.descricao</span></div>
                                             </div>
                                         </div>
@@ -44,7 +44,7 @@
                         }
                         if (!t1.Equals(menuList.Where(info => info.transacaoId_pai == t.transacaoId && info.exibir == "S").Last()))
                         {
-                            <li class="divider"></li>
+                            <li class="divider hidden-xs"></li>
                         }
                     }
                 </ul>

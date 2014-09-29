@@ -136,21 +136,19 @@ namespace DWM.Controllers
 
         public override void BeforeEdit(ref DocInternoViewModel value, ICrudContext<DocInternoViewModel> model, FormCollection collection)
         {
-            var arquivo = value.arquivo;
+            var arquivo = value.arquivo; // arquivo original
 
             BeforeCreate(ref value, model, collection);
 
             #region Excluir arquivo
             if (this.Request.Files.Count > 0 && this.Request.Files[0].FileName.Trim() != "" && value.mensagem.Code == 0)
             {
-                var filePath = Path.Combine(Server.MapPath(Url.Content(System.Configuration.ConfigurationManager.AppSettings["Admin_Data"])), value.arquivo);
+                var filePath = Path.Combine(Server.MapPath(Url.Content(System.Configuration.ConfigurationManager.AppSettings["Admin_Data"])), arquivo);
                 System.IO.FileInfo f = new FileInfo(filePath);
                 if (f.Exists)
                     f.Delete();
             }
             #endregion
-
-            
         }
         #endregion
 

@@ -23,7 +23,7 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <blockquote>
                         <p>
                             Alteração de senha
@@ -32,56 +32,48 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="form-group" style="margin-top: 20px">
                         @Html.ValidationSummary(false)
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.login, "Login*", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-8">
-                            <div class="input-group col-md-4">
-                                @Html.TextBoxFor(m => m.login, new { @class = "form-control input-sm", @disabled = "disable" })<br />
-                            </div>
+                        @Html.LabelFor(m => m.login, "Login*", new { @class = "col-md-2 col-xs-12 col-sm-12 control-label" })
+                        <div class="col-md-4 col-xs-12 col-sm-5">
+                            @Html.TextBoxFor(m => m.login, new { @class = "form-control input-sm", @disabled = "disable" })
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="form-group">
-                        @Html.LabelFor(m => ((AlterarSenhaRepository)m).senhaAtual, "Senha Atual*", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-8">
-                            <div class="input-group col-md-4">
-                                @Html.PasswordFor(m => ((AlterarSenhaRepository)m).senhaAtual, new { @class = "form-control input-sm" })<br />
-                            </div>
+                        @Html.LabelFor(m => ((AlterarSenhaRepository)m).senhaAtual, "Senha Atual*", new { @class = "col-md-2 col-xs-12 col-sm-2 control-label" })
+                        <div class="col-md-2 col-xs-8 col-sm-6">
+                            @Html.PasswordFor(m => ((AlterarSenhaRepository)m).senhaAtual, new { @class = "form-control input-sm" })<br />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.senha, "Nova Senha*", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-8">
-                            <div class="input-group col-md-4">
-                                @Html.PasswordFor(m => m.senha, new { @class = "form-control input-sm" })<br />
-                            </div>
+                        @Html.LabelFor(m => m.senha, "Nova Senha*", new { @class = "col-md-2 col-xs-12 col-sm-2 control-label" })
+                        <div class="col-md-2 col-xs-8 col-sm-6">
+                            @Html.PasswordFor(m => m.senha, new { @class = "form-control input-sm" })<br />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.confirmacaoSenha, "Confirmação de Senha*", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-8">
-                            <div class="input-group col-md-4">
-                                @Html.PasswordFor(m => m.confirmacaoSenha, new { @class = "form-control input-sm" })
-                            </div>
+                        @Html.LabelFor(m => m.confirmacaoSenha, "Confirmação de Senha*", new { @class = "col-md-2 col-xs-12 col-sm-2 control-label" })
+                        <div class="col-md-2 col-xs-8 col-sm-6">
+                            @Html.PasswordFor(m => m.confirmacaoSenha, new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
@@ -105,7 +97,7 @@
                                                     }
                         })
                 </div>
-                <div class="col-md-offset-4">
+                <div class="col-md-offset-4 hidden-xs">
                     ( * ) - Campo de preenchimento obrigatório
                 </div>
             </div>

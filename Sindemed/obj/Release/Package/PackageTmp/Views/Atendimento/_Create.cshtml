@@ -31,7 +31,7 @@
                             @Html.ActionLink(Model.chamado.nome_associado, "Edit", "Associado", routeValues: null, htmlAttributes: new { @style = "text-decoration: none; color: #fff; font-weight: bold", @class = "label label-info" })
                         }
                     </div>
-                    <div class="col-md-3 col-xs-3" style="margin-top: 3px">
+                    <div class="col-md-3 hidden-xs" style="margin-top: 3px">
                         @if (Model.chamado.situacao == "F")
                         {
                             <span class="label label-success">FECHADO</span>
@@ -161,7 +161,18 @@
     @if (ViewBag.ind_resposta == "S")
     {
         <div class="list-group">
-            <div class="list-group-item-success">
+            <div class="list-group-item-success hidden-lg hidden-md hidden-sm">
+                @if (Model.fluxo == "1")
+                {
+                    <h5 class="text-primary"><strong>@Model.chamado.nome_associado</strong></h5>
+                }
+                else
+                {
+                    <h5 class="text-primary"><strong>Administração</strong></h5>
+                }
+                
+            </div>
+            <div class="list-group-item-success hidden-xs">
                 @if (Model.fluxo == "1")
                 {
                     <h4 class="text-primary"><strong>@Model.chamado.nome_associado</strong></h4>
@@ -170,7 +181,7 @@
                 {
                     <h4 class="text-primary"><strong>Administração</strong></h4>
                 }
-                
+
             </div>
             <div class="list-group-item-success" style="padding-top: 20px">
                 <div class="row">
